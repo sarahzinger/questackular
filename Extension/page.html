@@ -1,0 +1,17 @@
+<head>
+    <title>popup</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body ng-app='scavenge' ng-controller='extCont' ng-csp>
+    <div id='env'>
+        <div id='cont'>
+        	<!-- the actual content! -->
+            <button id='butt' ng-click='funky()'>Push me</button>
+            <input ng-model='test' type='text'>ENTER TEXT HERE Angular says: {{test}}
+        </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src='/js/angular.min.js'></script>
+    <script src='/js/mainExt.js'></script>
+</body>

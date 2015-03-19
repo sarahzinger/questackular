@@ -1,0 +1,26 @@
+How does the MEAN stack work with Chrome apps?
+Can we do Node and Express Chrome?
+
+
+NOTES:
+
+can have multiple apps running @ same time.
+needs manifest.json
+background page is running in bg, can do server-type stuff
+
+CAN do ajax reqs to mongo/etc
+
+javascript chrome extensions api<---
+chrome IS the server (sort of)
+
+have to put permission that chrome can talk to http/https site
+then in angular:
+$http.get({params}).then...
+
+content script vs. background script
+content script has access to DOM and is sort of the 'client', while
+background script is 'server'.
+
+
+popup script would run as overlay
+
