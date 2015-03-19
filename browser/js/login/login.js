@@ -23,6 +23,7 @@ app.controller('LoginCtrl', function ($scope, $rootScope, AuthService, $state, A
         AuthService.getLoggedInUser().then(function (user) {
             console.log("what do we get in user?", user);
             $scope.user = user.user;
+            console.log($scope.user);
         });
         $scope.loggedIn = true;
         // $scope.digest();
