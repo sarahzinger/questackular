@@ -3,15 +3,17 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    // email: {
-    //     type: String
-    // },
-    // password: {
-    //     type: String
-    // },
-    // salt: {
-    //     type: String
-    // },
+
+    levels: Number,
+    ownedItems:[String],
+    created:[{type: Schema.Types.ObjectId, ref: 'Quest'}],
+    participating:[{type: Schema.Types.ObjectId, ref: 'Quest'}],
+    pastQuests:[{
+        questId: {type: Schema.Types.ObjectId, ref: 'Quest'},
+        points:Number,
+        stepsPurchased:[Number]
+    }],
+    
     google: {
         id: String,
         name: String,
