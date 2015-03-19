@@ -1,17 +1,31 @@
 {
-  "name": "Scavenger",
-  "description": "Pithy description (132 characters or less, no HTML)",
-  "version": "0.0.0.1",
-  "manifest_version": 2,
-  "icons": {
-    "128": "icon_128.png"
-  },
-  "app": {
-    "urls": [
-      "http://mysubdomain.example.com/"
+    "name": "Scavenger",
+    // "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "description": "Create custom quizzes containing curated questions and captivating content",
+    "version": "0.0.0.1",
+    "manifest_version": 2,
+    "icons": {
+        "128": "scavengeIcon.png"
+    },
+    "homepage_url": "http://www.msn.com",
+    "permissions": [
+        "cookies",
+        "debugger",
+        "declarativeContent",
+        "identity",
+        "tabs",
+        "https://*/*",
+        "http://*/*",
+        "unlimitedStorage"
     ],
-    "launch": {
-      "web_url": "http://mysubdomain.example.com/"
+    "default_locale": "en",
+    "background": {
+        "page": "background.html",
+        "persistent": true
+    },
+    "browser_action": {
+        "default_icon": "scavengeIcon.png",
+        "default_title": "LOOK MA AN EXTENSION",
+        "default_popup": "page.html"
     }
-  }
 }
