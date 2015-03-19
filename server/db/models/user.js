@@ -3,6 +3,7 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
+
     levels: Number,
     ownedItems:[String],
     created:[{type: Schema.Types.ObjectId, ref: 'Quest'}],
@@ -12,26 +13,11 @@ var schema = new mongoose.Schema({
         points:Number,
         stepsPurchased:[Number]
     }],
-    email: {
-        type: String
-    },
-    password: {
-        type: String
-    },
-    salt: {
-        type: String
-    },
-    twitter: {
-        id: String,
-        username: String,
-        token: String,
-        tokenSecret: String
-    },
-    facebook: {
-        id: String
-    },
+    
     google: {
-        id: String
+        id: String,
+        name: String,
+        email: String
     }
 });
 

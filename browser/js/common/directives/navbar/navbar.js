@@ -20,6 +20,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             };
 
             scope.logout = function () {
+                console.log('logout called');
                 AuthService.logout().then(function () {
                    $state.go('home');
                 });
