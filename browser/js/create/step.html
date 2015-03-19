@@ -11,6 +11,12 @@
          <p class="help-block">Enter your new question.</p>
       </label>
     </div>
+    <div class="form-group">
+      <label for='pointsQ'>Point value:
+         <input type='number' class="form-control" required name='pointsQ' ng-model='step.points' />
+         <p class="help-block">Number of points awarded for a correct answer.</p>
+      </label>
+    </div>
   <div class="form-group">
     <label for='typeQ'>What kind of question is it?:
        <select class="form-control" ng-model='step.type' ng-change='updateQuestionFields();' name='typeQ' required>

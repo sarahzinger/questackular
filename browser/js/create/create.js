@@ -23,7 +23,7 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('CreateCtrl', function($scope) {
-	$scope.noQuest = true;
+	// $scope.noQuest = true;
 	$scope.tabs = [{
 	    label: "New Quest",
 	    state: "create.quest"
@@ -33,13 +33,15 @@ app.controller('CreateCtrl', function($scope) {
 	    disabled: $scope.noQuest
 	  }, {
 	    label: "View Quest Map",
-	    state: "create.map"
+	    state: "create.map",
+	    disabled: $scope.noQuest
 	  }];
 });
 
 app.controller('CreateQuest', function($scope) {
 	$scope.saveQuest = function() {
 		$scope.noQuest = false;
+
 	};
 });
 
