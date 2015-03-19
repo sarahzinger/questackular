@@ -1,0 +1,14 @@
+<section id="checkout">
+  <div>
+    <tabset justified="true">
+      <tab ng-repeat="tab in tabs" ui-sref="{{ tab.state && !tab.disabled}}" heading="{{ tab.label }}" active="tab.active" disabled="tab.disabled">
+        <h3>{{ tab.label }}</h3>
+      </tab>
+    </tabset>
+  </div>
+  <div class="container" id="content">
+    <ui-view></ui-view>
+  </div>
+</section>
+
+

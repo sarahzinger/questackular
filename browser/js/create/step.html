@@ -1,0 +1,62 @@
+<div class="row">
+<div class="col-md-8">
+<form name='stepForm'>
+  <div id="legend">
+    <legend>Add a step!</legend>
+  </div>
+  <!-- the actual content! -->
+  <div class="form-group">
+      <label for='mainQ'>Question:
+         <input type='text' class="form-control" required name='mainQ' ng-model='step.q' />
+         <p class="help-block">Enter your new question.</p>
+      </label>
+    </div>
+  <div class="form-group">
+    <label for='typeQ'>What kind of question is it?:
+       <select class="form-control" ng-model='step.type' ng-change='updateQuestionFields();' name='typeQ' required>
+           <option ng-repeat="test in testTypes" value='{{test.type}}'> {{test.type}}
+       </select>
+       <p class="help-block">Select the type of question you would like to add.</p>
+    </label>
+  </div>
+    <!-- Generic Question section. Shows always -->
+
+    <!-- Multiple Choice section -->
+    <div class='form-group' ng-if='step.type=="Multiple Choice"'>
+       <label class="form-inline" for='multiAns1'>Answer option One:
+           <input class="form-control" type='multiAns1' ng-model='step.ans1'><input type='radio' name='correctAnsPick' value='ans1' checked ng-model='step.multiCorrect' />
+       </label>
+       <br/>
+       <label class="form-inline" for='multiAns2'>Answer option Two:
+           <input class="form-control" type='multiAns2' ng-model='step.ans2'><input type='radio' name='correctAnsPick' value='ans2' checked ng-model='step.multiCorrect' />
+       </label>
+       <br/>
+       <label class="form-inline" for='multiAns3'>Answer option Three:
+           <input class="form-control" type='multiAns3' ng-model='step.ans3'><input type='radio' name='correctAnsPick' value='ans3' checked ng-model='step.multiCorrect' />
+       </label>
+       <br/>
+       <label class="form-inline" for='multiAns4'>Answer option Four:
+           <input class="form-control" type='multiAns4' ng-model='step.ans4'><input type='radio' name='correctAnsPick' value='ans4' checked ng-model='step.multiCorrect' />
+       </label>
+       <br/>
+    </div>
+    <div class='form-group' ng-if='step.type=="Short Answer"'>
+       <label for='ansTextArea'>Answer option one?
+           <textarea class="form-control" type='ansTextArea' ng-model='step.text'></textarea>
+           <p class="help-block">Please enter some answer options.</p>
+       </label>
+       <br/>
+    </div>
+    <button type="submit" class="btn btn-default">Create Step</button>
+</form>
+    <!-- save or move to next state -->
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <div class="pull-right">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <button class="btn btn-default" ui-sref="{{ tabs[2].state }}" ng-click="tabs[2].active = true">Next</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>

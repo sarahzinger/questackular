@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <base href="/" />
-    <title>Fullstack Academy Generated Application</title>
-    <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
+    <title>Scavenger</title>
+    <!-- <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" /> -->
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/flatly/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/fontawesome/css/font-awesome.css" />
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <script src="/lodash/lodash.js"></script>
@@ -11,11 +12,14 @@
     <script src="/bootstrap/dist/js/bootstrap.js"></script>
     <script src="/angular/angular.js"></script>
     <script src="/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/main.js"></script>
 </head>
 <body ng-app="ScavengerApp">
     <navbar></navbar>
+    <div class="container">
     <div ui-view></div>
+    </div>
 </body>
 </html>
