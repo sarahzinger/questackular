@@ -1,19 +1,24 @@
 <div class="row">
     <div class="col-md-8">
-        <form name='stepForm'>
+        <form name='stepForm' >
             <div id="legend">
                 <legend>Add a step!</legend>
             </div>
             <!-- the actual content! -->
             <div class="form-group">
                 <label for='mainQ'>Question:
-                    <input type='text' class="form-control" required name='mainQ' ng-model='step.q' />
+                    <input type='text' class="form-control" required name='mainQ' ng-model='step.question' />
                     <p class="help-block">Enter your new question.</p>
                 </label>
             </div>
+
+            <div class="form-group">
+            <label for="tags">Tags</label>
+            <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="step.tags" required ng-change='saveQuest()'>
+            </div>
             <div class="form-group">
                 <label for='pointsQ'>Point value:
-                    <input type='number' class="form-control" required name='pointsQ' ng-model='step.points' />
+                    <input type='number' class="form-control" required name='pointsQ' ng-model='step.pointValue' />
                     <p class="help-block">Number of points awarded for a correct answer.</p>
                 </label>
             </div>
@@ -31,50 +36,41 @@
             <div class='form-group' ng-if='step.type=="Multiple Choice"'>
                 <p class="help-block">Please enter some answer options.</p>
                 <label class="form-inline" for='multiAns1'>Answer option 1:
-                    <input class="form-control" type='multiAns1' ng-model='step.ans1'>
-                    <input type='radio' name='correctAnsPick' value='ans1' checked ng-model='step.multiCorrect' />Pick this answer
+                    <input class="form-control" type='text' name='multiAns1' ng-model='step.ans1'>
+                    <input type='radio' name='correctAnsPick' value='1' checked ng-model='step.multiAnsCor' />Pick this answer
                 </label>
                 <br/>
                 <label class="form-inline" for='multiAns2'>Answer option 2:
-                    <input class="form-control" type='multiAns2' ng-model='step.ans2'>
-                    <input type='radio' name='correctAnsPick' value='ans2' checked ng-model='step.multiCorrect' />Pick this answer
+                    <input class="form-control" type='text' name='multiAns2' ng-model='step.ans2'>
+                    <input type='radio' name='correctAnsPick' value='2' checked ng-model='step.multiAnsCor' />Pick this answer
                 </label>
                 <br/>
                 <label class="form-inline" for='multiAns3'>Answer option 3:
-                    <input class="form-control" type='multiAns3' ng-model='step.ans3'>
-                    <input type='radio' name='correctAnsPick' value='ans3' checked ng-model='step.multiCorrect' />Pick this answer
+                    <input class="form-control" type='text' name='multiAns3' ng-model='step.ans3'>
+                    <input type='radio' name='correctAnsPick' value='3' checked ng-model='step.multiAnsCor' />Pick this answer
                 </label>
                 <br/>
                 <label class="form-inline" for='multiAns4'>Answer option 4:
-                    <input class="form-control" type='multiAns4' ng-model='step.ans4'>
-                    <input type='radio' name='correctAnsPick' value='ans4' checked ng-model='step.multiCorrect' />Pick this answer
+                    <input class="form-control" type='text' name='multiAns4' ng-model='step.ans4'>
+                    <input type='radio' name='correctAnsPick' value='4' checked ng-model='step.multiAnsCor' />Pick this answer
                 </label>
                 <br/>
             </div>
-            <!-- Short Answhirr -->
+            <!-- Fill-In -->
             <div class='form-group' ng-if='step.type=="Fill-in"'>
                 <label for='ansTextArea'>Answer?
-                    <input type='text' class="form-control" name='ansTextArea' ng-model='step.text'>
+                    <input type='text' class="form-control" name='ansTextArea' ng-model='step.fillIn'>
                 </label>
                 <br/>
             </div>
-            <!-- Prev/Next Q section -->
-            <div class='form-group' ng-if='steps.length>1'>
-                <label for='prevQ'>Previous Question?
-                    <select class="form-control" ng-model='step.type' name='prevQ' required>
-                        <option ng-repeat="step in steps" value='{{step.title}}'> {{step.title}}
-                    </select>
-                </label>
-                <br/>
-                <label for='nextQ'>Next Question?
-                    <select class="form-control" ng-model='step.type' name='nextQ' required>
-                        <option ng-repeat="step in steps" value='{{step.title}}'> {{step.title}}
-                    </select>
+            <!-- iframe for page stuff -->
+            <div class='form-group'>
+                <label for='urlBox'>Page Url?
+                    <input type='text' class="form-control" name='urlBox' ng-model='step.url'>
                 </label>
                 <br/>
             </div>
-
-            <button type="submit" class="btn btn-default">Create Step</button>
+            <button type="button" class="btn btn-default" ng-click='saveStep(step)'>Create Step</button>
         </form>
         <!-- save or move to next state -->
         <div class="form-group">
@@ -85,5 +81,10 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div>
+        <pre>
+            {{step}}
+        </pre>
     </div>
 </div>

@@ -1,7 +1,7 @@
 'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
-var Quest = require('./quest.js')
+var Quest = require('./quest.js');
 var schema = new mongoose.Schema({
 
     levels: Number,
