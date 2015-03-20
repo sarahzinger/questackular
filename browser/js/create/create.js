@@ -41,7 +41,7 @@ app.controller('CreateCtrl', function($scope) {
     $scope.saveFullQuest = function() {
         //this will save the full quest.
         //whoopie.
-    }
+    };
 });
 
 app.controller('CreateQuest', function($scope) {
@@ -64,10 +64,10 @@ app.controller('CreateQuest', function($scope) {
             sessionStorage.removeItem('newQuest');
             $scope.$parent.quest = {};
         }
-    }
+    };
 });
 
-app.controller('CreateStep', function($scope) {
+app.controller('CreateStep', function($scope, createStep) {
     $scope.$parent.currState = 'Step';
     $scope.testTypes = [{
         type: 'Multiple Choice'
@@ -78,9 +78,25 @@ app.controller('CreateStep', function($scope) {
     }, {
         type: 'Find Me'
     }];
-    $scope.steps = [];
-    //empty arr holding current list-o-steps.
-    //we'll eventually need to $http.get this 
+    $scope.saveStep = function(step) {
+        if (step.type === "Multiple Choice") {
+            step.multipleAns = [];
+            for (var n = 1; n < 5; n++) {
+                step.multipleAns.push(step['ans' + n]);
+                delete step['ans' + n];
+            }
+        } else if (step.type === "Short Answer") step.shortAns = false;
+        var tempTags = step.tags;
+        delete step.tags;
+        step.tags = tempTags.split(',').map(function(i) {
+            return i.trim();
+        });
+        console.log('Adjusted Step:', step);
+    
+        var stepsJson = angular.toJson(steps);
+        sessionStorage.stepsStr+=stepsJson+'|';
+        step = {};
+    };
 
 });
 
