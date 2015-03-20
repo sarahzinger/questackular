@@ -5,32 +5,29 @@ var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
     url: String,
-    questions: [{
-        value: {
-            type: Number,
-            required: true
-        },
-        question: {
-            type: String,
-            required: true
-        },
-        qType: {
-            type: String,
-            required: true
-        },
-        multipleAns: [{
-            ans: String,
-            correct: Boolean
-        }],
-        fillIn: String
+    pointValue: {
+        type: Number,
+        required: true
+    },
+    question: {
+        type: String,
+        required: true
+    },
+    type: {
+        type: String,
+        required: true
+    },
+
+    multipleAns: [{
+        ans: String,
     }],
+    multiAnsCor:String,
+    fillIn: String,
+    shortAns: Boolean,
+
     tags: [String],
     clues: [{
         text: String,
-    }],
-    buyAnswer: [{
-        text: String,
-        cost: Number
     }],
     annotations: [{
         selector: String,
