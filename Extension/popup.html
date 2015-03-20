@@ -1,20 +1,25 @@
+<html ng-csp>
 <head>
     <title>popup</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/angular-csp.css">
 </head>
 
-<body ng-app='scavenge' ng-controller='extCont' ng-csp>
+<body ng-app='scavenge' ng-controller='extCont' >
     <div id='env'>
         <div id='cont'>
         	<!-- the actual content! -->
-            <button id='butt' ng-click='funky()'>Push me</button>
-            <button id='login' ng-click='login()'>Log In through Google</button>
-            <input ng-model='test' type='text'>ENTER TEXT HERE Angular says: {{test}}
+            <button ng-hide="loggedIn" id='login' ng-click='login()'>Log In through Google</button>
+            <h4 ng-show="loggedIn">Hello, {{name}}!</h4>
         </div>
     </div>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src='/js/angular.min.js'></script>
     <script src='/js/mainExt.js'></script>
-     <script src='/js/popup.js'></script>
+    <script src='/js/factories/userFactory.js'></script>
+    <script src='/js/popup.js'></script>
+
 
 </body>
+
+</html>
