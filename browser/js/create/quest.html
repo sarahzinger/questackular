@@ -2,7 +2,7 @@
     <form name="newQuest" ng-submit="submitForm(quest) && $quest.valid">
         <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Name of new quest!" ng-model="quest.title" required ng-change='saveQuest()' ng-disabled="titleEntered" />
+            <input type="text" class="form-control" id="title" placeholder="Name of new quest!" ng-model="quest.title" required ng-change='saveQuest()'/>
         </div>
         <div class="form-group">
             <label for="description">Description</label>
@@ -29,8 +29,9 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="pull-right">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <button class="btn btn-default" ui-sref="{{ tabs[1].state && !tab.disabled}}" ng-click="tabs[1].active = true">Next</button>
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button class="btn btn-primary" ui-sref="{{ tabs[1].state && !tab.disabled}}" ng-click="tabs[1].active = true">Next</button>
+                    <button class="btn btn-default clearButton" ng-click="clearData();">Clear</button>
                 </div>
             </div>
         </div>

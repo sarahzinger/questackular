@@ -38,6 +38,10 @@ app.controller('CreateCtrl', function($scope) {
         state: "create.map",
         disabled: $scope.noQuest
     }];
+    $scope.saveFullQuest = function(){
+    	//this will save the full quest.
+    	//whoopie.
+    }
 });
 
 app.controller('CreateQuest', function($scope) {
@@ -45,6 +49,7 @@ app.controller('CreateQuest', function($scope) {
 	if (sessionStorage.newQuest=='undefined'){
 		sessionStorage.removeItem('newQuest');
 	}else if (sessionStorage.newQuest){
+		//sesh storage obj is defined,
 		console.log("STUFF HERE");
 		$scope.$parent.quest = angular.fromJson(sessionStorage.newQuest);
 		$scope.$parent.questExists = true;
@@ -56,6 +61,13 @@ app.controller('CreateQuest', function($scope) {
         console.log('HI',$scope.$parent.quest);
         sessionStorage.newQuest = angular.toJson($scope.$parent.quest);
     };
+    $scope.clearData = function(){
+    	var clearConf = confirm('Are you sure you want to clear this quest? It hasn\'t yet been saved!');
+    	if (clearConf){
+    		sessionStorage.removeItem('newQuest');
+    		$scope.$parent.quest = {};
+    	}
+    }
 });
 
 app.controller('CreateStep', function($scope) {
@@ -71,6 +83,10 @@ app.controller('CreateStep', function($scope) {
     }, {
         type: 'Puzzle?'
     }];
+    $scope.steps=[];
+    //empty arr holding current list-o-steps.
+    //we'll eventually need to $http.get this 
+
 });
 
 app.controller('QuestMap', function($scope) {
