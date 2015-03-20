@@ -35,13 +35,7 @@ var schema = new mongoose.Schema({
     annotations: [{
         selector: String,
         replace: String
-    }],
-    prevQ: {
-        type: mongoose.Schema.Types.ObjectId
-    },
-    nextQ: {
-        type: mongoose.Schema.Types.ObjectId
-    }
+    }]
 });
 
 // '<h1>hi</h1>'
