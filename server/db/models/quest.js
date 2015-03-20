@@ -1,13 +1,15 @@
 'use strict';
 var mongoose = require('mongoose');
+var User = require('./user.js');
+var Step = require('./steps.js');
 
 var schema = new mongoose.Schema({
-   owner: { type: Schema.Types.ObjectId, ref: 'User' },
+   owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
    privacy: {type: Boolean},
    open: {type: Boolean},
-   participants: [{type: Schema.Types.ObjectId, ref: 'User'}],
-   steps:[{type: Schema.Types.ObjectId, ref: 'Step'}],
-   title:String
+   participants: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+   steps:[{type: mongoose.Schema.Types.ObjectId, ref: 'Step'}],
+   title:String,
    description:String
 });
 

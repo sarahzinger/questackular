@@ -1,15 +1,15 @@
 'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
-
+var Quest = require('./quest.js')
 var schema = new mongoose.Schema({
 
     levels: Number,
     ownedItems:[String],
-    created:[{type: Schema.Types.ObjectId, ref: 'Quest'}],
-    participating:[{type: Schema.Types.ObjectId, ref: 'Quest'}],
+    created:[{type: mongoose.Schema.Types.ObjectId, ref: 'Quest'}],
+    participating:[{type: mongoose.Schema.Types.ObjectId, ref: 'Quest'}],
     pastQuests:[{
-        questId: {type: Schema.Types.ObjectId, ref: 'Quest'},
+        questId: {type: mongoose.Schema.Types.ObjectId, ref: 'Quest'},
         points:Number,
         stepsPurchased:[Number]
     }],
