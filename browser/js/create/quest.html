@@ -1,43 +1,41 @@
-
 <div class="col-md-8">
-<form name="newQuest" ng-submit="submitForm(quest) && $quest.valid">
-  <div class="form-group">
-    <label for="title">Title</label>
-    <input type="text" class="form-control" id="title" placeholder="Name of new quest!" ng-model="quest.title" required>
-  </div>
-  <div class="form-group">
-    <label for="description">Description</label>
-    <textarea class="form-control" id="description" rows="3" ng-model="quest.description" required></textarea>
-  </div>
-  <div class="form-group">
-    <label for="tags">Tags</label>
-    <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="quest.tags" required>
-  </div>
-  <div class="form-group">
-    <label for="emails">Invite Users</label>
-    <input type="text" class="form-control" id="emails" placeholder="Enter user emails, separated by comma." ng-model="quest.emails" required>
-  </div>
-  <div class="form-group">
-    <label for="open-status">Open / Closed?</label>
-    <input type='radio' name='open-status' value='open' checked  ng-model='quest.openClosed'/> Open
-    <input type='radio' name='open-status' value='closed' ng-model='quest.openClosed'/> Closed
-  </div>
-  <div class="form-group">
-    <label for="privacy">Public / Private</label>
-    <input type='radio' name='privacy' value='public' checked ng-model='quest.pubPriv' /> Public
-    <input type='radio' name='privacy' value='private' ng-model='quest.pubPriv'/> Private
-  </div>
-  <!-- <button type="submit" class="btn btn-default">Create Quest</button> -->
-</form>
-  <!-- save or move to next step -->
-  <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <div class="pull-right">
-          <button type="submit" class="btn btn-primary">Save</button>
-          <button class="btn btn-default" ui-sref="{{ tabs[1].state && !tab.disabled}}" ng-click="tabs[1].active = true">Next</button>
+    <form name="newQuest" ng-submit="submitForm(quest) && $quest.valid">
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" id="title" placeholder="Name of new quest!" ng-model="quest.title" required ng-change='saveQuest()' ng-disabled="titleEntered" />
         </div>
-      </div>
-    </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="3" ng-model="quest.description" required ng-change='saveQuest()'></textarea>
+        </div>
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="quest.tags" required ng-change='saveQuest()'>
+        </div>
+        <div class="form-group">
+            <label for="emails">Invite Users</label>
+            <input type="text" class="form-control" id="emails" placeholder="Enter user emails, separated by comma." ng-model="quest.emails" required ng-change='saveQuest()'>
+        </div>
+        <div class="form-group">
+            <label for="open-status">Open / Closed?</label>
+            <input type='radio' name='open-status' value='open' checked ng-model='quest.openClosed' ng-change='saveQuest()' /> Open
+            <input type='radio' name='open-status' value='closed' ng-model='quest.openClosed' ng-change='saveQuest()' /> Closed
+        </div>
+        <div class="form-group">
+            <label for="privacy">Public / Private</label>
+            <input type='radio' name='privacy' value='public' checked ng-model='quest.pubPriv' ng-change='saveQuest()'/> Public
+            <input type='radio' name='privacy' value='private' ng-model='quest.pubPriv' ng-change='saveQuest()' /> Private
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button class="btn btn-default" ui-sref="{{ tabs[1].state && !tab.disabled}}" ng-click="tabs[1].active = true">Next</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
 </div>
 
 <pre>
