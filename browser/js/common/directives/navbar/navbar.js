@@ -7,11 +7,10 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope) {
 
-            scope.items = [
-                { label: 'Home', state: 'home' },
-                { label: 'Create', state: 'create.quest' },
-                { label: 'Members Only', state: 'membersOnly', auth: true }
-            ];
+            // scope.items = [
+            //     { label: 'Create a Quest', state: 'create.quest' }
+            //     // { label: 'Members Only', state: 'membersOnly', auth: true }
+            // ];
 
             scope.user = null;
 
@@ -22,7 +21,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             scope.logout = function () {
                 console.log('logout called');
                 AuthService.logout().then(function () {
-                   $state.go('home');
+                   $state.go('start');
                 });
             };
 

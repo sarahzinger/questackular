@@ -9,9 +9,7 @@ body {
 
 .clearButton{
 	background-color: #795455;
-	&:hover{
-		background-color: #855053;
-	}
+	
 }
 
 @mixin clearfix {

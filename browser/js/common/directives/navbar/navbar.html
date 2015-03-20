@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/">Scavenger</a>
+      <a class="navbar-brand" href="/home">Scavenger</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
@@ -17,12 +17,10 @@
             </li>
       </ul>
       
-      <ul class="nav navbar-nav navbar-right">
-        <li><a ui-sref="login">Login</a></li>
-      </ul>
+    
       <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
+            <span>Welcome, {{ user.google.name }}!</span>
+            <button type="button" ng-click="logout()">Logout</button>
         </div>
     </div>
   </div>

@@ -55,10 +55,10 @@ module.exports = function (app) {
     );
 
     app.get('/auth/google/callback',
-        passport.authenticate('google', { failureRedirect: '/login' }),
+        passport.authenticate('google', { failureRedirect: '/' }),
         function (req, res) {
             // console.log('req.user', req.user);
-            res.redirect('/');
+            res.redirect('/home');
         });
 
 };
