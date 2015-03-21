@@ -1,20 +1,34 @@
-<div class="row">
-	<h1>My Quests</h1>
-	<div class= "col-md-6">
-		<h2>Quests I've created</h2>
-		<h3>Title</h3>
-		<h4>Description</h4>
-		<h5>Current status: active, Public/Private, Current Num of Users</h5>
-		<button class="btn">View Progress of Users</button>
-		<button class="btn">Edit Quest</button>
 
+	<h1>My Quests</h1>
+	<div >
+		<h2>Quests I've created</h2>
+		<div class="container">
+			<h3>Title</h3>
+			<h4>Description</h4>
+			<h5>Current status: active, Public/Private, Current Num of Users</h5>
+			<button class="btn">View Progress of Users</button>
+			<button class="btn">Edit Quest</button>
+		</div>
+		<div ng-repeat="quest in questsCreated"class="container">
+			<h3>{{quest.title}}</h3>
+			<h4>{{quest.description}}</h4>
+			<h5>Open: {{quest.open}}, Privacy:{{quest.privacy}}, Current Num of Users: {{quest.participants.length}}</h5>
+			<button class="btn">View Progress of Users</button>
+			<button class="btn">Edit Quest</button>
+		</div>		
 	</div>
-	<div class= "col-md-6">
+	<div >
 		<h2>Quests I've joined</h2>
-		<h3>Title</h3>
-		<h4>Description</h4>
-		<h5>Current status: active, Current Step: Step 5/20</h5>
-		<button class="btn">Continue Quest!</button>
-		<button class="btn">Leave Quest!</button>
+		<div class="container">
+			<h3>Title</h3>
+			<h4>Description</h4>
+			<button class="btn">Continue Quest!</button>
+			<button class="btn">Leave Quest!</button>
+		</div>
+		<div ng-repeat="quest in questsJoined" class="container">
+			<h3>{{quest.title}}</h3>
+			<h4>{{quest.description}}</h4>
+			<button class="btn">Continue Quest!</button>
+			<button class="btn">Leave Quest!</button>
+		</div>
 	</div>
-</div>

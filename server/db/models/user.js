@@ -11,8 +11,13 @@ var schema = new mongoose.Schema({
         ref: 'Quest'
     }],
     participating: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Quest'
+        questID:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Quest'
+        },
+        currentStep: Number,
+        pointsFromQuest: Number,
+        stepsPurchased:[Number]
     }],
     pastQuests: [{
         questId: {

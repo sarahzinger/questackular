@@ -1,5 +1,5 @@
 'use strict';
-app.factory('QuestFactory', function($http){
+app.factory('QuestFactory', function($http, AuthService){
 
 	return {
 		getAllQuests: function() {
@@ -7,13 +7,8 @@ app.factory('QuestFactory', function($http){
 				return res.data;
 			});
 		},
-		getCreatedQuestsByID: function(creatorID){
-			return $http.get('/api/quests/creator/'+creatorID).then(function(res) {
-				return res.data;
-			});
-		},
-		getJoinedQuestsById: function(userID){
-			return $http.get('/api/quests/participant/'+userID).then(function(res) {
+		getQuestById: function(questID){
+			return $http.get('/api/quests/:id').then(function(res) {
 				return res.data;
 			});
 		}

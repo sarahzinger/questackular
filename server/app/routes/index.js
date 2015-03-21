@@ -3,7 +3,7 @@ var router = require('express').Router();
 module.exports = router;
 
 router.use('/step', require('./step'));
-router.use('/quests', require('./quests'));
+router.use('/api/quests', require('./quests'));
 
 // Make sure this is after all of
 // the registered routes!

@@ -18,6 +18,18 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('MyQuestsCtrl', function ($scope  ){
-
+app.controller('MyQuestsCtrl', function ($scope, QuestFactory, AuthService){
+  AuthService.getLoggedInUser().then(function (user) {
+    $scope.user = user;
+    $scope.questsJoined = [];
+    $scope.questsCreated = [];
+    $scope.user.participating.forEach(function(questObj){
+      var questID = questObj.questID;
+      $scope.questsJoined.push(QuestFactory.getQuestById(questID));
+    });
+    $scope.user.created.forEach(function(questObj){
+      var questID = questObj.questID;
+      $scope.questsCreated.push(QuestFactory.getQuestById(questID));
+    }); 
+  });
 });
