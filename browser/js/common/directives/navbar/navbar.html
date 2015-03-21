@@ -8,20 +8,10 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/home">Scavenger</a>
-    </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-      <ul class="nav navbar-nav">
-        <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
-            <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
-            </li>
-      </ul>
-      
-    
-      <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.google.name }}!</span>
-            <button type="button" ng-click="logout()">Logout</button>
-        </div>
+      <div ng-show="user" class="nav nav-bar navbar-right">
+        <span class="navbar-brand">Welcome, {{ user.google.name }}!</span>
+        <div class ="navbar-brand" ng-click="logout()">Logout</div>
+      </div>
     </div>
   </div>
 </nav>
