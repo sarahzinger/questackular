@@ -9,7 +9,7 @@
       </button>
       <a class="navbar-brand" href="/home">Scavenger</a>
       <div ng-show="user" class="nav nav-bar navbar-right">
-        <span class="navbar-brand">Welcome, {{ user.google.name }}!</span>
+        <a ui-sref ="MyQuests" class="navbar-brand">Welcome, {{ user.google.name }}!</a>
         <div class ="navbar-brand" ng-click="logout()">Logout</div>
       </div>
     </div>
