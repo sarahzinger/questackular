@@ -43,17 +43,17 @@ gulp.task('buildJS', function () {
         .pipe(gulp.dest('./public'));
 });
 
-gulp.task('testServerJS', function () {
-    return gulp.src('./tests/server/**/*.js', {read: false})
-        .pipe(mocha({reporter: 'spec'}));
-});
+// gulp.task('testServerJS', function () {
+//     return gulp.src('./tests/server/**/*.js', {read: false})
+//         .pipe(mocha({reporter: 'spec'}));
+// });
 
-gulp.task('testBrowserJS', function (done) {
-    karma.start({
-        configFile: __dirname + '/tests/browser/karma.conf.js',
-        singleRun: true
-    }, done);
-});
+// gulp.task('testBrowserJS', function (done) {
+//     karma.start({
+//         configFile: __dirname + '/tests/browser/karma.conf.js',
+//         singleRun: true
+//     }, done);
+// });
 
 gulp.task('buildCSS', function () {
     return gulp.src('./browser/scss/main.scss')
@@ -126,7 +126,7 @@ gulp.task('default', function () {
     gulp.start('build');
 
     gulp.watch('browser/js/**', function () {
-        runSeq('lintJS', 'buildJS', ['testBrowserJS', 'reload']);
+        runSeq('lintJS', 'buildJS', ['reload']);
     });
 
     gulp.watch('browser/scss/**', function () {
@@ -135,7 +135,7 @@ gulp.task('default', function () {
 
     gulp.watch('server/**/*.js', ['lintJS']);
     gulp.watch(['browser/**/*.html', 'server/app/views/*.html'], ['reload']);
-    gulp.watch(['tests/server/**/*.js', 'server/**/*.js'], ['testServerJS']);
-    gulp.watch('tests/browser/**/*', ['testBrowserJS']);
+    // gulp.watch(['tests/server/**/*.js', 'server/**/*.js'], ['testServerJS']);
+    // gulp.watch('tests/browser/**/*', ['testBrowserJS']);
 
 });

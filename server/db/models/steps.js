@@ -17,7 +17,6 @@ var schema = new mongoose.Schema({
         type: String,
         required: true
     },
-
     multipleAns: [{
         ans: String,
     }],
@@ -35,7 +34,8 @@ var schema = new mongoose.Schema({
     annotations: [{
         selector: String,
         replace: String
-    }]
+    }],
+    stepNum:Number
 });
 
 // '<h1>hi</h1>'
