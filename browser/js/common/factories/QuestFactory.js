@@ -1,6 +1,5 @@
 'use strict';
 app.factory('QuestFactory', function($http, AuthService){
-
 	return {
 		getAllQuests: function() {
 			return $http.get('/api/quests').then(function(res) {

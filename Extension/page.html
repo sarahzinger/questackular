@@ -1,0 +1,54 @@
+<head>
+    <title>popup</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body ng-app='scavenge' ng-controller='extCont' ng-csp>
+    <div id='env'>
+        <div id='cont'>
+            <form name='questForm'>
+                <!-- the actual content! -->
+                <label for='typeQ'>What kind of question is it?:
+                    <select ng-model='step.type' ng-change='updateQuestionFields();' name='typeQ' required>
+                        <option ng-repeat="test in testTypes" value='{{test.type}}'>{{test.type}}
+                    </select>
+                </label>
+                <br/>
+                <!-- Generic Question section. Shows always -->
+                <label for='mainQ'>Enter the question:
+                    <input type='text' required name='mainQ' ng-model='step.q' />
+                </label>
+                <!-- Multiple Choice section -->
+                <div class='form-group' ng-if='step.type=="Multiple Choice"'>
+                    Now enter the answer options!</hr>
+                    <label for='multiAns1'>Answer option one?
+                        <input type='multiAns1' ng-model='step.ans1'>
+                    </label>
+                    <br/>
+                    <label for='multiAns2'>Answer option Two?
+                        <input type='multiAns2' ng-model='step.ans2'>
+                    </label>
+                    <br/>
+                    <label for='multiAns3'>Answer option Three?
+                        <input type='multiAns3' ng-model='step.ans3'>
+                    </label>
+                    <br/>
+                    <label for='multiAns4'>Answer option Four?
+                        <input type='multiAns4' ng-model='step.ans4'>
+                    </label>
+                    <br/>
+                </div>
+                <div class='form-group' ng-if='step.type=="Short Answer"'>
+                    Now enter the answer options!
+                    <label for='ansTextArea'>Answer option one?
+                        <textarea type='ansTextArea' ng-model='step.text'></textarea
+                    </label>
+                    <br/>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src='/js/angular.min.js'></script>
+    <script src='/js/mainExt.js'></script>
+</body>

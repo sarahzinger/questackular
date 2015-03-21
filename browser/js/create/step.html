@@ -72,12 +72,26 @@
             </div>
             <button type="button" class="btn btn-default" ng-click='saveStep(step)'>Create Step</button>
         </form>
+        <!-- List of currently (previously?) created steps -->
+        <br/>
+        <h2>Current Steps:</h2>
+        <table class='table table-responsive table-striped'>
+            <tr class='success'>
+                <th>Question</th><th>Type</th><th>Points</th>
+            </tr>
+            <tr ng-if='$parent.stepList.length<1'>
+                <td colspan='3'>No steps yet! Add a step above!</td>
+            </tr>
+            <tr ng-repeat='oldStep in $parent.stepList track by $index'>
+                <td>{{oldStep.question}}</td><td>{{oldStep.type}}</td><td>{{oldStep.pointValue}}</td>
+            </tr>
+        </table>
         <!-- save or move to next state -->
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="pull-right">
-                    <button type="submit" class="btn btn-primary">Save</button>
-                    <button class="btn btn-default" ui-sref="{{ tabs[2].state }}" ng-click="tabs[2].active = true">Next</button>
+                    <button type="button" class="btn btn-success" ng-click='$parent.saveFullQuest()'>Save</button>
+                    <button class="btn btn-primary" ui-sref="{{ tabs[2].state }}" ng-click="tabs[2].active = true">Next</button>
                 </div>
             </div>
         </div>

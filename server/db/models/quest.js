@@ -14,14 +14,7 @@ var schema = new mongoose.Schema({
     open: {
         type: Boolean
     },
-    participants: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }],
-    steps: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Step'
-    }],
+    participants: [String],
     title: String,
     description: String
 });
