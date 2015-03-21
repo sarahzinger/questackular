@@ -1,6 +1,17 @@
 'use strict';
 app.config(function($stateProvider) {
     $stateProvider.state('create', {
+            resolve: {
+                getLoggedInUser: function(AuthService, $state, $http){
+                    return AuthService.getLoggedInUser(true).then(function(user){
+                        if(user){
+                            return user;
+                        }else{
+                            $state.go("start");
+                        }
+                    });
+                }
+            },
             url: '/create',
             templateUrl: 'js/create/create.html',
             controller: 'CreateCtrl'
