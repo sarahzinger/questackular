@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-8">
-        <form name='stepForm' >
+        <form name='stepForm'>
             <div id="legend">
                 <legend>Add a step!</legend>
             </div>
@@ -13,8 +13,8 @@
             </div>
 
             <div class="form-group">
-            <label for="tags">Tags</label>
-            <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="step.tags" required ng-change='saveQuest()'>
+                <label for="tags">Tags</label>
+                <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="step.tags" required ng-change='saveQuest()'>
             </div>
             <div class="form-group">
                 <label for='pointsQ'>Point value:
@@ -77,13 +77,17 @@
         <h2>Current Steps:</h2>
         <table class='table table-responsive table-striped'>
             <tr class='success'>
-                <th>Question</th><th>Type</th><th>Points</th>
+                <th>Question</th>
+                <th>Type</th>
+                <th>Points</th>
             </tr>
             <tr ng-if='$parent.stepList.length<1'>
                 <td colspan='3'>No steps yet! Add a step above!</td>
             </tr>
             <tr ng-repeat='oldStep in $parent.stepList track by $index'>
-                <td>{{oldStep.question}}</td><td>{{oldStep.type}}</td><td>{{oldStep.pointValue}}</td>
+                <td>{{oldStep.question}}</td>
+                <td>{{oldStep.type}}</td>
+                <td>{{oldStep.pointValue}}</td>
             </tr>
         </table>
         <!-- save or move to next state -->
@@ -92,6 +96,7 @@
                 <div class="pull-right">
                     <button type="button" class="btn btn-success" ng-click='$parent.saveFullQuest()'>Save</button>
                     <button class="btn btn-primary" ui-sref="{{ tabs[2].state }}" ng-click="tabs[2].active = true">Next</button>
+                    <button class="btn btn-default clearButton" ng-click="$parent.clearData();">Clear</button>
                 </div>
             </div>
         </div>
