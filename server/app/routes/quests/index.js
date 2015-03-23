@@ -62,7 +62,10 @@ router.post('/:id/join', function (req, res) {
                 console.log("alreadyParticipating", alreadyParticipating);
                 if (alreadyParticipating !== -1) res.json(req.body);
                 else {
-                    user.participating.push(req.body._id);
+                    user.participating.push({
+                        questId: req.body._id
+                    });
+                    // user.participating.push(req.body._id);
                     user.save();
                 }
             });
