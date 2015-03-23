@@ -2,11 +2,11 @@
 app.config(function($stateProvider) {
     $stateProvider.state('create', {
             resolve: {
-                getLoggedInUser: function(AuthService, $state, $http){
-                    return AuthService.getLoggedInUser(true).then(function(user){
-                        if(user){
+                getLoggedInUser: function(AuthService, $state, $http) {
+                    return AuthService.getLoggedInUser(true).then(function(user) {
+                        if (user) {
                             return user;
-                        }else{
+                        } else {
                             $state.go("start");
                         }
                     });
@@ -33,7 +33,7 @@ app.config(function($stateProvider) {
         });
 });
 
-app.controller('CreateCtrl', function($scope, saveQuest, AuthService,$state) {
+app.controller('CreateCtrl', function($scope, saveQuest, AuthService, $state) {
     //the following scope vars are 'parental' to the child scopes. 
 
     //We need them here so that clicking 'save' on any page saves the entire quest+steps group
@@ -53,6 +53,9 @@ app.controller('CreateCtrl', function($scope, saveQuest, AuthService,$state) {
         state: "create.map",
         disabled: $scope.noQuest
     }];
+    if (sessionStorage.newQuest){
+        $scope.questExists = true;
+    }
     $scope.saveFullQuest = function() {
         //this will save the full quest.
         if ($scope.stepList.length < 1) {
@@ -71,18 +74,28 @@ app.controller('CreateCtrl', function($scope, saveQuest, AuthService,$state) {
             $scope.quest.owner = user._id;
             //save the quest
             saveQuest.sendQuest($scope.quest).then(function(questId) {
-                console.log('quest item:',questId);
+                console.log('quest item:', questId);
                 $scope.stepList.forEach(function(item) {
                     item.quest = questId;
                     //save this step
-                    saveQuest.sendStep(item).then(function(data){
+                    saveQuest.sendStep(item).then(function(data) {
                         console.log('Saved quest! Woohoo!')
-                        //redirect, clear vars on NEXT PAGE!
+                            //redirect, clear vars on NEXT PAGE!
                         $state.go('thanks');
                     });
                 });
             });
         })
+    };
+
+    $scope.clearData = function() {
+        var clearConf = confirm('Are you sure you want to clear this quest? It hasn\'t yet been saved!');
+        if (clearConf) {
+            sessionStorage.removeItem('newQuest');
+            $scope.quest = {};
+            $scope.stepList = []; //list of current steps.
+            $scope.questExists = false;
+        }
     };
 });
 
@@ -100,13 +113,7 @@ app.controller('CreateQuest', function($scope) {
         $scope.$parent.questExists = true;
         sessionStorage.newQuest = angular.toJson($scope.$parent.quest);
     };
-    $scope.clearData = function() {
-        var clearConf = confirm('Are you sure you want to clear this quest? It hasn\'t yet been saved!');
-        if (clearConf) {
-            sessionStorage.removeItem('newQuest');
-            $scope.$parent.quest = {};
-        }
-    };
+
 });
 
 app.controller('CreateStep', function($scope) {
@@ -120,6 +127,7 @@ app.controller('CreateStep', function($scope) {
     }, {
         type: 'Find Me'
     }];
+    angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList); //get steps on list
     $scope.saveStep = function(step) {
         if (step.type === "Multiple Choice") {
             //pushing a multi-choice q to the list
@@ -141,14 +149,14 @@ app.controller('CreateStep', function($scope) {
 
         var stepsJson = angular.toJson(step);
         if (!sessionStorage.stepStr) {
-            sessionStorage.stepStr = '['+stepsJson+']';
+            sessionStorage.stepStr = '[' + stepsJson + ']';
         } else {
-            sessionStorage.stepStr = sessionStorage.stepStr.slice(0,-1);
-            sessionStorage.stepStr += ',' + stepsJson+']';
+            sessionStorage.stepStr = sessionStorage.stepStr.slice(0, -1);
+            sessionStorage.stepStr += ',' + stepsJson + ']';
         }
         console.log("sessionStorage.stepStr", sessionStorage.stepStr);
-        angular.copy(angular.fromJson(sessionStorage.stepStr),$scope.$parent.stepList)
-        // $scope.$parent.stepList = angular.fromJson(sessionStorage.stepStr);
+        angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList)
+            // $scope.$parent.stepList = angular.fromJson(sessionStorage.stepStr);
 
         step = {}; //clear step
     };
@@ -156,5 +164,8 @@ app.controller('CreateStep', function($scope) {
 });
 
 app.controller('QuestMap', function($scope) {
+    angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList);
+    $scope.divsTop = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80];
+    $scope.divsLeft = [0, 5, 10, 5, 0, 5, 10, 5, 0, 5, 10, 5, 0, 5, 10, 5, 0];
     $scope.$parent.currState = 'Map';
 });

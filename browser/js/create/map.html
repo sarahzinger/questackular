@@ -1,7 +1,8 @@
 <div>
-	<pre>
-		show quest information
-		show steps
-		show image and map
-	</pre>
+    <div id='mapBg'>
+        <div class='mapItem' ng-repeat='mapThing in $parent.stepList' style='left:{{divsLeft[$index]}}px;top:{{divsTop[$index]}}px'>
+            <h4>{{mapThing.question}}</h4>
+            Points:{{mapThing.pointValue}}
+        </div>
+    </div>
 </div>
