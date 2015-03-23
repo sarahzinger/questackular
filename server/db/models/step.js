@@ -1,5 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
+var Quest = require('./quest.js');
 
 // we will add each person's response to questions as its own model (later)!
 

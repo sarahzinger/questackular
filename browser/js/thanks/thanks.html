@@ -1,0 +1,39 @@
+<div id="thanks" class="container">
+    <h2>Thanks! You made a Quest! Yay!</h2>
+    <img src='michaelbaeitworks.jpg'>
+    <hr/>
+    <h3>Your quest:</h3>
+    	<table class='table table-responsive table-striped'>
+        <tr class='success'>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Privacy</th>
+        </tr>
+        <tr>
+            <td>{{quest.title}}</td>
+            <td>{{quest.description}}</td>
+            <td>{{quest.pubPriv}}</td>
+        </tr>
+    </table>
+    <hr/>
+    <h3>Your quest's steps:</h3>
+    <table class='table table-responsive table-striped'>
+        <tr class='success'>
+            <th>Question</th>
+            <th>Type</th>
+            <th>Points</th>
+            <th>URI</th>
+            <th>Tags</th>
+        </tr>
+        <tr ng-if='steps.length<1'>
+            <td colspan='3'>No steps yet! Add a step above!</td>
+        </tr>
+        <tr ng-repeat='step in steps track by $index'>
+            <td>{{step.question}}</td>
+            <td>{{step.type}}</td>
+            <td>{{step.pointValue}}</td>
+            <td>{{step.url}}</td>
+            <td>{{step.tags.join(',')}}</td>
+        </tr>
+    </table>
+</div>
