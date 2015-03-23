@@ -33,7 +33,8 @@ app.config(function($stateProvider) {
         });
 });
 
-app.controller('CreateCtrl', function($scope, saveQuest, AuthService, $state) {
+
+app.controller('CreateCtrl', function($scope, QuestFactory, AuthService,$state) {
     //the following scope vars are 'parental' to the child scopes. 
 
     //We need them here so that clicking 'save' on any page saves the entire quest+steps group
@@ -73,12 +74,12 @@ app.controller('CreateCtrl', function($scope, saveQuest, AuthService, $state) {
         AuthService.getLoggedInUser().then(function(user) {
             $scope.quest.owner = user._id;
             //save the quest
-            saveQuest.sendQuest($scope.quest).then(function(questId) {
-                console.log('quest item:', questId);
+            QuestFactory.sendQuest($scope.quest).then(function(questId) {
+                console.log('quest item:',questId);
                 $scope.stepList.forEach(function(item) {
                     item.quest = questId;
                     //save this step
-                    saveQuest.sendStep(item).then(function(data) {
+                    QuestFactory.sendStep(item).then(function(data){
                         console.log('Saved quest! Woohoo!')
                             //redirect, clear vars on NEXT PAGE!
                         $state.go('thanks');
