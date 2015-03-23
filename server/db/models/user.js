@@ -10,24 +10,24 @@ var schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Quest'
     }],
+    // mongo indexing for quickly looking up all users in any given quest
     participating: [{
-        questId:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Quest'
-        },
-        currentStep: Number,
-        pointsFromQuest: Number,
-        stepsPurchased:[Number]
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Quest'
     }],
+    // participating: [{
+    //     questId: {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: 'Quest'
+    //     },
+    //     currentStep: Number,
+    //     pointsFromQuest: Number,
+    //     stepsPurchased:[Number]
+    // }],
     pastQuests: [{
-        questId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Quest'
-        },
-        points: Number,
-        stepsPurchased: [Number]
-    }],
-    //particId{} <-- id's?
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Quest'
+    }], // points, steps purchased
     google: {
         id: String,
         name: String,

@@ -1,12 +1,12 @@
-
+<div class="container">
 	<h1>My Quests</h1>
-	<h2></h2>
+	<p>Click the filter icon <small>(<i class="glyphicon glyphicon-filter"></i>) to filter quests</small></p>
 	<!-- table begins -->
 	<div class="container" id="quests-created">
-	    <p>Click the filter icon <small>(<i class="glyphicon glyphicon-filter"></i>) to filter quests</small></p>
+	    
 		<div class="row">
 			<div class="col-md-6">
-				<div class="panel panel-primary">
+				<div class="panel panel-info">
 					<div class="panel-heading">
 						<h3 class="panel-title">Quests I've created</h3>
 						<div class="pull-right">
@@ -45,24 +45,51 @@
 	</div>
 	<!-- end of table -->
 
-	
 
-
-
-
-	
-	<div >
-		<h2>Quests I've joined</h2>
-		<div class="container">
-			<h3>Title</h3>
-			<h4>Description</h4>
-			<button class="btn">Continue Quest!</button>
-			<button class="btn">Leave Quest!</button>
-		</div>
-		<div ng-repeat="quest in questsJoined" class="container">
-			<h3>{{quest.title}}</h3>
-			<h4>{{quest.description}}</h4>
-			<button class="btn">Continue Quest!</button>
-			<button class="btn">Leave Quest!</button>
+	<!-- table begins -->
+	<div class="container" id="quests-joined">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Quests I've joined</h3>
+						<div class="pull-right">
+							<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+								<i ng-click="search()" class="glyphicon glyphicon-filter"></i>
+							</span>
+						</div>
+					</div>
+					<div class="panel-body" ng-show="searchBox">
+						<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" />
+					</div>
+					<table class="table table-hover" id="dev-table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Title</th>
+								<th>Description</th>
+								<!-- <th>Open/Closed</th> -->
+								<th>Continue</th>
+								<th>Leave</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="quest in questsJoined track by $index">
+								<td>{{$index + 1}}</td>
+								<td>{{quest.title}}</td>
+								<td>{{quest.description}}</td>
+								<!-- <td>{{quest.open}}</td> -->
+								<td><button class='btn btn-xs btn-info glyphicon glyphicon-arrow-right'></button></td>
+								<td><button class='btn btn-xs btn-danger glyphicon glyphicon-remove' ng-click="leaveQuest(quest._id, userId)"></button></td>
+							</tr>
+						
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
 	</div>
+	<!-- end of table -->
+
+	
+</div>
