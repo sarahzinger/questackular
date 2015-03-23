@@ -2,7 +2,7 @@
 var router = require('express').Router();
 module.exports = router;
 
-router.use('/step', require('./step'));
+router.use('/step', require('./steps'));
 router.use('/quests', require('./quests'));
 
 // Make sure this is after all of

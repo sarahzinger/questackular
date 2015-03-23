@@ -1,7 +1,7 @@
 'use strict';
 var mongoose = require('mongoose');
 var User = require('./user.js');
-var Step = require('./steps.js');
+var Step = require('./step.js');
 
 var schema = new mongoose.Schema({
     owner: {
