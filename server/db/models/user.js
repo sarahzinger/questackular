@@ -27,7 +27,7 @@ var schema = new mongoose.Schema({
         points: Number,
         stepsPurchased: [Number]
     }],
-
+    //particId{} <-- id's?
     google: {
         id: String,
         name: String,
