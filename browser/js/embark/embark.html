@@ -1,13 +1,64 @@
 <div>
-	<h1>Choose a Quest</h1>
-	<ul>
-		<li ng-repeat="quest in quests">
-			<div>
-				<h3>{{ quest.title }}</h3>
-				<h4>{{ quest.description }}</h4>
+	<h1>Join a Quest</h1>
+
+	<!-- table begins -->
+	<div class="container">
+	    <p>Click the filter icon <small>(<i class="glyphicon glyphicon-filter"></i>)</small></p>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Quests Available</h3>
+						<div class="pull-right">
+							<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+								<i ng-click="search()" class="glyphicon glyphicon-filter"></i>
+							</span>
+						</div>
+					</div>
+					<div class="panel-body" ng-show="searchBox">
+						<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Developers" />
+					</div>
+					<table class="table table-hover" id="dev-table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Title</th>
+								<th>Description</th>
+								<th>Open/Closed</th>
+								<th>Join</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="quest in quests track by $index">
+								<td>{{$index + 1}}</td>
+								<td>{{quest.title}}</td>
+								<td>{{quest.description}}</td>
+								<td>{{quest.open}}</td>
+								<td><button class='btn btn-xs btn-success glyphicon glyphicon-hand-right' ng-click="joinQuest(quest)"></button></td>
+							</tr>
+						
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</li>
-	</ul>
+			
+		</div>
+	</div>
+	<!-- end of table -->
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
 	<!-- Future Feature
 	<h3>Do you have a secret code for a private quest?</h3>
 	<div class="form-group">

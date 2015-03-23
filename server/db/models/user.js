@@ -11,7 +11,7 @@ var schema = new mongoose.Schema({
         ref: 'Quest'
     }],
     participating: [{
-        questID:{
+        questId:{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Quest'
         },
