@@ -28,3 +28,11 @@ router.get('/', function(req, res) {
         res.json(quests);
     });
 });
+
+router.get('/:id', function(req, res) {
+    var questId = req.params.id;
+    mongoose.model('Quest').find({_id: questId}).exec(function(err,quest) {
+        if(err) res.send(err);
+        res.json(quest);
+    });
+});
