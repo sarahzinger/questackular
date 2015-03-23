@@ -51,11 +51,6 @@ app.controller('CreateCtrl', function($scope, saveQuest, AuthService) {
             }
         }
         //parse and readjust quest
-        var tempTags = $scope.quest.tags;
-        delete $scope.quest.tags;
-        $scope.quest.tags = tempTags.split(',').map(function(i) {
-            return i.trim();
-        });
         ($scope.quest.openClosed === 'open') ? $scope.quest.open = true: $scope.quest.open = false;
         ($scope.quest.pubPriv === 'private') ? $scope.quest.privacy = true: $scope.quest.privacy = false;
         delete $scope.quest.openClosed;
