@@ -21,6 +21,7 @@ app.config(function ($stateProvider) {
 app.controller('MyQuestsCtrl', function ($scope, QuestFactory, AuthService){
   AuthService.getLoggedInUser().then(function (user) {
     $scope.user = user;
+    console.log("scope.user", $scope.user)
     $scope.questsJoined = [];
     $scope.questsCreated = [];
     $scope.user.participating.forEach(function(questObj){
