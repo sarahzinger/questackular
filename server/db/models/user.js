@@ -2,6 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var Quest = require('./quest.js');
+var Step = require('./step.js');
 var schema = new mongoose.Schema({
 
     levels: Number,
@@ -20,7 +21,10 @@ var schema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Quest'
         },
-        currentStep: Number,
+        currentStep: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Step'
+        },
         pointsFromQuest: Number,
         stepsPurchased:[Number]
     }],

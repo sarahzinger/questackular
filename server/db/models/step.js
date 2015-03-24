@@ -5,7 +5,10 @@ var Quest = require('./quest.js');
 // we will add each person's response to questions as its own model (later)!
 
 var schema = new mongoose.Schema({
-    url: String,
+    url: {
+        type: String,
+        required: true
+    },
     pointValue: {
         type: Number,
         required: true
@@ -14,14 +17,14 @@ var schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    type: {
+    qType: {
         type: String,
         required: true
     },
     multipleAns: [{
         ans: String,
     }],
-    multiAnsCor:String,
+    multiAnsCor: String,
     fillIn: String,
     shortAns: Boolean,
     quest: {
@@ -36,7 +39,7 @@ var schema = new mongoose.Schema({
         selector: String,
         replace: String
     }],
-    stepNum:Number
+    stepNum: Number
 });
 
 // '<h1>hi</h1>'
