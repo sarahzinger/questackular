@@ -4,7 +4,7 @@ module.exports = router;
 var _ = require('lodash');
 var mongoose = require('mongoose');
 
-router.post('/save', function(req, res, next) {
+router.post('/', function(req, res, next) {
     mongoose.model('Step').findOne({
         question: req.body.question,
         quest: req.body.quest
