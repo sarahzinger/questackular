@@ -53,17 +53,40 @@ var encryptPassword = function(plainText, salt) {
     return hash.digest('hex');
 };
 
-schema.pre('save', function(next) {
+// addQuest
+// removeQuest
+//
 
-    if (this.isModified('password')) {
-        this.salt = this.constructor.generateSalt();
-        this.password = this.constructor.encryptPassword(this.password, this.salt);
-    }
 
-    next();
 
-});
+// schema.pre('save', function(next) {
 
+//     if (this.isModified('participating')) {
+//         var modifiedArray = this.modifiedPaths();
+
+//         mongoose.model('Quest').findById(this.participating[], function (err, singleQuest) {
+//             var idx = singleQuest.participants.indexOf(req.user);
+//             singleQuest.participants.splice(idx, 1);
+//             singleQuest.save();
+//         });
+          
+//     } 
+
+//     next();
+
+// });
+
+schema.methods.removeQuestFromUser = function(questId, callback){
+    var idx = this.participating.indexOf(questId);
+    this.participating.splice(idx, 1);
+    this.save();
+    callback();
+};
+schema.methods.addQuestToUser = function(questId, callback){
+    this.participating.push({questId: questId});
+    this.save();
+    callback();
+}
 schema.statics.generateSalt = generateSalt;
 schema.statics.encryptPassword = encryptPassword;
 
