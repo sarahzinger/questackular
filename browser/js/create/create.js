@@ -232,7 +232,7 @@ app.controller('QuestMap', function($scope) {
         question: 'Test',
         pointValue: 50
     }];
-    $scope.divsLeft= [18,116,90,40,160,198,250,280,365,470,480,460,0,0,0,0,0,0,0,0];
-    $scope.divsTop = [67,120,190,260,310,250,183,110,40,100,180,270,0,0,0,0,0,0,0,0];
+    $scope.divsLeft= [18,90,160,260,365,480,410,280,80,0,0,0,0,0];
+    $scope.divsTop = [67,190,310,180,40,180,330,440,560,0,0,0,0,0];
     $scope.$parent.currState = 'Map';
 });
