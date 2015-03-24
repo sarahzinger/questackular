@@ -12,13 +12,13 @@ router.get('/:id', function(req, res, next) {
         .exec(function (err, userInfo) {
             console.log("what's in there?", userInfo);
             if (err) return res.json(err);
-            if (userInfo.participating.length) {
-	            mongoose.model('User').populate(userInfo, 'participating.questId', function (err, userI) {
+            // if (userInfo.participating.length) {
+	            mongoose.model('User').populate(userInfo, 'participating.questId', function (err, userFullyPopulated) {
 	            	if (err) return res.json(err);
-		    		res.json(userInfo);
+		    		res.json(userFullyPopulated);
 	            });	
-    		}
-    		res.json(userInfo);
+    		// }
+    		// res.json(userInfo);
 
     		// MAYBE??? eventually we will need to do async stuff so that both "participating" and "pastQuests"
        //      async.parallel([
