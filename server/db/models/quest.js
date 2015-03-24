@@ -25,14 +25,15 @@ var schema = new mongoose.Schema({
 schema.methods.removeUserFromQuest = function(userId, callback){
     var idx = this.participants.indexOf(userId);
     this.participants.splice(idx, 1);
-    this.save();
-    callback();
-}
+    this.save(function(err, data) {
+        callback(err, data);
+    });
+};
+
 schema.methods.addUserFromQuest = function(userId, callback){
     this.participants.push(userId);
-    this.save();
-    callback();
-}
-// method "removeUser(userid)"
-// addUser
+    this.save(function(err, data) {   
+        callback(err, data);
+    });
+};
 mongoose.model('Quest', schema);
