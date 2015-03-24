@@ -57,25 +57,23 @@ router.get('/:id', function (req, res) {
     });
 });
 
-router.post('/:id', function (req, res) {
+// when a user "joins" a quest
+router.post('/:id/join', function (req, res) {
     console.log("req.body", req.body);
 
     async.parallel([
         function() {
             mongoose.model('User').findById(req.body.participants[req.body.participants.length - 1], function (err, user) {
-                console.log("user", user);
                 var alreadyParticipating = _.findIndex(user.participating, function (questPlaying) {
                     return questPlaying.questId == req.body._id;
                 });
                 console.log("alreadyParticipating", alreadyParticipating);
-                if (alreadyParticipating !== -1) return;
+                if (alreadyParticipating !== -1) res.json(req.body);
                 else {
                     user.participating.push({
-                        questId: req.body._id,
-                        currentStep: 0,
-                        pointsFromQuest: 0,
-                        stepsPurchased:[]
+                        questId: req.body._id
                     });
+                    // user.participating.push(req.body._id);
                     user.save();
                 }
             });
@@ -83,7 +81,7 @@ router.post('/:id', function (req, res) {
         function() {
             mongoose.model('Quest').findById(req.params.id, function (err, quest) {
                 console.log("quest.participants.indexOf(req.params.id)", quest.participants.indexOf(req.params.id));
-                if (quest.participants.indexOf(req.params.id) !== -1) return;
+                if (quest.participants.indexOf(req.params.id) !== -1) return res.json(req.body);
                 else {
                     quest.participants = req.body.participants;
                     quest.save();
@@ -92,5 +90,29 @@ router.post('/:id', function (req, res) {
         }], function() {
             res.json(req.body);
     });
+});
+
+// when a user "leaves" a quest
+router.post('/:id/leave', function (req, res) {
+
+    async.parallel([
+        function() {
+            mongoose.model('User').findById(req.body.user, function (err, singleUser) {
+                var idx = singleUser.participating.indexOf(req.body.quest);
+                singleUser.participating.splice(idx, 1);
+                singleUser.save();
+            });
+        },
+        function() {
+            mongoose.model('Quest').findById(req.body.quest, function (err, singleQuest) {
+                var idx = singleQuest.participants.indexOf(req.body.user);
+                singleQuest.participants.splice(idx, 1);
+                singleQuest.save();
+            });
+        }], function() {
+            res.json(req.body);
+    });
+
+    
 });
 

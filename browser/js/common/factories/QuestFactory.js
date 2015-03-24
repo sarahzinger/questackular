@@ -24,8 +24,15 @@ app.factory('QuestFactory', function($http, AuthService) {
             });
         },
         joinQuest: function(questInfo) {
-            console.log("questInfo", questInfo);
-            return $http.post('/api/quests/' + questInfo._id, questInfo).then(function(response) {
+            return $http.post('/api/quests/' + questInfo._id + "/join", questInfo).then(function(response) {
+                console.log(response);
+            });
+        },
+        leaveQuest: function(questId, userId) {
+            return $http.post('/api/quests/' + questId + "/leave", {
+                quest: questId,
+                user: userId
+            }).then(function(response) {
                 console.log(response);
             });
         },

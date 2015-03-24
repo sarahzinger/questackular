@@ -1,5 +1,6 @@
 'use strict';
-app.factory('UserFactory', function($http, AuthService){
+app.factory('UserFactory', function($http, AuthService) {
+	
 	return {
 		getCurrentUser: function() {
 			return AuthService.getLoggedInUser().then(function (user) {
