@@ -21,9 +21,7 @@ var schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    multipleAns: [{
-        ans: String,
-    }],
+    multipleAns: [String],
     multiAnsCor: String,
     fillIn: String,
     shortAns: Boolean,

@@ -118,6 +118,13 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
     $scope.showData = function() {
         console.log('Quest List:', $scope.questList, ', Quest: ', $scope.quest, ', Steps: ', $scope.stepList);
     };
+    $scope.correctAns = function(ansNum,stepId){
+        //this function simply chooses the correct answer for the multi-choice answers.
+        console.log('Correct: ',ansNum,'ID: ',stepId)
+        for (var i=0;i<$scope.stepList.length-1;i++){
+            // if ($scope.stepList[i].corr)
+        }
+    }
 
     $state.go('edit.quest');
 

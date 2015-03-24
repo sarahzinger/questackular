@@ -45,6 +45,14 @@ body {
   }
 }
 
+.correctMultiAns{
+  background-color: #cfc;
+  &::after{
+    content:'☜'
+  }
+}
+
+
 .removeQuestButton{
   width:25px;
   height:25px;

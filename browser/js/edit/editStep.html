@@ -31,7 +31,7 @@
                     <tr ng-repeat='step in $parent.stepList'>
                         <td editable-text='step.stepNum'>{{step.stepNum}}</td>
                         <td editable-text='step.question'>{{step.question}}</td>
-                        <td editable-select='step.type' e-ng-options='item for item in testTypes'>{{step.type}}
+                        <td editable-select='step.qType' e-ng-options='item for item in testTypes'>{{step.qType}}
                         </td>
                         <td editable-text='step.pointValue'>{{step.pointValue}}</td>
                         <td editable-text='step.url'>{{step.url}}</td>
@@ -40,13 +40,17 @@
                             <span ng-if='step.clues.length>0'>{{step.clues}}</span>
                             <span ng-if='step.clues.length<=0'>No clues yet!</span>
                         </td>
-                        <td ng-if="step.type=='Multiple Choice'">
-                            <div editable-text>{{step.multipleAns[0].ans || "nothing yet!"}}</div>
+                        <td ng-if="step.qType=='Multiple Choice'">
+                            {{step.multiAnsCor}}
+                            <div editable-text='step.multipleAns[0]' ng-class='{correctMultiAns:step.multiAnsCor=="0"}' ng-click='$parent.correctAns(0,step._id);'>1: {{step.multipleAns[0] || "nothing yet!"}}</div>
+                            <div editable-text='step.multipleAns[1]' ng-class='{correctMultiAns:step.multiAnsCor=="1"}' ng-click='$parent.correctAns(1,step._id);'>2: {{step.multipleAns[1] || "nothing yet!"}}</div>
+                            <div editable-text='step.multipleAns[2]' ng-class='{correctMultiAns:step.multiAnsCor=="2"}' ng-click='$parent.correctAns(2,step._id);'>3: {{step.multipleAns[2] || "nothing yet!"}}</div>
+                            <div editable-text='step.multipleAns[3]' ng-class='{correctMultiAns:step.multiAnsCor=="3"}' ng-click='$parent.correctAns(3,step._id);'>4: {{step.multipleAns[3] || "nothing yet!"}}</div>
                         </td>
-                        <td ng-if="step.type=='Fill-in'">
+                        <td ng-if="step.qType=='Fill-in'">
                             <span editable-text='step.fillIn'>{{step.fillIn}}</span>
                         </td>
-                        <td ng-if="step.type=='Short Answer'">(short answers must be reviewed by Quest Creator)</td>
+                        <td ng-if="step.qType=='Short Answer'">(short answers must be reviewed by Quest Creator)</td>
                     </tr>
                 </tbody>
             </table>
