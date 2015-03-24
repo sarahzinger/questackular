@@ -4,10 +4,8 @@ var User = require('./user.js');
 
 var schema = new mongoose.Schema({
    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-   responses:[{
-		qName:String,
-		response:String
-   }]
+   step: {type: mongoose.Schema.Types.ObjectId, ref: 'Step'},
+   response: String
 });
 
 mongoose.model('Responses', schema);
