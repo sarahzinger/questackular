@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col-md-8">
+
+        <!-- List of currently (previously?) created steps -->
+        <br/>
+        <h2>Current Steps:</h2>
+        <table class='table table-responsive table-striped'>
+            <tr class='success'>
+                <th>Question</th>
+                <th>Type</th>
+                <th>Points</th>
+            </tr>
+            <tr ng-if='$parent.stepList.length<1'>
+                <td colspan='3'>No steps yet! Add a step above!</td>
+            </tr>
+            <tr ng-repeat='oldStep in $parent.stepList track by $index'>
+                <td>{{oldStep.question}}</td>
+                <td>{{oldStep.type}}</td>
+                <td>{{oldStep.pointValue}}</td>
+            </tr>
+        </table>
+
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Question</th>
+                    <th>Type</th>
+                    <th>Point Value</th>
+                    <th>URL</th>
+                    <th>Tags</th>
+                    <th>Clues</th>
+                    <th>Answer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat='step in stepList'>
+                    <td editable-text='step.stepNum'>{{step.stepNum}}</td>
+                    <td editable-text='step.question'>{{step.question}}</td>
+                    <td editable-text='step.type'>{{step.type}}</td>
+                    <td editable-text='step.pointValue'>{{step.pointValue}}</td>
+                    <td editable-text='step.url'>{{step.url}}</td>
+                    <td editable-text='step.tags'>{{step.tags.join()}}</td>
+                    <td editable-text='step.clues'>
+                        <span ng-if='step.clues.length>0'>{{step.clues}}</span>
+                        <span ng-if='step.clues.length<=0'>No clues yet!</span>
+                    </td>
+                    <td>TO BE WRITTEN</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- save or move to next state -->
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-success" ng-click='$parent.saveFullQuest()'>Save</button>
+                    <button class="btn btn-primary" ui-sref="{{ tabs[2].state }}" ng-click="tabs[2].active = true">Next</button>
+                    <button class="btn btn-default clearButton" ng-click="$parent.clearData();">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

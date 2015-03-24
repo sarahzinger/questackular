@@ -21,3 +21,11 @@ router.post('/save', function(req, res, next) {
         }
     });
 });
+
+router.get('/list/:id',function(req,res){
+    var questId = req.params.id;
+    console.log('Quest: ',questId)
+    mongoose.model('Step').find({quest:questId},function(err,steps){
+        res.send(steps);
+    })
+})
