@@ -18,12 +18,12 @@ router.post('/', function (req, res, next) {
 
             mongoose.model('Quest').create(req.body).then(function(data) {
 
-                mongoose.model('User').findById(req.body.owner, function(err, userObj){
+                mongoose.model('User').findById(req.body.owner, function(err, userObj) {
                     if (err) {
                         console.log(err);
                     } else {
                         userObj.created.push(data._id);
-                        userObj.save(); 
+                        userObj.save();
                     }
                 });
                 res.send(data._id);
@@ -34,38 +34,43 @@ router.post('/', function (req, res, next) {
 
 });
 
-router.get('/', function (req, res) {
+router.get('/', function(req, res) {
     mongoose.model('Quest').find({}).exec(function(err, quests) {
         if (err) res.send(err);
         res.json(quests);
     });
 });
 
-router.get('/user/:id',function(req,res,next){
+router.get('/user/:id', function(req, res, next) {
     console.log(req.params);
     var user = req.params.id;
-    mongoose.model('Quest').find({owner:user},function(err,quests){
+    mongoose.model('Quest').find({
+        owner: user
+    }, function(err, quests) {
         res.send(quests);
-    })
-})
+    });
+});
 
-router.get('/:id', function (req, res) {
+router.get('/:id', function(req, res) {
     var questId = req.params.id;
-    mongoose.model('Quest').find({_id: questId}).exec(function(err,quest) {
-        if(err) res.send(err);
+    mongoose.model('Quest').find({
+        _id: questId
+    }).exec(function(err, quest) {
+        if (err) res.send(err);
         res.json(quest);
     });
 });
 
 // when a user "joins" a quest
-// router.post('/:id/join', function (req, res) {
+
 router.post('/participants', function (req, res) {
     console.log("req.user", req.user);
 
+
     async.parallel([
         function() {
-            mongoose.model('User').findById(req.body.participants[req.body.participants.length - 1], function (err, user) {
-                var alreadyParticipating = _.findIndex(user.participating, function (questPlaying) {
+            mongoose.model('User').findById(req.body.participants[req.body.participants.length - 1], function(err, user) {
+                var alreadyParticipating = _.findIndex(user.participating, function(questPlaying) {
                     return questPlaying.questId == req.body._id;
                 });
                 console.log("alreadyParticipating", alreadyParticipating);
@@ -96,7 +101,6 @@ router.post('/participants', function (req, res) {
 });
 
 // when a user "leaves" a quest
-// router.post('/:id/leave', function (req, res) {
 router.delete('/participants/:id', function (req, res) {
     console.log("req.user", req.user);
     // console.log("FUNNAY TIMES", req.body)
@@ -117,7 +121,4 @@ router.delete('/participants/:id', function (req, res) {
         }], function (err, data) {
             res.json(data);
     });
-
-    
 });
-

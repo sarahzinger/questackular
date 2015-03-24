@@ -24,7 +24,7 @@
             </div>
             <div class="form-group">
                 <label for='typeQ'>What kind of question is it?:
-                    <select class="form-control" ng-model='step.type' ng-change='updateQuestionFields();' name='typeQ' required>
+                    <select class="form-control" ng-model='step.qType' ng-change='updateQuestionFields();' name='typeQ' required>
                         <option ng-repeat="test in testTypes" value='{{test.type}}'> {{test.type}}
                     </select>
                     <p class="help-block">Select the type of question you would like to add.</p>
@@ -33,7 +33,7 @@
             <!-- Generic Question section. Shows always -->
 
             <!-- Multiple Choice section -->
-            <div class='form-group' ng-if='step.type=="Multiple Choice"'>
+            <div class='form-group' ng-if='step.qType=="Multiple Choice"'>
                 <p class="help-block">Please enter some answer options.</p>
                 <label class="form-inline" for='multiAns1'>Answer option 1:
                     <input class="form-control" type='text' name='multiAns1' ng-model='step.ans1'>
@@ -57,7 +57,7 @@
                 <br/>
             </div>
             <!-- Fill-In -->
-            <div class='form-group' ng-if='step.type=="Fill-in"'>
+            <div class='form-group' ng-if='step.qType=="Fill-in"'>
                 <label for='ansTextArea'>Answer?
                     <input type='text' class="form-control" name='ansTextArea' ng-model='step.fillIn'>
                 </label>
@@ -86,7 +86,7 @@
             </tr>
             <tr ng-repeat='oldStep in $parent.stepList track by $index'>
                 <td>{{oldStep.question}}</td>
-                <td>{{oldStep.type}}</td>
+                <td>{{oldStep.qType}}</td>
                 <td>{{oldStep.pointValue}}</td>
             </tr>
         </table>

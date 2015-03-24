@@ -1,55 +1,62 @@
 <div class="row">
     <div class="col-md-8">
 
-        <!-- List of currently (previously?) created steps -->
-        <br/>
-        <h2>Current Steps:</h2>
-        <table class='table table-responsive table-striped'>
-            <tr class='success'>
-                <th>Question</th>
-                <th>Type</th>
-                <th>Points</th>
-            </tr>
-            <tr ng-if='$parent.stepList.length<1'>
-                <td colspan='3'>No steps yet! Add a step above!</td>
-            </tr>
-            <tr ng-repeat='oldStep in $parent.stepList track by $index'>
-                <td>{{oldStep.question}}</td>
-                <td>{{oldStep.type}}</td>
-                <td>{{oldStep.pointValue}}</td>
-            </tr>
-        </table>
+        <!-- List of currently (previously) created steps -->
 
 
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Question</th>
-                    <th>Type</th>
-                    <th>Point Value</th>
-                    <th>URL</th>
-                    <th>Tags</th>
-                    <th>Clues</th>
-                    <th>Answer</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat='step in stepList'>
-                    <td editable-text='step.stepNum'>{{step.stepNum}}</td>
-                    <td editable-text='step.question'>{{step.question}}</td>
-                    <td editable-text='step.type'>{{step.type}}</td>
-                    <td editable-text='step.pointValue'>{{step.pointValue}}</td>
-                    <td editable-text='step.url'>{{step.url}}</td>
-                    <td editable-text='step.tags'>{{step.tags.join()}}</td>
-                    <td editable-text='step.clues'>
-                        <span ng-if='step.clues.length>0'>{{step.clues}}</span>
-                        <span ng-if='step.clues.length<=0'>No clues yet!</span>
-                    </td>
-                    <td>TO BE WRITTEN</td>
-                </tr>
-            </tbody>
-        </table>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Editable Steps for Quest: {{quest.title}}</h3>
+                <div class="pull-right">
+                    <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+                <i ng-click="search()" class="glyphicon glyphicon-filter"></i>
+                </span>
+                </div>
+            </div>
+            <table class="table table-hover" id="dev-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Question</th>
+                        <th>Type</th>
+                        <th>Point Value</th>
+                        <th>URL</th>
+                        <th>Tags</th>
+                        <th>Clues</th>
+                        <th>Answer(s)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat='step in $parent.stepList'>
+                        <td editable-text='step.stepNum'>{{step.stepNum}}</td>
+                        <td editable-text='step.question'>{{step.question}}</td>
+                        <td editable-select='step.qType' e-ng-options='item for item in testTypes'>{{step.qType}}
+                        </td>
+                        <td editable-text='step.pointValue'>{{step.pointValue}}</td>
+                        <td editable-text='step.url'>{{step.url}}</td>
+                        <td editable-text='step.tags'>{{step.tags.join()}}</td>
+                        <td editable-text='step.clues'>
+                            <span ng-if='step.clues.length>0'>{{step.clues}}</span>
+                            <span ng-if='step.clues.length<=0'>No clues yet!</span>
+                        </td>
+                        <td ng-if="step.qType=='Multiple Choice'">
+                            {{step.multiAnsCor}}
+                            <div editable-text='step.multipleAns[0]' ng-class='{correctMultiAns:step.multiAnsCor=="0"}' ng-click='$parent.correctAns(0,step._id);'>1: {{step.multipleAns[0] || "nothing yet!"}}</div>
+                            <div editable-text='step.multipleAns[1]' ng-class='{correctMultiAns:step.multiAnsCor=="1"}' ng-click='$parent.correctAns(1,step._id);'>2: {{step.multipleAns[1] || "nothing yet!"}}</div>
+                            <div editable-text='step.multipleAns[2]' ng-class='{correctMultiAns:step.multiAnsCor=="2"}' ng-click='$parent.correctAns(2,step._id);'>3: {{step.multipleAns[2] || "nothing yet!"}}</div>
+                            <div editable-text='step.multipleAns[3]' ng-class='{correctMultiAns:step.multiAnsCor=="3"}' ng-click='$parent.correctAns(3,step._id);'>4: {{step.multipleAns[3] || "nothing yet!"}}</div>
+                        </td>
+                        <td ng-if="step.qType=='Fill-in'">
+                            <span editable-text='step.fillIn'>{{step.fillIn}}</span>
+                        </td>
+                        <td ng-if="step.qType=='Short Answer'">(short answers must be reviewed by Quest Creator)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+        <button ng-click='$parent.showData()'>SHOW DATA. ALSO DELETE ME. HI EVERYONE</button>
         <!-- save or move to next state -->
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

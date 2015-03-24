@@ -46,7 +46,7 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
     $scope.quest = {}; //curent quest object, via ng-change
     $scope.stepList = []; //list of current steps.
     $scope.questExists = false;
-    $scope.selectedQuest;
+    $scope.selectedQuest={};
     $scope.tabs = [{
         label: "Edit Quest",
         state: "edit.quest"
@@ -67,6 +67,7 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
         //save the quest
         QuestFactory.getQuestsByUser(user._id).then(function(questList) {
             $scope.questList = questList;
+            $scope.selectedQuest = $scope.questList[0];
         });
     })
     $scope.saveFullQuest = function() {
@@ -102,8 +103,12 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
     };
     $scope.pickQuest = function(id) {
         //this needs to get a quest by id and then get its associated steps
+        console.log(id);
         QuestFactory.getStepListById(id).then(function(data) {
-            $scope.stepList = data;
+            // $scope.stepList = data;
+            angular.copy(data,$scope.stepList);
+            console.log('Data Received: ',data)
+            console.log('Data that stepList has:',$scope.stepList)
         });
     };
 
@@ -113,21 +118,33 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
     $scope.showData = function() {
         console.log('Quest List:', $scope.questList, ', Quest: ', $scope.quest, ', Steps: ', $scope.stepList);
     };
+    $scope.correctAns = function(ansNum,stepId){
+        //this function simply chooses the correct answer for the multi-choice answers.
+        console.log('Correct: ',ansNum,'ID: ',stepId)
+        for (var i=0;i<$scope.stepList.length-1;i++){
+            // if ($scope.stepList[i].corr)
+        }
+    }
+
+    $state.go('edit.quest');
 
 });
 
 app.controller('editQuest', function($scope) {
-    window.addEventListener('beforeunload', function(e) {
-        e.returnValue = "You haven't saved! Click Okay to continue without saving, or Cancel to stay on this page!";
-    })
+    // window.addEventListener('beforeunload', function(e) {
+    //     e.returnValue = "You haven't saved! Click Okay to continue without saving, or Cancel to stay on this page!";
+    // })
 });
 
 app.controller('editStep', function($scope) {
-    
+    console.log($scope.$parent.stepList);
+    $scope.testTypes = ['Multiple Choice','Fill-in', 'Short Answer'];
 });
 
 app.controller('editQuestMap', function($scope) {
+    //lists quest on a nice, pretty map.
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList);
+    
     $scope.divsTop = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80];
     $scope.divsLeft = [0, 5, 10, 5, 0, 5, 10, 5, 0, 5, 10, 5, 0, 5, 10, 5, 0];
     $scope.$parent.currState = 'Map';

@@ -11,14 +11,18 @@ var schema = new mongoose.Schema({
     privacy: {
         type: Boolean
     },
-    open: {
+    active: {
         type: Boolean
     },
     participants: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
-        }],
-    title: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    title: {
+        type: String,
+        required: true,
+        unique: true
+    },
     description: String
 });
 
