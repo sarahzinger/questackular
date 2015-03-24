@@ -1,0 +1,41 @@
+<div class="col-md-8">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Picked</th>
+                <th>Quest Title</th>
+                <th>Quest Description</th>
+                <th>Open?</th>
+                <th>Participants</th>
+                <th>Remove?</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat='quest in questList'>
+                <td><input type='radio' name='pickedQuest' value='{{quest.title}}' ng-change='$parent.pickQuest(quest._id)' ng-model='$parent.selectedQuest'></td>
+                <td editable-text='quest.title'>{{quest.title}}</td>
+                <td editable-text='quest.description'>{{quest.description}}</td>
+                <td editable-checkbox='quest.open'>
+                    {{quest.open && "&#9745;" || "&#9744;"}}
+                </td>
+                <td editable-text='quest.participants'>
+                    <span ng-if='quest.participants.length>0'>{{quest.participants}}</span>
+                    <span ng-if='quest.participants.length<=0'>No participants yet!</span>
+                </td>
+                <td>
+                    <button class='removeQuestButton'>X</button>
+                </td>   
+            </tr>
+        </tbody>
+    </table>
+    <button ng-click='$parent.showData()'>SHOW DATA. ALSO DELETE ME. HI EVERYONE</button>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <div class="pull-right">
+                <button type="button" class="btn btn-success" ng-click='$parent.saveFullQuest()'>Save</button>
+                <button class="btn btn-primary" ui-sref="{{ tabs[1].state && !tab.disabled}}" ng-click="tabs[1].active = true">Next</button>
+                <button class="btn btn-default clearButton" ng-click="$parent.clearData();">Clear</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -41,6 +41,14 @@ router.get('/', function (req, res) {
     });
 });
 
+router.get('/user/:id',function(req,res,next){
+    console.log(req.params);
+    var user = req.params.id;
+    mongoose.model('Quest').find({owner:user},function(err,quests){
+        res.send(quests);
+    })
+})
+
 router.get('/:id', function (req, res) {
     var questId = req.params.id;
     mongoose.model('Quest').find({_id: questId}).exec(function(err,quest) {
@@ -85,3 +93,4 @@ router.post('/:id', function (req, res) {
             res.json(req.body);
     });
 });
+

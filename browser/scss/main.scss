@@ -19,7 +19,7 @@ body {
   left:10px;
   width:96vw;
   height:100vh;
-  background-image: url('/js/create/mapBg.jpg');
+  background-image: url('/js/common/map.png');
   border:2px solid #f00;
   padding:3px;
   .mapItem{
@@ -45,6 +45,17 @@ body {
   }
 }
 
+.removeQuestButton{
+  width:25px;
+  height:25px;
+  background-color: #a55;
+  color:#fff;
+  text-align: center;
+  &:hover{
+    background-color: #922;
+  }
+}
+
 @mixin clearfix {
   &:after {
     content: "";
@@ -52,7 +63,9 @@ body {
     clear: both;
   }
 }
-
+.navbar-brand{
+  cursor:pointer;
+}
 // @import 'directives/main';
 // @import 'home/main';
 // @import 'about/main';
