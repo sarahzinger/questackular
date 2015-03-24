@@ -34,12 +34,13 @@ app.config(function($stateProvider) {
 });
 
 
-app.controller('CreateCtrl', function($scope, QuestFactory, AuthService,$state) {
+app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state) {
     //the following scope vars are 'parental' to the child scopes. 
 
     //We need them here so that clicking 'save' on any page saves the entire quest+steps group
     $scope.currState = 'quest';
     $scope.quest = {}; //curent quest object, via ng-change
+    $scope.quest.actInact = 'active';
     $scope.stepList = []; //list of current steps.
     $scope.questExists = false;
     $scope.tabs = [{
@@ -54,7 +55,7 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService,$state) 
         state: "create.map",
         disabled: $scope.noQuest
     }];
-    if (sessionStorage.newQuest){
+    if (sessionStorage.newQuest) {
         $scope.questExists = true;
     }
     $scope.saveFullQuest = function() {
@@ -66,20 +67,20 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService,$state) 
             }
         }
         //parse and readjust quest
-        ($scope.quest.openClosed === 'open') ? $scope.quest.open = true: $scope.quest.open = false;
+        ($scope.quest.actInact === 'active') ? $scope.quest.active = true: $scope.quest.active = false;
         ($scope.quest.pubPriv === 'private') ? $scope.quest.privacy = true: $scope.quest.privacy = false;
-        delete $scope.quest.openClosed;
+        delete $scope.quest.actInact;
         delete $scope.quest.pubPriv;
         //final-presave stuff: get the current user ID
         AuthService.getLoggedInUser().then(function(user) {
             $scope.quest.owner = user._id;
             //save the quest
             QuestFactory.sendQuest($scope.quest).then(function(questId) {
-                console.log('quest item:',questId);
+                console.log('quest item:', questId);
                 $scope.stepList.forEach(function(item) {
                     item.quest = questId;
                     //save this step
-                    QuestFactory.sendStep(item).then(function(data){
+                    QuestFactory.sendStep(item).then(function(data) {
                         console.log('Saved quest! Woohoo!')
                             //redirect, clear vars on NEXT PAGE!
                         $state.go('thanks');
@@ -98,6 +99,8 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService,$state) 
             $scope.questExists = false;
         }
     };
+
+    $state.go('create.quest');
 });
 
 app.controller('CreateQuest', function($scope) {
@@ -125,8 +128,6 @@ app.controller('CreateStep', function($scope) {
         type: 'Fill-in'
     }, {
         type: 'Short Answer'
-    }, {
-        type: 'Find Me'
     }];
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList); //get steps on list
     $scope.saveStep = function(step) {
@@ -159,14 +160,77 @@ app.controller('CreateStep', function($scope) {
         angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList)
             // $scope.$parent.stepList = angular.fromJson(sessionStorage.stepStr);
 
-        step = {}; //clear step
+        $scope.step = {}; //clear step
     };
 
 });
 
 app.controller('QuestMap', function($scope) {
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList);
-    $scope.divsTop = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80];
-    $scope.divsLeft = [0, 5, 10, 5, 0, 5, 10, 5, 0, 5, 10, 5, 0, 5, 10, 5, 0];
+
+    //GIANT LIST O TEST DATA!
+    $scope.$parent.stepList = [{
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }, {
+        question: 'Test',
+        pointValue: 50
+    }];
+    $scope.divsLeft= [18,116,90,40,160,198,250,280,365,470,480,460,0,0,0,0,0,0,0,0];
+    $scope.divsTop = [67,120,190,260,310,250,183,110,40,100,180,270,0,0,0,0,0,0,0,0];
     $scope.$parent.currState = 'Map';
 });

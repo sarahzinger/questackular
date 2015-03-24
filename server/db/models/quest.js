@@ -11,11 +11,14 @@ var schema = new mongoose.Schema({
     privacy: {
         type: Boolean
     },
-    open: {
+    active: {
         type: Boolean
     },
     participants: [String],
-    title: String,
+    title: {
+        type: String,
+        required: true
+    },
     description: String
 });
 

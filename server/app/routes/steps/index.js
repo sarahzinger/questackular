@@ -15,7 +15,10 @@ router.post('/save', function(req, res, next) {
             //save the step
             console.log('We are saving a step!Yay!');
             console.log(req.body);
+            console.log(step);
+
             mongoose.model('Step').create(req.body).then(function(data) {
+                console.log('HELLO');
                 res.send('Saved!');
             });
         }

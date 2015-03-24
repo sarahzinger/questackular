@@ -22,8 +22,8 @@ app.config(function($stateProvider) {
 app.controller('thanksCtrl', function($scope) {
     $scope.quest = angular.fromJson(sessionStorage.newQuest);
     $scope.steps = angular.fromJson(sessionStorage.stepStr);
-    // sessionStorage.removeItem('newQuest');
-    // sessionStorage.removeItem('stepStr');
+    sessionStorage.removeItem('newQuest');
+    sessionStorage.removeItem('stepStr');
     console.log('Quest Obj', $scope.quest);
     console.log('Steps Obj', $scope.steps);
     //this gets the 
