@@ -7,10 +7,13 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope) {
 
-            // scope.items = [
-            //     { label: 'Create a Quest', state: 'create.quest' }
-            //     // { label: 'Members Only', state: 'membersOnly', auth: true }
-            // ];
+            scope.items = [{
+                label: 'Create a Quest', state: 'create.quest' 
+            }, {
+                label: 'Embark on a Quest', state: 'embark' 
+            }, {
+                label: 'My Quests', state: 'MyQuests' 
+            }];
 
             scope.user = null;
 
