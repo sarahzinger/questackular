@@ -25,14 +25,14 @@ var schema = new mongoose.Schema({
         stepsPurchased:[Number]
     }],
 
-    pastQuests: [{
-        questId: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Quest'
-        },
-        points: Number,
-        stpesPurchased: [Number]
-    }], 
+    // pastQuests: [{
+    //     questId: {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: 'Quest'
+    //     },
+    //     points: Number,
+    //     stpesPurchased: [Number]
+    // }], 
     google: {
         id: String,
         name: String,

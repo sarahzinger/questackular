@@ -34,6 +34,6 @@ app.controller('MyQuestsCtrl', function ($scope, UserFactory, QuestFactory){
     UserFactory.getCurrentUser().then(function (user) {
       $scope.questsJoined = user.participating;
     });
-    // immediately update info on
+    
   };
 });

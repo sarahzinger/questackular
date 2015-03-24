@@ -4,6 +4,7 @@
 	<!-- table begins -->
 	<div class="container">
 	    <p>Click the filter icon <small>(<i class="glyphicon glyphicon-filter"></i>)</small></p>
+	    <alert ng-show="alert.show" type="alert.type" close="closeAlert()">{{alert.msg}}</alert>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-primary">
@@ -36,7 +37,7 @@
 								<td>{{quest.open}}</td>
 								<td><button class='btn btn-xs btn-success glyphicon glyphicon-hand-right' ng-click="joinQuest(quest)"></button></td>
 							</tr>
-						
+							
 						</tbody>
 					</table>
 				</div>

@@ -18,7 +18,9 @@ router.get('/:id', function(req, res, next) {
 		    		res.json(userInfo);
 	            });	
     		}
-    		// eventually we will need to do async stuff so that both "participating" and "pastQuests"
+    		res.json(userInfo);
+
+    		// MAYBE??? eventually we will need to do async stuff so that both "participating" and "pastQuests"
        //      async.parallel([
        //      	function(done) {
        //      		if (userInfo.participating.length) {

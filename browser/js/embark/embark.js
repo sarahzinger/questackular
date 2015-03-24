@@ -33,12 +33,25 @@ app.controller('EmbarkCtrl', function ($scope, QuestFactory, AuthService){
     };
 
     $scope.joinQuest = function(quest) {
+        // if already joined, do something
+
         AuthService.getLoggedInUser().then(function (user) {
             $scope.userId = user._id;
             quest.participants.push($scope.userId);
             QuestFactory.joinQuest(quest);
         });
 
-        // participating [ questId, current]
+
     }
+
+    $scope.alert = { type: 'success', msg: 'You\'ve successfully joined the quest.', show: false };
+    // $scope.alerts = [
+    //     { type: 'danger', msg: 'You are already participating in this quest.', show: false },
+    //     { type: 'success', msg: 'You\'ve successfully joined the quest.', show: false }
+    // ];
+
+
+    $scope.closeAlert = function() {
+        $scope.alerts.splice(index, 1);
+    };
 });

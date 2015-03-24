@@ -76,11 +76,11 @@
 						<tbody>
 							<tr ng-repeat="quest in questsJoined track by $index">
 								<td>{{$index + 1}}</td>
-								<td>{{quest.title}}</td>
-								<td>{{quest.description}}</td>
+								<td>{{quest.questId.title}}</td>
+								<td>{{quest.questId.description}}</td>
 								<!-- <td>{{quest.open}}</td> -->
 								<td><button class='btn btn-xs btn-info glyphicon glyphicon-arrow-right'></button></td>
-								<td><button class='btn btn-xs btn-danger glyphicon glyphicon-remove' ng-click="leaveQuest(quest._id, userId)"></button></td>
+								<td><button class='btn btn-xs btn-danger glyphicon glyphicon-remove' ng-click="leaveQuest(quest.questId._id, userId)"></button></td>
 							</tr>
 						
 						</tbody>
