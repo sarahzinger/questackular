@@ -17,7 +17,8 @@ var schema = new mongoose.Schema({
     participants: [String],
     title: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     description: String
 });
