@@ -47,11 +47,19 @@ body {
 
 .correctMultiAns{
   background-color: #cfc;
-  &::after{
-    content:'☜'
+}
+.multAnsPik{
+  transition-duration:.25s;
+  cursor:pointer;
+  &:hover{
+    font-weight:bold;
+    font-size:large;
   }
 }
-
+.editAddStep{
+  background-color:#ddd;
+  padding:5px
+}
 
 .removeQuestButton{
   width:25px;
@@ -62,6 +70,9 @@ body {
   &:hover{
     background-color: #922;
   }
+}
+.multiDiv{
+  display:inline-block;
 }
 
 @mixin clearfix {
