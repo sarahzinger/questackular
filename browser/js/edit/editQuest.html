@@ -1,4 +1,10 @@
 <div class="col-md-8">
+    <div>
+        <alert ng-repeat="alert in alerts" ng-show="alert.show" class="alert.type" close="closeAlert($index)">
+            <div style='font-size:xx-large;'>!</div>
+            <div>{{alert.msg}}</div>
+        </alert>
+    </div>
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">Editable Quests</h3>
@@ -8,6 +14,7 @@
                 </span>
             </div>
         </div>
+
         <table class="table table-hover" id="dev-table">
             <thead>
                 <tr>
@@ -19,16 +26,32 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat='quest in questList'>
+                <!-- show 1st block if quests are inactive, and thus editable -->
+                <tr ng-repeat='quest in questList' ng-if='quest.active==false'>
                     <td>
                         <input type='radio' name='pickedQuest' value='{{quest.title}}' ng-change='$parent.pickQuest(quest._id)' ng-model='$parent.selectedQuest'>
                     </td>
                     <td editable-text='quest.title'>{{quest.title}}</td>
                     <td editable-text='quest.description'>{{quest.description}}</td>
-                    <td editable-checkbox='quest.open'>
-                        {{quest.open && "&#9745;" || "&#9744;"}}
+                    <td>
+                        <input type='checkbox' ng-model='quest.active' checked='false' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
                     </td>
                     <td editable-text='quest.participants'>
+                        <span ng-if='quest.participants.length>0'>{{quest.participants}}</span>
+                        <span ng-if='quest.participants.length<=0'>No participants yet!</span>
+                    </td>
+                </tr>
+                <!-- show 2nd block if quests are active, and thus ineditable -->
+                <tr ng-repeat='quest in questList' ng-if='quest.active==true'>
+                    <td>
+                        <input type='radio' name='pickedQuest' value='{{quest.title}}' ng-change='$parent.pickQuest(quest._id)' ng-model='$parent.selectedQuest' disabled title='You can&rsquo;t edit an active quest!'>
+                    </td>
+                    <td>{{quest.title}}</td>
+                    <td>{{quest.description}}</td>
+                    <td>
+                        <input type='checkbox' ng-model='quest.active' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
+                    </td>
+                    <td>
                         <span ng-if='quest.participants.length>0'>{{quest.participants}}</span>
                         <span ng-if='quest.participants.length<=0'>No participants yet!</span>
                     </td>

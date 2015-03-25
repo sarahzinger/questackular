@@ -14,6 +14,9 @@
                 </span>
                 </div>
             </div>
+            <div class="panel-body" ng-show="searchBox">
+                <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" />
+            </div>
             <table class="table table-hover" id="dev-table">
                 <thead>
                     <tr>
@@ -25,6 +28,7 @@
                         <th>Tags</th>
                         <th>Clues</th>
                         <th>Answer(s)</th>
+                        <th>Remove</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,22 +45,109 @@
                             <span ng-if='step.clues.length<=0'>No clues yet!</span>
                         </td>
                         <td ng-if="step.qType=='Multiple Choice'">
-                            <div editable-text>{{step.multipleAns[0].ans || "nothing yet!"}}</div>
 
-                            {{step.multiAnsCor}}
-                            <div editable-text='step.multipleAns[0]' ng-class='{correctMultiAns:step.multiAnsCor=="0"}' ng-click='$parent.correctAns(0,step._id);'>1: {{step.multipleAns[0] || "nothing yet!"}}</div>
-                            <div editable-text='step.multipleAns[1]' ng-class='{correctMultiAns:step.multiAnsCor=="1"}' ng-click='$parent.correctAns(1,step._id);'>2: {{step.multipleAns[1] || "nothing yet!"}}</div>
-                            <div editable-text='step.multipleAns[2]' ng-class='{correctMultiAns:step.multiAnsCor=="2"}' ng-click='$parent.correctAns(2,step._id);'>3: {{step.multipleAns[2] || "nothing yet!"}}</div>
-                            <div editable-text='step.multipleAns[3]' ng-class='{correctMultiAns:step.multiAnsCor=="3"}' ng-click='$parent.correctAns(3,step._id);'>4: {{step.multipleAns[3] || "nothing yet!"}}</div>
+                            <div style='font-size:x-small'>Click '☜' to designate a correct answer!</div>
+                            <div editable-text='step.multipleAns[0]' ng-class='{correctMultiAns:step.multiAnsCor=="0"}' class='multiDiv'>1): {{step.multipleAns[0] || "nothing yet!"}}</div>
+                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(0,step._id);'>☜</div>
+                            <br/>
+                            <div editable-text='step.multipleAns[1]' ng-class='{correctMultiAns:step.multiAnsCor=="1"}' class='multiDiv'>2): {{step.multipleAns[1] || "nothing yet!"}}</div>
+                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(1,step._id);'>☜</div>
+                            <br/>
+                            <div editable-text='step.multipleAns[2]' ng-class='{correctMultiAns:step.multiAnsCor=="2"}' class='multiDiv'>3): {{step.multipleAns[2] || "nothing yet!"}}</div>
+                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(2,step._id);'>☜</div>
+                            <br/>
+                            <div editable-text='step.multipleAns[3]' ng-class='{correctMultiAns:step.multiAnsCor=="3"}' class='multiDiv'>4): {{step.multipleAns[3] || "nothing yet!"}}</div>
+                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(3,step._id);'>☜</div>
                         </td>
                         <td ng-if="step.qType=='Fill-in'">
                             <span editable-text='step.fillIn'>{{step.fillIn}}</span>
                         </td>
                         <td ng-if="step.qType=='Short Answer'">(short answers must be reviewed by Quest Creator)</td>
+                        <td>
+                            <button ng-click='$parent.removeStep(step)' class='btn btn-danger'>X</button>
+                        </td>
                     </tr>
                 </tbody>
-            </table>
 
+            </table>
+            <hr/>
+            <div ng-if='$parent.addForm==false'>
+                <button ng-click='addStep();' class='btn btn-success' title='Add a step'>+</button>Add a step!
+            </div>
+            <form name='stepForm' ng-if='$parent.addForm==true' class='editAddStep'>
+                <hr/>
+                <button class='btn btn-info' ng-click='removeForm()' title='Nevermind!' type='button'>x</button>
+                <div id="legend">
+                    <legend>Add a step!</legend>
+                </div>
+                <!-- the actual content! -->
+                <div class="form-group">
+                    <label for='mainQ'>Question:
+                        <input type='text' class="form-control" required name='mainQ' ng-model='newStep.question' />
+                        <p class="help-block">Enter your new question.</p>
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="tags">Tags</label>
+                    <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="newStep.tags" required ng-change='saveQuest()'>
+                </div>
+                <div class="form-group">
+                    <label for='pointsQ'>Point value:
+                        <input type='number' class="form-control" required name='pointsQ' ng-model='newStep.pointValue' />
+                        <p class="help-block">Number of points awarded for a correct answer.</p>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for='typeQ'>What kind of question is it?:
+                        <select class="form-control" ng-model='newStep.qType' ng-change='updateQuestionFields();' name='typeQ' required>
+                            <option ng-repeat="test in testTypes" value='{{test}}'> {{test}}
+                        </select>
+                        <p class="help-block">Select the type of question you would like to add.</p>
+                    </label>
+                </div>
+                <!-- Generic Question section. Shows always -->
+
+                <!-- Multiple Choice section -->
+                <div class='form-group' ng-if='newStep.qType=="Multiple Choice"'>
+                    <p class="help-block">Please enter some answer options.</p>
+                    <label class="form-inline" for='multiAns1'>Answer option 1:
+                        <input class="form-control" type='text' name='multiAns1' ng-model='newStep.ans1'>
+                        <input type='radio' name='correctAnsPick' value='1' checked ng-model='step.multiAnsCor' />Pick this answer
+                    </label>
+                    <br/>
+                    <label class="form-inline" for='multiAns2'>Answer option 2:
+                        <input class="form-control" type='text' name='multiAns2' ng-model='newStep.ans2'>
+                        <input type='radio' name='correctAnsPick' value='2' checked ng-model='step.multiAnsCor' />Pick this answer
+                    </label>
+                    <br/>
+                    <label class="form-inline" for='multiAns3'>Answer option 3:
+                        <input class="form-control" type='text' name='multiAns3' ng-model='newStep.ans3'>
+                        <input type='radio' name='correctAnsPick' value='3' checked ng-model='step.multiAnsCor' />Pick this answer
+                    </label>
+                    <br/>
+                    <label class="form-inline" for='multiAns4'>Answer option 4:
+                        <input class="form-control" type='text' name='multiAns4' ng-model='newStep.ans4'>
+                        <input type='radio' name='correctAnsPick' value='4' checked ng-model='step.multiAnsCor' />Pick this answer
+                    </label>
+                    <br/>
+                </div>
+                <!-- Fill-In -->
+                <div class='form-group' ng-if='newStep.qType=="Fill-in"'>
+                    <label for='ansTextArea'>Answer?
+                        <input type='text' class="form-control" name='ansTextArea' ng-model='newStep.fillIn'>
+                    </label>
+                    <br/>
+                </div>
+                <!-- iframe for page stuff -->
+                <div class='form-group'>
+                    <label for='urlBox'>Page Url?
+                        <input type='text' class="form-control" name='urlBox' ng-model='newStep.url'>
+                    </label>
+                    <br/>
+                </div>
+                <button type="button" class="btn btn-default" ng-click='saveStep(newStep)'>Create Step</button>
+            </form>
         </div>
         <button ng-click='$parent.showData()'>SHOW DATA. ALSO DELETE ME. HI EVERYONE</button>
         <!-- save or move to next state -->
