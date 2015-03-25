@@ -1,4 +1,4 @@
-<section id="checkout">
+<section id="navbar">
     <div>
         <tabset justified="true">
             <tab ng-repeat="tab in tabs" ui-sref="{{ tab.state }}" heading="{{ tab.label }}" active="tab.active" disabled="tab.disabled" ng-if="tab.label=='New Quest' || (questExists == true && tab.label!='New Quest')">
@@ -10,3 +10,4 @@
         <ui-view></ui-view>
     </div>
 </section>
+
