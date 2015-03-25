@@ -2,23 +2,31 @@
 <head>
     <title>popup</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/angular-csp.css">
 </head>
 
-<body ng-app='scavenge' ng-controller='extCont' >
-    <div id='env'>
+<body ng-app='QuestackularExt' ng-controller='extCont' >
+    <div ng-hide="loggedIn" id='env'>
         <div id='cont'>
         	<!-- the actual content! -->
-            <button ng-hide="loggedIn" id='login' ng-click='login()'>Log In through Google</button>
-            <h4 ng-show="loggedIn">Hello, {{name}}!</h4>
+            <button id='login' ng-click='login()'>Log In through Google</button>
         </div>
-    </div>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src='/js/angular.min.js'></script>
-    <script src='/js/mainExt.js'></script>
-    <script src='/js/factories/userFactory.js'></script>
-    <script src='/js/popup.js'></script>
+    <div>
 
+    <div ng-show="loggedIn">
+        <navbar></navbar>
+        <h4>Hello, {{name}}!</h4>
+        <ui-view></ui-view>
+    </h4="loggedIn">
+
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src='/js/dependencies/angular.min.js'></script>
+    <script src='/js/dependencies/angular-ui-router.min.js'></script>
+    <script src='/js/dependencies/ui-bootstrap-tpls.min.js'></script>
+    <script src='/js/popup.js'></script>
+    <script src='/js/main.js'></script>
 
 </body>
 
