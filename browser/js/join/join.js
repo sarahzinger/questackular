@@ -22,8 +22,8 @@ app.config(function ($stateProvider) {
 
 app.controller('JoinCtrl', function ($scope, QuestFactory, AuthService){
     $scope.alerts = [
-        { type: 'danger', msg: 'You are already participating in this quest.', show: false },
-        { type: 'success', msg: 'You\'ve successfully joined the quest.', show: false }
+        { type: 'alert-danger', msg: 'You are already participating in this quest.', show: false },
+        { type: 'alert-success', msg: 'You\'ve successfully joined the quest.', show: false }
     ];
 
     QuestFactory.getAllQuests().then(function(quests) {
