@@ -86,6 +86,21 @@ describe('Server', function () {
 	// 	});
 	// });
 
+describe('POST /steps', function () {
+		it('should create a new step', function (done) {
+			agent
+				.post('/api/steps')
+				.send({url: "google.com", pointValue: 10, question: "What's a question?", qType: 'fillIn'})
+				.end(function (err, response) {
+					Quest.findOne({url: "google.com", pointValue: 10, question: "What's a question?", qType: 'fillIn'}, function (err, returnedStep) {
+						expect(returnedStep).to.exist;
+						expect(returnedStep.pointValue).to.equal(10);
+						done();
+					});
+			});
+		});
+	});
+
 
 
 	
