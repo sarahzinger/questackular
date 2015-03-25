@@ -45,6 +45,7 @@
                             <span ng-if='step.clues.length<=0'>No clues yet!</span>
                         </td>
                         <td ng-if="step.qType=='Multiple Choice'">
+
                             <div style='font-size:x-small'>Click '☜' to designate a correct answer!</div>
                             <div editable-text='step.multipleAns[0]' ng-class='{correctMultiAns:step.multiAnsCor=="0"}' class='multiDiv'>1): {{step.multipleAns[0] || "nothing yet!"}}</div>
                             <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(0,step._id);'>☜</div>

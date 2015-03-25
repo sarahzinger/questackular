@@ -111,8 +111,7 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
                     //save this step
                     QuestFactory.sendStep(item).then(function(data) {
                         console.log('Saved quest! Woohoo!')
-                            //redirect, clear vars on NEXT PAGE!
-                        $state.go('thanks');
+    ]
                     });
                 });
                 //yes, this is and the above foreach are asynchronous, but the completion of the save does not depend upon the removal of stepsToRemove quest (or vice-versa)

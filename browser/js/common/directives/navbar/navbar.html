@@ -12,7 +12,7 @@
     <!--  end of navbar-header -->
     <div class="collapse navbar-collapse" id="nav-states">
       <ul class="nav navbar-nav">
-        <li ng-repeat="item in items"><a ui-sref="item.state">{{item.label}}</a></li>
+        <li ng-repeat="item in items"><a ui-sref="{{item.state}}">{{item.label}}</a></li>
       </ul>
 
       <div ng-show="user" class="nav navbar-nav nav-bar navbar-right">
