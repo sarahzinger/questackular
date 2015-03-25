@@ -12,7 +12,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             scope.items = [{
                 label: 'Create a Quest', state: 'create.quest' 
             }, {
-                label: 'Embark on a Quest', state: 'embark' 
+                label: 'Join a Quest', state: 'join' 
             }, {
                 label: 'My Quests', state: 'MyQuests' 
             }];
