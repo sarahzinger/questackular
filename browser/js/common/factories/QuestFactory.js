@@ -37,11 +37,25 @@ app.factory('QuestFactory', function($http, AuthService) {
             //get all quests 'owned' by user
             return $http.get('/api/quests/user/' + id).then(function(res) {
                 return res.data;
-            })
+            });
         },
         getStepListById: function(id) {
             //gets a bunch of steps by their Quest ID
             return $http.get('/api/step/list/' + id).then(function(res) {
+                return res.data;
+            });
+        },
+        remStep: function(id){
+            //delete a step. only necessary if step has an ID 
+            //(i.e., step already is on DB)
+            return $http.get('/api/step/rem/'+id).then(function(res){
+                return res.data;
+            });
+        },
+        updateStep: function(updatedStep) {
+            //mongoose seems to ಥ_ಥ when we try to re-save an object id.
+            //SO we're doing a findbyidandupdate
+            return $http.post('/api/step/upd',updatedStep).then(function(res){
                 return res.data;
             });
         }
