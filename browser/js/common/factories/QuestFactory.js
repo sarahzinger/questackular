@@ -3,13 +3,13 @@ app.factory('QuestFactory', function($http, AuthService) {
     return {
         sendStep: function(step) {
             //saves the quest
-            return $http.post('/api/step/save', step).then(function(response) {
+            return $http.post('/api/step', step).then(function(response) {
                 return response.data;
             });
         },
         sendQuest: function(quest) {
             //saves the quest, returns its ID
-            return $http.post('/api/quests/save', quest).then(function(response) {
+            return $http.post('/api/quests', quest).then(function(response) {
                 return response.data;
             });
         },
@@ -24,15 +24,12 @@ app.factory('QuestFactory', function($http, AuthService) {
             });
         },
         joinQuest: function(questInfo) {
-            return $http.post('/api/quests/' + questInfo._id + "/join", questInfo).then(function(response) {
+            return $http.post('/api/quests/participants', questInfo).then(function(response) {
                 console.log(response);
             });
         },
-        leaveQuest: function(questId, userId) {
-            return $http.post('/api/quests/' + questId + "/leave", {
-                quest: questId,
-                user: userId
-            }).then(function(response) {
+        leaveQuest: function(questId) {
+            return $http.delete('/api/quests/participants/'+questId).then(function(response) {
                 console.log(response);
             });
         },

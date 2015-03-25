@@ -1,10 +1,12 @@
 <div>
 	<h1>Join a Quest</h1>
-
+	<div>
+		<alert ng-repeat="alert in alerts" ng-show="alert.show" class="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+	
 	<!-- table begins -->
 	<div class="container">
 	    <p>Click the filter icon <small>(<i class="glyphicon glyphicon-filter"></i>)</small></p>
-	    <alert ng-show="alert.show" type="alert.type" close="closeAlert()">{{alert.msg}}</alert>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-primary">

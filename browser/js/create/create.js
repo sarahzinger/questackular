@@ -131,23 +131,25 @@ app.controller('CreateStep', function($scope) {
     }];
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList); //get steps on list
     $scope.saveStep = function(step) {
-        if (step.type === "Multiple Choice") {
+        if ($scope.step.qType === "Multiple Choice") {
             //pushing a multi-choice q to the list
             //so we need to parse all of the answer options
-            step.multipleAns = [];
+            $scope.step.multipleAns = [];
             for (var n = 1; n < 5; n++) {
-                step.multipleAns.push(step['ans' + n]);
-                delete step['ans' + n];
+                console.log($scope.step['ans'+n]);
+                $scope.step.multipleAns.push(step['ans' + n]);
+                delete $scope.step['ans' + n];
+                console.log('multiAns so far: ',step.multiAns)
             }
-        } else if (step.type === "Short Answer") step.shortAns = false;
-        var tempTags = step.tags;
-        delete step.tags;
-        step.tags = tempTags.split(',').map(function(i) {
+        } else if ($scope.step.qType === "Short Answer") $scope.step.shortAns = false;
+        var tempTags = $scope.step.tags;
+        delete $scope.step.tags;
+        $scope.step.tags = tempTags.split(',').map(function(i) {
             return i.trim();
         });
         //give each step a number to go by.
-        step.stepNum = $scope.$parent.stepList.length + 1;
-        step.quest = 'NONE'; //this will get replaced once we save the parent quest and retrieve its ID.
+        $scope.step.stepNum = $scope.$parent.stepList.length + 1;
+        $scope.step.quest = 'NONE'; //this will get replaced once we save the parent quest and retrieve its ID.
 
         var stepsJson = angular.toJson(step);
         if (!sessionStorage.stepStr) {
