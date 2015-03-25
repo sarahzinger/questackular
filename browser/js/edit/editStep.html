@@ -41,6 +41,8 @@
                             <span ng-if='step.clues.length<=0'>No clues yet!</span>
                         </td>
                         <td ng-if="step.qType=='Multiple Choice'">
+                            <div editable-text>{{step.multipleAns[0].ans || "nothing yet!"}}</div>
+
                             {{step.multiAnsCor}}
                             <div editable-text='step.multipleAns[0]' ng-class='{correctMultiAns:step.multiAnsCor=="0"}' ng-click='$parent.correctAns(0,step._id);'>1: {{step.multipleAns[0] || "nothing yet!"}}</div>
                             <div editable-text='step.multipleAns[1]' ng-class='{correctMultiAns:step.multiAnsCor=="1"}' ng-click='$parent.correctAns(1,step._id);'>2: {{step.multipleAns[1] || "nothing yet!"}}</div>
