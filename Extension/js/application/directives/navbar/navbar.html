@@ -11,12 +11,12 @@
     </div> 
     <!--  end of navbar-header -->
     <div class="collapse navbar-collapse" id="nav-states">
-      <ul class="nav navbar-nav">
+<!--       <ul class="nav navbar-nav">
         <li ng-repeat="item in items"><a ui-sref="{{item.state}}">{{item.label}}</a></li>
-      </ul>
+      </ul> -->
 
       <div ng-show="user" class="nav navbar-nav nav-bar navbar-right">
-        <a ui-sref ="MyQuests" class="navbar-brand">Welcome, {{ user.google.name }}!</a>
+        <!-- <a ui-sref ="MyQuests" class="navbar-brand">Welcome, {{ user.google.name }}!</a> -->
         <div class ="navbar-brand" ng-click="logout()">Logout</div>
       </div>
     </div>

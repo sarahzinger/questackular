@@ -1,7 +1,7 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="nav-states">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -15,10 +15,10 @@
         <li ng-repeat="item in items"><a ui-sref="{{item.state}}">{{item.label}}</a></li>
       </ul>
 
-      <div ng-show="user" class="nav navbar-nav nav-bar navbar-right">
-        <a ui-sref ="MyQuests" class="navbar-brand">Welcome, {{ user.google.name }}!</a>
-        <div class ="navbar-brand" ng-click="logout()">Logout</div>
-      </div>
+      <ul ng-show="user" class="nav navbar-nav nav-bar navbar-right">
+        <li><a ui-sref ="MyQuests">Welcome, {{ user.google.name }}!</a></li>
+        <li><a ng-click="logout()">Logout</a></li>
+      </ul>
     </div>
     <!-- end navbar-collapse -->
   </div> 

@@ -21,7 +21,7 @@ var karma = require('karma').server;
 
 // Live reload business.
 gulp.task('buildJS', function () {
-    return gulp.src(['./js/popup.js', './js/application/**/*.js'])
+    return gulp.src(['./js/application/**/*.js'])
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(concat('main.js'))

@@ -12,20 +12,21 @@
         	<!-- the actual content! -->
             <button id='login' ng-click='login()'>Log In through Google</button>
         </div>
-    <div>
+    </div>
 
-    <div ng-show="loggedIn">
-        <navbar></navbar>
-        <h4>Hello, {{name}}!</h4>
-        <ui-view></ui-view>
-    </h4="loggedIn">
+    <navbar></navbar>
+    <div class="container" ng-show="loggedIn">
+        <div class="container">
+            <h4>Hello, {{name}}!</h4>
+            <div ui-view></div>
+        </div>
+    </div>
 
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src='/js/dependencies/jquery.min.js'></script>
+    <script src='/js/dependencies/bootstrap.min.js'></script>
     <script src='/js/dependencies/angular.min.js'></script>
     <script src='/js/dependencies/angular-ui-router.min.js'></script>
     <script src='/js/dependencies/ui-bootstrap-tpls.min.js'></script>
-    <script src='/js/popup.js'></script>
     <script src='/js/main.js'></script>
 
 </body>

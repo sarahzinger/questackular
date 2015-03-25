@@ -1,12 +1,12 @@
 'use strict';
 
 
-app.directive('navbar', function ($rootScope, UserFactory, $state, $stateProvider, $scope) {
+app.directive('navbar', function ($rootScope, UserFactory, $state) {
 
     return {
         restrict: 'E',
         scope: {},
-        templateUrl: 'js/common/directives/navbar/navbar.html',
+        templateUrl: 'js/application/directives/navbar/navbar.html',
         link: function (scope) {
 
             scope.items = [{
@@ -19,15 +19,15 @@ app.directive('navbar', function ($rootScope, UserFactory, $state, $stateProvide
 
             scope.user = null;
 
-            $scope.login = function() {
+            scope.login = function() {
                 window.open('localhost:1337/auth/google', '_blank');
             };
             
             
             var getName = function(){
                 UserFactory.getUserInfo().then(function(data){
-                    $scope.user = data.user;
-                    $scope.loggedIn = true;
+                    scope.user = data.user;
+                    scope.loggedIn = true;
                 });
                
             };
