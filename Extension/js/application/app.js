@@ -25,7 +25,7 @@ app.controller('extCont', function($scope, UserFactory) {
 
 });
 
-app.config(function ($urlRouterProvider, $locationProvider) {
+app.config(function ($urlRouterProvider, $locationProvider, $compileProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
     $locationProvider.html5Mode({
         enabled: true,
@@ -33,6 +33,12 @@ app.config(function ($urlRouterProvider, $locationProvider) {
     });
     // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
     $urlRouterProvider.otherwise('/');
+
+
+    // whitelist the chrome-extension: protocol 
+    // so that it does not add "unsafe:"   
+    $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
+    // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
 });
 
 // app.run(function ($rootScope, $state) {

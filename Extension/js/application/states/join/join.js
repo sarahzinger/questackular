@@ -13,7 +13,7 @@ app.config(function ($stateProvider) {
                 }
             },
         url: '/join',
-        templateUrl: 'js/join/join.html',
+        templateUrl: 'js/states/join/join.html',
         controller: 'JoinCtrl'
     });
 

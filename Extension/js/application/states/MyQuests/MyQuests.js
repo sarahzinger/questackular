@@ -12,7 +12,7 @@ app.config(function ($stateProvider) {
       }
     },
     url: '/MyQuests',
-    templateUrl: 'js/MyQuests/MyQuests.html', 
+    templateUrl: 'js/application/states/MyQuests/MyQuests.html', 
     controller: 'MyQuestsCtrl'
     });
 });

@@ -12,7 +12,7 @@ app.directive('navbar', function ($rootScope, UserFactory, $state) {
             scope.items = [{
                 label: 'Create a Quest', state: 'create.quest' 
             }, {
-                label: 'Join a Quest', state: 'join' 
+                label: 'Join a Quest', state: 'home' 
             }, {
                 label: 'My Quests', state: 'MyQuests' 
             }];

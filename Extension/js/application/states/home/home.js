@@ -13,7 +13,7 @@ app.config(function ($stateProvider) {
       }
     },
     url: '/home',
-    templateUrl: 'js/home/home.html', 
+    templateUrl: 'js/application/states/home/home.html', 
     controller: 'HomeCtrl'
     });
 });
