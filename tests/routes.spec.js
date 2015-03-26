@@ -63,48 +63,27 @@ describe('Server', function () {
 		});
 	});
 
-	// describe('POST /quests/participants', function () {
-	// 	it('should add participnats to a quest', function (done) {
-	// 		agent
-	// 			.post('/api/quests/participants')
-	// 			.send({title: 'Title of a Quest', description: 'Description of a Quest'})
-	// 			.end(function (err, response) {
-	// 				Quest.findOne({title: 'Title of a Quest'}, function (err, returnedQuest) {
-	// 					expect(returnedQuest).to.exist;
-	// 					expect(returnedQuest.title).to.equal('Title of a Quest');
-	// 					done();
-	// 				});
-	// 		});
-	// 	});
-	// });
-
-	// describe('DELETE /quests/participants/:id', function () {
-	// 	it('should get 404', function (done) {
-	// 		agent
-	// 			.delete('/api/quests/participants/:id')
-	// 			.expect(404, done);
-	// 	});
-	// });
-
-describe('POST /steps', function () {
+	describe('POST /step', function () {
 		it('should create a new step', function (done) {
 			agent
-				.post('/api/steps')
+				.post('/api/step')
 				.send({url: "google.com", pointValue: 10, question: "What's a question?", qType: 'fillIn'})
 				.end(function (err, response) {
-					Quest.findOne({url: "google.com", pointValue: 10, question: "What's a question?", qType: 'fillIn'}, function (err, returnedStep) {
+					Step.findOne({question: "What's a question?"}, function (err, returnedStep) {
 						expect(returnedStep).to.exist;
-						expect(returnedStep.pointValue).to.equal(10);
+						expect(returnedStep.question).to.equal("What's a question?");
 						done();
 					});
 			});
 		});
 	});
 
-
-
-	
-
-
+	describe('GET /step/list/:id', function () {
+		it('should get 200', function (done) {
+			agent
+				.get('/api/step/list/:id')
+				.expect(200, done);
+		});
+	});
 
 });
