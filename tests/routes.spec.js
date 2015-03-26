@@ -16,6 +16,10 @@ chai.use(spies);
 
 describe('Server', function () {
 
+	beforeEach(function (done) {
+		Quest.remove({}, done);
+	});
+
 	describe('GET /', function () {
 		it('should get 200 on index', function (done) {
 			agent
@@ -31,11 +35,12 @@ describe('Server', function () {
 				.send({title: 'Title of a Quest', description: 'Description of a Quest'})
 				.end(function (err, response) {
 					Quest.findOne({title: 'Title of a Quest'}, function (err, returnedQuest) {
+						console.log('returnedQuest', returnedQuest);
 						expect(returnedQuest).to.exist;
 						expect(returnedQuest.title).to.equal('Title of a Quest');
 						done();
 					});
-			});
+				});
 		});
 	});
 	
