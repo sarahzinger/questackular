@@ -1,19 +1,8 @@
 app.config(function ($stateProvider) {
 
     $stateProvider.state('join', {
-    	resolve: {
-                getLoggedInUser: function(AuthService, $state, $http){
-                    return AuthService.getLoggedInUser(true).then(function(user) {
-                        if (user) {
-                            return user;
-                        }else{
-                            $state.go("start");
-                        }
-                    });
-                }
-            },
         url: '/join',
-        templateUrl: 'js/states/join/join.html',
+        templateUrl: 'js/application/states/join/join.html',
         controller: 'JoinCtrl'
     });
 
