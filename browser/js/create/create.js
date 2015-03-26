@@ -134,10 +134,10 @@ app.controller('CreateStep', function($scope) {
             //so we need to parse all of the answer options
             $scope.step.multipleAns = [];
             for (var n = 1; n < 5; n++) {
-                console.log($scope.step['ans'+n]);
+                console.log($scope.step['ans' + n]);
                 $scope.step.multipleAns.push(step['ans' + n]);
                 delete $scope.step['ans' + n];
-                console.log('multiAns so far: ',step.multiAns)
+                console.log('multiAns so far: ', step.multiAns)
             }
         }
         var tempTags = $scope.step.tags;
@@ -170,8 +170,8 @@ app.controller('QuestMap', function($scope) {
 
     //GIANT LIST O TEST DATA!
     $scope.$parent.stepList = [{
-        question: 'Test',
-        pointValue: 50
+        question: 'What is your name?',
+        pointValue: 150
     }, {
         question: 'Test',
         pointValue: 50
@@ -230,7 +230,95 @@ app.controller('QuestMap', function($scope) {
         question: 'Test',
         pointValue: 50
     }];
-    $scope.divsLeft= [18,90,160,260,365,480,410,280,80,240,310,240,240,240,240,240,240,240,240,240,240,240];
-    $scope.divsTop = [67,190,310,180,40,180,330,440,560,700,850,1000,850,850,850,850,850,850,850,850,850,850];
+    //begin mapDraw code
+    $scope.c = document.getElementById('map');
+    $scope.cDraw = $scope.c.getContext('2d');
+    $scope.lefts = [];
+    $scope.tops = [];
+    var holding = false;
+    var num = $scope.$parent.stepList.length;
+
+
+    $scope.c.addEventListener('mousemove', function(e) {
+        x = e.x || e.clientX;
+        y = e.y || e.clientY;
+
+        x = x - 285 + $('body').scrollLeft();
+        y = y - 205 + $('body').scrollTop();
+        if (holding) {
+            var id = parseInt(currDiv.id.split('l')[1]);
+            $scope.lefts[id] = x;
+            $scope.tops[id] = y;
+            $scope.redrawNodes(num);
+        }
+    });
+
+    $scope.drawNodes = function(num) {
+        for (var i = 0; i < num; i++) {
+            var el = document.createElement('div');
+            el.className = 'cov';
+            el.id = 'el' + i;
+            el.innerHTML = '<div class="qExpl">Points: '+$scope.$parent.stepList[i].pointValue+'</div>' + $scope.$parent.stepList[i].question;
+            var lPos = (Math.random() * 900) + 25;
+            el.style.left = (lPos + 270) + 'px';
+            var tPos = (i * (1000 / num));
+            el.style.top = (tPos + 110) + 'px';
+            $scope.lefts.push(lPos);
+            $scope.tops.push(tPos);
+            el.onclick = function(e) {
+                $scope.moveThis(e);
+            };
+            $('#mapCont').append(el);
+        }
+        $scope.drawLines();
+    };
+
+    $scope.redrawNodes = function(num) {
+        for (var i = 0; i < num; i++) {
+            var el = document.getElementById('el' + i);
+            document.getElementById('el' + i).style.left = ($scope.lefts[i] + 270) + 'px';
+            document.getElementById('el' + i).style.top = ($scope.tops[i] + 110) + 'px';
+        }
+        $scope.cDraw.fillStyle = '#090';
+        $scope.cDraw.fillRect(0, 0, 1000, 1000);
+        $scope.c.width = $scope.c.width;
+        $scope.drawLines();
+    };
+
+    $scope.drawLines = function() {
+
+        for (var j = 0; j < num - 1; j++) {
+            var LS = $scope.lefts[j] + 30;
+            var LE = $scope.lefts[j + 1] + 30;
+            var TS = $scope.tops[j] + 15;
+            var TE = $scope.tops[j + 1] + 15;
+            $scope.cDraw.moveTo(LS, TS);
+            $scope.cDraw.lineTo(LE, TE);
+            $scope.cDraw.stroke();
+        }
+
+
+    };
+
+    $scope.moveThis = function(e) {
+        var banner = e.target.children[0];
+        if (!holding) {
+            //not currently holding, so can pick something up;
+            currDiv = e.target;
+            currDiv.style.zIndex = 5;
+            banner.style.height= '100px';
+            holding = true;
+        } else {
+            banner.style.height= 0;
+            currDiv.style.zIndex = 3;
+            holding = false;
+        }
+
+    }
+
+    $scope.drawNodes(num);
+    var x,
+        y,
+        currDiv;
     $scope.$parent.currState = 'Map';
 });

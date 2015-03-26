@@ -1,8 +1,5 @@
 <div>
-    <div id='mapBg'>
-        <div class='mapItem' ng-repeat='mapThing in $parent.stepList' style='left:{{divsLeft[$index]}}px;top:{{divsTop[$index]}}px'>
-            <h4>{{mapThing.question}}</h4>
-            Points:{{mapThing.pointValue}}
-        </div>
+    <div id='mapCont'>
+        <canvas id='map' width='1000' height='1000'>Your browser doesn't support canvas!</canvas>
     </div>
 </div>

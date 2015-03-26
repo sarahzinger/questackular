@@ -1,89 +1,116 @@
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
-
 body {
-	position: relative;
-	top: 80px;
+    position: relative;
+    top: 80px;
 }
-
-.clearButton{
-	background-color: #795455;
-	&:hover{
-    background-color: #3E292A;
-  }
-}
-#mapBg{
-  position:absolute;
-  top:100px;
-  left:10px;
-  width:1786px;
-  height:1504px;
-  background-image: url('/js/common/map.png');
-  border:2px solid #f00;
-  padding:3px;
-  .mapItem{
-    width:10vw;
-    height:10vh;
-    background-color:#FFF0E1;
-    box-shadow:2px 2px 4px #000;
-    position:absolute;
-    z-index:1;
-    transition-duration:.5s;
-    &:hover{
-      z-index:10;
-      transform:rotate(5deg);
+.clearButton {
+    background-color: #795455;
+    &:hover {
+        background-color: #3E292A;
     }
-    h4{
-      width:100%;
-      height:20px;
-      position:relative;
-      top:0px;
-      text-align: center;
-      background-color:#B9AB9C;
+}
+#mapBg {
+    position: absolute;
+    top: 100px;
+    left: 10px;
+    width: 1786px;
+    height: 1504px;
+    background-image: url('/js/common/map.png');
+    border: 2px solid #f00;
+    padding: 3px;
+    .mapItem {
+        width: 10vw;
+        height: 10vh;
+        background-color: #FFF0E1;
+        box-shadow: 2px 2px 4px #000;
+        position: absolute;
+        z-index: 1;
+        transition-duration: .5s;
+        &:hover {
+            z-index: 10;
+            transform: rotate(5deg);
+        }
+        h4 {
+            width: 100%;
+            height: 20px;
+            position: relative;
+            top: 0px;
+            text-align: center;
+            background-color: #B9AB9C;
+        }
     }
-  }
 }
-
-.correctMultiAns{
-  background-color: #cfc;
+.correctMultiAns {
+    background-color: #cfc;
 }
-.multAnsPik{
-  transition-duration:.25s;
-  cursor:pointer;
-  &:hover{
-    font-weight:bold;
-    font-size:large;
-  }
+.multAnsPik {
+    transition-duration: .25s;
+    cursor: pointer;
+    &:hover {
+        font-weight: bold;
+        font-size: large;
+    }
 }
-.editAddStep{
-  background-color:#ddd;
-  padding:5px
+.editAddStep {
+    background-color: #ddd;
+    padding: 5px
 }
-
-.removeQuestButton{
-  width:25px;
-  height:25px;
-  background-color: #a55;
-  color:#fff;
-  text-align: center;
-  &:hover{
-    background-color: #922;
-  }
+.removeQuestButton {
+    width: 25px;
+    height: 25px;
+    background-color: #a55;
+    color: #fff;
+    text-align: center;
+    &:hover {
+        background-color: #922;
+    }
 }
-.multiDiv{
-  display:inline-block;
+.multiDiv {
+    display: inline-block;
 }
-
 @mixin clearfix {
-  &:after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 }
-.navbar-brand{
-  cursor:pointer;
+.navbar-brand {
+    cursor: pointer;
+}
+#map {
+    position: absolute;
+    left: 270px;
+    top: 110px;
+    width: 1000px;
+    background-color: #090;
+    height: 1000px;
+    z-index: 1;
+}
+.cov {
+    position: absolute;
+    background-color: #ccc;
+    width: 200px;
+    height: 30px;
+    border-bottom: 5px outset #bbb;
+    border-top: 5px outset #bbb;
+    z-index: 3;
+    text-align: center;
+    box-shadow: 2px 2px 4px #000;
+    font-size:small;
+}
+.qExpl {
+    position: relative;
+    width: 200px;
+    top: 28px;
+    height: 0px;
+    background-color: #fed;
+    transition-duration: 1s;
+    overflow: hidden;
+    box-shadow: 2px 2px 4px #000;
+    font-size:small;
 }
 // @import 'directives/main';
 // @import 'home/main';
