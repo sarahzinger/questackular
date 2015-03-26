@@ -41,7 +41,7 @@
                         <td editable-text='step.url'>{{step.url}}</td>
                         <td editable-text='step.tags'>{{step.tags.join()}}</td>
                         <td editable-text='step.clues'>
-                            <span ng-if='step.clues.length>0'>{{step.clues}}</span>
+                            <span ng-if='step.clues.length>0'>{{step.clues.join()}}</span>
                             <span ng-if='step.clues.length<=0'>No clues yet!</span>
                         </td>
                         <td ng-if="step.qType=='Multiple Choice'">

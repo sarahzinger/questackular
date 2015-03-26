@@ -103,7 +103,6 @@ router.post('/participants', function (req, res) {
 // when a user "leaves" a quest
 router.delete('/participants/:id', function (req, res) {
     console.log("req.user", req.user);
-    // console.log("FUNNAY TIMES", req.body)
     async.parallel([
         function() {
             req.user.removeQuestFromUser(req.params.id, function(err, data){
@@ -120,5 +119,16 @@ router.delete('/participants/:id', function (req, res) {
             });
         }], function (err, data) {
             res.json(data);
+    });
+});
+
+
+router.post('/upd', function(req, res, next) {
+    //not sure if we can 'save' the id, so removing it
+    var theId = req.body._id;
+    delete req.body._id;
+
+    mongoose.model('Quest').findByIdAndUpdate(theId, req.body, function(err, updSt) {
+        res.send(updSt);
     });
 });
