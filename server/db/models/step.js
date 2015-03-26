@@ -24,15 +24,12 @@ var schema = new mongoose.Schema({
     multipleAns: [String],
     multiAnsCor: String,
     fillIn: String,
-    shortAns: Boolean,
     quest: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Quest'
     },
     tags: [String],
-    clues: [{
-        text: String,
-    }],
+    clues: [String],
     annotations: [{
         selector: String,
         replace: String
