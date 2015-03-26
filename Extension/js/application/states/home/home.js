@@ -3,10 +3,7 @@ app.config(function ($stateProvider) {
   $stateProvider.state('home', {
     url: '/',
     templateUrl: 'js/application/states/home/home.html', 
-    controller: 'HomeCtrl',
-    onEnter: function() {
-      console.log('on enter home state')
-    }
+    controller: 'HomeCtrl'
     });
 });
 
