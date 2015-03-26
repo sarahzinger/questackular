@@ -1,12 +1,6 @@
 'use strict';
 app.factory('QuestFactory', function($http, AuthService) {
     return {
-        sendStep: function(step) {
-            //saves the quest
-            return $http.post('/api/step', step).then(function(response) {
-                return response.data;
-            });
-        },
         sendQuest: function(quest) {
             //saves the quest, returns its ID
             return $http.post('/api/quests', quest).then(function(response) {
@@ -33,10 +27,21 @@ app.factory('QuestFactory', function($http, AuthService) {
                 console.log(response);
             });
         },
+        updateQuest: function(updatedQuest){
+            return $http.post('/api/quests/upd',updatedQuest).then(function(res){
+                return res.data;
+            });
+        },
         getQuestsByUser: function(id) {
             //get all quests 'owned' by user
             return $http.get('/api/quests/user/' + id).then(function(res) {
                 return res.data;
+            });
+        },
+        sendStep: function(step) {
+            //saves the quest
+            return $http.post('/api/step', step).then(function(response) {
+                return response.data;
             });
         },
         getStepListById: function(id) {

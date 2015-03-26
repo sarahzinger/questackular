@@ -121,3 +121,14 @@ router.delete('/participants/:id', function (req, res) {
             res.json(data);
     });
 });
+
+
+router.post('/upd', function(req, res, next) {
+    //not sure if we can 'save' the id, so removing it
+    var theId = req.body._id;
+    delete req.body._id;
+
+    mongoose.model('Quest').findByIdAndUpdate(theId, req.body, function(err, updSt) {
+        res.send(updSt);
+    });
+});

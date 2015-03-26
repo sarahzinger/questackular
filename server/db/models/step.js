@@ -29,9 +29,7 @@ var schema = new mongoose.Schema({
         ref: 'Quest'
     },
     tags: [String],
-    clues: [{
-        text: String,
-    }],
+    clues: [String],
     annotations: [{
         selector: String,
         replace: String

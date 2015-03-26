@@ -49,6 +49,10 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
         type: 'alert-danger',
         msg: 'Warning: Activating a deactive quest will make it uneditable (unless you close it again). Is your quest awesome enough to activate yet? If not, you may wanna deactivate it!',
         show: false
+    }, {
+        type: 'alert-danger',
+        msg: 'Warning: This active quest currently does not seem to have any participants. However, deactivating it will make it unplayable to your adoring fanbase! Make sure you only deactivate a quest that you need to work on!',
+        show: false
     }];
     //We need them here so that clicking 'save' on any page saves the entire quest+steps group
     $scope.currState = 'quest';
@@ -99,21 +103,30 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
         AuthService.getLoggedInUser().then(function(user) {
             $scope.quest.owner = user._id;
             //save the quest
-            QuestFactory.sendQuest($scope.quest).then(function(questId) {
+            QuestFactory.updateQuest($scope.quest).then(function(questId) {
                 console.log('quest item:', questId);
-                $scope.stepsToRemove.forEach(function(remItem){
-                    QuestFactory.remStep(remItem).then(function(data){
-                        console.log('Removed an item');
+                $scope.stepsToRemove.forEach(function(remItem) {
+                    QuestFactory.remStep(remItem).then(function(data) {
+                        angular.copy(data,$scope.stepList);
                     });
                 });
                 $scope.stepList.forEach(function(item) {
-                    item.quest = questId;
+                    item.quest = questId._id;
+                    if (item.clues != '' && item.clues != undefined) {
+                        //step has clues, so parse em!
+                        var tempClooz = item.clues;
+                        delete item.clues;
+                        item.clues = tempClooz.split(',').map(function(i) {
+                            return i.trim();
+                        });
+                    }
                     //save this step
-                    QuestFactory.sendStep(item).then(function(data) {
-                        console.log('Saved quest! Woohoo!')
+                    QuestFactory.updateStep(item).then(function(data) {
+                        angular.copy(data,$scope.stepList);
                     });
                 });
                 //yes, this is and the above foreach are asynchronous, but the completion of the save does not depend upon the removal of stepsToRemove quest (or vice-versa)
+                $scope.stepsToRemove = [];
             });
         });
     };
@@ -156,17 +169,21 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
     $scope.checkOpenStatus = function(quest) {
         //if quest is currently ACTIVE and HAS PARTICIPANTS, show ARRAY at 0.
         //if quest is currently INACTIVE, show ARRAY at 1
-        //if active and no partis, show nothing
+        //if active and no partis, show ARRAY at 2.
         (quest.active) ? quest.active = false: quest.active = true;
         console.log('quest active?', quest.active)
-        if (quest.active && quest.participants.length > 1) {
-            console.log($scope.alerts[0].msg);
+        if (quest.active && quest.participants.length >= 1) {
             $scope.alerts[0].show = true;
             $scope.alerts[1].show = false;
+            $scope.alerts[2].show = false;
         } else if (!quest.active) {
-            console.log($scope.alerts[1].msg);
             $scope.alerts[0].show = false;
             $scope.alerts[1].show = true;
+            $scope.alerts[2].show = false;
+        } else if (quest.active && quest.participants.length < 1) {
+            $scope.alerts[0].show = false;
+            $scope.alerts[1].show = false;
+            $scope.alerts[2].show = true;
         }
     };
     $scope.closeAlert = function(index) {
@@ -206,7 +223,7 @@ app.controller('editQuest', function($scope) {
 app.controller('editStep', function($scope) {
     $scope.newStep = {};
     //filter stuff
-    $scope.searchBox=false;
+    $scope.searchBox = false;
     $scope.search = function() {
         if (!$scope.searchBox) $scope.searchBox = true;
         else $scope.searchBox = false;
@@ -225,7 +242,7 @@ app.controller('editStep', function($scope) {
     $scope.saveStep = function(newStep) {
         //note: this doesnt actually write the step to the mongodb.
         for (var r = 0; r < $scope.$parent.stepList.length; r++) {
-            console.log('new Q: ',newStep.question,', old Q:',$scope.$parent.stepList[r]);
+            console.log('new Q: ', newStep.question, ', old Q:', $scope.$parent.stepList[r]);
             if (newStep.question == $scope.$parent.stepList[r].question) {
                 //err! question already exists!
                 alert('This step already exists! You can\'t have the same step multiple times in the same quest!')
@@ -249,6 +266,7 @@ app.controller('editStep', function($scope) {
         $scope.newStep.tags = tempTags.split(',').map(function(i) {
             return i.trim();
         });
+
         //give each step a number to go by.
         $scope.newStep.stepNum = $scope.$parent.stepList.length + 1;
         $scope.newStep.quest = 'NONE'; //this will get replaced once we save the parent quest and retrieve its ID.
@@ -257,7 +275,7 @@ app.controller('editStep', function($scope) {
 
         if (sessionStorage.stepStr) {
             //this quest has steps, so before we push, we need to get those from the ss.stepStr var
-            seshObj = angular.fromJson(sessionStorage.stepStr)
+            seshObj = angular.fromJson(sessionStorage.stepStr);
         }
         seshObj.push(newStep);
         angular.copy(seshObj, $scope.$parent.stepList)
@@ -268,7 +286,7 @@ app.controller('editStep', function($scope) {
             // $scope.$parent.stepList = angular.fromJson(sessionStorage.stepStr);
 
         $scope.newStep = {}; //clear step
-        $scope.$parent.addForm=false;//hide form.
+        $scope.$parent.addForm = false; //hide form.
     };
 });
 
