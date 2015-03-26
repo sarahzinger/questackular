@@ -25,7 +25,7 @@
     },
     "browser_action": {
         "default_icon": "scavengeIcon.png",
-        "default_title": "LOOK MA AN EXTENSION",
+        "default_title": "Questackular!",
         "default_popup": "popup.html"
     }
 }

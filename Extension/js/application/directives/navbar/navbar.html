@@ -1,26 +1,10 @@
-<nav class="navbar navbar-material-cyan navbar-fixed-top">
+<nav class="nav navbar navbar-material-cyan navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-states">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/home">Questackular!</a>
-    </div> 
-    <!--  end of navbar-header -->
-    <div class="collapse navbar-collapse" id="nav-states">
-      <ul class="nav navbar-nav">
-        <li ng-repeat="item in items"><a ui-sref="{{item.state}}">{{item.label}}</a></li>
-      </ul>
-
-      <ul ng-show="user" class="nav navbar-nav nav-bar navbar-right">
-        <li><a ui-sref ="MyQuests">Welcome, {{ user.google.name }}!</a></li>
-        <li><a ng-click="logout()">Logout</a></li>
-      </ul>
+      <a class="navbar-brand" href="/home"> {{ user.google.name }}</a>
+      <a class="nav navbar-brand pull-right">5000 Points</a>
     </div>
-    <!-- end navbar-collapse -->
-  </div> 
+    <!--  end of navbar-header -->
+  </div>
   <!-- end of container-fluid -->
 </nav>

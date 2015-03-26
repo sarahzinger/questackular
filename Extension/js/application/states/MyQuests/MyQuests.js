@@ -1,16 +1,6 @@
 app.config(function ($stateProvider) {
-  $stateProvider.state('MyQuests', {
-    resolve: {
-      getLoggedInUser: function(AuthService, $state, $http){
-        return AuthService.getLoggedInUser(true).then(function(user){
-          if(user){
-            return user;
-          }else{
-            $state.go("start");
-          }
-        });
-      }
-    },
+  $stateProvider.state('myQuests', {
+    
     url: '/MyQuests',
     templateUrl: 'js/application/states/MyQuests/MyQuests.html', 
     controller: 'MyQuestsCtrl'
