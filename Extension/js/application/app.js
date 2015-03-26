@@ -1,13 +1,13 @@
 // function func(){
 // 	alert('hi')
 // }
-
+console.log('is this file getting run?')
 // //for any inline event, we have to declare it in the JS file and THEN attach it
 // document.getElementById('butt').addEventListener('click',func);
 
 var app = angular.module('QuestackularExt', ['ui.router', 'ui.bootstrap']);
 
-app.controller('extCont', function($scope, UserFactory) {
+app.controller('extCont', function($scope, UserFactory, $state) {
     $scope.login = function() {
         window.open('localhost:1337/auth/google', '_blank');
     };
@@ -21,8 +21,7 @@ app.controller('extCont', function($scope, UserFactory) {
        
     };
     getName();
-
-
+    console.log('we are running the extcont')
 });
 
 app.config(function ($urlRouterProvider, $locationProvider, $compileProvider) {
@@ -40,42 +39,3 @@ app.config(function ($urlRouterProvider, $locationProvider, $compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
     // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
 });
-
-// app.run(function ($rootScope, $state) {
-
-//     // The given state requires an authenticated user.
-//     var destinationStateRequiresAuth = function (state) {
-//         return state.data && state.data.authenticate;
-//     };
-
-//     // $stateChangeStart is an event fired
-//     // whenever the process of changing a state begins.
-//     $rootScope.$on('$stateChangeStart', function (event, toState) {
-
-//         if (!destinationStateRequiresAuth(toState)) {
-//             // The destination state does not require authentication
-//             // Short circuit with return.
-//             return;
-//         }
-
-//         if (AuthService.isAuthenticated()) {
-//             // The user is authenticated.
-//             // Short circuit with return.
-//             return;
-//         }
-
-//         // Cancel navigating to new state.
-//         event.preventDefault();
-
-//         AuthService.getLoggedInUser().then(function (user) {
-//             // If a user is retrieved, then renavigate to the destination
-//             // (the second time, AuthService.isAuthenticated() will work)
-//             // otherwise, if no user is logged in, go to "login" state.
-//             var destination = user ? toState.name : 'login';
-//             $state.go(destination);
-//         });
-
-//     });
-
-// });
-

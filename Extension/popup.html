@@ -4,6 +4,9 @@
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/angular-csp.css">
+    <link rel="stylesheet" type="text/css" href="/css/material.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/ripples.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/roboto.min.css">
 </head>
 
 <body ng-app='QuestackularExt' ng-controller='extCont' >
@@ -15,10 +18,10 @@
     </div>
 
     <div class="container" ng-show="loggedIn">
-    <navbar></navbar>
-        <div class="container">
-            <div ui-view></div>
-        </div>
+        <navbar></navbar>
+        <!-- <div class="container"> -->
+            <ui-view></ui-view>
+       <!--  </div> -->
     </div>
 
     <script src='/js/dependencies/jquery.min.js'></script>
