@@ -1,5 +1,5 @@
 'use strict';
-app.factory('QuestFactory', function($http, AuthService) {
+app.factory('QuestFactory', function($http) {
     return {
         sendStep: function(step) {
             //saves the quest

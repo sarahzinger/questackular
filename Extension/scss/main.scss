@@ -1,0 +1,80 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+	position: relative;
+	top: 80px;
+	width:400px;
+	height: 500px;
+}
+
+.clearButton{
+	background-color: #795455;
+	&:hover{
+    background-color: #3E292A;
+  }
+}
+#mapBg{
+  position:absolute;
+  top:100px;
+  left:10px;
+  width:1786px;
+  height:1504px;
+  background-image: url('/js/common/map.png');
+  border:2px solid #f00;
+  padding:3px;
+  .mapItem{
+    width:10vw;
+    height:10vh;
+    background-color:#FFF0E1;
+    box-shadow:2px 2px 4px #000;
+    position:absolute;
+    z-index:1;
+    transition-duration:.5s;
+    &:hover{
+      z-index:10;
+      transform:rotate(5deg);
+    }
+    h4{
+      width:100%;
+      height:20px;
+      position:relative;
+      top:0px;
+      text-align: center;
+      background-color:#B9AB9C;
+    }
+  }
+}
+
+.correctMultiAns{
+  background-color: #cfc;
+  &::after{
+    content:'☜'
+  }
+}
+
+
+.removeQuestButton{
+  width:25px;
+  height:25px;
+  background-color: #a55;
+  color:#fff;
+  text-align: center;
+  &:hover{
+    background-color: #922;
+  }
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+.navbar-brand{
+  cursor:pointer;
+}
+
+@import 'card';
