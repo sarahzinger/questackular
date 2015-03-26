@@ -45,10 +45,10 @@ app.factory('QuestFactory', function($http, AuthService) {
                 return res.data;
             });
         },
-        remStep: function(id){
+        remStep: function(rem){
             //delete a step. only necessary if step has an ID 
             //(i.e., step already is on DB)
-            return $http.get('/api/step/rem/'+id).then(function(res){
+            return $http.post('/api/step/rem/',rem).then(function(res){
                 return res.data;
             });
         },

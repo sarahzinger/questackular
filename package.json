@@ -5,7 +5,8 @@
   "main": "server/start.js",
   "scripts": {
     "start": "nodemon server/start.js",
-    "postinstall": "./node_modules/bower/bin/bower install && gulp build"
+    "postinstall": "./node_modules/bower/bin/bower install && gulp build",
+    "test": "mocha tests"
   },
   "dependencies": {
     "async": "^0.9.0",
@@ -36,6 +37,7 @@
     "karma-mocha": "^0.1.10",
     "karma-phantomjs-launcher": "^0.1.4",
     "lodash": "^3.3.0",
+    "mocha": "^2.2.1",
     "mocha-mongoose": "^1.0.3",
     "mongodb": "^1.4.33",
     "mongoose": "^3.8.23",
@@ -51,5 +53,9 @@
     "socket.io": "^1.3.4",
     "supertest": "^0.15.0"
   },
-  "author": "Joe Alves <databentpx@gmail.com> (http://www.github.com/joedotjs)"
+  "author": "Joe Alves <databentpx@gmail.com> (http://www.github.com/joedotjs)",
+  "devDependencies": {
+    "chai": "^2.1.2",
+    "mocha": "^2.2.1"
+  }
 }

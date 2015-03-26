@@ -26,28 +26,42 @@ router.post('/', function(req, res, next) {
     });
 });
 
-router.get('/list/:id',function(req,res){
+router.get('/list/:id', function(req, res) {
     var questId = req.params.id;
-    console.log('Quest: ',questId)
-    mongoose.model('Step').find({quest:questId},function(err,steps){
+    console.log('Quest: ', questId)
+    mongoose.model('Step').find({
+        quest: questId
+    }, function(err, steps) {
         res.send(steps);
     });
 });
 
-router.get('/rem/:id',function(req,res){
-    var stepToRemId = req.params.id;
-    console.log('Oh no! You removed step id-'+stepToRemId);
-    mongoose.model('Step').findByIdAndRemove(stepToRemId,function(err,step){
-        res.send(step);
+router.post('/rem/', function(req, res) {
+    //rem: its the end of the step as we know it, and i feel fine
+    var stepToRemId = req.body.id;
+    var stepToRenumQ = req.body.quest;
+    console.log('Oh no! You removed step id-' + stepToRemId);
+    mongoose.model('Step').findByIdAndRemove(stepToRemId, function(err, step) {
+        //removed step. Now renumber the other steps. First find them
+        mongoose.model('Step').find({
+            quest: stepToRenumQ
+        }, function(err, stepsToRename) {
+            //loop thru all remaining steps and renumber them sequentially.
+            for (var i=0;i<stepsToRename.length;i++){
+                stepsToRename.stepNum = i;
+                stepsToRename.save();
+            }
+            res.send(step);
+        });
     });
 });
 
-router.post('/upd',function(req,res,next){
+router.post('/upd', function(req, res, next) {
     //not sure if we can 'save' the id, so removing it
     var theId = req.body._id;
     delete req.body._id;
 
-    mongoose.model('Step').findByIdAndUpdate(theId,req.body,function(err,updSt){
+    mongoose.model('Step').findByIdAndUpdate(theId, req.body, function(err, updSt) {
         res.send(updSt);
     });
 });

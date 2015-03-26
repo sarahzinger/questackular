@@ -102,7 +102,7 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
             QuestFactory.sendQuest($scope.quest).then(function(questId) {
                 console.log('quest item:', questId);
                 $scope.stepsToRemove.forEach(function(remItem){
-                    QuestFactory.remStep(remItem._id).then(function(data){
+                    QuestFactory.remStep(remItem).then(function(data){
                         console.log('Removed an item');
                     });
                 });
