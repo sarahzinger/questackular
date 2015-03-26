@@ -111,12 +111,11 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
                     //save this step
                     QuestFactory.sendStep(item).then(function(data) {
                         console.log('Saved quest! Woohoo!')
-    ]
                     });
                 });
                 //yes, this is and the above foreach are asynchronous, but the completion of the save does not depend upon the removal of stepsToRemove quest (or vice-versa)
             });
-        })
+        });
     };
     $scope.pickQuest = function(id) {
         //this needs to get a quest by id and then get its associated steps
@@ -214,7 +213,7 @@ app.controller('editStep', function($scope) {
     };
 
     console.log($scope.$parent.stepList);
-    $scope.testTypes = ['Multiple Choice', 'Fill-in', 'Short Answer'];
+    $scope.testTypes = ['Multiple Choice', 'Fill-in'];
     $scope.addStep = function() {
         $scope.$parent.addForm = true;
         console.log($scope.$parent.quest._id);

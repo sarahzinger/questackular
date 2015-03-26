@@ -103,7 +103,6 @@ router.post('/participants', function (req, res) {
 // when a user "leaves" a quest
 router.delete('/participants/:id', function (req, res) {
     console.log("req.user", req.user);
-    // console.log("FUNNAY TIMES", req.body)
     async.parallel([
         function() {
             req.user.removeQuestFromUser(req.params.id, function(err, data){

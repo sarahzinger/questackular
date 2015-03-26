@@ -24,7 +24,6 @@ var schema = new mongoose.Schema({
     multipleAns: [String],
     multiAnsCor: String,
     fillIn: String,
-    shortAns: Boolean,
     quest: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Quest'

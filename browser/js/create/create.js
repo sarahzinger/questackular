@@ -126,8 +126,6 @@ app.controller('CreateStep', function($scope) {
         type: 'Multiple Choice'
     }, {
         type: 'Fill-in'
-    }, {
-        type: 'Short Answer'
     }];
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList); //get steps on list
     $scope.saveStep = function(step) {
@@ -141,7 +139,7 @@ app.controller('CreateStep', function($scope) {
                 delete $scope.step['ans' + n];
                 console.log('multiAns so far: ',step.multiAns)
             }
-        } else if ($scope.step.qType === "Short Answer") $scope.step.shortAns = false;
+        }
         var tempTags = $scope.step.tags;
         delete $scope.step.tags;
         $scope.step.tags = tempTags.split(',').map(function(i) {
