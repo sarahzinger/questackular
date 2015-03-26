@@ -39,29 +39,6 @@ gulp.task('buildCSS', function () {
 
 // --------------------------------------------------------------
 
-// Production tasks
-// --------------------------------------------------------------
-
-// gulp.task('buildCSSProduction', function () {
-//     return gulp.src('./browser/scss/main.scss')
-//         .pipe(sass())
-//         .pipe(rename('style.css'))
-//         .pipe(minifyCSS())
-//         .pipe(gulp.dest('./public'))
-// });
-
-gulp.task('buildJSProduction', function () {
-    return gulp.src(['./js/application/**/*.js'])
-        .pipe(concat('main.js'))
-        .pipe(ngAnnotate())
-        .pipe(uglify())
-        .pipe(gulp.dest('./js'));
-});
-
-gulp.task('buildProduction', ['buildJSProduction']);
-
-// --------------------------------------------------------------
-
 // Composed tasks
 // --------------------------------------------------------------
 
