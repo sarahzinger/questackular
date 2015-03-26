@@ -1,5 +1,25 @@
 <div class="container">
 	
-	<div ng-repeat="step in steps" ng-if="">
+	<!-- <div ng-repeat="step in steps" ng-if="">
+	</div> -->
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{quest[0].title}}</h3>
+		</div>
+		<div class="panel-body">
+			{{step.question}}
+		</div>
+		<div class="panel-body">
+			{{step.fillIn}}
+		</div>
+		<button ng-click ="submit()" >Submit</button>	
+		
 	</div>
+
 </div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+  <div class="container">
+    <div>How Far Are you In the Quest 10/20</div>
+  </div>
+</nav>

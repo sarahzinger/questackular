@@ -1,10 +1,3 @@
-// function func(){
-// 	alert('hi')
-// }
-console.log('is this file getting run?')
-// //for any inline event, we have to declare it in the JS file and THEN attach it
-// document.getElementById('butt').addEventListener('click',func);
-
 var app = angular.module('QuestackularExt', ['ui.router', 'ui.bootstrap']);
 
 app.controller('extCont', function($scope, UserFactory, $state) {
@@ -21,7 +14,6 @@ app.controller('extCont', function($scope, UserFactory, $state) {
        
     };
     getName();
-    console.log('we are running the extcont')
 });
 
 app.config(function ($urlRouterProvider, $locationProvider, $compileProvider) {
