@@ -5,6 +5,27 @@ var _ = require('lodash');
 var mongoose = require('mongoose');
 var async = require('async');
 
+router.put('/points/:id', function (req,res,next){
+  var stepId = req.params.id;
+  //get the step object to get point worth
+  mongoose.model('Step').findOne({_id: stepId}, function(err, stepObject) {
+      var points = stepObject.pointValue;
+      //find the quest in req.user which has a current step that matches our stepid
+      req.user.participating.forEach(function(quest){
+        if (quest.currentStep == stepId){
+        //push the new point worth to pointsfromQuest on the participating array in users
+          console.log("BEFORE quest.pointsFromQuest", quest.pointsFromQuest)
+          quest.pointsFromQuest += points;
+          console.log("After quest.pointsFromQuest", quest.pointsFromQuest)
+          req.user.save(function(afterSave){
+            res.json(quest.pointsFromQuest);
+          });
+        };
+      });
+    });
+
+})
+
 router.put('/participating/currentStep/:id', function(req, res){
   var stepId = req.params.id;
   //find the entire step object associated with the step id
@@ -21,7 +42,6 @@ router.put('/participating/currentStep/:id', function(req, res){
           var newCurrentStep = step;
           req.user.participating.forEach(function(quest) {
             if (String(quest.questId) === String(currentQuest)){
-              console.log("found the quest to change", quest)
               quest.currentStep=newCurrentStep._id;
               req.user.save();
               res.json(newCurrentStep);
@@ -33,11 +53,9 @@ router.put('/participating/currentStep/:id', function(req, res){
   })
 });
 router.get('/:id', function(req, res, next) {
-    console.log("in /users/req.params.id", req.params.id);
     mongoose.model('User').findOne({_id: req.params.id})
         .populate('created pastQuests participating')
         .exec(function (err, userInfo) {
-            console.log("what's in there?", userInfo);
             if (err) return res.json(err);
             // if (userInfo.participating.length) {
 	            mongoose.model('User').populate(userInfo, 'participating.questId', function (err, userFullyPopulated) {

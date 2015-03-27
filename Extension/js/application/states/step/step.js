@@ -33,8 +33,10 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state) 
 		if($scope.step.qType == "Fill-in"){
 			console.log("correct question type")
 			if($scope.userAnswer == $scope.step.fillIn){
-				UserFactory.changeCurrentStep($scope.stepId);
-				$state.go('success');
+				UserFactory.addPoints($scope.stepId).then(function(data){
+					UserFactory.changeCurrentStep($scope.stepId);
+					$state.go('success');
+				})
 			}else{
 				//else it will alert user to try again
 				$scope.alertshow = true;

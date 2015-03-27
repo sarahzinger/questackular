@@ -17,6 +17,12 @@ app.factory('UserFactory', function($http){
             return $http.put('http://localhost:1337/api/users/participating/currentStep/'+stepId).then(function(res){
                 return res.data;
             });
+        },
+        addPoints: function(stepId){
+            return $http.put('http://localhost:1337/api/users/points/'+stepId).then(function(res){
+            	console.log("points", res.data)
+                return res.data;
+            });
         }
 	}
 })
