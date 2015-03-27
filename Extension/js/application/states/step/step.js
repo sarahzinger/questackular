@@ -19,10 +19,13 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state) 
 			$scope.stepId = popUser.participating[$scope.participatingIndex].currentStep;
 		// 	console.log("step we send", $scope.stepId)
 			QuestFactory.getStepById($scope.stepId).then(function(data){
-				$scope.step = data
+				$scope.step = data;
 			})
 		})
 	});
+	$scope.launchReading = function(){
+		chrome.tabs.create({url: "http://"+$scope.step.url});
+	}
 	$scope.submit = function(){
 		//will verify that the answer is correct
 		//if so will update current step to be the next step
