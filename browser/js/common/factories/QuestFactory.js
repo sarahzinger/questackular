@@ -66,6 +66,11 @@ app.factory('QuestFactory', function($http, domain) {
             return $http.post(domain + '/api/step/upd',updatedStep).then(function(res){
                 return res.data;
             });
+        },
+        getStepById: function(stepId){
+            return $http.get(domain + '/api/step/'+stepId).then(function(res){
+                return res.data;
+            });
         }
     };
 

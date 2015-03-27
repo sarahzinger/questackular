@@ -4,6 +4,15 @@ module.exports = router;
 var _ = require('lodash');
 var mongoose = require('mongoose');
 
+
+router.get('/:id', function(req, res, next){
+    console.log("req.params.id", req.params.id);
+    mongoose.model('Step').findById(req.params.id, function(err, step) {
+        if(err) console.log(err);
+        res.json(step);
+    })
+})
+
 router.post('/', function (req, res, next) {
     mongoose.model('Step').findOne({
         question: req.body.question,

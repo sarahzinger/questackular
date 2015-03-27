@@ -42,7 +42,8 @@ var schema = new mongoose.Schema({
     google: {
         id: String,
         name: String,
-        email: String
+        email: String,
+        picture: String
     }
 });
 
@@ -88,10 +89,21 @@ schema.methods.removeQuestFromUser = function(questId, callback){
     });
 };
 schema.methods.addQuestToUser = function(questId, callback){
-    this.participating.push({questId: questId});
-    this.save(function (err, data) {   
-        callback(err, data);
-    });
+
+    var self = this
+    mongoose.model('Step').find({quest: questId}, function(err, steps){
+        if (err) return (err)
+        steps.forEach(function(step){
+            if (step.stepNum == 1){
+                self.participating.push({questId: questId, currentStep: step._id});
+                self.save(function(err, data) {   
+                    callback(err, data);
+                });
+            }
+        })
+
+    })
+
 };
 schema.statics.generateSalt = generateSalt;
 schema.statics.encryptPassword = encryptPassword;

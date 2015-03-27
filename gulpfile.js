@@ -116,7 +116,7 @@ gulp.task('buildProduction', ['buildCSSProduction', 'buildJSProduction']);
 // --------------------------------------------------------------
 
 gulp.task('buildJSExtension', function () {
-    return gulp.src(['./Extension/js/application/app.js', './browser/js/common/factories/QuestFacotry.js', './Extension/js/application/**/*.js'])
+    return gulp.src(['./Extension/js/application/app.js', './browser/js/common/factories/QuestFactory.js', './Extension/js/application/**/*.js'])
         .pipe(plumber())
         .pipe(sourcemaps.init())
         .pipe(concat('main.js'))
