@@ -1,5 +1,5 @@
 app.config(function ($stateProvider) {
-  $stateProvider.state('MyQuests', {
+  $stateProvider.state('myQuests', {
     resolve: {
       getLoggedInUser: function(AuthService, $state, $http){
         return AuthService.getLoggedInUser(true).then(function(user){
@@ -11,8 +11,8 @@ app.config(function ($stateProvider) {
         });
       }
     },
-    url: '/MyQuests',
-    templateUrl: 'js/MyQuests/MyQuests.html', 
+    url: '/myQuests',
+    templateUrl: 'js/myQuests/myQuests.html', 
     controller: 'MyQuestsCtrl'
     });
 });
