@@ -14,7 +14,7 @@
 
             <div class="form-group">
                 <label for="tags">Tags</label>
-                <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="step.tags" required ng-change='saveQuest()'>
+                <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="step.tagStr" required ng-change='saveQuest()'>
             </div>
             <div class="form-group">
                 <label for='pointsQ'>Point value:
@@ -25,7 +25,7 @@
             <div class="form-group">
                 <label for='typeQ'>What kind of question is it?:
                     <select class="form-control" ng-model='step.qType' ng-change='updateQuestionFields();' name='typeQ' required>
-                        <option ng-repeat="test in testTypes" value='{{test.type}}'> {{test.type}}
+                        <option ng-repeat="test in testTypes" value='{{test}}'> {{test}}
                     </select>
                     <p class="help-block">Select the type of question you would like to add.</p>
                 </label>
