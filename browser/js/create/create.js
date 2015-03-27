@@ -124,55 +124,22 @@ app.controller('CreateQuest', function($scope) {
 
 });
 
-app.controller('CreateStep', function($scope) {
+app.controller('CreateStep', function($scope, QuestFactory) {
     $scope.$parent.currState = 'Step';
-    $scope.testTypes = [{
-        type: 'Multiple Choice'
-    }, {
-        type: 'Fill-in'
-    }];
+    $scope.testTypes = ['Multiple Choice', 'Fill-in'];
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList); //get steps on list
-    $scope.saveStep = function(step) {
-        if ($scope.step.qType === "Multiple Choice") {
-            //pushing a multi-choice q to the list
-            //so we need to parse all of the answer options
-            $scope.step.multipleAns = [];
-            for (var n = 1; n < 5; n++) {
-                console.log($scope.step['ans' + n]);
-                $scope.step.multipleAns.push(step['ans' + n]);
-                delete $scope.step['ans' + n];
-                console.log('multiAns so far: ', step.multiAns)
-
-            }
-        }
-
-        //give each step a number to go by.
-        $scope.step.stepNum = $scope.$parent.stepList.length + 1;
-        $scope.step.quest = 'NONE'; //this will get replaced once we save the parent quest and retrieve its ID.
-
-        var stepsJson = angular.toJson(step);
-        if (!sessionStorage.stepStr) {
-            sessionStorage.stepStr = '[' + stepsJson + ']';
-        } else {
-            sessionStorage.stepStr = sessionStorage.stepStr.slice(0, -1);
-            sessionStorage.stepStr += ',' + stepsJson + ']';
-        }
-        console.log("sessionStorage.stepStr", sessionStorage.stepStr);
-
-        angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList);
-        // $scope.$parent.stepList = angular.fromJson(sessionStorage.stepStr);
-
+    $scope.saveStep = function(newStep) {
+        $scope.$parent.stepList = QuestFactory.saveStepIter(newStep, $scope.$parent.stepList)||$scope.$parent.stepList;
         $scope.step = {}; //clear step
     };
-
 });
 
-app.controller('QuestMap', function($scope,MapFactory) {
+app.controller('QuestMap', function($scope, MapFactory) {
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList);
 
     //GIANT LIST O TEST DATA!
 
     //begin mapDraw code
-    MapFactory.drawMap($scope,$scope.$parent.stepList);
+    MapFactory.drawMap($scope, $scope.$parent.stepList);
     $scope.$parent.currState = 'Map';
 });

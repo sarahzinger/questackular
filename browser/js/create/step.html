@@ -25,7 +25,7 @@
             <div class="form-group">
                 <label for='typeQ'>What kind of question is it?:
                     <select class="form-control" ng-model='step.qType' ng-change='updateQuestionFields();' name='typeQ' required>
-                        <option ng-repeat="test in testTypes" value='{{test.type}}'> {{test.type}}
+                        <option ng-repeat="test in testTypes" value='{{test}}'> {{test}}
                     </select>
                     <p class="help-block">Select the type of question you would like to add.</p>
                 </label>
