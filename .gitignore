@@ -4,3 +4,4 @@ bower_components
 npm-debug.log
 public
 .DS_Store
+Extension/js/main.js
