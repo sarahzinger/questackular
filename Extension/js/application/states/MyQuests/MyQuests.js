@@ -15,7 +15,8 @@ app.controller('MyQuestsCtrl', function ($scope, UserFactory) {
     UserFactory.getUserFromDb(id).then(function (dbUser) {
       console.log("user from DB", dbUser);
       $scope.user = dbUser;
-      $scope.questsJoined = dbUser.participating;
+      if (dbUser.participating.length) $scope.questsJoined = dbUser.participating;
+      else $scope.noParticipatingQuests = "You haven't joined any quests yet."
       console.log("quest joined", $scope.questsJoined[0].questId);
     });
   });

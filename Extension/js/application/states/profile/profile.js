@@ -11,11 +11,8 @@ app.config(function ($stateProvider) {
 app.controller('ProfileCtrl', function ($scope, UserFactory) {
   UserFactory.getUserInfo().then(function (userInfo) {
     console.log("userInfo", userInfo);
-    var id = userInfo.user._id;
-    // UserFactory.getUserFromDb(id).then(function (dbUser) {
-    //   $scope.user = dbUser;
-    //   $scope.questsJoined = dbUser.participating;
-    // });
+    $scope.fullname = userInfo.user.google.name;
+    $scope.email = userInfo.user.google.email;
   });
 
   $scope.hello = "hello!";
