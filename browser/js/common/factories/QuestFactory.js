@@ -1,7 +1,7 @@
 'use strict';
 app.value('domain', 'http://localhost:1337');
 
-app.factory('QuestFactory', function($http, AuthService, domain) {
+app.factory('QuestFactory', function($http, domain) {
     console.log("domain");
     return {
         sendQuest: function(quest) {

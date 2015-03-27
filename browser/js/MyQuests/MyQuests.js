@@ -25,7 +25,7 @@ app.controller('MyQuestsCtrl', function ($scope, UserFactory, QuestFactory){
     $scope.userId = user._id;
     $scope.questsCreated = user.created;
     $scope.questsJoined = user.participating;
-    $scope.questsCompleted = user.pastQuests;
+    // $scope.questsCompleted = user.pastQuests;
   });
 
   $scope.leaveQuest = function (questId, userId) {
