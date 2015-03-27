@@ -61,7 +61,7 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
     $scope.stepList = []; //list of current steps.
     $scope.stepsToRemove = []; //when we run our save function, we loop thru this and 
     //remove any steps on this list.
-    $scope.questExists = false;
+    $scope.questPicked = false;
     $scope.selectedQuest = {};
     $scope.addForm = false;
     $scope.tabs = [{
@@ -76,9 +76,6 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
         state: "edit.map",
         disabled: $scope.noQuest
     }];
-    if (sessionStorage.newQuest) {
-        $scope.questExists = true;
-    }
     AuthService.getLoggedInUser().then(function(user) {
 
         //save the quest
@@ -135,7 +132,7 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
     };
     $scope.pickQuest = function(id) {
         //this needs to get a quest by id and then get its associated steps
-        console.log(id);
+        $scope.questPicked = true;
         for (var n = 0; n < $scope.questList.length; n++) {
             //find the current target 'quest' and designate this as scope.quest
             if ($scope.questList[n]._id == id) {
@@ -253,10 +250,6 @@ app.controller('editStep', function($scope) {
     $scope.removeForm = function() {
         $scope.$parent.addForm = false;
     };
-    $scope.arrayify =  function() {
-        console.log('HI EVERYONE ',$scope.step.clueStr);
-
-    }
     $scope.saveStep = function(newStep) {
         //note: this doesnt actually write the step to the mongodb.
         for (var r = 0; r < $scope.$parent.stepList.length; r++) {
@@ -278,12 +271,7 @@ app.controller('editStep', function($scope) {
                 delete $scope.newStep['ans' + n];
                 console.log('multiAns so far: ', newStep.multiAns);
             }
-        };
-        var tempTags = $scope.newStep.tags;
-        delete $scope.newStep.tags;
-        $scope.newStep.tags = tempTags.split(',').map(function(i) {
-            return i.trim();
-        });
+        }
 
         //give each step a number to go by.
         $scope.newStep.stepNum = $scope.$parent.stepList.length + 1;
@@ -310,11 +298,13 @@ app.controller('editStep', function($scope) {
     };
 });
 
-app.controller('editQuestMap', function($scope) {
+app.controller('editQuestMap', function($scope,MapFactory) {
     //lists quest on a nice, pretty map.
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList);
 
-    $scope.divsTop = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80];
-    $scope.divsLeft = [0, 5, 10, 5, 0, 5, 10, 5, 0, 5, 10, 5, 0, 5, 10, 5, 0];
+    //GIANT LIST O TEST DATA!
+
+    //begin mapDraw code
+    MapFactory.drawMap($scope,$scope.$parent.stepList);
     $scope.$parent.currState = 'Map';
 });
