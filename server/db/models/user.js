@@ -89,6 +89,7 @@ schema.methods.removeQuestFromUser = function(questId, callback){
     });
 };
 schema.methods.addQuestToUser = function(questId, callback){
+
     var self = this
     mongoose.model('Step').find({quest: questId}, function(err, steps){
         if (err) return (err)
@@ -102,7 +103,7 @@ schema.methods.addQuestToUser = function(questId, callback){
         })
 
     })
-    
+
 };
 schema.statics.generateSalt = generateSalt;
 schema.statics.encryptPassword = encryptPassword;

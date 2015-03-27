@@ -14,7 +14,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             }, {
                 label: 'Join a Quest', state: 'join' 
             }, {
-                label: 'My Quests', state: 'MyQuests' 
+                label: 'My Quests', state: 'myQuests' 
             }];
 
             scope.user = null;
