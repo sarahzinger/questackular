@@ -10,28 +10,22 @@ app.config(function ($stateProvider) {
 
 app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state) {
 	$scope.alertshow = false;
-	//how do we keep track of the chosen Quest? Can we inject it somehow?
-	//assuming we know what the Quest is....
-// 	angular.value to store index
-// or localStorage?
 
-// say you get participating 'index', and step id:
-// var place = {
-// 	index:index,
-// 	stepId: stepId
-// }
-// localStorage.myPlace = angular.toJson(place)
+	$scope.participatingIndex= Number(localStorage["participatingIndex"]);
 
 	UserFactory.getUserInfo().then(function(unPopUser){
 		UserFactory.getUserFromDb(unPopUser.user._id).then(function(popUser){
-			$scope.chosenQuest = popUser.participating[0];
-			$scope.stepId = popUser.participating[0].currentStep;
+			$scope.chosenQuest = popUser.participating[$scope.participatingIndex];
+			$scope.stepId = popUser.participating[$scope.participatingIndex].currentStep;
 		// 	console.log("step we send", $scope.stepId)
 			QuestFactory.getStepById($scope.stepId).then(function(data){
-				$scope.step = data
+				$scope.step = data;
 			})
 		})
 	});
+	$scope.launchReading = function(){
+		chrome.tabs.create({url: "http://"+$scope.step.url});
+	}
 	$scope.submit = function(){
 		//will verify that the answer is correct
 		//if so will update current step to be the next step
@@ -39,8 +33,10 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state) 
 		if($scope.step.qType == "Fill-in"){
 			console.log("correct question type")
 			if($scope.userAnswer == $scope.step.fillIn){
-				UserFactory.changeCurrentStep($scope.stepId);
-				$state.go('success');
+				UserFactory.addPoints($scope.stepId).then(function(data){
+					UserFactory.changeCurrentStep($scope.stepId);
+					$state.go('success');
+				})
 			}else{
 				//else it will alert user to try again
 				$scope.alertshow = true;

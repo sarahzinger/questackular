@@ -1,7 +1,7 @@
 <h1 class="panel-title">Quests I've Joined</h1>
 <div class="col-md-6 col-md-offset-3">
 	<!-- individual card begins -->
-    <div class="kard" ng-repeat="quest in questsJoined" ng-if="questsJoined.length > 0">
+    <div class="kard" ng-repeat="quest in questsJoined track by $index" ng-if="questsJoined.length > 0">
         <div class="kard-image">
             <img class="img-responsive" src="http://i.imgur.com/Apx8TnD.jpg">
             <span class="kard-title">{{quest.questId.title}}</span>
@@ -13,7 +13,7 @@
         </div>
         
         <div class="kard-action">
-            <a class="btn btn-sm btn-primary"><i class="mdi-maps-directions-walk"></i></a>
+            <a ng-click="continueQuest($index)" class="btn btn-sm btn-primary"><i class="mdi-maps-directions-walk"></i></a>
             <a class="btn btn-sm btn-warning"><i class="mdi-navigation-cancel"></i></a>
         </div>
     </div>
