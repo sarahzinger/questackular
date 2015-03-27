@@ -28,7 +28,7 @@ app.factory('QuestFactory', function($http, AuthService) {
             });
         },
         updateQuest: function(updatedQuest){
-            return $http.post('/api/quests/upd',updatedQuest).then(function(res){
+            return $http.put('/api/quests/:id',updatedQuest).then(function(res){
                 return res.data;
             });
         },

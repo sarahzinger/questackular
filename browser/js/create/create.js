@@ -36,7 +36,14 @@ app.config(function($stateProvider) {
 
 app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state) {
     //the following scope vars are 'parental' to the child scopes. 
-
+    sessionStorage.removeItem('newQuest');
+    sessionStorage.removeItem('stepStr');
+    document.getElementById('unloadDiv').onunload = function(e) {
+        console.log('Leavin on a jetplane');
+        if (!confirm('Are you sure you want to leave?')) {
+            e.preventDefault();
+        }
+    };
     //We need them here so that clicking 'save' on any page saves the entire quest+steps group
     $scope.currState = 'quest';
     $scope.quest = {}; //curent quest object, via ng-change
@@ -87,7 +94,7 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
                     });
                 });
             });
-        })
+        });
     };
 
     $scope.clearData = function() {
@@ -158,7 +165,6 @@ app.controller('CreateStep', function($scope) {
         }
         console.log("sessionStorage.stepStr", sessionStorage.stepStr);
         angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList)
-            // $scope.$parent.stepList = angular.fromJson(sessionStorage.stepStr);
 
         $scope.step = {}; //clear step
     };
@@ -172,21 +178,6 @@ app.controller('QuestMap', function($scope) {
     $scope.$parent.stepList = [{
         question: 'What is your name?',
         pointValue: 150
-    }, {
-        question: 'Test',
-        pointValue: 50
-    }, {
-        question: 'Test',
-        pointValue: 50
-    }, {
-        question: 'Test',
-        pointValue: 50
-    }, {
-        question: 'Test',
-        pointValue: 50
-    }, {
-        question: 'Test',
-        pointValue: 50
     }, {
         question: 'Test',
         pointValue: 50
@@ -258,7 +249,7 @@ app.controller('QuestMap', function($scope) {
             var el = document.createElement('div');
             el.className = 'cov';
             el.id = 'el' + i;
-            el.innerHTML = '<div class="qExpl">Points: '+$scope.$parent.stepList[i].pointValue+'</div>' + $scope.$parent.stepList[i].question;
+            el.innerHTML = '<div class="qExpl">Points: ' + $scope.$parent.stepList[i].pointValue + '</div>' + $scope.$parent.stepList[i].question;
             var lPos = (Math.random() * 900) + 25;
             el.style.left = (lPos + 270) + 'px';
             var tPos = (i * (1000 / num));
@@ -279,9 +270,13 @@ app.controller('QuestMap', function($scope) {
             document.getElementById('el' + i).style.left = ($scope.lefts[i] + 270) + 'px';
             document.getElementById('el' + i).style.top = ($scope.tops[i] + 110) + 'px';
         }
-        $scope.cDraw.fillStyle = '#090';
-        $scope.cDraw.fillRect(0, 0, 1000, 1000);
         $scope.c.width = $scope.c.width;
+        var img = new Image();
+        img.onload = function() {
+            console.log(img);
+            img.src = '/js/create/mapBg.jpg';
+            $scope.cDraw.drawImage(img, 1, 1, 1000, 1000);
+        };
         $scope.drawLines();
     };
 
@@ -306,15 +301,15 @@ app.controller('QuestMap', function($scope) {
             //not currently holding, so can pick something up;
             currDiv = e.target;
             currDiv.style.zIndex = 5;
-            banner.style.height= '100px';
+            banner.style.height = '100px';
             holding = true;
         } else {
-            banner.style.height= 0;
+            banner.style.height = 0;
             currDiv.style.zIndex = 3;
             holding = false;
         }
 
-    }
+    };
 
     $scope.drawNodes(num);
     var x,

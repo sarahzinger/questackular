@@ -112,13 +112,16 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
                 });
                 $scope.stepList.forEach(function(item) {
                     item.quest = questId._id;
-                    if (item.clues != '' && item.clues != undefined) {
-                        //step has clues, so parse em!
-                        var tempClooz = item.clues;
-                        delete item.clues;
-                        item.clues = tempClooz.split(',').map(function(i) {
-                            return i.trim();
-                        });
+                    //modify clues and tags.
+                    if (item.clueStr){
+                        //step has clues to parse. 
+                        item.clues = clueStr.split(',');
+                        delete item.clueStr;
+                    }
+                    if (item.tagStr){
+                        //step has tags to parse. parse dem tagz
+                        item.tags = item.tagStr.split(',');
+                        delete item.clueStr;
                     }
                     //save this step
                     QuestFactory.updateStep(item).then(function(data) {
@@ -147,6 +150,14 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
             } else {
                 sessionStorage.removeItem('stepStr');
             }
+            $scope.stepList.forEach(function(el){
+                if(el.clues){
+                    el.clueStr = el.clues.join();
+                }
+                if(el.tags){
+                    el.tagStr = el.tags.join();
+                }
+            });
         });
     };
 
@@ -161,7 +172,6 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
         console.log('Correct: ', ansNum, 'ID: ', stepId)
         for (var i = 0; i < $scope.stepList.length; i++) {
             if ($scope.stepList[i]._id == stepId) {
-
                 $scope.stepList[i].multiAnsCor = ansNum.toString();
             }
         }
@@ -218,10 +228,13 @@ app.controller('editQuest', function($scope) {
     // window.addEventListener('beforeunload', function(e) {
     //     e.returnValue = "You haven't saved! Click Okay to continue without saving, or Cancel to stay on this page!";
     // })
+
+    //add an event listener to an object ON THIS PAGE
 });
 
 app.controller('editStep', function($scope) {
     $scope.newStep = {};
+    $scope.step = {};
     //filter stuff
     $scope.searchBox = false;
     $scope.search = function() {
@@ -238,7 +251,10 @@ app.controller('editStep', function($scope) {
     $scope.removeForm = function() {
         $scope.$parent.addForm = false;
     };
+    $scope.arrayify =  function() {
+        console.log('HI EVERYONE ',$scope.step.clueStr);
 
+    }
     $scope.saveStep = function(newStep) {
         //note: this doesnt actually write the step to the mongodb.
         for (var r = 0; r < $scope.$parent.stepList.length; r++) {
@@ -258,9 +274,9 @@ app.controller('editStep', function($scope) {
                 console.log($scope.newStep['ans' + n]);
                 $scope.newStep.multipleAns.push(step['ans' + n]);
                 delete $scope.newStep['ans' + n];
-                console.log('multiAns so far: ', newStep.multiAns)
+                console.log('multiAns so far: ', newStep.multiAns);
             }
-        } else if ($scope.newStep.qType === "Short Answer") $scope.newStep.shortAns = false;
+        };
         var tempTags = $scope.newStep.tags;
         delete $scope.newStep.tags;
         $scope.newStep.tags = tempTags.split(',').map(function(i) {
@@ -270,6 +286,7 @@ app.controller('editStep', function($scope) {
         //give each step a number to go by.
         $scope.newStep.stepNum = $scope.$parent.stepList.length + 1;
         $scope.newStep.quest = 'NONE'; //this will get replaced once we save the parent quest and retrieve its ID.
+        
         var seshObj = [];
         // var stepsJson = angular.toJson(newStep);
 
@@ -283,7 +300,6 @@ app.controller('editStep', function($scope) {
 
         console.log("sessionStorage.stepStr currently has: ", sessionStorage.stepStr);
         angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList)
-            // $scope.$parent.stepList = angular.fromJson(sessionStorage.stepStr);
 
         $scope.newStep = {}; //clear step
         $scope.$parent.addForm = false; //hide form.
