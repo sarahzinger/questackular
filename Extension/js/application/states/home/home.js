@@ -20,6 +20,9 @@ app.controller('HomeCtrl', function ($scope) {
   },
   {
     state: "myQuests", title: "My Quests"
+  },
+  {
+    state: "step", title: "Temporary Step Button"
   }];
 
 });

@@ -36,7 +36,7 @@ app.controller('LoginCtrl', function ($scope, $rootScope, AuthService, $state, A
         });
         $scope.loggedIn = true;
         // $scope.digest();
-    })
+    });
 
     $rootScope.$on(AUTH_EVENTS.logoutSuccess, function() {
         console.log("Logout!");
