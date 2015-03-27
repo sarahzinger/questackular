@@ -10,22 +10,13 @@ app.config(function ($stateProvider) {
 
 app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state) {
 	$scope.alertshow = false;
-	//how do we keep track of the chosen Quest? Can we inject it somehow?
-	//assuming we know what the Quest is....
-// 	angular.value to store index
-// or localStorage?
 
-// say you get participating 'index', and step id:
-// var place = {
-// 	index:index,
-// 	stepId: stepId
-// }
-// localStorage.myPlace = angular.toJson(place)
+	$scope.participatingIndex= Number(localStorage["participatingIndex"]);
 
 	UserFactory.getUserInfo().then(function(unPopUser){
 		UserFactory.getUserFromDb(unPopUser.user._id).then(function(popUser){
-			$scope.chosenQuest = popUser.participating[0];
-			$scope.stepId = popUser.participating[0].currentStep;
+			$scope.chosenQuest = popUser.participating[$scope.participatingIndex];
+			$scope.stepId = popUser.participating[$scope.participatingIndex].currentStep;
 		// 	console.log("step we send", $scope.stepId)
 			QuestFactory.getStepById($scope.stepId).then(function(data){
 				$scope.step = data
