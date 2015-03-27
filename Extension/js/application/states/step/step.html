@@ -11,9 +11,10 @@
 			{{step.question}}
 		</div>
 		<div class="panel-body">
-			{{step.fillIn}}
+			<input ng-model="userAnswer" type="text" class="form-control" placeholder="Answer">
 		</div>
-		<button ng-click ="submit()" >Submit</button>	
+		<button ng-click ="submit()">Submit</button>
+		<alert ng-if="alertshow" class="danger">Try Again!</alert>
 		
 	</div>
 
