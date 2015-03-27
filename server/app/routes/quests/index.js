@@ -5,7 +5,7 @@ var _ = require('lodash');
 var async = require('async');
 var mongoose = require('mongoose');
 
-router.post('/', function (req, res, next) {
+router.post('/', function(req, res, next) {
     mongoose.model('Quest').findOne({
         title: req.body.title
     }, function(err, quest) {
@@ -63,7 +63,7 @@ router.get('/:id', function(req, res) {
 
 // when a user "joins" a quest
 
-router.post('/participants', function (req, res) {
+router.post('/participants', function(req, res) {
     console.log("req.user", req.user);
 
 
@@ -76,15 +76,15 @@ router.post('/participants', function (req, res) {
                 console.log("alreadyParticipating", alreadyParticipating);
                 if (alreadyParticipating !== -1) return;
                 else {
-                   user.addQuestToUser(req.body._id, function(err, data) {
+                    user.addQuestToUser(req.body._id, function(err, data) {
                         if (err) console.log(err);
                         console.log(data);
-                   });
+                    });
                 }
             });
         },
         function() {
-            mongoose.model('Quest').findById(req.body._id, function (err, quest) {
+            mongoose.model('Quest').findById(req.body._id, function(err, quest) {
                 console.log("quest.participants.indexOf(req.user._id)", quest.participants.indexOf(req.user._id));
                 if (quest.participants.indexOf(req.user._id) !== -1) return;
                 else {
@@ -94,38 +94,40 @@ router.post('/participants', function (req, res) {
                     });
                 }
             });
-        }], function(err, data) {
-            console.log("data", data);
-            res.json(data);
+        }
+    ], function(err, data) {
+        console.log("data", data);
+        res.json(data);
     });
 });
 
 // when a user "leaves" a quest
-router.delete('/participants/:id', function (req, res) {
+router.delete('/participants/:id', function(req, res) {
     console.log("req.user", req.user);
     async.parallel([
         function() {
-            req.user.removeQuestFromUser(req.params.id, function(err, data){
+            req.user.removeQuestFromUser(req.params.id, function(err, data) {
                 if (err) console.log(err);
                 console.log("req.user.removeQuestFromUser data", data);
             });
         },
         function() {
-            mongoose.model('Quest').findById(req.params.id, function (err, singleQuest) {
-                singleQuest.removeUserFromQuest(req.user._id,function(err, data){
-                    if(err) console.log(err);
+            mongoose.model('Quest').findById(req.params.id, function(err, singleQuest) {
+                singleQuest.removeUserFromQuest(req.user._id, function(err, data) {
+                    if (err) console.log(err);
                     console.log("singleQuest.removeUserFromQuest data", data);
                 });
             });
-        }], function (err, data) {
-            res.json(data);
+        }
+    ], function(err, data) {
+        res.json(data);
     });
 });
 
 
-router.post('/upd', function(req, res, next) {
+router.put('/:id', function(req, res, next) {
     //not sure if we can 'save' the id, so removing it
-    var theId = req.body._id;
+    var theId = req.params.id;
     delete req.body._id;
 
     mongoose.model('Quest').findByIdAndUpdate(theId, req.body, function(err, updSt) {
