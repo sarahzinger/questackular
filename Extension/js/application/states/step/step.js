@@ -8,7 +8,8 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory) {
+app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state) {
+	$scope.alertshow = false;
 	//how do we keep track of the chosen Quest? Can we inject it somehow?
 	//assuming we know what the Quest is....
 
@@ -21,6 +22,7 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory) {
 		console.log("step we send", $scope.stepId)
 		QuestFactory.getStepById($scope.stepId).then(function(data){
 			$scope.step = data
+			console.log("whole step", data)
 		})
 		//once we get the stepId we need to get the full step object to display
 
@@ -29,9 +31,17 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory) {
 		//will verify that the answer is correct
 		//if so will update current step to be the next step
 		//and send user to success page
-		//else it will alert user to try again
-		console.log("step Id we are sending", $scope.stepId);
-		UserFactory.changeCurrentStep($scope.stepId);
+		if($scope.step.qType == "Fill-in"){
+			console.log("correct question type")
+			if($scope.userAnswer == $scope.step.fillIn){
+				// UserFactory.changeCurrentStep($scope.stepId);
+				$state.go('success');
+			}else{
+				//else it will alert user to try again
+				$scope.alertshow = true;
+			}
+		}
+		
 	};
 	
 });
