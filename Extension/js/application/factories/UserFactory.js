@@ -5,28 +5,18 @@ app.factory('UserFactory', function($http){
 				return res.data;
    			});
 		},
-		getPopulatedUser: function() {
-			return $http.get('http://localhost:1337/session').then(function(response) {
-				var currentUserId = response.data.user._id;
-				console.log("currentUserId is", currentUserId);
-	            return $http.get('http://localhost:1337/api/users/' + currentUserId).then(function(response) {
-	            	console.log("fully populated",response.data);
-	                return response.data;
-	            });
-			});
-        },
-        changeCurrentStep: function(stepId){
-        	console.log("changeCurrentStep launched");
-            return $http.put('http://localhost:1337/api/users/participating/currentStep/'+stepId).then(function(res){
-                return res.data;
-            });
-        },
 		getUserFromDb: function (userId) {
 			console.log("userId", userId);
 			return $http.get('http://localhost:1337/api/users/' + userId).then(function (dbUser) {
 				console.log("dbUser", dbUser);
 				return dbUser.data;
 			});
-		}
+		},
+		changeCurrentStep: function(stepId){
+        	console.log("changeCurrentStep launched");
+            return $http.put('http://localhost:1337/api/users/participating/currentStep/'+stepId).then(function(res){
+                return res.data;
+            });
+        }
 	}
 })
