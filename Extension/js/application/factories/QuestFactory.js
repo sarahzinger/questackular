@@ -60,12 +60,11 @@ app.factory('QuestFactory', function($http) {
                 return res.data;
             });
         },
-        changeCurrentStep: function(stepId){
-            return $http.put('http://localhost:1337/api/users/participating/currentStep/'+stepId).then(function(res){
+        getStepById: function(stepId){
+            return $http.get('http://localhost:1337/api/step/'+stepId).then(function(res){
                 return res.data;
             });
         }
-
 
     };
 

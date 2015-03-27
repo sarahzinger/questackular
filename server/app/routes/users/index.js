@@ -5,30 +5,31 @@ var _ = require('lodash');
 var mongoose = require('mongoose');
 var async = require('async');
 
-router.put('/participating/currentStep/:id', function(req, res, next){
-  console.log("entering the route")
-  var stepId = req.params.id;
-  //find the entire step object associated with the step id
-  mongoose.model('Step').findOne({_id: stepId}, function(err, oldStepObject) {
-    //find the stepNum of the current step object that we just found
-        var oldStepNum = oldStepObject.stepNum;
-        var currentQuest = oldStepObject.quest;
-    //find the other steps associated with the quest of the oldStepObject    
-    mongoose.model('Step').find({quest: oldStepObject.quest}, function(err, allStepsFromQuest) {
-      allStepsFromQuest.forEach(function(step) {
-        if(step.stepNum==oldStepNum+1) {
-          var newCurrentStep = step;
-          req.user.participating.forEach(function(quest) {
-            if (quest.questId==currentQuest){
-              quest.currentStep=newCurrentStep._id;
-              req.user.save();
-              res.json(newCurrentStep);
-            }
-          })
-        }
-      });
-    })
-  })
+router.put('participating/currentStep/:id', function(req, res){
+  console.log("entering the currentStep route");
+  res.send();
+  // var stepId = req.params.id;
+  // //find the entire step object associated with the step id
+  // mongoose.model('Step').findOne({_id: stepId}, function(err, oldStepObject) {
+  //   //find the stepNum of the current step object that we just found
+  //       var oldStepNum = oldStepObject.stepNum;
+  //       var currentQuest = oldStepObject.quest;
+  //   //find the other steps associated with the quest of the oldStepObject    
+  //   mongoose.model('Step').find({quest: oldStepObject.quest}, function(err, allStepsFromQuest) {
+  //     allStepsFromQuest.forEach(function(step) {
+  //       if(step.stepNum==oldStepNum+1) {
+  //         var newCurrentStep = step;
+  //         req.user.participating.forEach(function(quest) {
+  //           if (quest.questId==currentQuest){
+  //             quest.currentStep=newCurrentStep._id;
+  //             req.user.save();
+  //             res.json(newCurrentStep);
+  //           }
+  //         })
+  //       }
+  //     });
+  //   })
+  // })
 });
 router.get('/:id', function(req, res, next) {
     console.log("in /users/req.params.id", req.params.id);
