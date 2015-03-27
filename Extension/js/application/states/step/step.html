@@ -1,5 +1,26 @@
 <div class="container">
 	
-	<div ng-repeat="step in steps" ng-if="">
+	<!-- <div ng-repeat="step in steps" ng-if="">
+	</div> -->
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{chosenQuest.questId.title}}</h3>
+		</div>
+		<div class="panel-body">
+			{{step.question}}
+		</div>
+		<div class="panel-body">
+			<input ng-model="userAnswer" type="text" class="form-control" placeholder="Answer">
+		</div>
+		<button ng-click ="submit()">Submit</button>
+		<alert ng-if="alertshow" class="danger">Try Again!</alert>
+		
 	</div>
+
 </div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+  <div class="container">
+    <div>How Far Are you In the Quest 10/20</div>
+  </div>
+</nav>

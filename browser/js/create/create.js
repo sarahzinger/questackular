@@ -82,13 +82,13 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
         AuthService.getLoggedInUser().then(function(user) {
             $scope.quest.owner = user._id;
             //save the quest
-            QuestFactory.sendQuest($scope.quest).then(function(questId) {
+            QuestFactory.sendQuest($scope.quest).then(function (questId) {
                 console.log('quest item:', questId);
-                $scope.stepList.forEach(function(item) {
+                $scope.stepList.forEach(function (item) {
                     item.quest = questId;
                     //save this step
-                    QuestFactory.sendStep(item).then(function(data) {
-                        console.log('Saved quest! Woohoo!')
+                    QuestFactory.sendStep(item).then(function (data) {
+                        console.log('Saved quest! Woohoo!');
                             //redirect, clear vars on NEXT PAGE!
                         $state.go('thanks');
                     });
@@ -110,7 +110,7 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
     $state.go('create.quest');
 });
 
-app.controller('CreateQuest', function($scope) {
+app.controller('CreateQuest', function ($scope) {
     $scope.$parent.currState = 'Quest';
     if (sessionStorage.newQuest == 'undefined') {
         sessionStorage.removeItem('newQuest');
@@ -127,7 +127,7 @@ app.controller('CreateQuest', function($scope) {
 
 });
 
-app.controller('CreateStep', function($scope) {
+app.controller('CreateStep', function ($scope) {
     $scope.$parent.currState = 'Step';
     $scope.testTypes = [{
         type: 'Multiple Choice'
@@ -145,11 +145,12 @@ app.controller('CreateStep', function($scope) {
                 $scope.step.multipleAns.push(step['ans' + n]);
                 delete $scope.step['ans' + n];
                 console.log('multiAns so far: ', step.multiAns)
+
             }
         }
         var tempTags = $scope.step.tags;
         delete $scope.step.tags;
-        $scope.step.tags = tempTags.split(',').map(function(i) {
+        $scope.step.tags = tempTags.split(',').map(function (i) {
             return i.trim();
         });
         //give each step a number to go by.
@@ -164,14 +165,16 @@ app.controller('CreateStep', function($scope) {
             sessionStorage.stepStr += ',' + stepsJson + ']';
         }
         console.log("sessionStorage.stepStr", sessionStorage.stepStr);
-        angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList)
+
+        angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList);
+            // $scope.$parent.stepList = angular.fromJson(sessionStorage.stepStr);
 
         $scope.step = {}; //clear step
     };
 
 });
 
-app.controller('QuestMap', function($scope) {
+app.controller('QuestMap', function ($scope) {
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList);
 
     //GIANT LIST O TEST DATA!

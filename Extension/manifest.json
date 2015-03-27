@@ -1,5 +1,5 @@
 {
-    "name": "Scavenger",
+    "name": "Questackular!",
     // "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "description": "Create custom quizzes containing curated questions and captivating content",
     "version": "0.0.0.1",

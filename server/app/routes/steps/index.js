@@ -4,11 +4,20 @@ module.exports = router;
 var _ = require('lodash');
 var mongoose = require('mongoose');
 
-router.post('/', function(req, res, next) {
+
+router.get('/:id', function(req, res, next){
+    console.log("req.params.id", req.params.id);
+    mongoose.model('Step').findById(req.params.id, function(err, step) {
+        if(err) console.log(err);
+        res.json(step);
+    })
+})
+
+router.post('/', function (req, res, next) {
     mongoose.model('Step').findOne({
         question: req.body.question,
         quest: req.body.quest
-    }, function(err, step) {
+    }, function (err, step) {
         if (err) return next(err);
         //the following message should really never be triggered
         if (step !== null) return res.send("This step already exists!");
@@ -26,12 +35,12 @@ router.post('/', function(req, res, next) {
     });
 });
 
-router.get('/list/:id', function(req, res) {
+router.get('/list/:id', function (req, res) {
     var questId = req.params.id;
-    console.log('Quest: ', questId)
+    console.log('Quest: ', questId);
     mongoose.model('Step').find({
         quest: questId
-    }, function(err, steps) {
+    }, function (err, steps) {
         res.send(steps);
     });
 });
@@ -62,7 +71,7 @@ router.post('/upd', function(req, res, next) {
     var theQuest = req.body.quest;
     mongoose.model('Step').findById(theId, function(err, stepToUpd) {
         console.log('to be updated on backend', stepToUpd);
-        if (stepToUpd == null) {
+        if (stepToUpd === null) {
             //not found, create new. Dave speak. DAVE SMASH.
             mongoose.model('Step').create(req.body).then(function(err, notDoinAnythingWithThis) {
                 mongoose.model('Step').find({
@@ -72,7 +81,7 @@ router.post('/upd', function(req, res, next) {
                     res.send(respondy);
                 });
             });
-        } else if (stepToUpd != null) {
+        } else if (stepToUpd !== null) {
             for (var updVal in req.body) {
                 //loop thru all keys in object and replace with those from req.body.
                 if (req.body.hasOwnProperty(updVal)) {

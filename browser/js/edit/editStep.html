@@ -64,7 +64,7 @@
                         </td>
                         <td ng-if="step.qType=='Short Answer'">(short answers must be reviewed by Quest Creator)</td>
                         <td>
-                            <button ng-click='$parent.removeStep(step)' class='btn btn-danger'>X</button>
+                            <button ng-click='$parent.removeStep(step)' class='btn btn-xs btn-danger'>X</button>
                         </td>
                     </tr>
                 </tbody>
@@ -72,11 +72,11 @@
             </table>
             <hr/>
             <div ng-if='$parent.addForm==false'>
-                <button ng-click='addStep();' class='btn btn-success' title='Add a step'>+</button>Add a step!
+                <button ng-click='addStep();' class='btn btn-xs btn-success' title='Add a step'>+</button>Add a step!
             </div>
             <form name='stepForm' ng-if='$parent.addForm==true' class='editAddStep'>
                 <hr/>
-                <button class='btn btn-info' ng-click='removeForm()' title='Nevermind!' type='button'>x</button>
+                <button class='btn btn-xs btn-info' ng-click='removeForm()' title='Nevermind!' type='button'>x</button>
                 <div id="legend">
                     <legend>Add a step!</legend>
                 </div>
