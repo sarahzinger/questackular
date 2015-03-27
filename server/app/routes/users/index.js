@@ -18,7 +18,7 @@ router.put('/points/:id', function (req,res,next){
           quest.pointsFromQuest += points;
           console.log("After quest.pointsFromQuest", quest.pointsFromQuest)
           req.user.save(function(afterSave){
-            res.json(quest.pointsFromQuest);
+            res.json(req.user.totalPoints);
           });
         };
       });
