@@ -1,5 +1,5 @@
 app.config(function ($stateProvider) {
-  $stateProvider.state('MyQuests', {
+  $stateProvider.state('myQuests', {
     resolve: {
       getLoggedInUser: function(AuthService, $state, $http){
         return AuthService.getLoggedInUser(true).then(function(user){
@@ -11,8 +11,8 @@ app.config(function ($stateProvider) {
         });
       }
     },
-    url: '/MyQuests',
-    templateUrl: 'js/MyQuests/MyQuests.html', 
+    url: '/myQuests',
+    templateUrl: 'js/myQuests/myQuests.html', 
     controller: 'MyQuestsCtrl'
     });
 });
@@ -25,7 +25,7 @@ app.controller('MyQuestsCtrl', function ($scope, UserFactory, QuestFactory){
     $scope.userId = user._id;
     $scope.questsCreated = user.created;
     $scope.questsJoined = user.participating;
-    $scope.questsCompleted = user.pastQuests;
+    // $scope.questsCompleted = user.pastQuests;
   });
 
   $scope.leaveQuest = function (questId, userId) {

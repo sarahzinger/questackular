@@ -1,52 +1,24 @@
-<div class="container">
-	<h1>My Quests</h1>
-	<p>Click the filter icon <small>(<i class="glyphicon glyphicon-filter"></i>) to filter quests</small></p>
+<h1 class="panel-title">Quests I've Joined</h1>
+<div class="col-md-6 col-md-offset-3">
+	<!-- individual card begins -->
+    <div class="kard" ng-repeat="quest in questsJoined" ng-if="questsJoined.length > 0">
+        <div class="kard-image">
+            <img class="img-responsive" src="http://i.imgur.com/Apx8TnD.jpg">
+            <span class="kard-title">{{quest.questId.title}}</span>
+        </div>
+        
+        <div class="kard-content">
 
-
-	<!-- table begins -->
-	<div class="container" id="quests-joined">
-		<div class="row">
-			<div class="col-md-6">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Quests I've joined</h3>
-						<div class="pull-right">
-							<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
-								<i ng-click="search()" class="glyphicon glyphicon-filter"></i>
-							</span>
-						</div>
-					</div>
-					<div class="panel-body" ng-show="searchBox">
-						<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" />
-					</div>
-					<table class="table table-hover" id="dev-table">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Title</th>
-								<th>Description</th>
-								<!-- <th>Open/Closed</th> -->
-								<th>Continue</th>
-								<th>Leave</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="quest in questsJoined track by $index">
-								<td>{{$index + 1}}</td>
-								<td>{{quest.questId.title}}</td>
-								<td>{{quest.questId.description}}</td>
-								<!-- <td>{{quest.open}}</td> -->
-								<td><button class='btn btn-xs btn-info glyphicon glyphicon-arrow-right'></button></td>
-								<td><button class='btn btn-xs btn-danger glyphicon glyphicon-remove' ng-click="leaveQuest(quest.questId._id, userId)"></button></td>
-							</tr>
-						
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end of table -->
-
-	
+            <p>{{quest.questId.description}}</p>
+        </div>
+        
+        <div class="kard-action">
+            <a class="btn btn-sm btn-primary"><i class="mdi-maps-directions-walk"></i></a>
+            <a class="btn btn-sm btn-warning"><i class="mdi-navigation-cancel"></i></a>
+        </div>
+    </div>
+    <!-- individual card ends -->
 </div>
+	
+	
+

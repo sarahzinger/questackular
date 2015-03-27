@@ -97,7 +97,7 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
             }
         }
         //parse and readjust quest
-        ($scope.quest.pubPriv === 'private') ? $scope.quest.privacy = true: $scope.quest.privacy = false;
+        ($scope.quest.pubPriv === 'private') ? $scope.quest.privacy = true : $scope.quest.privacy = false;
         delete $scope.quest.pubPriv;
         //final-presave stuff: get the current user ID
         AuthService.getLoggedInUser().then(function(user) {
@@ -112,7 +112,7 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
                 });
                 $scope.stepList.forEach(function(item) {
                     item.quest = questId._id;
-                    if (item.clues != '' && item.clues != undefined) {
+                    if (item.clues !== '' && item.clues !== undefined) {
                         //step has clues, so parse em!
                         var tempClooz = item.clues;
                         delete item.clues;
@@ -139,7 +139,7 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
                 $scope.quest = $scope.questList[n];
             }
         }
-        QuestFactory.getStepListById(id).then(function(data) {
+        QuestFactory.getStepListById(id).then(function (data) {
             // $scope.stepList = data;
             angular.copy(data, $scope.stepList);
             if ($scope.stepList.length > 0) {
@@ -156,22 +156,24 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
     $scope.showData = function() {
         console.log('Quest List:', $scope.questList, ', Quest: ', $scope.quest, ', Steps: ', $scope.stepList);
     };
+
     $scope.correctAns = function(ansNum, stepId) {
         //this function simply chooses the correct answer for the multi-choice answers.
-        console.log('Correct: ', ansNum, 'ID: ', stepId)
+        console.log('Correct: ', ansNum, 'ID: ', stepId);
         for (var i = 0; i < $scope.stepList.length; i++) {
             if ($scope.stepList[i]._id == stepId) {
 
                 $scope.stepList[i].multiAnsCor = ansNum.toString();
             }
         }
-    }
+    };
+
     $scope.checkOpenStatus = function(quest) {
         //if quest is currently ACTIVE and HAS PARTICIPANTS, show ARRAY at 0.
         //if quest is currently INACTIVE, show ARRAY at 1
         //if active and no partis, show ARRAY at 2.
-        (quest.active) ? quest.active = false: quest.active = true;
-        console.log('quest active?', quest.active)
+        (quest.active) ? quest.active = false : quest.active = true;
+        console.log('quest active?', quest.active);
         if (quest.active && quest.participants.length >= 1) {
             $scope.alerts[0].show = true;
             $scope.alerts[1].show = false;
@@ -207,7 +209,7 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
             }
         }
         //then sesh storage!
-        sessionStorage.stepStr = angular.toJson($scope.stepList); 
+        sessionStorage.stepStr = angular.toJson($scope.stepList);
     };
 
     $state.go('edit.quest');
@@ -243,9 +245,9 @@ app.controller('editStep', function($scope) {
         //note: this doesnt actually write the step to the mongodb.
         for (var r = 0; r < $scope.$parent.stepList.length; r++) {
             console.log('new Q: ', newStep.question, ', old Q:', $scope.$parent.stepList[r]);
-            if (newStep.question == $scope.$parent.stepList[r].question) {
+            if (newStep.question === $scope.$parent.stepList[r].question) {
                 //err! question already exists!
-                alert('This step already exists! You can\'t have the same step multiple times in the same quest!')
+                alert('This step already exists! You can\'t have the same step multiple times in the same quest!');
                 $scope.newStep = {};
                 return;
             }
@@ -258,7 +260,7 @@ app.controller('editStep', function($scope) {
                 console.log($scope.newStep['ans' + n]);
                 $scope.newStep.multipleAns.push(step['ans' + n]);
                 delete $scope.newStep['ans' + n];
-                console.log('multiAns so far: ', newStep.multiAns)
+                console.log('multiAns so far: ', newStep.multiAns);
             }
         } else if ($scope.newStep.qType === "Short Answer") $scope.newStep.shortAns = false;
         var tempTags = $scope.newStep.tags;
@@ -278,11 +280,11 @@ app.controller('editStep', function($scope) {
             seshObj = angular.fromJson(sessionStorage.stepStr);
         }
         seshObj.push(newStep);
-        angular.copy(seshObj, $scope.$parent.stepList)
+        angular.copy(seshObj, $scope.$parent.stepList);
         sessionStorage.stepStr = angular.toJson(seshObj);
 
         console.log("sessionStorage.stepStr currently has: ", sessionStorage.stepStr);
-        angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList)
+        angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList);
             // $scope.$parent.stepList = angular.fromJson(sessionStorage.stepStr);
 
         $scope.newStep = {}; //clear step

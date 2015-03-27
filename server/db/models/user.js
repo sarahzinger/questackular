@@ -89,7 +89,7 @@ schema.methods.removeQuestFromUser = function(questId, callback){
 };
 schema.methods.addQuestToUser = function(questId, callback){
     this.participating.push({questId: questId});
-    this.save(function(err, data) {   
+    this.save(function (err, data) {   
         callback(err, data);
     });
 };
