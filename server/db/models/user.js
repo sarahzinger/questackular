@@ -42,7 +42,8 @@ var schema = new mongoose.Schema({
     google: {
         id: String,
         name: String,
-        email: String
+        email: String,
+        picture: String
     }
 });
 

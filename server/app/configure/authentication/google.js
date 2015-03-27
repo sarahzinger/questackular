@@ -28,8 +28,9 @@ module.exports = function (app) {
                 UserModel.create({
                     google: {
                         id: profile.id,
-                        email: profile._json.email, 
-                        name: profile._json.name
+                        email: profile._json.email,
+                        name: profile._json.name,
+                        picture: profile._json.picture
                     }
                 }).then(function (user) {
                     console.log(user);

@@ -5,7 +5,8 @@ var _ = require('lodash');
 var mongoose = require('mongoose');
 var async = require('async');
 
-router.put('/participating/currentStep/:id'), function(req, res, next){
+router.put('/participating/currentStep/:id', function(req, res, next){
+  console.log("entering the route")
   var stepId = req.params.id;
   //find the entire step object associated with the step id
   mongoose.model('Step').findOne({_id: stepId}, function(err, oldStepObject) {
@@ -28,10 +29,7 @@ router.put('/participating/currentStep/:id'), function(req, res, next){
       });
     })
   })
-      //find the step with the old stepNum+1
-        //set the currentStep for the user as this new stepNum
-
-}
+});
 router.get('/:id', function(req, res, next) {
     console.log("in /users/req.params.id", req.params.id);
     mongoose.model('User').findOne({_id: req.params.id})

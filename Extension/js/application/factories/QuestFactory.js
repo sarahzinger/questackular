@@ -61,7 +61,7 @@ app.factory('QuestFactory', function($http) {
             });
         },
         changeCurrentStep: function(stepId){
-            return $http.put('http://localhost:1337/participating/currentStep/'+stepId).then(function(res){
+            return $http.put('http://localhost:1337/api/users/participating/currentStep/'+stepId).then(function(res){
                 return res.data;
             });
         }

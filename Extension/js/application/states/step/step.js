@@ -27,6 +27,7 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory) {
 		//if so will update current step to be the next step
 		//and send user to success page
 		//else it will alert user to try again
+		console.log("step Id we are sending", $scope.step._id)
 		QuestFactory.changeCurrentStep($scope.step._id);
 	}
 	
