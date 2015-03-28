@@ -39,25 +39,25 @@
                         </td>
                         <td editable-text='step.pointValue'>{{step.pointValue}}</td>
                         <td editable-text='step.url'>{{step.url}}</td>
-                        <td editable-text='step.tags'>{{step.tags.join()}}</td>
-                        <td editable-text='step.clues'>
-                            <span ng-if='step.clues.length>0'>{{step.clues.join()}}</span>
-                            <span ng-if='step.clues.length<=0'>No clues yet!</span>
+                        <td editable-text='step.tagStr'>{{step.tagStr}}</td>
+                        <td editable-text='step.clueStr'>
+                            <span>{{step.clueStr}}</span>
+                            <!-- <span ng-if='step.clues.length<=0'>No clues yet!</span> -->
                         </td>
                         <td ng-if="step.qType=='Multiple Choice'">
 
-                            <div style='font-size:x-small'>Click '☜' to designate a correct answer!</div>
+                            <div style='font-size:x-small'>Click '☞' to designate a correct answer!</div>
+                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(0,$index);'>☞</div>
                             <div editable-text='step.multipleAns[0]' ng-class='{correctMultiAns:step.multiAnsCor=="0"}' class='multiDiv'>1): {{step.multipleAns[0] || "nothing yet!"}}</div>
-                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(0,step._id);'>☜</div>
                             <br/>
+                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(1,$index);'>☞</div>
                             <div editable-text='step.multipleAns[1]' ng-class='{correctMultiAns:step.multiAnsCor=="1"}' class='multiDiv'>2): {{step.multipleAns[1] || "nothing yet!"}}</div>
-                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(1,step._id);'>☜</div>
                             <br/>
+                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(2,$index);'>☞</div>
                             <div editable-text='step.multipleAns[2]' ng-class='{correctMultiAns:step.multiAnsCor=="2"}' class='multiDiv'>3): {{step.multipleAns[2] || "nothing yet!"}}</div>
-                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(2,step._id);'>☜</div>
                             <br/>
+                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(3,$index);'>☞</div>
                             <div editable-text='step.multipleAns[3]' ng-class='{correctMultiAns:step.multiAnsCor=="3"}' class='multiDiv'>4): {{step.multipleAns[3] || "nothing yet!"}}</div>
-                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(3,step._id);'>☜</div>
                         </td>
                         <td ng-if="step.qType=='Fill-in'">
                             <span editable-text='step.fillIn'>{{step.fillIn}}</span>
@@ -90,7 +90,7 @@
 
                 <div class="form-group">
                     <label for="tags">Tags</label>
-                    <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="newStep.tags" required ng-change='saveQuest()'>
+                    <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="newStep.tagStr" required ng-change='saveQuest()'>
                 </div>
                 <div class="form-group">
                     <label for='pointsQ'>Point value:
@@ -113,22 +113,22 @@
                     <p class="help-block">Please enter some answer options.</p>
                     <label class="form-inline" for='multiAns1'>Answer option 1:
                         <input class="form-control" type='text' name='multiAns1' ng-model='newStep.ans1'>
-                        <input type='radio' name='correctAnsPick' value='1' checked ng-model='step.multiAnsCor' />Pick this answer
+                        <input type='radio' name='correctAnsPick' value='"1"' checked ng-model='newStep.multiAnsCor' />Pick this answer
                     </label>
                     <br/>
                     <label class="form-inline" for='multiAns2'>Answer option 2:
                         <input class="form-control" type='text' name='multiAns2' ng-model='newStep.ans2'>
-                        <input type='radio' name='correctAnsPick' value='2' checked ng-model='step.multiAnsCor' />Pick this answer
+                        <input type='radio' name='correctAnsPick' value='"2"' checked ng-model='newStep.multiAnsCor' />Pick this answer
                     </label>
                     <br/>
                     <label class="form-inline" for='multiAns3'>Answer option 3:
                         <input class="form-control" type='text' name='multiAns3' ng-model='newStep.ans3'>
-                        <input type='radio' name='correctAnsPick' value='3' checked ng-model='step.multiAnsCor' />Pick this answer
+                        <input type='radio' name='correctAnsPick' value='"3"' checked ng-model='newStep.multiAnsCor' />Pick this answer
                     </label>
                     <br/>
                     <label class="form-inline" for='multiAns4'>Answer option 4:
                         <input class="form-control" type='text' name='multiAns4' ng-model='newStep.ans4'>
-                        <input type='radio' name='correctAnsPick' value='4' checked ng-model='step.multiAnsCor' />Pick this answer
+                        <input type='radio' name='correctAnsPick' value='"4"' checked ng-model='newStep.multiAnsCor' />Pick this answer
                     </label>
                     <br/>
                 </div>

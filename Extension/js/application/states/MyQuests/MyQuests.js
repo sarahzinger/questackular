@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('MyQuestsCtrl', function ($scope, UserFactory) {
+app.controller('MyQuestsCtrl', function ($scope, UserFactory, $state) {
   UserFactory.getUserInfo().then(function (userInfo) {
     console.log("userInfo", userInfo);
     var id = userInfo.user._id;
@@ -30,4 +30,8 @@ app.controller('MyQuestsCtrl', function ($scope, UserFactory) {
   //     $scope.questsJoined = user.participating;
   //   });
   // };
+  $scope.continueQuest = function(participatingIndex){
+    localStorage.setItem("participatingIndex", participatingIndex);
+    $state.go("step");
+  };
 });

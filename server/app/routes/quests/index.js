@@ -7,7 +7,6 @@ var mongoose = require('mongoose');
 
 router.post('/', function (req, res, next) {
     console.log("req.user", req.user);
-
     mongoose.model('Quest').findOne({
         title: req.body.title
     }, function(err, quest) {
@@ -63,7 +62,7 @@ router.get('/:id', function(req, res) {
 
 // when a user "joins" a quest
 
-router.post('/participants', function (req, res) {
+router.post('/participants', function(req, res) {
     console.log("req.user", req.user);
     var alreadyParticipating = _.findIndex(req.user.participating, function(questPlaying) {
         return questPlaying.questId == req.body._id;
@@ -81,7 +80,7 @@ router.post('/participants', function (req, res) {
 });
 
 // when a user "leaves" a quest
-router.delete('/participants/:id', function (req, res) {
+router.delete('/participants/:id', function(req, res) {
     console.log("req.user", req.user);
 
     req.user.removeQuestFromUser(req.params.id, function(err, data){
@@ -92,9 +91,9 @@ router.delete('/participants/:id', function (req, res) {
 });
 
 
-router.post('/upd', function(req, res, next) {
+router.put('/:id', function(req, res, next) {
     //not sure if we can 'save' the id, so removing it
-    var theId = req.body._id;
+    var theId = req.params.id;
     delete req.body._id;
 
     mongoose.model('Quest').findByIdAndUpdate(theId, req.body, function(err, updSt) {
