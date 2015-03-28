@@ -12,6 +12,7 @@ app.config(function($stateProvider) {
                     });
                 }
             },
+            abstract: true,
             url: '/create',
             templateUrl: 'js/create/create.html',
             controller: 'CreateCtrl'
@@ -67,26 +68,37 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
             }
         }
         //parse and readjust quest
-        ($scope.quest.actInact === 'active') ? $scope.quest.active = true: $scope.quest.active = false;
-        ($scope.quest.pubPriv === 'private') ? $scope.quest.privacy = true: $scope.quest.privacy = false;
+        ($scope.quest.actInact === 'active') ? $scope.quest.active = true : $scope.quest.active = false;
+        ($scope.quest.pubPriv === 'private') ? $scope.quest.privacy = true : $scope.quest.privacy = false;
         delete $scope.quest.actInact;
         delete $scope.quest.pubPriv;
         //final-presave stuff: get the current user ID
         AuthService.getLoggedInUser().then(function(user) {
+            console.log("user from AuthService", user);
             $scope.quest.owner = user._id;
             //save the quest
-            QuestFactory.sendQuest($scope.quest).then(function (questId) {
-                console.log('quest item:', questId);
-                $scope.stepList.forEach(function (item) {
-                    item.quest = questId;
-                    //save this step
-                    QuestFactory.sendStep(item).then(function (data) {
-                        console.log('Saved quest! Woohoo!');
-                            //redirect, clear vars on NEXT PAGE!
-                        $state.go('thanks');
-                    });
+            QuestFactory.sendQuest($scope.quest)
+                .then(function (questId) {
+                    console.log('questId item:', questId);
+
+                    // questId = questId.toString();
+                    if (questId == "duplicateQuest") {
+                        alert("This quest already exsits! Please create your steps in the 'edit' page.");
+                    } else {
+                        console.log("questId !== duplicateQuest");
+                        $scope.stepList.forEach(function (item) {
+                            item.quest = questId;
+                            //save this step
+                            QuestFactory.sendStep(item).then(function (data) {
+                                console.log('Saved quest! Woohoo!');
+                                //redirect, clear vars on NEXT PAGE!
+                                $state.go('thanks');
+                            });
+                        });
+                        
+                    }
+                    
                 });
-            });
         });
     };
 

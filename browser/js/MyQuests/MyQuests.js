@@ -34,6 +34,12 @@ app.controller('MyQuestsCtrl', function ($scope, UserFactory, QuestFactory){
     UserFactory.getCurrentUser().then(function (user) {
       $scope.questsJoined = user.participating;
     });
-    
   };
+
+  $scope.searchBox = false;
+  $scope.search = function() {
+    if (!$scope.searchBox) $scope.searchBox = true;
+    else $scope.searchBox = false;
+  };
+
 });

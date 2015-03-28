@@ -6,26 +6,26 @@ var async = require('async');
 var mongoose = require('mongoose');
 
 router.post('/', function (req, res, next) {
+    console.log("req.user", req.user);
+
     mongoose.model('Quest').findOne({
         title: req.body.title
     }, function(err, quest) {
         console.log('question:', quest);
         if (err) return next(err);
-        if (quest !== null) return res.send("This Quest already exists!"); //q exists. Don't create
+        if (quest !== null) {
+            console.log("quest !== null", quest);
+            return res.send("duplicateQuest"); //q exists. Don't create
+        }
         else {
-            //question doesn't already exist, so we can save it.
-            console.log('In the save part');
+            //quest doesn't already exist, so we can save it.
+            console.log('In the save part, quest == null', quest);
 
             mongoose.model('Quest').create(req.body).then(function(data) {
+                console.log("quest.create promise data", data);
 
-                mongoose.model('User').findById(req.body.owner, function(err, userObj) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        userObj.created.push(data._id);
-                        userObj.save();
-                    }
-                });
+                req.user.created.push(data._id);
+                req.user.save();
                 res.send(data._id);
             });
 
@@ -65,60 +65,29 @@ router.get('/:id', function(req, res) {
 
 router.post('/participants', function (req, res) {
     console.log("req.user", req.user);
-
-
-    async.parallel([
-        function() {
-            mongoose.model('User').findById(req.body.participants[req.body.participants.length - 1], function(err, user) {
-                var alreadyParticipating = _.findIndex(user.participating, function(questPlaying) {
-                    return questPlaying.questId == req.body._id;
-                });
-                console.log("alreadyParticipating", alreadyParticipating);
-                if (alreadyParticipating !== -1) return;
-                else {
-                   user.addQuestToUser(req.body._id, function(err, data) {
-                        if (err) console.log(err);
-                        console.log(data);
-                   });
-                }
-            });
-        },
-        function() {
-            mongoose.model('Quest').findById(req.body._id, function (err, quest) {
-                console.log("quest.participants.indexOf(req.user._id)", quest.participants.indexOf(req.user._id));
-                if (quest.participants.indexOf(req.user._id) !== -1) return;
-                else {
-                    quest.addUserFromQuest(req.user._id, function(err, data) {
-                        if (err) console.log(err);
-                        console.log(data);
-                    });
-                }
-            });
-        }], function(err, data) {
-            console.log("data", data);
-            res.json(data);
+    var alreadyParticipating = _.findIndex(req.user.participating, function(questPlaying) {
+        return questPlaying.questId == req.body._id;
     });
+    console.log("alreadyParticipating?", alreadyParticipating);
+    if (alreadyParticipating === -1) { // if NOT found in participating [], therefore NOT participating
+        console.log("NOT yet participating");
+        req.user.addQuestToUser(req.body._id, function(err, data) {
+            if (err) console.log(err);
+            console.log("addQuestToUser callback data", data);
+            res.json(data);
+        });
+    }
+
 });
 
 // when a user "leaves" a quest
 router.delete('/participants/:id', function (req, res) {
     console.log("req.user", req.user);
-    async.parallel([
-        function() {
-            req.user.removeQuestFromUser(req.params.id, function(err, data){
-                if (err) console.log(err);
-                console.log("req.user.removeQuestFromUser data", data);
-            });
-        },
-        function() {
-            mongoose.model('Quest').findById(req.params.id, function (err, singleQuest) {
-                singleQuest.removeUserFromQuest(req.user._id,function(err, data){
-                    if(err) console.log(err);
-                    console.log("singleQuest.removeUserFromQuest data", data);
-                });
-            });
-        }], function (err, data) {
-            res.json(data);
+
+    req.user.removeQuestFromUser(req.params.id, function(err, data){
+        if (err) console.log(err);
+        console.log("req.user.removeQuestFromUser data", data);
+        res.json(data);
     });
 });
 
