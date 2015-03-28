@@ -6,7 +6,7 @@
 	
 	<!-- table begins -->
 	<div class="container">
-	    <p>Click the filter icon <small>(<i class="glyphicon glyphicon-filter"></i>)</small></p>
+	    <p>Click the filter icon <small>(<i class="glyphicon mdi-content-filter-list"></i>)</small></p>
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-primary">
@@ -14,7 +14,7 @@
 						<h3 class="panel-title">Quests Available</h3>
 						<div class="pull-right">
 							<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
-								<i ng-click="search()" style='top:-15px;' class="glyphicon glyphicon-filter"></i>
+								<i ng-click="search()" style='top:-20px;' class="glyphicon mdi-content-filter-list"></i>
 							</span>
 						</div>
 					</div>
@@ -24,7 +24,7 @@
 					<table class="table table-hover" id="dev-table">
 						<thead>
 							<tr>
-								<th>#</th>
+								<th>Quest Number</th>
 								<th>Title</th>
 								<th>Description</th>
 								<th>Open/Closed</th>
@@ -37,7 +37,7 @@
 								<td>{{quest.title}}</td>
 								<td>{{quest.description}}</td>
 								<td>{{quest.open}}</td>
-								<td><button title='Join this quest!' class='btn btn-xs btn-success glyphicon glyphicon-hand-right' ng-click="joinQuest(quest)"></button></td>
+								<td><button title='Join this quest!' class='btn btn-sm btn-success mdi-maps-directions-walk' ng-click="joinQuest(quest)"></button></td>
 							</tr>
 							
 						</tbody>
