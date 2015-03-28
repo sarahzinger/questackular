@@ -31,7 +31,7 @@ app.factory('QuestFactory', function($http, domain) {
             });
         },
         updateQuest: function(updatedQuest) {
-            return $http.put('/api/quests/:id', updatedQuest).then(function(res) {
+            return $http.put(domain+'/api/quests/', updatedQuest).then(function(res) {
                 return res.data;
             });
         },

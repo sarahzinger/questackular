@@ -5,23 +5,21 @@ Here's what you can buy!
 					<div class="panel-heading">
 						<h3 class="panel-title">Store</h3>
 					</div>
-					<table class="table table-hover storeTable" id="dev-table">
+					<table class="table table-hover storeTable store" id="dev-table">
 						<thead>
 							<tr>
-								<th>Image</th>
-								<th>Title</th>
+								<th>Item</th>
 								<th>Description</th>
 								<th>Price</th>
 								<th>Buy!</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="quest in questsCreated track by $index">
-								<td><img width='75' height='75' src='{{item.title}}'></td>
-								<td>{{item.title}}</td>
+							<tr ng-repeat="item in allItems track by $index">
+								<td>{{item.title}}<img width='50' height='50' src='{{item.title}}'></td>
 								<td>{{item.description}}</td>
 								<td>{{item.price|currency}}</td>
-								<td><span style='font-size:xx-large' ng-click='buy(item.id,item.price)'>&#128176;</span></td>
+								<td><span class='storeBuyBut' ng-click='buy(item.id,item.price)'>&#128176;</span></td>
 							</tr>
 						</tbody>
 					</table>

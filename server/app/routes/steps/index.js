@@ -71,6 +71,7 @@ router.post('/upd', function(req, res, next) {
     var theQuest = req.body.quest;
     mongoose.model('Step').findById(theId, function(err, stepToUpd) {
         console.log('to be updated on backend', stepToUpd);
+        console.log('quest for this step: ',theQuest)
         if (stepToUpd === null) {
             //not found, create new. Dave speak. DAVE SMASH.
             mongoose.model('Step').create(req.body).then(function(err, notDoinAnythingWithThis) {
