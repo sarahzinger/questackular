@@ -62,29 +62,8 @@ var encryptPassword = function(plainText, salt) {
     return hash.digest('hex');
 };
 
-<<<<<<< HEAD
-// schema.pre('save', function(next) {
-
-//     if (this.isModified('participating')) {
-//         var modifiedArray = this.modifiedPaths();
-
-//         mongoose.model('Quest').findById(this.participating[], function (err, singleQuest) {
-//             var idx = singleQuest.participants.indexOf(req.user);
-//             singleQuest.participants.splice(idx, 1);
-//             singleQuest.save();
-//         });
-
-//     } 
-
-//     next();
-
-// });
-
-schema.methods.removeQuestFromUser = function(questId, callback) {
-=======
 schema.methods.removeQuestFromUser = function(questId, callback){
     console.log("questId", questId);
->>>>>>> master
     // var idx = this.participating.indexOf(questId);
     var idx = _.findIndex(this.participating, function (questObj) {
         return questObj.questId == questId;
@@ -92,10 +71,6 @@ schema.methods.removeQuestFromUser = function(questId, callback){
     console.log("index of quest is", idx);
 
     this.participating.splice(idx, 1);
-<<<<<<< HEAD
-    this.save(function(err, data) {
-        callback(err, data);
-=======
     this.save(function (err, data) {
         // removing user from quest
         mongoose.model('Quest').findOne({_id: questId}, function (err, questFound) {
@@ -108,30 +83,11 @@ schema.methods.removeQuestFromUser = function(questId, callback){
             });
         });
 
->>>>>>> master
     });
 
     var self = this;
 
 };
-<<<<<<< HEAD
-schema.methods.addQuestToUser = function(questId, callback) {
-
-    var self = this
-    mongoose.model('Step').find({
-        quest: questId
-    }, function(err, steps) {
-        if (err) return (err)
-        steps.forEach(function(step) {
-            if (step.stepNum == 1) {
-                self.participating.push({
-                    questId: questId,
-                    currentStep: step._id,
-                    pointsFromQuest: 0
-                });
-                self.save(function(err, data) {
-                    callback(err, data);
-=======
 schema.methods.addQuestToUser = function(questId, callback){
     console.log("addQuestToUser called with questId", questId);
     var self = this;
@@ -155,7 +111,7 @@ schema.methods.addQuestToUser = function(questId, callback){
                 self.save(function(err, userData) { 
                     if (err) console.log(err);  
                     console.log("ELSE data in user callback IS THE USER OBJECT", userData);
->>>>>>> master
+
                 });
             }
             done();
