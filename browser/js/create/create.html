@@ -7,8 +7,25 @@
         </tabset>
     </div>
     <div class="container" id="content">
+        <ul class='instList'>
+            Help!
+            <li>Create a quest title!</li>
+            <li>Give your quest a cool description!</li>
+            <li>Pick whether you you want the quest to start as active or inactive!
+                <ul>
+                    <li>Active quests can be played immediately, but cannot be edited (until made inactive).</li>
+                    <li>Inactive quests can not be played immediately, but you still can edit them (to make them more awesome!).</li>
+                </ul>
+            </li>
+            <li>Click 'New Step' to give your quest some steps!
+                 <ul>
+                    <li>You can't create steps without making a quest first.</li>
+                </ul>
+            </li>
+            <li>Click 'Save' so others can play your awesome quest (don't forget to make it 'active')!</li>
+            <li>Or click 'Clear' to cancel.</li>
+        </ul>
         <ui-view></ui-view>
     </div>
-    <div id='unloadDiv'></div>
 </section>
 

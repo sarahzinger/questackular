@@ -1,2 +1,27 @@
-<h1>WE'VE CHANGED TO SUCCESS</h1>
+<h1>{{yayMessage}}</h1>
+<hr/>
+Here's what you can buy!
+<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">Store</h3>
+					</div>
+					<table class="table table-hover storeTable store" id="dev-table">
+						<thead>
+							<tr>
+								<th>Item</th>
+								<th>Description</th>
+								<th>Price</th>
+								<th>Buy!</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="item in allItems track by $index">
+								<td>{{item.title}}<img width='50' height='50' src='{{item.title}}'></td>
+								<td>{{item.description}}</td>
+								<td>{{item.price|currency}}</td>
+								<td><span class='storeBuyBut' ng-click='buy(item.id,item.price)'>&#128176;</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 <button ng-click="continue()">Continue</button>

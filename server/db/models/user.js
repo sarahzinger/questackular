@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var Quest = require('./quest.js');
 var _ = require('lodash');
 var Step = require('./step.js');
+var Item = require('./item.js');
 var async = require('async');
 
 var schema = new mongoose.Schema({
@@ -14,11 +15,7 @@ var schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Quest'
     }],
-    // MAYBE use this: mongo indexing for quickly looking up all users in any given quest
-    // participating: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Quest'
-    // }],
+
     participating: [{
         questId: {
             type: mongoose.Schema.Types.ObjectId,
@@ -29,17 +26,13 @@ var schema = new mongoose.Schema({
             ref: 'Step'
         },
         pointsFromQuest: Number,
-        stepsPurchased:[Number]
+        stepsPurchased: [Number]
     }],
-
-    // pastQuests: [{
-    //     questId: {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'Quest'
-    //     },
-    //     points: Number,
-    //     stpesPurchased: [Number]
-    // }], 
+    pointsSpent: Number,
+    itemsBought: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Item'
+    }],
     google: {
         id: String,
         name: String,
@@ -48,9 +41,9 @@ var schema = new mongoose.Schema({
     }
 });
 
-schema.virtual('totalPoints').get(function () {
+schema.virtual('totalPoints').get(function() {
     var total = 0;
-    this.participating.forEach(function(questObj){
+    this.participating.forEach(function(questObj) {
         total += Number(questObj.pointsFromQuest);
     });
     return total;
@@ -118,6 +111,7 @@ schema.methods.addQuestToUser = function(questId, callback){
                 self.save(function(err, userData) { 
                     if (err) console.log(err);  
                     console.log("ELSE data in user callback IS THE USER OBJECT", userData);
+
                 });
             }
             done();

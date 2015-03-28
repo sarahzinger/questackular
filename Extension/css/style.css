@@ -1,4 +1,3 @@
-@charset "UTF-8";
 * {
   box-sizing: border-box; }
 
@@ -41,10 +40,21 @@ body {
       text-align: center;
       background-color: #B9AB9C; }
 
-.correctMultiAns {
-  background-color: #cfc; }
-  .correctMultiAns::after {
-    content: '☜'; }
+.alert {
+  position: fixed;
+  z-index: 10; }
+
+.store {
+  font-size: small;
+  width: 100%;
+  transform-style: preserve-3d; }
+  .store .storeBuyBut {
+    font-size: xx-large;
+    cursor: pointer;
+    transition-duration: .5s; }
+    .store .storeBuyBut:hover {
+      content: "\D83C\00a0";
+      transform: rotateY(720deg); }
 
 .removeQuestButton {
   width: 25px;
