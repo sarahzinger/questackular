@@ -15,6 +15,7 @@ app.config(function($stateProvider) {
                     });
                 }
             },
+            abstract: true,
             url: '/edit',
             templateUrl: 'js/edit/edit.html',
             controller: 'editCtrl'
