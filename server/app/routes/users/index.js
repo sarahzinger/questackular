@@ -5,7 +5,16 @@ var _ = require('lodash');
 var mongoose = require('mongoose');
 var async = require('async');
 
+router.get('/points/', function (req,res,next){
+  var total = req.user.totalPoints;
+  if (req.user.pointsSpent){
+    total -= req.user.pointsSpent;
+  }
+  res.json(total);
+});
+
 router.put('/points/:id', function (req,res,next){
+  console.log("trying to add points");
   var stepId = req.params.id;
   //get the step object to get point worth
   mongoose.model('Step').findOne({_id: stepId}, function(err, stepObject) {
@@ -58,9 +67,9 @@ router.get('/:id', function(req, res, next) {
         .exec(function (err, userInfo) {
             if (err) return res.json(err);
             // if (userInfo.participating.length) {
-	            mongoose.model('User').populate(userInfo, 'participating.questId', function (err, userFullyPopulated) {
+	            mongoose.model('User').populate(userInfo, 'participating.questId participating.currentStep', function (err, userFullyPopulated) {
 	            	if (err) return res.json(err);
-		    		res.json(userFullyPopulated);
+                res.json(userFullyPopulated);
 	            });	
     		// }
     		// res.json(userInfo);
