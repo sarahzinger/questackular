@@ -168,7 +168,7 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
     $scope.correctAns = function(ansNum, stepNum) {
         //this function simply chooses the correct answer for the multi-choice answers.
         console.log('Correct: ', ansNum, 'ID: ', stepNum);
-        $scope.stepList[stepNum].multiAnsCor=ansNum.toString();
+        $scope.stepList[stepNum].multiAnsCor = ansNum.toString();
 
     };
 
@@ -215,7 +215,17 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
         //then sesh storage!
         sessionStorage.stepStr = angular.toJson($scope.stepList);
     };
-
+    $scope.$on('$stateChangeStart', function(e, to, n, from) {
+        console.log('Event: ', e, ' to: ', to, ' from:', from);
+        if (from.name.split('.')[0] !== to.name.split('.')[0] && (sessionStorage.stepStr || sessionStorage.newQuest)) {
+            //check to see if this is NOT within the same parent state
+            //if it is (i.e., this else isnt triggered) just allow transition
+            //note that we're also checking the status of the new
+            if (!confirm('Hey! This quest isn\'t fully saved yet! Are you sure you wanna leave?')) {
+                e.preventDefault();
+            }
+        }
+    });
     $state.go('edit.quest');
 
 });
@@ -248,8 +258,8 @@ app.controller('editStep', function($scope, QuestFactory) {
         $scope.$parent.addForm = false;
     };
     $scope.saveStep = function(newStep) {
-        $scope.$parent.stepList = QuestFactory.saveStepIter(newStep, $scope.$parent.stepList)||$scope.$parent.stepList;
-        console.log('save step stuff successfully switched to smaller sequences',$scope.$parent.stepList)
+        $scope.$parent.stepList = QuestFactory.saveStepIter(newStep, $scope.$parent.stepList) || $scope.$parent.stepList;
+        console.log('save step stuff successfully switched to smaller sequences', $scope.$parent.stepList)
         $scope.newStep = {}; //clear step
         $scope.$parent.addForm = false; //hide form.
     };

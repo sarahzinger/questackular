@@ -103,7 +103,17 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
             $scope.questExists = false;
         }
     };
-
+    $scope.$on('$stateChangeStart', function(e, to, n, from) {
+        console.log('Event: ', e, ' to: ', to, ' from:', from);
+        if (from.name.split('.')[0] !== to.name.split('.')[0] && (sessionStorage.stepStr || sessionStorage.newQuest)) {
+            //check to see if this is NOT within the same parent state
+            //if it is (i.e., this else isnt triggered) just allow transition
+            //note that we're also checking the status of the new
+            if (!confirm('Hey! This quest isn\'t fully saved yet! Are you sure you wanna leave?')) {
+                e.preventDefault();
+            }
+        }
+    });
     $state.go('create.quest');
 });
 
@@ -129,7 +139,7 @@ app.controller('CreateStep', function($scope, QuestFactory) {
     $scope.testTypes = ['Multiple Choice', 'Fill-in'];
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList); //get steps on list
     $scope.saveStep = function(newStep) {
-        $scope.$parent.stepList = QuestFactory.saveStepIter(newStep, $scope.$parent.stepList)||$scope.$parent.stepList;
+        $scope.$parent.stepList = QuestFactory.saveStepIter(newStep, $scope.$parent.stepList) || $scope.$parent.stepList;
         $scope.step = {}; //clear step
     };
 });
