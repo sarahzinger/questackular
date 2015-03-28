@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var Quest = require('./quest.js');
 var _ = require('lodash');
 var Step = require('./step.js');
+var Item = require('./item.js');
 
 var schema = new mongoose.Schema({
 
@@ -13,11 +14,7 @@ var schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Quest'
     }],
-    // MAYBE use this: mongo indexing for quickly looking up all users in any given quest
-    // participating: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Quest'
-    // }],
+
     participating: [{
         questId: {
             type: mongoose.Schema.Types.ObjectId,
@@ -28,17 +25,13 @@ var schema = new mongoose.Schema({
             ref: 'Step'
         },
         pointsFromQuest: Number,
-        stepsPurchased:[Number]
+        stepsPurchased: [Number]
     }],
-
-    // pastQuests: [{
-    //     questId: {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'Quest'
-    //     },
-    //     points: Number,
-    //     stpesPurchased: [Number]
-    // }], 
+    pointsSpent: Number,
+    itemsBought: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Item'
+    }],
     google: {
         id: String,
         name: String,
@@ -47,9 +40,9 @@ var schema = new mongoose.Schema({
     }
 });
 
-schema.virtual('totalPoints').get(function () {
+schema.virtual('totalPoints').get(function() {
     var total = 0;
-    this.participating.forEach(function(questObj){
+    this.participating.forEach(function(questObj) {
         total += Number(questObj.pointsFromQuest);
     });
     return total;
@@ -78,33 +71,39 @@ var encryptPassword = function(plainText, salt) {
 //             singleQuest.participants.splice(idx, 1);
 //             singleQuest.save();
 //         });
-          
+
 //     } 
 
 //     next();
 
 // });
 
-schema.methods.removeQuestFromUser = function(questId, callback){
+schema.methods.removeQuestFromUser = function(questId, callback) {
     // var idx = this.participating.indexOf(questId);
     var idx = _.findIndex(this.participating, function(questObj) {
         return questObj.questId == questId;
     });
     console.log("index of quest is", idx);
     this.participating.splice(idx, 1);
-    this.save(function(err, data) { 
+    this.save(function(err, data) {
         callback(err, data);
     });
 };
-schema.methods.addQuestToUser = function(questId, callback){
+schema.methods.addQuestToUser = function(questId, callback) {
 
     var self = this
-    mongoose.model('Step').find({quest: questId}, function(err, steps){
+    mongoose.model('Step').find({
+        quest: questId
+    }, function(err, steps) {
         if (err) return (err)
-        steps.forEach(function(step){
-            if (step.stepNum == 1){
-                self.participating.push({questId: questId, currentStep: step._id, pointsFromQuest:0});
-                self.save(function(err, data) {   
+        steps.forEach(function(step) {
+            if (step.stepNum == 1) {
+                self.participating.push({
+                    questId: questId,
+                    currentStep: step._id,
+                    pointsFromQuest: 0
+                });
+                self.save(function(err, data) {
                     callback(err, data);
                 });
             }

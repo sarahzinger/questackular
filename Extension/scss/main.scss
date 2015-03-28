@@ -47,13 +47,10 @@ body {
   }
 }
 
-.correctMultiAns{
-  background-color: #cfc;
-  &::after{
-    content:'☜'
-  }
+.alert{
+  position:fixed;
+  z-index:10;
 }
-
 
 .removeQuestButton{
   width:25px;
