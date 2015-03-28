@@ -8,26 +8,26 @@
             <label for="description">Description</label>
             <textarea class="form-control" id="description" rows="3" ng-model="quest.description" required ng-change='saveQuest()'></textarea>
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="emails">Invite Users</label>
             <input type="text" class="form-control" id="emails" placeholder="Enter user emails, separated by comma." ng-model="quest.emails" required ng-change='saveQuest()'>
-        </div>
+        </div> -->
         <div class="form-group">
             <label for="open-status" title='Note: only active quests can be taken, and only inactive quests can be edited!'>Active/Inactive</label>
             <input type='radio' name='open-status' value='active' checked ng-model='quest.actInact' ng-change='saveQuest()'/> Active
             <input type='radio' name='open-status' value='inactive' ng-model='quest.actInact' ng-change='saveQuest()' /> Inactive
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="privacy">Public / Private</label>
             <input type='radio' name='privacy' value='public' checked ng-model='quest.pubPriv' ng-change='saveQuest()'/> Public
             <input type='radio' name='privacy' value='private' ng-model='quest.pubPriv' ng-change='saveQuest()' /> Private
-        </div>
+        </div> -->
     </form>
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <div class="pull-right">
                 <button type="button" class="btn btn-success" ng-click='$parent.saveFullQuest()'>Save</button>
-                <button class="btn btn-primary" ui-sref="{{ tabs[1].state && !tab.disabled}}" ng-click="tabs[1].active = true">Next</button>
+                <!-- <button class="btn btn-primary" ui-sref="{{ tabs[1].state && !tab.disabled}}" ng-click="tabs[1].active = true">Next</button> -->
                 <button class="btn btn-default clearButton" ng-click="$parent.clearData();">Clear</button>
             </div>
         </div>

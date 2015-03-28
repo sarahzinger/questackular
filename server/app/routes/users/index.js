@@ -54,7 +54,7 @@ router.put('/participating/currentStep/:id', function(req, res){
 });
 router.get('/:id', function(req, res, next) {
     mongoose.model('User').findOne({_id: req.params.id})
-        .populate('created pastQuests participating')
+        .populate('created participating')
         .exec(function (err, userInfo) {
             if (err) return res.json(err);
             // if (userInfo.participating.length) {

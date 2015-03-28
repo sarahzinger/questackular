@@ -1,51 +1,7 @@
 <div class="container">
 	<h1>My Quests</h1>
 	<p>Click the filter icon <small>(<i class="glyphicon glyphicon-filter"></i>) to filter quests</small></p>
-	<!-- table begins -->
-	<div class="container" id="quests-created">
-	    
-		<div class="row">
-			<div class="col-md-6">
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<h3 class="panel-title">Quests I've created <a class='btn btn-info' ui-sref='edit'>Edit</a></h3>
-						<div class="pull-right">
-							<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
-								<i ng-click="search()" class="glyphicon glyphicon-filter"></i>
-							</span>
-						</div>
-					</div>
-					<div class="panel-body" ng-show="searchBox">
-						<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" />
-					</div>
-					<table class="table table-hover" id="dev-table">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Title</th>
-								<th>Description</th>
-								<th>Active/Inactive</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="quest in questsCreated track by $index">
-								<td>{{$index + 1}}</td>
-								<td>{{quest.title}}</td>
-								<td>{{quest.description}}</td>
-								<td>{{(quest.active)?'Active':'Inactive'}}</td>
-		
-							</tr>
-						
-						</tbody>
-					</table>
-				</div>
-				
-			</div>
-		</div>
-	</div>
-	<!-- end of table -->
-
-
+	
 	<!-- table begins -->
 	<div class="container" id="quests-joined">
 		<div class="row">
@@ -90,6 +46,49 @@
 		</div>
 	</div>
 	<!-- end of table -->
-
 	
+	<!-- table begins -->
+	<div class="container" id="quests-created">
+	    
+		<div class="row">
+			<div class="col-md-6">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">Quests I've created </h3>
+						<h3 class='btn btn-material-purple ' ui-sref='edit'>Edit Quests</h3>
+						<div class="pull-right">
+							<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+								<i ng-click="search()" class="glyphicon glyphicon-filter"></i>
+							</span>
+						</div>
+					</div>
+					<div class="panel-body" ng-show="searchBox">
+						<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" />
+					</div>
+					<table class="table table-hover" id="dev-table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Title</th>
+								<th>Description</th>
+								<th>Active/Inactive</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="quest in questsCreated track by $index">
+								<td>{{$index + 1}}</td>
+								<td>{{quest.title}}</td>
+								<td>{{quest.description}}</td>
+								<td>{{(quest.active)?'Active':'Inactive'}}</td>
+		
+							</tr>
+						
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<!-- end of table -->
 </div>
