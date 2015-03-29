@@ -103,17 +103,14 @@ body {
         transform: rotate(10deg)
     }
 }
+
 ui-view {
     display: inline;
     width: 100%;
     float:left;
 }
-#myQCont{
-    position:relative;
-    display:inline;
-    width:66%;
-    float:left;
-}
+
+
 #map {
     position: absolute;
     left: 270px;
