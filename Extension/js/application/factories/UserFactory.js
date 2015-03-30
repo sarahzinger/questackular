@@ -19,10 +19,15 @@ app.factory('UserFactory', function($http){
             });
         },
         addPoints: function(stepId){
+            console.log("stepId on the front end", stepId)
             return $http.put('http://localhost:1337/api/users/points/'+stepId).then(function(res){
-            	console.log("points", res.data)
                 return res.data;
             });
+        },
+        getTotalPoints: function(){
+        	return $http.get('http://localhost:1337/api/users/points/').then(function(res){
+        		return res.data;
+        	})
         }
 	}
 })

@@ -5,20 +5,33 @@ var _ = require('lodash');
 var mongoose = require('mongoose');
 var async = require('async');
 
+router.get('/points/', function (req,res,next){
+  var total = req.user.totalPoints;
+  if (req.user.pointsSpent){
+    total -= req.user.pointsSpent;
+  }
+  res.json(total);
+});
+
 router.put('/points/:id', function (req,res,next){
+  console.log("trying to add points on the backend right now");
   var stepId = req.params.id;
+  console.log("stepId", stepId)
   //get the step object to get point worth
   mongoose.model('Step').findOne({_id: stepId}, function(err, stepObject) {
+    console.log('found the step', stepObject)
       var points = stepObject.pointValue;
       //find the quest in req.user which has a current step that matches our stepid
-      req.user.participating.forEach(function(quest){
+      req.user.participating.forEach(function(quest, idx, arr){
+
         if (quest.currentStep == stepId){
         //push the new point worth to pointsfromQuest on the participating array in users
-          console.log("BEFORE quest.pointsFromQuest", quest.pointsFromQuest)
-          quest.pointsFromQuest += points;
-          console.log("After quest.pointsFromQuest", quest.pointsFromQuest)
+          console.log("BEFORE quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest)
+          console.log("points we are trying to add", points)
+          req.user.participating[idx].pointsFromQuest += points;
+          console.log("After quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest)
           req.user.save(function(afterSave){
-            res.json(req.user.totalPoints);
+            res.end();
           });
         };
       });
@@ -54,13 +67,13 @@ router.put('/participating/currentStep/:id', function(req, res){
 });
 router.get('/:id', function(req, res, next) {
     mongoose.model('User').findOne({_id: req.params.id})
-        .populate('created pastQuests participating')
+        .populate('created participating')
         .exec(function (err, userInfo) {
             if (err) return res.json(err);
             // if (userInfo.participating.length) {
-	            mongoose.model('User').populate(userInfo, 'participating.questId', function (err, userFullyPopulated) {
+	            mongoose.model('User').populate(userInfo, 'participating.questId participating.currentStep', function (err, userFullyPopulated) {
 	            	if (err) return res.json(err);
-		    		res.json(userFullyPopulated);
+                res.json(userFullyPopulated);
 	            });	
     		// }
     		// res.json(userInfo);

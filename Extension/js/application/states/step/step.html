@@ -2,7 +2,6 @@
 	
 	<!-- <div ng-repeat="step in steps" ng-if="">
 	</div> -->
-
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h3 class="panel-title">{{chosenQuest.questId.title}}</h3>
@@ -11,7 +10,33 @@
 			{{step.question}}
 		</div>
 		<div class="panel-body">
-			<input ng-model="userAnswer" type="text" class="form-control" placeholder="Answer">
+			<input ng-hide="multipleChoice" ng-model="userAnswer" type="text" class="form-control" placeholder="Answer">
+
+			<div class="row" ng-show="multipleChoice">
+				<div class="col-md-6">
+					<div>
+						<div>
+							<input ng-model="selectedAnswer" type="radio" name="radio" value="0" />
+							<label for="radio1">{{step.multipleAns[0]}}</label>
+						</div>
+						<div>
+							<input ng-model="selectedAnswer" type="radio" name="radio" value="1" />
+							<label for="radio1">{{step.multipleAns[1]}}</label>
+						</div>
+						<div>
+							<input ng-model="selectedAnswer" type="radio" name="radio" value="2" />
+							<label for="radio1">{{step.multipleAns[2]}}</label>
+						</div>
+						<div>
+							<input ng-model="selectedAnswer" type="radio" name="radio" value="3" />
+							<label for="radio1">{{step.multipleAns[3]}}</label>
+						</div>
+					</div>
+				</div>
+			</div><!-- end row -->
+<!-- 			<button ng-click ="submit()">Submit</button>
+			<alert ng-if="alertshow" class="danger">Try Again!</alert> -->
+			
 		</div>
 		<button class="btn btn-material-blue-grey btn-sm" ng-click ="submit()">Submit</button>
 		<alert ng-if="alertshow" class="danger">Try Again!</alert>

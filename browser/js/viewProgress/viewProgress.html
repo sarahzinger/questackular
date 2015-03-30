@@ -1,0 +1,19 @@
+<div class = "container col-md-6">
+	<div ng-repeat ="quest in questsCreated" class="panel panel-default ">
+		<div class="panel-heading">
+			<h3 class="panel-title">{{quest.title}}</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="list-group">
+			  <li ng-repeat ="participant in quest.fullParticipantList" class="list-group-item">
+			    <span class="badge">{{participant.currentStep}}</span>
+			    {{participant.name}}
+			  </li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="container col-md-6">
+	<h3>Check out what step your participants are on right now!</h3>
+</div>
+

@@ -29,7 +29,9 @@ app.directive('navbar', function ($rootScope, UserFactory, $state) {
                     scope.user = data.user;
                     scope.loggedIn = true;
                 });
-               
+                UserFactory.getTotalPoints().then(function(data){
+                    scope.totalPoints = data;
+                });
             };
             getName();
 
