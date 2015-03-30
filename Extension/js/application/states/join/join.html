@@ -5,7 +5,7 @@
 		<alert ng-repeat="alert in alerts" ng-show="alert.show" class="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 	</div>
 	<div class="list-group">
-		<div ng-repeat="quest in quests track by $index">
+		<div ng-repeat="quest in unjoinedQuests track by $index">
 		    <div class="list-group-item">
 		        <div class="row-action-primary">
 		            <!-- <i class="mdi-file-folder"></i> -->

@@ -30,12 +30,13 @@ app.factory('UserFactory', function($http, domain){
         	})
         },
         getUserById: function(userId){
-            return $http.get(domain + 'api/users/' + userId).then(function (response) {
+            return $http.get(domain + '/api/users/' + userId).then(function (response) {
                 return response.data;
             });
         },
         getAllUsers: function() {
-            return $http.get(domain + 'api/users').then(function (res) {
+            return $http.get(domain + '/api/users').then(function (res) {
+                console.log("getAllUsers factory $http.get response", res);
                 return res.data;
             });
         }

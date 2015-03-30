@@ -41,6 +41,8 @@ var schema = new mongoose.Schema({
     }
 });
 
+schema.set('toJSON', {virtuals: true});
+
 schema.virtual('totalPoints').get(function() {
     var total = 0;
     this.participating.forEach(function (questObj) {

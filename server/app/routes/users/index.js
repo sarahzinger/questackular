@@ -69,9 +69,9 @@ router.get('/', function (req, res, next) {
       if (err) return res.json(err);
       console.log("populated users", populatedUsers);
       populatedUsers.forEach(function (user) {
-        user.toObject({virtuals: true});
-        // user.points = user.totalPoints;
+        user.toJSON();
       });
+      console.log("populatedUsers", populatedUsers);
       res.json(populatedUsers);
     });
   });
