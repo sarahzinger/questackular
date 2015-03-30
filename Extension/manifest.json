@@ -5,7 +5,7 @@
     "version": "0.0.0.1",
     "manifest_version": 2,
     "icons": {
-        "128": "scavengeIcon.png"
+        "128": "questackular.png"
     },
     "homepage_url": "http://www.msn.com",
     "permissions": [
@@ -26,7 +26,7 @@
         "persistent": true
     },
     "browser_action": {
-        "default_icon": "scavengeIcon.png",
+        "default_icon": "questackular.png",
         "default_title": "Questackular!",
         "default_popup": "popup.html"
     }
