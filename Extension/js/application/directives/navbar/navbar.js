@@ -1,15 +1,18 @@
 'use strict';
 
 
-app.directive('navbar', function ($rootScope, UserFactory, $state) {
+app.directive('navbar', function () {
 
     return {
         restrict: 'E',
-        scope: {},
         templateUrl: 'js/application/directives/navbar/navbar.html',
-        link: function (scope) {
-
-            scope.items = [{
+        controller: function($rootScope, UserFactory, $state, $scope){
+            $rootScope.$on("updatePoints", function(){
+                UserFactory.getTotalPoints().then(function(data){
+                    $rootScope.totalPoints = data;
+                });
+            })
+            $scope.items = [{
                 label: 'Create a Quest', state: 'create.quest' 
             }, {
                 label: 'Join a Quest', state: 'home' 
@@ -17,20 +20,20 @@ app.directive('navbar', function ($rootScope, UserFactory, $state) {
                 label: 'My Quests', state: 'MyQuests' 
             }];
 
-            scope.user = null;
+            $scope.user = null;
 
-            scope.login = function() {
+            $scope.login = function() {
                 window.open('localhost:1337/auth/google', '_blank');
             };
             
             
             var getName = function(){
                 UserFactory.getUserInfo().then(function(data){
-                    scope.user = data.user;
-                    scope.loggedIn = true;
+                    $scope.user = data.user;
+                    $scope.loggedIn = true;
                 });
                 UserFactory.getTotalPoints().then(function(data){
-                    scope.totalPoints = data;
+                    $rootScope.totalPoints = data;
                 });
             };
             getName();
