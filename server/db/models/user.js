@@ -25,8 +25,7 @@ var schema = new mongoose.Schema({
             ref: 'Step'
         },
         pointsFromQuest: Number,
-        stepsPurchased: [Number],
-        completed: boolean
+        stepsPurchased: [Number]
     }],
     pointsSpent: Number,
     itemsBought: [String],
@@ -60,29 +59,30 @@ var encryptPassword = function(plainText, salt) {
 };
 
 schema.methods.removeQuestFromUser = function(questId, callback){
-    console.log("questId", questId);
-    // var idx = this.participating.indexOf(questId);
-    var idx = _.findIndex(this.participating, function (questObj) {
-        return questObj.questId == questId;
-    });
-    console.log("index of quest is", idx);
-
-    this.participating.splice(idx, 1);
-    this.save(function (err, data) {
-        // removing user from quest
-        mongoose.model('Quest').findOne({_id: questId}, function (err, questFound) {
-            console.log("questFound", questFound);
-            var idx = questFound.participants.indexOf(self._id);
-            questFound.participants.splice(idx, 1);
-            questFound.save(function (err, data) {
-                console.log("data", data);
-                callback(err, data);
-            });
-        });
-
-    });
-
     var self = this;
+    
+        //removes quest from user
+
+        // var idx = this.participating.indexOf(questId);
+        var idx = _.findIndex(self.participating, function (questObj) {
+            return questObj.questId == questId;
+        });
+        console.log("index of quest is", idx);
+
+        self.participating.splice(idx, 1);
+        self.save(function (err, data) {
+            // removing user from quest
+            mongoose.model('Quest').findOne({_id: questId}, function (err, questFound) {
+                console.log("questFound", questFound);
+                var userIndex = questFound.participants.indexOf(self._id);
+                questFound.participants.splice(userIndex, 1);
+                questFound.save(function (err, data) {
+                    console.log("data", data);
+                    callback();
+                });
+            });
+
+        });
 
 };
 schema.methods.addQuestToUser = function(questId, callback){
