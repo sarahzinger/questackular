@@ -93,5 +93,8 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 		
 	};
 	
+    $scope.closeAlert = function() {
+        $scope.alertshow = false;
+    };
 
 });
