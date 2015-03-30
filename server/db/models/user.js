@@ -34,7 +34,15 @@ var schema = new mongoose.Schema({
         name: String,
         email: String,
         picture: String
-    }
+    },
+    pastQuests:[{
+        questId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Quest'
+        },
+        pointsFromQuest: Number,
+        stepsPurchased: [Number]
+    }]
 });
 
 schema.virtual('totalPoints').get(function() {
@@ -130,6 +138,51 @@ schema.methods.addQuestToUser = function(questId, callback){
             }
             done();
         });    
+    }], function (err, data) {
+        console.log("data", data);
+        callback(err, data);
+    });
+};
+schema.methods.questCompleted = function(questId, callback){
+    console.log("entering quest questCompleted")
+    var self = this;
+    
+    async.parallel([function (done) {
+        console.log("first parallel")
+        //pushed quest into pastQuests
+        self.participating.forEach(function(quest){
+            console.log("quest", quest)
+            if (quest.questId == questId){
+                console.log("zomg found a match")
+                console.log("questId", questId)
+                console.log("quest.pointsFromQuest", quest.pointsFromQuest)
+                self.pastQuests.push({questId: questId, pointsFromQuest: quest.pointsFromQuest});
+
+                self.save(function(err, userData) { 
+                    console.log("userData", userData)
+                    if (err) console.log(err);  
+                    done();
+                });
+            }
+        });
+        
+    }, function (done) {
+        console.log("second parallel")
+        // adding user to quest
+        mongoose.model('Quest').findById(questId, function (err, quest) {
+            console.log("quest found by id", quest)
+            console.log("self._id", self._id)
+            if (quest.winners.indexOf(self._id) === -1) {
+                console.log("self._id", self._id)
+                quest.winners.push(self._id);
+                quest.save(function (err, questObj) {
+                    if (err) console.log(err);
+                    console.log("data in quest.save callback IS THE QUEST OBJECT", questObj);
+                    done();
+                });
+            }
+            
+        });
     }], function (err, data) {
         console.log("data", data);
         callback(err, data);

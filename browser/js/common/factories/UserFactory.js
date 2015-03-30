@@ -14,7 +14,6 @@ app.factory('UserFactory', function($http, AuthService) {
 			return $http.get('api/users/' + userId).then(function(response) {
 	            return response.data;
 	        });
-        },
-
+        }
 	};
 });
