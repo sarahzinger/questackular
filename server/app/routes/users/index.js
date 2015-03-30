@@ -14,10 +14,12 @@ router.get('/points/', function (req,res,next){
 });
 
 router.put('/points/:id', function (req,res,next){
-  console.log("trying to add points");
+  console.log("trying to add points on the backend right now");
   var stepId = req.params.id;
+  console.log("stepId", stepId)
   //get the step object to get point worth
-  mongoose.model('Step').findOne({_id: stepId}, function(err, stepObject) {
+  mongoose.model('Step').find({_id: stepId}, function(err, stepObject) {
+    console.log('found the step', stepObject)
       var points = stepObject.pointValue;
       //find the quest in req.user which has a current step that matches our stepid
       req.user.participating.forEach(function(quest){
@@ -27,7 +29,7 @@ router.put('/points/:id', function (req,res,next){
           quest.pointsFromQuest += points;
           console.log("After quest.pointsFromQuest", quest.pointsFromQuest)
           req.user.save(function(afterSave){
-            res.json(req.user.totalPoints);
+            res.end();
           });
         };
       });
