@@ -23,8 +23,10 @@
                         <th>Picked</th>
                         <th>Quest Title</th>
                         <th>Quest Description</th>
-                        <th>Open?</th>
-                        <th>Participants</th>
+                        <th>Open?</th
+>                        <th>Edit Steps (if open)</th>
+                        <th>Current Participants</th>
+                        <th>Invite More Participants</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,10 +40,14 @@
                         <td>
                             <input type='checkbox' ng-model='quest.active' checked='false' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
                         </td>
+                        <td><button type="button" class="btn btn-info" ui-sref="edit.step">Edit
+                        </button></td>
                         <td editable-text='quest.participants'>
-                            <span ng-if='quest.participants.length>0'>{{quest.participants}}</span>
+                            <span ng-if='quest.participants.length>0'>{{name}}</span>
                             <span ng-if='quest.participants.length<=0'>No participants yet!</span>
                         </td>
+                        <td><button type="button" class="btn btn-info" ui-sref="home">Invite
+                        </button></td>
                     </tr>
                     <!-- show 2nd block if quests are active, and thus ineditable -->
                     <tr ng-repeat='quest in questList' ng-if='quest.active==true'>
@@ -53,10 +59,14 @@
                         <td>
                             <input type='checkbox' ng-model='quest.active' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
                         </td>
+                        <td><button type="button" class="btn btn-info">Not Available
+                        </button></td>
                         <td>
-                            <span ng-if='quest.participants.length>0'>{{quest.participants}}</span>
+                            <span ng-if='quest.participants.length>0'>{{name}}</span>
                             <span ng-if='quest.participants.length<=0'>No participants yet!</span>
                         </td>
+                        <td><button type="button" class="btn btn-info" ui-sref="edit.invite">Invite
+                        </button></td>
                     </tr>
                 </tbody>
             </table>
