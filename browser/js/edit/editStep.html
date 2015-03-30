@@ -1,16 +1,14 @@
+<h2>Edit Steps in Quest</h2>
 <div class="row">
-    <div>
-
+    
+    <div class="col-md-8" id="edit-steps">
         <!-- List of currently (previously) created steps -->
-
-
-
-        <div class="panel panel-primary">
+        <div class="panel panel-material-blue-grey">
             <div class="panel-heading">
                 <h3 class="panel-title">Editable Steps for Quest: {{quest.title}}</h3>
                 <div class="pull-right">
                     <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
-                <i ng-click="search()" class="glyphicon glyphicon-filter"></i>
+                <i ng-click="search()" style='top:-20px;' class="glyphicon mdi-content-filter-list"></i>
                 </span>
                 </div>
             </div>
@@ -155,10 +153,29 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="pull-right">
                     <button type="button" class="btn btn-success" ng-click='$parent.saveFullQuest()'>Save</button>
-                    <button class="btn btn-primary" ui-sref="{{ tabs[2].state }}" ng-click="tabs[2].active = true">Next</button>
-                    <button class="btn btn-default clearButton" ng-click="$parent.clearData();">Clear</button>
+                    <!-- <button class="btn btn-primary" ui-sref="{{ tabs[2].state }}" ng-click="tabs[2].active = true">Next</button> -->
+                    <button class="btn btn-info clearButton" ng-click="$parent.clearData();">Clear</button>
                 </div>
             </div>
+        </div>
+        <!-- end of current steps to edit list -->
+    </div>
+
+    <div class="col-lg-4" id="editstep-help">
+        <div class="list-group instList">
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="mdi-editor-border-color"></i>
+                </div>
+                <div class="row-content">
+                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <h4 class="list-group-item-heading">Edit the steps!</h4>
+                    <p class="list-group-item">Click on any field to edit it!</p>
+                    <p class="list-group-item">After modifying, don't forget to click "save".</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+
         </div>
     </div>
 </div>

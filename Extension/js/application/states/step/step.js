@@ -7,16 +7,15 @@ app.config(function ($stateProvider) {
 	});
 });
 
-
-app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state) {
-		
+app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, chromeExtId) {
+	console.log("chromeExtId", chromeExtId);
 	$scope.alertshow = false;
-
 	$scope.participatingIndex= Number(localStorage["participatingIndex"]);
 
-	UserFactory.getUserInfo().then(function(unPopUser){
-		UserFactory.getUserFromDb(unPopUser.user._id).then(function(popUser){
+	UserFactory.getUserInfo().then(function (unPopUser) {
+		UserFactory.getUserFromDb(unPopUser.user._id).then(function (popUser){
 			$scope.chosenQuest = popUser.participating[$scope.participatingIndex];
+
 			$scope.step = popUser.participating[$scope.participatingIndex].currentStep;
 			if($scope.step.qType == "Multiple Choice"){
 				console.log("$scope.step",$scope.step)
@@ -24,11 +23,21 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state) 
 			}
 		})
 	});
-	$scope.launchReading = function(){
+	$scope.launchReading = function() {
 		chrome.tabs.create({url: "http://"+$scope.step.url});
 	}
-	$scope.submit = function(){
 
+	chrome.runtime.sendMessage({stepUrl: "http://www.google.com"}, function (response) {
+		console.log("chrome.runtime.sendMessage response", response);
+	});
+
+	// chrome.runtime.sendMessage(string extensionId, any message, object options, function (res) {
+	// 	console.log(res);
+	// });
+	// consider chrome.webRequest??
+	
+
+	$scope.submit = function() {
 		//will verify that the answer is correct
 		//if so will update current step to be the next step
 		//and send user to success page

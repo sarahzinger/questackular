@@ -34,14 +34,18 @@
 					</div>
 				</div>
 			</div><!-- end row -->
-			<button ng-click ="submit()">Submit</button>
-			<alert ng-if="alertshow" class="danger">Try Again!</alert>
+<!-- 			<button ng-click ="submit()">Submit</button>
+			<alert ng-if="alertshow" class="danger">Try Again!</alert> -->
 			
 		</div>
-		<button ng-click="launchReading()">Click to Launch Reading for this Question</button>
+		<button class="btn btn-material-blue-grey btn-sm" ng-click ="submit()">Submit</button>
+		<alert ng-if="alertshow" class="danger">Try Again!</alert>
 	</div>
-	<nav class="navbar navbar-default navbar-fixed-bottom">
-		<div class="container">
-			<div>How Far Are you In the Quest 10/20</div>
-		</div>
-	</nav>
+
+	<button class="btn btn-info btn-sm" ng-click="launchReading()">Click to Launch Reading for this Question</button>
+</div>
+<nav class="navbar navbar-default navbar-fixed-bottom">
+  <div class="container">
+    <div>How Far Are you In the Quest 10/20</div>
+  </div>
+</nav>

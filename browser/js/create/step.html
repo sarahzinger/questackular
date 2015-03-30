@@ -1,79 +1,101 @@
 <div class="row">
-    <div>
-        <form name='stepForm'>
-            <div id="legend">
+    <div class="well col-md-8" id="step-form">
+        <form class="form-horizontal" name="stepForm">
+            <fieldset>
                 <legend>Add a step!</legend>
-            </div>
-            <!-- the actual content! -->
-            <div class="form-group">
-                <label for='mainQ'>Question:
-                    <input type='text' class="form-control" required name='mainQ' ng-model='step.question' />
-                    <p class="help-block">Enter your new question.</p>
-                </label>
-            </div>
+                <div class='form-group'>
+                    <label for='urlBox' class="col-lg-4 control-label">Page Url?</label>
+                    <div class="col-lg-8">
+                        <input type='text' class="form-control" name='urlBox' ng-model='step.url'>
+                    </div>
+                    <br/>
+                </div>
+                <div class="form-group">
+                    <label for='mainQ' class="col-lg-4 control-label">Question:</label>
+                    <div class="col-lg-8">
+                        <input type='text' class="form-control" required name='mainQ' ng-model='step.question' />
+                        <p class="help-block">Enter your new question.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="tags" class="col-lg-4 control-label">Tags</label>
+                    <div class="col-lg-8">
+                        <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="step.tagStr" required ng-change='saveQuest()'>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label for="tags">Tags</label>
-                <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="step.tagStr" required ng-change='saveQuest()'>
-            </div>
-            <div class="form-group">
-                <label for='pointsQ'>Point value:
-                    <input type='number' class="form-control" required name='pointsQ' ng-model='step.pointValue' />
-                    <p class="help-block">Number of points awarded for a correct answer.</p>
-                </label>
-            </div>
-            <div class="form-group">
-                <label for='typeQ'>What kind of question is it?:
-                    <select class="form-control" ng-model='step.qType' ng-change='updateQuestionFields();' name='typeQ' required>
-                        <option ng-repeat="test in testTypes" value='{{test}}'> {{test}}
-                    </select>
+                <div class="form-group">
+                    <label for='pointsQ' class="col-lg-4 control-label">Point value:</label>
+                    <div class="col-lg-8">
+                        <input type='number' class="form-control" required name='pointsQ' ng-model='step.pointValue' />
+                        <p class="help-block">Number of points awarded for a correct answer.</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for='typeQ' class="col-lg-4 control-label">What kind of question is it?:</label>
+                    <div class="col-lg-8">
+                        <select class="form-control" ng-model='step.qType' ng-change='updateQuestionFields();' name='typeQ' required>
+                            <option ng-repeat="test in testTypes" value='{{test}}'> {{test}}
+                        </select>
                     <p class="help-block">Select the type of question you would like to add.</p>
-                </label>
-            </div>
-            <!-- Generic Question section. Shows always -->
+                    </div>
+                </div>
+                <!-- Generic Question section. Shows always -->
 
-            <!-- Multiple Choice section -->
-            <div class='form-group' ng-if='step.qType=="Multiple Choice"'>
-                <p class="help-block">Please enter some answer options.</p>
-                <label class="form-inline" for='multiAns1'>Answer option 1:
-                    <input class="form-control" type='text' name='multiAns1' ng-model='step.ans1'>
-                    <input type='radio' name='correctAnsPick' value='1' checked ng-model='step.multiAnsCor' />Pick this answer
-                </label>
-                <br/>
-                <label class="form-inline" for='multiAns2'>Answer option 2:
-                    <input class="form-control" type='text' name='multiAns2' ng-model='step.ans2'>
-                    <input type='radio' name='correctAnsPick' value='2' checked ng-model='step.multiAnsCor' />Pick this answer
-                </label>
-                <br/>
-                <label class="form-inline" for='multiAns3'>Answer option 3:
-                    <input class="form-control" type='text' name='multiAns3' ng-model='step.ans3'>
-                    <input type='radio' name='correctAnsPick' value='3' checked ng-model='step.multiAnsCor' />Pick this answer
-                </label>
-                <br/>
-                <label class="form-inline" for='multiAns4'>Answer option 4:
-                    <input class="form-control" type='text' name='multiAns4' ng-model='step.ans4'>
-                    <input type='radio' name='correctAnsPick' value='4' checked ng-model='step.multiAnsCor' />Pick this answer
-                </label>
-                <br/>
-            </div>
-            <!-- Fill-In -->
-            <div class='form-group' ng-if='step.qType=="Fill-in"'>
-                <label for='ansTextArea'>Answer?
-                    <input type='text' class="form-control" name='ansTextArea' ng-model='step.fillIn'>
-                </label>
-                <br/>
-            </div>
-            <!-- iframe for page stuff -->
-            <div class='form-group'>
-                <label for='urlBox'>Page Url?
-                    <input type='text' class="form-control" name='urlBox' ng-model='step.url'>
-                </label>
-                <br/>
-            </div>
-            <button type="button" class="btn btn-default" ng-click='saveStep(step)'>Create Step</button>
+                
+                <!-- Multiple Choice section -->
+                <div class='form-group' ng-if='step.qType=="Multiple Choice"'>
+                    <label class="col-lg-4 control-label">Please enter some answer options.</label>
+                    <div class="col-lg-8">
+                        <label class="form-inline" for='multiAns1'>Answer option 1:</label>
+                        <div class="form-inline">
+                            <input class="form-control" type='text' name='multiAns1' ng-model='step.ans1'>
+                            <p class="help-block"><input type='radio' class="form-control" name='correctAnsPick' value='1' checked ng-model='step.multiAnsCor' /> Pick this answer</p>
+                        </div>
+                        <br/>
+                        <div class="list-group-separator"></div>
+                        <label class="form-inline" for='multiAns1'>Answer option 2:</label>
+                        <div class="form-inline">
+                            <input class="form-control" type='text' name='multiAns2' ng-model='step.ans2'>
+                            <p class="help-block"><input type='radio' name='correctAnsPick' value='2' checked ng-model='step.multiAnsCor' /> Pick this answer</p>
+                        </div>
+                        <br/>
+                        <label class="form-inline" for='multiAns1'>Answer option 3:</label>
+                        <div class="form-inline">
+                            <input class="form-control" type='text' name='multiAns3' ng-model='step.ans3'>
+                            <p class="help-block"><input type='radio' name='correctAnsPick' value='3' checked ng-model='step.multiAnsCor' /> Pick this answer</p>
+                        </div>
+                        <br/>
+                        <label class="form-inline" for='multiAns4'>Answer option 4:</label>
+                        <div class="form-inline">
+                            <input class="form-control" type='text' name='multiAns4' ng-model='step.ans4'>
+                            <p class="help-block"><input type='radio' name='correctAnsPick' value='4' checked ng-model='step.multiAnsCor' /> Pick this answer</p>
+                        </div>
+                        <br/>
+                    </div>
+                </div>
+
+
+                <!-- Fill-In -->
+                <div class='form-group' ng-if='step.qType=="Fill-in"'>
+                    <label for='ansTextArea' class="col-lg-4 control-label">Answer?</label>
+                    <div class="col-lg-8">
+                        <input type='text' class="form-control" name='ansTextArea' ng-model='step.fillIn'>
+                    </div>
+                    <br/>
+                </div>
+                
+
+                <div class="form-group">
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <button type="button" class="btn btn-default" ng-click='saveStep(step)'>Create Step</button>
+                        <!-- <button class="btn btn-info" ng-click="$parent.clearData();">Clear</button>
+                        <button type="button" class="btn btn-primary" ng-click='$parent.saveFullQuest()'>Save Quest without Steps</button> -->
+                    </div>
+                </div>
+            </fieldset>
         </form>
-        <!-- List of currently (previously?) created steps -->
-        <br/>
+
         <h2>Current Steps:</h2>
         <table class='table table-responsive table-striped'>
             <tr class='success'>
@@ -92,13 +114,71 @@
         </table>
         <!-- save or move to next state -->
         <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <div class="pull-right">
-                    <button type="button" class="btn btn-success" ng-click='$parent.saveFullQuest()'>Save</button>
-                    <!-- <button class="btn btn-primary" ui-sref="{{ tabs[2].state }}" ng-click="tabs[2].active = true">Next</button> -->
-                    <button class="btn btn-default clearButton" ng-click="$parent.clearData();">Clear</button>
-                </div>
+            <div class="col-lg-offset-2 col-lg-8">
+                <button type="button" class="btn btn-success" ng-click='$parent.saveFullQuest()'>Save Quest &amp; All Steps</button>
+                <!-- <button class="btn btn-primary" ui-sref="{{ tabs[2].state }}" ng-click="tabs[2].active = true">Next</button> -->
+                <button class="btn btn-primary clearButton" ng-click="$parent.clearData();">Clear</button>
             </div>
         </div>
+
     </div>
+    <!-- end of quest-form -->
+    
+    <div class="col-md-4" id="step-help">
+        <div class="list-group instList">
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="mdi-content-link"></i>
+                </div>
+                <div class="row-content">
+                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <h4 class="list-group-item-heading">Enter the URL of the article or reading material.</h4>
+                    <p class="list-group-item">Give it a point value.</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="mdi-action-help"></i>
+                </div>
+                <div class="row-content">
+                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <h4 class="list-group-item-heading">What question would you like to be answered based on the reading at this URL?</h4>
+                    <p class="list-group-item">Give it a point value.</p>
+                    <p class="list-group-item">Add some tags based on the subject matter specific to your question.</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="mdi-action-list"></i>
+                </div>
+                <div class="row-content">
+                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <h4 class="list-group-item-heading">What type of question is it? What are the expected responses?</h4>
+                    <p class="list-group-item">You may select either multiple choice or fill-in.</p>
+                    <p class="list-group-item">Please provide the expected answer and responses to your assigned question.</p>
+                    <p class="list-group-item">For multiple choice, don't forget to select the correct answer!</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="mdi-content-save"></i>
+                </div>
+                <div class="row-content">
+                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <h4 class="list-group-item-heading">Click 'Save' so others can play your awesome quest!</h4>
+                    <p class="list-group-item">This saves your quest along with all the steps you've created!</p>
+                    <p class="list-group-item">You can also click 'clear' to cancel.</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+        </div>
+
+    </div>
+    <!-- end of step-help -->
 </div>

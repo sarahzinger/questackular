@@ -5,12 +5,12 @@ body {
     position: relative;
     top: 80px;
 }
-.clearButton {
-    background-color: #795455;
-    &:hover {
-        background-color: #3E292A;
-    }
-}
+// .clearButton {
+//     background-color: #795455;
+//     &:hover {
+//         background-color: #3E292A;
+//     }
+// }
 .correctMultiAns {
     background-color: #cfc;
 }
@@ -54,57 +54,27 @@ body {
     z-index: 10;
 }
 .instList {
-    list-style-type: none;
-    font-size: x-large;
-    font-weight: bold;
-    font-style: italic;
-    line-height: 40px;
-    li {
-        font-weight: normal;
-        font-size: large;
-        border-bottom:1px solid #000;
+    p {
         &:before {
-            font-size: xx-large;
+            // font-size: xx-large;
             content: "\261E\00a0";
         }
         &:hover {
             background-color: rgba(0,255,0,.1);
             &:before {
-                font-size: xx-large;
+                // font-size: xx-large;
                 content: "\261E\00a0";
                 animation: wiggle .5s linear infinite;
                 -webkit-animation: wiggle .5s linear infinite;
             }
         }
-        ul {
-            li {
-                font-size: medium;
-                line-height: 20pt;
-                list-style-type: none;
-                border:none;
-                &:before {
-                    content: '\26A0\00a0';
-                    animation: none;
-                    -webkit-animation: none;
-                }
-                &:hover {
-                    background-color: rgba(255,0,0,.1);
-                    &:before {
-                        content: '\26A0\00a0';
-                        animation: none;
-                        -webkit-animation: none;
-                    }
-                }
-            }
-        }
     }
     position:relative;
     display:inline-block;
-    width:32%;
 }
-input {
-    background-color: rgba(255,255,255,.6)!important;
-}
+
+
+
 @-webkit-keyframes wiggle {
     0% {
         transform: rotate(0deg)
@@ -133,17 +103,14 @@ input {
         transform: rotate(10deg)
     }
 }
+
 ui-view {
     display: inline;
-    width: 66%;
+    width: 100%;
     float:left;
 }
-#myQCont{
-    position:relative;
-    display:inline;
-    width:66%;
-    float:left;
-}
+
+
 #map {
     position: absolute;
     left: 270px;

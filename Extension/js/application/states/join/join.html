@@ -1,72 +1,26 @@
-<div>
-	<h1>Join a Quest</h1>
+<h3>Join a Quest</h3>
+	
+<div class="well">
 	<div>
 		<alert ng-repeat="alert in alerts" ng-show="alert.show" class="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 	</div>
-	
-	<!-- table begins -->
-	<div class="container">
-	    <p>Click the filter icon <small>(<i class="glyphicon glyphicon-filter"></i>)</small></p>
-		<div class="row">
-			<div class="col-md-6">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Quests Available</h3>
-						<div class="pull-right">
-							<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
-								<i ng-click="search()" class="glyphicon glyphicon-filter"></i>
-							</span>
-						</div>
-					</div>
-					<div class="panel-body" ng-show="searchBox">
-						<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" />
-					</div>
-					<table class="table table-hover" id="dev-table">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Title</th>
-								<th>Description</th>
-								<th>Open/Closed</th>
-								<th>Join</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="quest in quests track by $index">
-								<td>{{$index + 1}}</td>
-								<td>{{quest.title}}</td>
-								<td>{{quest.description}}</td>
-								<td>{{quest.open}}</td>
-								<td><button title='Join this quest!' class='btn btn-xs btn-success glyphicon glyphicon-hand-right' ng-click="joinQuest(quest)"></button></td>
-							</tr>
-							
-						</tbody>
-					</table>
-				</div>
-			</div>
-			
-		</div>
+	<div class="list-group">
+		<div ng-repeat="quest in quests track by $index">
+		    <div class="list-group-item">
+		        <div class="row-action-primary">
+		            <!-- <i class="mdi-file-folder"></i> -->
+		            <button title='Join this quest!' class='btn btn-xs btn-success mdi-action-exit-to-app' ng-click="joinQuest(quest)">Join</button>
+		        </div>
+		        <div class="row-content">
+		            <div class="least-content">
+		            	20 steps
+		            </div>
+		            <h4 class="list-group-item-heading">{{quest.title}}</h4>
+		            <p class="list-group-item-text">{{quest.description}}</p>
+		        </div>
+		    </div>
+		    <div class="list-group-separator"></div>
+	    </div>
 	</div>
-	<!-- end of table -->
 
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-	<!-- Future Feature
-	<h3>Do you have a secret code for a private quest?</h3>
-	<div class="form-group">
-		<label for="code">Secret Code for Private Quest</label>
-		<input type="text" class="input-medium search-query" id="code">
-		<button class="btn">Submit Code!</button>
-	</div> -->
 </div>
