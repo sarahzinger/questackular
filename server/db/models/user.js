@@ -25,7 +25,8 @@ var schema = new mongoose.Schema({
             ref: 'Step'
         },
         pointsFromQuest: Number,
-        stepsPurchased: [Number]
+        stepsPurchased: [Number],
+        completed: boolean
     }],
     pointsSpent: Number,
     itemsBought: [String],
