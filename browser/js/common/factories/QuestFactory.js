@@ -117,6 +117,11 @@ app.factory('QuestFactory', function($http, domain) {
 
             angular.copy(angular.fromJson(sessionStorage.stepStr), stepList);
             return stepList;
+        },
+        completeQuest: function(questId){
+            return $http.put(domain + '/api/quests/participants', {questId:questId}).then(function(response) {
+                return response.data;
+            });
         }
     };
 

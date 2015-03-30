@@ -9,13 +9,16 @@ app.config(function($stateProvider) {
 
 app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, chromeExtId, $rootScope) {
 
-
     console.log("chromeExtId", chromeExtId);
     $scope.alertshow = false;
     $scope.participatingIndex = Number(localStorage["participatingIndex"]);
-
+    console.log("$scope.participatingIndex", $scope.participatingIndex)
+    if ($scope.participatingIndex === -1){
+        $state.go("finish")
+    }
 
 	UserFactory.getUserInfo().then(function (unPopUser) {
+
 		UserFactory.getUserFromDb(unPopUser.user._id).then(function (popUser){
 			$scope.chosenQuest = popUser.participating[$scope.participatingIndex];
 			QuestFactory.getStepListById($scope.chosenQuest.questId._id).then(function(steplist){
@@ -46,7 +49,14 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 				UserFactory.addPoints($scope.step._id).then(function(data){
 					$rootScope.$emit('updatePoints')
 					if($scope.step.stepNum == $scope.totalStepNum){
-						$state.go('finish');
+                        console.log("this is totally the last step")
+                        console.log("$scope.chosenQuest.questId._id", $scope.chosenQuest.questId._id)
+                        QuestFactory.completeQuest($scope.chosenQuest.questId._id).then(function(data){
+                            participatingIndex = -1
+                            localStorage.setItem("participatingIndex", participatingIndex);
+                            $state.go('finish');
+                        });
+						
 					}else{
 						UserFactory.changeCurrentStep($scope.step._id);
                 		$state.go('success');
@@ -62,7 +72,11 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 				UserFactory.addPoints($scope.step._id).then(function(data){
 					$rootScope.$emit('updatePoints')
 					if($scope.step.stepNum == $scope.totalStepNum){
-						$state.go('finish');
+                        QuestFactory.completeQuest($scope.chosenQuest.questId._id).then(function(data){
+                            participatingIndex = -1;
+                            localStorage.setItem("participatingIndex", participatingIndex);
+                            $state.go('finish');
+                        });
 					}else{
 						UserFactory.changeCurrentStep($scope.step._id);
                 		$state.go('success');
@@ -76,5 +90,8 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 		
 	};
 	
+    $scope.closeAlert = function() {
+        $scope.alertshow = false;
+    };
 
 });

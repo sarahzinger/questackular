@@ -18,5 +18,10 @@ app.controller('ProfileCtrl', function ($scope, UserFactory) {
 
   $scope.hello = "hello!";
 
+  $scope.logout = function(){
+    UserFactory.logout();
+    chrome.tabs.create({url: "http://localhost:1337"});
+  }
+
 
 });

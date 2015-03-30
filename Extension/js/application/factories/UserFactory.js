@@ -29,6 +29,11 @@ app.factory('UserFactory', function($http, domain){
         		return res.data;
         	})
         },
+        logout: function(){
+            return $http.get('http://localhost:1337/logout').then(function (res) {
+                return res;
+            })
+        },
         getUserById: function(userId){
             return $http.get(domain + '/api/users/' + userId).then(function (response) {
                 return response.data;

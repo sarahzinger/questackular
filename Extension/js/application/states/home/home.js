@@ -22,7 +22,7 @@ app.controller('HomeCtrl', function ($scope) {
     state: "myQuests", title: "My Quests"
   },
   {
-    state: "step", title: "Continue"
+    state: "step", title: "Continue Where I Left Off"
   }];
 
 });

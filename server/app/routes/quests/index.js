@@ -5,7 +5,7 @@ var _ = require('lodash');
 var async = require('async');
 var mongoose = require('mongoose');
 
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res) {
     console.log("req.user", req.user);
     mongoose.model('Quest').findOne({
         title: req.body.title
@@ -40,7 +40,7 @@ router.get('/', function(req, res) {
     });
 });
 
-router.get('/user/:id', function(req, res, next) {
+router.get('/user/:id', function(req, res) {
     console.log(req.params);
     var user = req.params.id;
     mongoose.model('Quest').find({
@@ -79,7 +79,17 @@ router.post('/participants', function(req, res) {
 
 });
 
-//get all the information about participants in a quest
+//quest Completed route
+router.put('/participants', function(req, res){
+    req.user.questCompleted(req.body.questId, function(err, data){
+        if(err) console.log(err);
+        req.user.removeQuestFromUser(req.body.questId, function(err, data){
+            res.send(data);
+        })
+    })
+})
+
+//does this get called?
 router.get('/users/participants', function (req, res) {
         var users = quest.participants;
         users.forEach(mongoose.model('User').findById(user, function() {
@@ -90,19 +100,18 @@ router.get('/users/participants', function (req, res) {
 });
 
 
+
 // when a user "leaves" a quest
 router.delete('/participants/:id', function(req, res) {
-    console.log("req.user", req.user);
 
     req.user.removeQuestFromUser(req.params.id, function(err, data){
         if (err) console.log(err);
-        console.log("req.user.removeQuestFromUser data", data);
         res.json(data);
     });
 });
 
 
-router.put('/', function(req, res, next) {
+router.put('/', function(req, res) {
     //not sure if we can 'save' the id, so removing it
     mongoose.model('Quest').findByIdAndUpdate(req.body._id, req.body, function(err, updSt) {
         res.send(updSt._id);
