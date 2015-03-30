@@ -1,0 +1,26 @@
+[{
+    "url": "http://i.imgur.com/YcHCz4U.jpg?1",
+    "title": "Bag of Kittens",
+    "description": "It's a bag. Of kittens. What else do you wanna know?",
+    "price": 25
+}, {
+    "url": "http://www.orvis.com/orvis_assets/prodimg/27HHL0RG.jpg",
+    "title": "Fuzzy Hat",
+    "description": "Impress your friends with your epic headgear.",
+    "price": 50
+}, {
+    "url": "http://i.imgur.com/oE3QQj9.png",
+    "title": "George Washington's X-Box Controller",
+    "description": "'I heard that Cornwallis still plays Playstation. What a noob!' -Washington",
+    "price": 70
+}, {
+    "url": "http://i.imgur.com/Uls1aYT.jpg",
+    "title": "Overflowing Stack of Pancakes",
+    "description": "Eating these seems to make you feel like something's horribly wrong.",
+    "price": 20
+}, {
+    "url": "http://i.imgur.com/FE7OSD7.jpg",
+    "title": "Hawaiian Vacation",
+    "description": "Seriously? You can't afford this. Nice try tho.",
+    "price": 500000
+}]
