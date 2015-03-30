@@ -73,6 +73,7 @@ app.factory('QuestFactory', function($http, domain) {
         },
         getStepById: function(stepId) {
             return $http.get(domain + '/api/step/' + stepId).then(function(res) {
+                console.log("this is the step being returned from the factory", res.data)
                 return res.data;
             });
         },

@@ -9,7 +9,11 @@ app.factory('UserFactory', function($http, AuthService) {
 	                return response.data;
 	            });
 			});
+        },
+        getUserById: function(userId){
+			return $http.get('api/users/' + userId).then(function(response) {
+	            return response.data;
+	        });
         }
-
 	};
 });
