@@ -1,71 +1,117 @@
-<div>
-    <div>
-        <alert ng-repeat="alert in alerts" ng-show="alert.show" class="alert.type" close="closeAlert($index)">
-            <div style='font-size:xx-large;'>!</div>
-            <div>{{alert.msg}}</div>
-        </alert>
-    </div>
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 class="panel-title">Editable Quests</h3>
-            <div class="pull-right">
-                <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
-                <i ng-click="search()" class="glyphicon glyphicon-filter"></i>
-                </span>
+<h2>Edit Quests Created</h2>
+<div class='row'>
+    <div class="col-md-8">
+        <div id="alerts">
+            <alert ng-repeat="alert in alerts" ng-show="alert.show" class="alert.type" close="closeAlert($index)">
+                <div style='font-size:xx-large;'>!</div>
+                <div>{{alert.msg}}</div>
+            </alert>
+        </div>
+        <div class="panel panel-material-blue-grey">
+            <div class="panel-heading">
+                <h3 class="panel-title">Editable Quests</h3>
+                <div class="pull-right">
+                    <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+                    <i ng-click="search()" style='top:-20px;' class="glyphicon mdi-content-filter-list"></i>
+                    </span>
+                </div>
+            </div>
+
+            <table class="table table-hover" id="dev-table">
+                <thead>
+                    <tr>
+                        <th>Picked</th>
+                        <th>Quest Title</th>
+                        <th>Quest Description</th>
+                        <th>Open?</th>
+                        <th>Participants</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- show 1st block if quests are inactive, and thus editable -->
+                    <tr ng-repeat='quest in questList' ng-if='quest.active==false'>
+                        <td>
+                            <input type='radio' name='pickedQuest' value='{{quest.title}}' ng-change='$parent.pickQuest(quest._id)' ng-model='$parent.selectedQuest'>
+                        </td>
+                        <td editable-text='quest.title'>{{quest.title}}</td>
+                        <td editable-text='quest.description'>{{quest.description}}</td>
+                        <td>
+                            <input type='checkbox' ng-model='quest.active' checked='false' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
+                        </td>
+                        <td editable-text='quest.participants'>
+                            <span ng-if='quest.participants.length>0'>{{quest.participants}}</span>
+                            <span ng-if='quest.participants.length<=0'>No participants yet!</span>
+                        </td>
+                    </tr>
+                    <!-- show 2nd block if quests are active, and thus ineditable -->
+                    <tr ng-repeat='quest in questList' ng-if='quest.active==true'>
+                        <td>
+                            <input type='radio' name='pickedQuest' value='{{quest.title}}' ng-change='$parent.pickQuest(quest._id)' ng-model='$parent.selectedQuest' disabled title='You can&rsquo;t edit an active quest!'>
+                        </td>
+                        <td>{{quest.title}}</td>
+                        <td>{{quest.description}}</td>
+                        <td>
+                            <input type='checkbox' ng-model='quest.active' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
+                        </td>
+                        <td>
+                            <span ng-if='quest.participants.length>0'>{{quest.participants}}</span>
+                            <span ng-if='quest.participants.length<=0'>No participants yet!</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button ng-click='$parent.showData()'>SHOW DATA. ALSO DELETE ME. HI EVERYONE</button>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-success" ng-click='$parent.saveFullQuest()'>Save</button>
+                    <!-- <button class="btn btn-primary" ui-sref="{{ tabs[1].state && !tab.disabled}}" ng-click="tabs[1].active = true">Next</button> -->
+                    <button class="btn btn-info clearButton" ng-click="$parent.clearData();">Clear</button>
+                </div>
             </div>
         </div>
-
-        <table class="table table-hover" id="dev-table">
-            <thead>
-                <tr>
-                    <th>Picked</th>
-                    <th>Quest Title</th>
-                    <th>Quest Description</th>
-                    <th>Open?</th>
-                    <th>Participants</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- show 1st block if quests are inactive, and thus editable -->
-                <tr ng-repeat='quest in questList' ng-if='quest.active==false'>
-                    <td>
-                        <input type='radio' name='pickedQuest' value='{{quest.title}}' ng-change='$parent.pickQuest(quest._id)' ng-model='$parent.selectedQuest'>
-                    </td>
-                    <td editable-text='quest.title'>{{quest.title}}</td>
-                    <td editable-text='quest.description'>{{quest.description}}</td>
-                    <td>
-                        <input type='checkbox' ng-model='quest.active' checked='false' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
-                    </td>
-                    <td editable-text='quest.participants'>
-                        <span ng-if='quest.participants.length>0'>{{quest.participants}}</span>
-                        <span ng-if='quest.participants.length<=0'>No participants yet!</span>
-                    </td>
-                </tr>
-                <!-- show 2nd block if quests are active, and thus ineditable -->
-                <tr ng-repeat='quest in questList' ng-if='quest.active==true'>
-                    <td>
-                        <input type='radio' name='pickedQuest' value='{{quest.title}}' ng-change='$parent.pickQuest(quest._id)' ng-model='$parent.selectedQuest' disabled title='You can&rsquo;t edit an active quest!'>
-                    </td>
-                    <td>{{quest.title}}</td>
-                    <td>{{quest.description}}</td>
-                    <td>
-                        <input type='checkbox' ng-model='quest.active' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
-                    </td>
-                    <td>
-                        <span ng-if='quest.participants.length>0'>{{quest.participants}}</span>
-                        <span ng-if='quest.participants.length<=0'>No participants yet!</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <div class="pull-right">
-                <button type="button" class="btn btn-success" ng-click='$parent.saveFullQuest()'>Save</button>
-                <button class="btn btn-primary" ui-sref="{{ tabs[1].state && !tab.disabled}}" ng-click="tabs[1].active = true">Next</button>
-                <button class="btn btn-default btn clearButton" ng-click="$parent.clearData();">Clear</button>
+    <div class="col-lg-4" id="editquest-help">
+        <div class="list-group instList">
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="mdi-editor-border-color"></i>
+                </div>
+                <div class="row-content">
+                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <h4 class="list-group-item-heading">Pick a quest to edit!</h4>
+                    <p class="list-group-item">Uncheck 'Open' to edit your quest!</p>
+                    <p class="list-group-item">Click 'Edit Step' to edit any steps your quest has!</p>
+                </div>
             </div>
+            <div class="list-group-separator"></div>
+
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="mdi-maps-pin-drop"></i>
+                </div>
+                <div class="row-content">
+                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <h4 class="list-group-item-heading">Click 'View Map' to see an awesome view of your quest!</h4><!-- 
+                    <p class="list-group-item">Uncheck 'Open' to edit your quest!</p> -->
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="mdi-content-save"></i>
+                </div>
+                <div class="row-content">
+                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <h4 class="list-group-item-heading">Don't forget to save!</h4>
+                    <p class="list-group-item">Click 'Save' to make your quest even more awesome (and save it too)!</p>
+                    <p class="list-group-item">Click 'Edit Step' to edit any steps your quest has!</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+
         </div>
     </div>
 </div>

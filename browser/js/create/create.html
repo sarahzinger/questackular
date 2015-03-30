@@ -1,31 +1,18 @@
-<section id="navbar">
+<section id="create">
     <div>
         <tabset justified="true">
-            <tab ng-repeat="tab in tabs" ui-sref="{{ tab.state }}" heading="{{ tab.label }}" active="tab.active" disabled="tab.disabled" ng-if="tab.label=='New Quest' || (questExists == true && tab.label!='New Quest')">
-                <h3>{{ tab.label }}</h3>
+            <tab class="nav nav-tabs" ng-repeat="tab in tabs" ui-sref="{{ tab.state }}" heading="{{ tab.label }}" active="tab.active" disabled="tab.disabled" ng-if="tab.label=='New Quest' || (questExists == true && tab.label!='New Quest')">
+            <h3></h3>
+                <!-- <h3>{{ tab.label }}</h3> -->
             </tab>
         </tabset>
     </div>
-    <div class="container" id="content">
-        <ul class='instList'>
-            Help!
-            <li>Create a quest title!</li>
-            <li>Give your quest a cool description!</li>
-            <li>Pick whether you you want the quest to start as active or inactive!
-                <ul>
-                    <li>Active quests can be played immediately, but cannot be edited (until made inactive).</li>
-                    <li>Inactive quests can not be played immediately, but you still can edit them (to make them more awesome!).</li>
-                </ul>
-            </li>
-            <li>Click 'New Step' to give your quest some steps!
-                 <ul>
-                    <li>You can't create steps without making a quest first.</li>
-                </ul>
-            </li>
-            <li>Click 'Save' so others can play your awesome quest (don't forget to make it 'active')!</li>
-            <li>Or click 'Clear' to cancel.</li>
-        </ul>
+    <div class="container">
         <ui-view></ui-view>
+        <h4> 1. Give your Quest a Title and Description </h4>
+        <h4> 2. Click "New Step" To add your first Question and Link </h4>
+        <h4> 3. View all of the Steps in your Quest on the Quest Map </h4>
+        <h4> 4. Click Save to allow people to join! </h4>
     </div>
 </section>
 

@@ -11,6 +11,7 @@ app.config(function ($stateProvider) {
 app.controller('ProfileCtrl', function ($scope, UserFactory) {
   UserFactory.getUserInfo().then(function (userInfo) {
     console.log("userInfo", userInfo);
+    $scope.userPic = userInfo.user.google.picture;
     $scope.fullname = userInfo.user.google.name;
     $scope.email = userInfo.user.google.email;
   });

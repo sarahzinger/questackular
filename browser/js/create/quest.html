@@ -1,35 +1,93 @@
-<div>
-    <form name="newQuest" ng-submit="submitForm(quest) && $quest.valid">
-        <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Name of new quest!" ng-model="quest.title" required ng-change='saveQuest()' />
-        </div>
-        <div class="form-group">
-            <label for="description">Description</label>
-            <textarea class="form-control" id="description" rows="3" ng-model="quest.description" required ng-change='saveQuest()'></textarea>
-        </div>
-        <div class="form-group">
-            <label for="emails">Invite Users</label>
-            <input type="text" class="form-control" id="emails" placeholder="Enter user emails, separated by comma." ng-model="quest.emails" required ng-change='saveQuest()'>
-        </div>
-        <div class="form-group">
-            <label for="open-status" title='Note: only active quests can be taken, and only inactive quests can be edited!'>Active/Inactive</label>
-            <input type='radio' name='open-status' value='active' checked ng-model='quest.actInact' ng-change='saveQuest()'/> Active
-            <input type='radio' name='open-status' value='inactive' ng-model='quest.actInact' ng-change='saveQuest()' /> Inactive
-        </div>
-        <div class="form-group">
-            <label for="privacy">Public / Private</label>
-            <input type='radio' name='privacy' value='public' checked ng-model='quest.pubPriv' ng-change='saveQuest()'/> Public
-            <input type='radio' name='privacy' value='private' ng-model='quest.pubPriv' ng-change='saveQuest()' /> Private
-        </div>
-    </form>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <div class="pull-right">
-                <button type="button" class="btn btn-success" ng-click='$parent.saveFullQuest()'>Save</button>
-                <!-- <button class="btn btn-primary" ui-sref="{{ tabs[1].state && !tab.disabled}}" ng-click="tabs[1].active = true">Next</button> -->
-                <button class="btn btn-default clearButton" ng-click="$parent.clearData();">Clear</button>
-            </div>
-        </div>
+<div class="row">
+    <div class="well col-md-8" id="quest-form">
+        <form class="form-horizontal" name="newQuest" ng-submit="submitForm(quest) && $quest.valid">
+            <fieldset>
+                <legend>Create a new quest!</legend>
+                <div class="form-group">
+                    <label for="title" class="col-lg-3 control-label">Title</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" id="title" placeholder="Name of new quest!" ng-model="quest.title" required ng-change='saveQuest()' />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="description">Description</label>
+                    <div class="col-lg-9">
+                        <textarea class="form-control" id="description" rows="3" ng-model="quest.description" required ng-change='saveQuest()'></textarea>
+                    </div>
+                </div>
+
+                <!-- <div class="form-group">
+                    <label class="col-lg-3 control-label" for="emails">Invite Users</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" id="emails" placeholder="Enter user emails, separated by comma." ng-model="quest.emails" required ng-change='saveQuest()'>
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <label class="col-lg-3 control-label" for="open-status" title='Note: only active quests can be taken, and only inactive quests can be edited!'>Active / Inactive</label>
+                    <div class="col-lg-9">
+                        <input type='radio' name='open-status' value='active' checked ng-model='quest.actInact' ng-change='saveQuest()'/> Active
+                        <input type='radio' name='open-status' value='inactive' ng-model='quest.actInact' ng-change='saveQuest()' /> Inactive
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label class="col-lg-3 control-label" for="privacy">Public / Private</label>
+                    <div class="col-lg-9">
+                        <input type='radio' name='privacy' value='public' checked ng-model='quest.pubPriv' ng-change='saveQuest()'/> Public
+                        <input type='radio' name='privacy' value='private' ng-model='quest.pubPriv' ng-change='saveQuest()' /> Private
+                    </div>
+                </div> -->
+                
+                <div class="form-group">
+                    <div class="col-lg-9 col-lg-offset-2">
+                        <button class="btn btn-info" ng-click="$parent.clearData();">Clear</button>
+
+                        <button type="button" class="btn btn-primary" ng-click='$parent.saveFullQuest()'>Save Quest without Steps</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
     </div>
+    <!-- end of quest-form -->
+    <div class="col-md-4">
+        <div class="list-group instList">
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="mdi-content-create"></i>
+                </div>
+                <div class="row-content">
+                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <h4 class="list-group-item-heading">Not sure where to start?</h4>
+                    <p class="list-group-item">Create a quest title!</p>
+                    <p class="list-group-item">Give your quest a cool description!</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="mdi-action-lock-open"></i>
+                </div>
+                <div class="row-content">
+                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <h4 class="list-group-item-heading">Pick whether you you want the quest to start as active or inactive!</h4>
+                    <p class="list-group-item">Active quests can be played immediately, but cannot be edited (until made inactive).</p>
+                    <p class="list-group-item">Inactive quests can not be played immediately, but you still can edit them (to make them more awesome!).</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+            <div class="list-group-item">
+                <div class="row-action-primary">
+                    <i class="mdi-action-exit-to-app"></i>
+                </div>
+                <div class="row-content">
+                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <h4 class="list-group-item-heading">Click on 'New Step' to give your quest some steps!</h4>
+                    <!-- <p class="list-group-item">You can't create steps without making a quest first.</p> -->
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+        </div>
+
+    </div>
+    <!-- end of quest-help -->
 </div>
