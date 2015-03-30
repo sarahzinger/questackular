@@ -7,7 +7,9 @@ app.config(function ($stateProvider) {
 	});
 });
 
-app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, chromeExtId) {
+app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, chromeExtId, $rootScope) {
+
+
 	console.log("chromeExtId", chromeExtId);
 	$scope.alertshow = false;
 	$scope.participatingIndex= Number(localStorage["participatingIndex"]);
@@ -45,6 +47,7 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, 
 			if($scope.userAnswer == $scope.step.fillIn){
 				UserFactory.addPoints($scope.step._id).then(function(data){
 					UserFactory.changeCurrentStep($scope.step._id);
+					$rootScope.$emit('updatePoints')
                 	$state.go('success');
 				})
 			}else{
@@ -55,6 +58,7 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, 
 			if($scope.selectedAnswer === $scope.step.multiAnsCor){
 				UserFactory.addPoints($scope.step._id).then(function(data){
 					UserFactory.changeCurrentStep($scope.step._id);
+					$rootScope.$emit('updatePoints')
                 	$state.go('success');
 				})
 			}else{
