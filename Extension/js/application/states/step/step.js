@@ -55,7 +55,11 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, 
 				$scope.alertshow = true;
 			}
 		}else{
-			if($scope.selectedAnswer === $scope.step.multiAnsCor){
+			console.log("$scope.selectedAnswer", $scope.selectedAnswer)
+			console.log("$scope.step.multiAnsCor", $scope.step.multiAnsCor)
+			console.log("type of $scope.selectedAnswer", typeof $scope.selectedAnswer)
+			console.log("type of $scope.step.multiAnsCor", typeof $scope.step.multiAnsCor)
+			if(Number($scope.selectedAnswer) +1 === Number($scope.step.multiAnsCor)){
 				UserFactory.addPoints($scope.step._id).then(function(data){
 					UserFactory.changeCurrentStep($scope.step._id);
 					$rootScope.$emit('updatePoints')
