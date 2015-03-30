@@ -6,7 +6,9 @@ app.factory('QuestFactory', function($http, domain) {
     return {
         sendQuest: function(quest) {
             //saves the quest, returns its ID
+            console.log("received quest in factory sendquest method", quest);
             return $http.post(domain + '/api/quests', quest).then(function(response) {
+                console.log("after http post to /api/quests, received response", response);
                 return response.data;
             });
         },
@@ -23,15 +25,17 @@ app.factory('QuestFactory', function($http, domain) {
         joinQuest: function(questInfo) {
             return $http.post(domain + '/api/quests/participants', questInfo).then(function(response) {
                 console.log(response);
+                return response.data;
             });
         },
         leaveQuest: function(questId) {
             return $http.delete(domain + '/api/quests/participants/' + questId).then(function(response) {
                 console.log(response);
+                return response.data;
             });
         },
         updateQuest: function(updatedQuest) {
-            return $http.put('/api/quests/:id', updatedQuest).then(function(res) {
+            return $http.put(domain+'/api/quests/', updatedQuest).then(function(res) {
                 return res.data;
             });
         },

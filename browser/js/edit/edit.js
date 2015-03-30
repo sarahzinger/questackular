@@ -15,6 +15,7 @@ app.config(function($stateProvider) {
                     });
                 }
             },
+            abstract: true,
             url: '/edit',
             templateUrl: 'js/edit/edit.html',
             controller: 'editCtrl'
@@ -107,8 +108,9 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
                         angular.copy(data, $scope.stepList);
                     });
                 });
+
                 $scope.stepList.forEach(function(item) {
-                    item.quest = questId._id;
+                    item.quest = questId;
                     //modify clues and tags.
                     if (item.clueStr) {
                         //step has clues to parse. 

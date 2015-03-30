@@ -31,8 +31,7 @@ app.controller('JoinCtrl', function ($scope, QuestFactory, AuthService){
     });
     $scope.searchBox = false;
     $scope.search = function() {
-        if (!$scope.searchBox) $scope.searchBox = true;
-        else $scope.searchBox = false;
+        (!$scope.searchBox) ? $scope.searchBox = true : $scope.searchBox = false;
     };
 
     $scope.joinQuest = function(quest) {
@@ -42,6 +41,7 @@ app.controller('JoinCtrl', function ($scope, QuestFactory, AuthService){
             $scope.userId = user._id;
             // if already joined, do something
             console.log("quest.participants", quest.participants);
+            console.log("user", user);
             console.log("user._id", user._id);
             console.log("quest.participants.indexOf(user._id)", quest.participants.indexOf(user._id));
 
@@ -51,7 +51,9 @@ app.controller('JoinCtrl', function ($scope, QuestFactory, AuthService){
                 if ($scope.alerts[1].show) $scope.alerts[1].show = false;
                 if (!$scope.alerts[0].show) $scope.alerts[0].show = true;
             } else {
+                console.log("could not find user in quest.participants", quest);
                 quest.participants.push($scope.userId);
+                console.log("quest participants updated", quest.participants);
                 QuestFactory.joinQuest(quest);
                 if ($scope.alerts[0].show) $scope.alerts[0].show = false;
                 if (!$scope.alerts[1].show) $scope.alerts[1].show = true;

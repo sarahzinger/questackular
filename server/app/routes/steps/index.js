@@ -5,14 +5,14 @@ var _ = require('lodash');
 var mongoose = require('mongoose');
 
 
-router.get('/:id', function(req, res, next){
+router.get('/:id', function (req, res, next) {
     console.log("req.params.id", req.params.id);
     mongoose.model('Step').findById(req.params.id, function(err, step) {
         console.log("the step we are sending back from the db", step)
         if(err) console.log(err);
         res.json(step);
-    })
-})
+    });
+});
 
 router.post('/', function (req, res, next) {
     mongoose.model('Step').findOne({
@@ -72,6 +72,7 @@ router.post('/upd', function(req, res, next) {
     var theQuest = req.body.quest;
     mongoose.model('Step').findById(theId, function(err, stepToUpd) {
         console.log('to be updated on backend', stepToUpd);
+        console.log('quest for this step: ',theQuest)
         if (stepToUpd === null) {
             //not found, create new. Dave speak. DAVE SMASH.
             mongoose.model('Step').create(req.body).then(function(err, notDoinAnythingWithThis) {
