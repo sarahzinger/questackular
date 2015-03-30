@@ -7,14 +7,14 @@ app.config(function ($stateProvider) {
 	});
 });
 
+app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, chromeExtId) {
+	console.log("chromeExtId", chromeExtId);
 
-app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state) {
 	$scope.alertshow = false;
-
 	$scope.participatingIndex= Number(localStorage["participatingIndex"]);
 
-	UserFactory.getUserInfo().then(function(unPopUser){
-		UserFactory.getUserFromDb(unPopUser.user._id).then(function(popUser){
+	UserFactory.getUserInfo().then(function (unPopUser) {
+		UserFactory.getUserFromDb(unPopUser.user._id).then(function (popUser){
 			$scope.chosenQuest = popUser.participating[$scope.participatingIndex];
 			$scope.stepId = popUser.participating[$scope.participatingIndex].currentStep;
 		// 	console.log("step we send", $scope.stepId)
@@ -27,10 +27,15 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state) 
 		chrome.tabs.create({url: "http://"+$scope.step.url});
 	}
 
-	chrome.extension.sendRequest({redirect: "http://www.google.com"});
-	chrome.runtime.sendMessage(string extensionId, any message, object options, function (res) {
-		console.log(res);
-	})
+	chrome.runtime.sendMessage({stepUrl: "http://www.google.com"}, function (response) {
+		console.log("chrome.runtime.sendMessage response", response);
+	});
+
+	// chrome.runtime.sendMessage(string extensionId, any message, object options, function (res) {
+	// 	console.log(res);
+	// });
+	// consider chrome.webRequest??
+	
 
 	$scope.submit = function() {
 		//will verify that the answer is correct

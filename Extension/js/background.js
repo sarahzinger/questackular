@@ -6,8 +6,9 @@ chrome.extension.onConnect.addListener(function (port) {
 	});
 });
 
-chrome.extension.onRequest.addListener(function (request, sender) {
-	console.log("request", request);
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+	console.log("message", message);
 	console.log("sender", sender);
-    chrome.tabs.update(sender.tab.id, {url: request.redirect});
+	console.log("sendeResponse", sendeResponse);
+    chrome.tabs.update(sender.tab.id, {url: message.stepUrl});
 });

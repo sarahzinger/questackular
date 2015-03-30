@@ -16,6 +16,8 @@ app.controller('extCont', function($scope, UserFactory, $state) {
     getName();
 });
 
+app.value("chromeExtId", "plokhpdlfcefknfoaicekkibijgedofn");
+
 app.config(function ($urlRouterProvider, $locationProvider, $compileProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
     $locationProvider.html5Mode({
