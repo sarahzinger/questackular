@@ -5,6 +5,7 @@
     "version": "0.0.0.1",
     "manifest_version": 2,
     "icons": {
+        "48":"BUquestackular.png",
         "128": "questackular.png"
     },
     "homepage_url": "http://www.msn.com",
@@ -29,8 +30,5 @@
         "default_icon": "questackular.png",
         "default_title": "Questackular!",
         "default_popup": "popup.html"
-    },
-    "web_accessible_resources":[
-    "img/*.jpg"
-    ]
+    }
 }
