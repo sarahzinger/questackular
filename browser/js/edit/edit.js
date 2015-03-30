@@ -34,11 +34,16 @@ app.config(function($stateProvider) {
             url: '/map',
             templateUrl: 'js/edit/editMap.html',
             controller: 'editQuestMap'
+        })
+        .state('edit.invite', {
+            url: '/invite',
+            templateUrl: 'js/edit/invite.html',
+            controller: 'editInvite'
         });
 });
 
 
-app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
+app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthService, $state) {
     //remove session storage in case there's anything stored from /create or watever
     sessionStorage.removeItem('stepStr');
     sessionStorage.removeItem('newQuest');
@@ -82,10 +87,59 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
         //save the quest
         QuestFactory.getQuestsByUser(user._id).then(function(questList) {
             $scope.questList = questList;
-            console.log(questList);
+            // console.log('questList', questList);
             $scope.selectedQuest = $scope.questList[0];
-        });
+    
+
+            $scope.questList.forEach(function(quest) {
+                var participants = quest.participants;
+                // console.log(participants, 'participants');
+                // console.log('quest', quest);
+                participants.forEach(function(participant) {
+                    console.log('participant', participant);
+                    UserFactory.getUserById(participant).then(function(data) {
+                        console.log('data', data);
+                        console.log(quest, 'quest');
+                        console.log('data.google.name', data.google.name);
+                        $scope.name=data.google.name;
+                        });
+                    });
+               });
+                
+            });
+        
     });
+
+    $scope.invite = function(){
+        var name = $scope.name;
+
+        $.ajax({ 
+          type: 'POST',
+          url: 'https://mandrillapp.com/api/1.0/messages/send.json',
+          data: {
+            key: 'hM6OlbcTpHE7fYJp-GQNsw',
+            message: {
+              from_email: 'questackular@notarealemail.com',
+              to: [
+                  {
+                    email: 'moonstonecowgirl@gmail.com',
+                    name: 'RECIPIENT NAME (OPTIONAL)',
+                    type: 'to'
+                  }
+                ],
+              autotext: true,
+              subject: 'You have been invited to join a quest!',
+              html: 'You have been invited to join a quest! Log in to find out more.'
+            }
+          }
+         }).done(function(response) {
+           console.log(response, "this worked"); // if you're into that sorta thing
+         });
+
+            
+        }
+
+
     $scope.saveFullQuest = function() {
         //this will save the full quest.
         if ($scope.stepList.length < 1) {
@@ -223,6 +277,8 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
 });
 
 app.controller('editQuest', function($scope) {
+
+
     // window.addEventListener('beforeunload', function(e) {
     //     e.returnValue = "You haven't saved! Click Okay to continue without saving, or Cancel to stay on this page!";
     // })
@@ -266,4 +322,8 @@ app.controller('editQuestMap', function($scope, MapFactory) {
     //begin mapDraw code
     MapFactory.drawMap($scope, $scope.$parent.stepList);
     $scope.$parent.currState = 'Map';
+});
+
+app.controller('editInvite', function($scope) {
+
 });
