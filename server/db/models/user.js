@@ -26,6 +26,7 @@ var schema = new mongoose.Schema({
         },
         pointsFromQuest: Number,
         stepsPurchased: [Number]
+
     }],
     pointsSpent: Number,
     itemsBought: [String],
@@ -45,11 +46,14 @@ var schema = new mongoose.Schema({
     }]
 });
 
+schema.set('toJSON', {virtuals: true});
+
 schema.virtual('totalPoints').get(function() {
     var total = 0;
-    this.participating.forEach(function(questObj) {
+    this.participating.forEach(function (questObj) {
         total += Number(questObj.pointsFromQuest);
     });
+    if (this.pointsSpent) total -= this.pointsSpent;
     return total;
 });
 
@@ -99,7 +103,6 @@ schema.methods.addQuestToUser = function(questId, callback){
             if (err) return (err);
             if (steps.length) {
                 steps.forEach(function (step) {
-                    console.log('step1', step)
                     if (step.stepNum === 1){
                         self.participating.push({questId: questId, currentStep: step._id, pointsFromQuest:0});
                         self.save(function(err, userData) { 

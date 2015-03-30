@@ -16,11 +16,20 @@ app.controller('JoinCtrl', function ($scope, QuestFactory, UserFactory){
     ];
 
     $scope.imgs = [];
+    UserFactory.getUserInfo().then(function (userInfo) {
+        console.log("userInfo", userInfo.user._id);
+        QuestFactory.getAllQuests().then(function (quests) {
+            console.log("quests", quests);
+            $scope.quests = quests;
 
-    QuestFactory.getAllQuests().then(function(quests) {
-        console.log("quests", quests);
-        $scope.quests = quests;
+            $scope.unjoinedQuests = _.reject(quests, function (item) {
+                return _.includes(item.participants, userInfo.user._id);
+            });
+            console.log("$scope.unjoinedQuests", $scope.unjoinedQuests);
+        });
+        
     });
+
 
     // $scope.searchBox = false;
     // $scope.search = function() {

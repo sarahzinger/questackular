@@ -1,7 +1,7 @@
 <section id="create">
     <div>
         <tabset justified="true">
-            <tab class="nav nav-tabs" ng-repeat="tab in tabs" ui-sref="{{ tab.state }}" heading="{{ tab.label }}" active="tab.active" disabled="tab.disabled" ng-if="tab.label=='New Quest' || (questExists == true && tab.label!='New Quest')">
+            <tab class="nav nav-tabs" ng-repeat="tab in tabs" ui-sref="{{ tab.state }}" heading="{{ tab.label }}" active="tab.active" disabled="tab.disabled" ng-show="tab.label=='New Quest' || (questExists == true && tab.label!='New Quest')">
             <h3></h3>
                 <!-- <h3>{{ tab.label }}</h3> -->
             </tab>
@@ -9,10 +9,6 @@
     </div>
     <div class="container">
         <ui-view></ui-view>
-        <h4> 1. Give your Quest a Title and Description </h4>
-        <h4> 2. Click "New Step" To add your first Question and Link </h4>
-        <h4> 3. View all of the Steps in your Quest on the Quest Map </h4>
-        <h4> 4. Click Save to allow people to join! </h4>
     </div>
 </section>
 

@@ -1,3 +1,15 @@
+//popup.js test
+
+window.onload = function() {
+    chrome.runtime.sendMessage({
+        type: 'red-divs'
+    });
+}
+
+
+// end of popup.js test
+
+
 var app = angular.module('QuestackularExt', ['ui.router', 'ui.bootstrap']);
 
 app.controller('extCont', function($scope, UserFactory, $state) {

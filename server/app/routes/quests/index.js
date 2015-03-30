@@ -79,7 +79,7 @@ router.post('/participants', function(req, res) {
 
 });
 
-//
+//quest Completed route
 router.put('/participants', function(req, res){
     req.user.questCompleted(req.body.questId, function(err, data){
         if(err) console.log(err);
@@ -88,6 +88,19 @@ router.put('/participants', function(req, res){
         })
     })
 })
+
+//does this get called?
+router.get('/users/participants', function (req, res) {
+        var users = quest.participants;
+        users.forEach(mongoose.model('User').findById(user, function() {
+            console.log('this happened');
+            return user;
+            })
+        );
+});
+
+
+
 // when a user "leaves" a quest
 router.delete('/participants/:id', function(req, res) {
 

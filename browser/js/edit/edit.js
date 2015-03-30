@@ -2,7 +2,7 @@
 app.run(function(editableOptions) {
     editableOptions.theme = 'bs3';
 });
-app.config(function($stateProvider) {
+app.config(function ($stateProvider) {
     $stateProvider.state('edit', {
             resolve: {
                 getLoggedInUser: function(AuthService, $state, $http) {
@@ -34,11 +34,18 @@ app.config(function($stateProvider) {
             url: '/map',
             templateUrl: 'js/edit/editMap.html',
             controller: 'editQuestMap'
+        })
+        .state('edit.invite', {
+            url: '/invite',
+            templateUrl: 'js/edit/invite.html',
+            controller: 'editInvite'
         });
 });
 
 
-app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
+
+app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthService, $state) {
+
     //remove session storage in case there's anything stored from /create or watever
     sessionStorage.removeItem('stepStr');
     sessionStorage.removeItem('newQuest');
@@ -82,17 +89,68 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
         //save the quest
         QuestFactory.getQuestsByUser(user._id).then(function(questList) {
             $scope.questList = questList;
-            console.log(questList);
+            // console.log('questList', questList);
             $scope.selectedQuest = $scope.questList[0];
-        });
+    
+
+            $scope.questList.forEach(function(quest) {
+                var participants = quest.participants;
+                // console.log(participants, 'participants');
+                // console.log('quest', quest);
+                participants.forEach(function(participant) {
+                    console.log('participant', participant);
+                    UserFactory.getUserById(participant).then(function(data) {
+                        console.log('data', data);
+                        console.log(quest, 'quest');
+                        console.log('data.google.name', data.google.name);
+                        $scope.name=data.google.name;
+                        });
+                    });
+               });
+                
+            });
+        
     });
+
+    $scope.invite = function(){
+        var name = $scope.name;
+
+        $.ajax({ 
+          type: 'POST',
+          url: 'https://mandrillapp.com/api/1.0/messages/send.json',
+          data: {
+            key: 'hM6OlbcTpHE7fYJp-GQNsw',
+            message: {
+              from_email: 'questackular@notarealemail.com',
+              to: [
+                  {
+                    email: 'moonstonecowgirl@gmail.com',
+                    name: 'RECIPIENT NAME (OPTIONAL)',
+                    type: 'to'
+                  }
+                ],
+              autotext: true,
+              subject: 'You have been invited to join a quest!',
+              html: 'You have been invited to join a quest! Log in to find out more.'
+            }
+          }
+         }).done(function(response) {
+           console.log(response, "this worked"); // if you're into that sorta thing
+         });
+
+            
+        }
+
+
     $scope.saveFullQuest = function() {
         //this will save the full quest.
         if ($scope.stepList.length < 1) {
             //no steps yet. Alert user!
-            if (!confirm('(\u0CA0_\u0CA0) This quest has no steps! Are you sure you want to save it?')) {
-                return; //user canceled save
-            }
+            bootbox.confirm('This quest has not steps! Are you sure you wanna save it?', function(result) {
+                if (result == false) {
+                    return;
+                }
+            });
         }
         //parse and readjust quest
         ($scope.quest.pubPriv === 'private') ? $scope.quest.privacy = true: $scope.quest.privacy = false;
@@ -164,13 +222,19 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
     //AAAAAAAH!------------------------
     //DELETE ME------------------------
     $scope.showData = function() {
-        console.log('Quest List:', $scope.questList, ', Quest: ', $scope.quest, ', Steps: ', $scope.stepList);
+        bootbox.confirm('This is a confirm box!', function(result) {
+            console.log('Shouldnt run end code!', result)
+            if (result == false) {
+                return;
+            }
+        });
+        console.log('Ran end code!');
     };
 
     $scope.correctAns = function(ansNum, stepNum) {
         //this function simply chooses the correct answer for the multi-choice answers.
         console.log('Correct: ', ansNum, 'ID: ', stepNum);
-        $scope.stepList[stepNum].multiAnsCor=ansNum.toString();
+        $scope.stepList[stepNum].multiAnsCor = ansNum.toString();
 
     };
 
@@ -199,30 +263,40 @@ app.controller('editCtrl', function($scope, QuestFactory, AuthService, $state) {
     };
     $scope.removeStep = function(step) {
         //pop a confirm box and remove a step
-        var remConf = confirm('Are you sure you wanna remove this step? Removing a step is permanent (once you click the save button)!');
-        if (!remConf) {
-            return;
-        }
-        //See if the object to remove has an id. if so, add to the list of objs to remove, since it's stored in db.
-        if (step._id) {
-            $scope.stepsToRemove.push(step);
-        }
-        //now remove the step from the frontEnd. first stepList arr
-        for (var r = 0; r < $scope.stepList.length; r++) {
-            if ($scope.stepList[r].question === step.question) {
-                //remove it!
-                $scope.stepList.splice(r, 1);
+        bootbox.confirm('Are you sure you wanna remove this step? Removing a step is permanent (once you click the save button)!', function(delConf) {
+            if (delConf) {
+                //See if the object to remove has an id. if so, add to the list of objs to remove, since it's stored in db.
+                if (step._id) {
+                    $scope.stepsToRemove.push(step);
+                }
+                //now remove the step from the frontEnd. first stepList arr
+                for (var r = 0; r < $scope.stepList.length; r++) {
+                    if ($scope.stepList[r].question === step.question) {
+                        //remove it!
+                        $scope.stepList.splice(r, 1);
+                    }
+                }
+                //then sesh storage!
+                sessionStorage.stepStr = angular.toJson($scope.stepList);
+            }
+        })
+    };
+    $scope.$on('$stateChangeStart', function(e, to, n, from) {
+        var parentF = from.name.split('.')[0];
+        var parentT = to.name.split('.')[0];
+        if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest)) {
+            if(!confirm('Are you sure you wanna leave? This quest has not been saved yet!')){
+                e.preventDefault();
             }
         }
-        //then sesh storage!
-        sessionStorage.stepStr = angular.toJson($scope.stepList);
-    };
-
+    })
     $state.go('edit.quest');
 
 });
 
 app.controller('editQuest', function($scope) {
+
+
     // window.addEventListener('beforeunload', function(e) {
     //     e.returnValue = "You haven't saved! Click Okay to continue without saving, or Cancel to stay on this page!";
     // })
@@ -250,8 +324,8 @@ app.controller('editStep', function($scope, QuestFactory) {
         $scope.$parent.addForm = false;
     };
     $scope.saveStep = function(newStep) {
-        $scope.$parent.stepList = QuestFactory.saveStepIter(newStep, $scope.$parent.stepList)||$scope.$parent.stepList;
-        console.log('save step stuff successfully switched to smaller sequences',$scope.$parent.stepList)
+        $scope.$parent.stepList = QuestFactory.saveStepIter(newStep, $scope.$parent.stepList) || $scope.$parent.stepList;
+        console.log('save step stuff successfully switched to smaller sequences', $scope.$parent.stepList)
         $scope.newStep = {}; //clear step
         $scope.$parent.addForm = false; //hide form.
     };
@@ -261,9 +335,12 @@ app.controller('editQuestMap', function($scope, MapFactory) {
     //lists quest on a nice, pretty map.
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList);
 
-    //GIANT LIST O TEST DATA!
 
     //begin mapDraw code
     MapFactory.drawMap($scope, $scope.$parent.stepList);
     $scope.$parent.currState = 'Map';
+});
+
+app.controller('editInvite', function($scope) {
+
 });
