@@ -18,6 +18,10 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, 
 		UserFactory.getUserFromDb(unPopUser.user._id).then(function (popUser){
 			$scope.chosenQuest = popUser.participating[$scope.participatingIndex];
 			console.log("$scope.chosenQuest", $scope.chosenQuest)
+			QuestFactory.getStepListById($scope.chosenQuest.questId._id).then(function(steplist){
+				console.log("steplist",steplist)
+				$scope.totalStepNum = steplist.length
+			})
 			$scope.step = popUser.participating[$scope.participatingIndex].currentStep;
 			if($scope.step.qType == "Multiple Choice"){
 				console.log("$scope.step",$scope.step)
