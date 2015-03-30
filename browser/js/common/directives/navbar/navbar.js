@@ -12,6 +12,8 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             scope.items = [{
                 label: 'Create a Quest', state: 'create.quest' 
             }, {
+                label: 'Edit Quests', state: 'edit.quest'
+            }, {
                 label: 'Join a Quest', state: 'join' 
             }, {
                 label: 'My Quests', state: 'myQuests' 

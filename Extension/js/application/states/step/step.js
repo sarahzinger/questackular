@@ -22,6 +22,7 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 				$scope.totalStepNum = steplist.length
 			})
 			$scope.step = popUser.participating[$scope.participatingIndex].currentStep;
+
 			if($scope.step.qType == "Multiple Choice"){
 				$scope.multipleChoice = true;
 			}
@@ -31,10 +32,9 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 		chrome.tabs.create({url: "http://"+$scope.step.url});
 	}
 
-
-    // chrome.runtime.sendMessage(string extensionId, any message, object options, function (res) {
-    // 	console.log(res);
-    // });
+	// chrome.runtime.sendMessage(chromeExtId, {stepUrl: "http://www.google.com"}, function (response) {
+	// 	console.log("chrome.runtime.sendMessage response", response.hello);
+	// });
     // consider chrome.webRequest??
 
 	$scope.submit = function() {

@@ -76,7 +76,7 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
         delete $scope.quest.actInact;
         delete $scope.quest.pubPriv;
         //final-presave stuff: get the current user ID
-        AuthService.getLoggedInUser().then(function(user) {
+        AuthService.getLoggedInUser().then(function (user) {
             console.log("user from AuthService", user);
             $scope.quest.owner = user._id;
             //save the quest
@@ -127,7 +127,7 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
     $state.go('create.quest');
 });
 
-app.controller('CreateQuest', function($scope) {
+app.controller('CreateQuest', function ($scope) {
     $scope.$parent.currState = 'Quest';
     if (sessionStorage.newQuest == 'undefined') {
         sessionStorage.removeItem('newQuest');
@@ -144,7 +144,7 @@ app.controller('CreateQuest', function($scope) {
 
 });
 
-app.controller('CreateStep', function($scope, QuestFactory) {
+app.controller('CreateStep', function ($scope, QuestFactory) {
     $scope.$parent.currState = 'Step';
     $scope.testTypes = ['Multiple Choice', 'Fill-in'];
     $scope.alerts = [
@@ -175,7 +175,7 @@ app.controller('CreateStep', function($scope, QuestFactory) {
     };
 });
 
-app.controller('QuestMap', function($scope, MapFactory) {
+app.controller('QuestMap', function ($scope, MapFactory) {
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList);
 
     //GIANT LIST O TEST DATA!

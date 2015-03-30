@@ -2,7 +2,7 @@
 app.run(function(editableOptions) {
     editableOptions.theme = 'bs3';
 });
-app.config(function($stateProvider) {
+app.config(function ($stateProvider) {
     $stateProvider.state('edit', {
             resolve: {
                 getLoggedInUser: function(AuthService, $state, $http) {
@@ -43,7 +43,9 @@ app.config(function($stateProvider) {
 });
 
 
+
 app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthService, $state) {
+
     //remove session storage in case there's anything stored from /create or watever
     sessionStorage.removeItem('stepStr');
     sessionStorage.removeItem('newQuest');

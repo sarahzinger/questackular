@@ -30,7 +30,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="quest in quests track by $index">
+						<tr ng-repeat="quest in unjoinedQuests track by $index">
 							<td>{{$index + 1}}</td>
 							<td>{{quest.title}}</td>
 							<td>{{quest.description}}</td>
