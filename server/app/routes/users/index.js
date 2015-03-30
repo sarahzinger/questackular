@@ -6,11 +6,16 @@ var mongoose = require('mongoose');
 var async = require('async');
 
 router.get('/points/', function (req,res,next){
-  var total = req.user.totalPoints;
-  if (req.user.pointsSpent){
-    total -= req.user.pointsSpent;
+  if(req.user){
+    var total = req.user.totalPoints;
+    if (req.user.pointsSpent){
+      total -= req.user.pointsSpent;
+    }
+    res.json(total);
+  }else{
+    res.send("nope")
   }
-  res.json(total);
+
 });
 
 router.put('/points/:id', function (req,res,next){

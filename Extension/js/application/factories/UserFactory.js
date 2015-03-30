@@ -27,6 +27,11 @@ app.factory('UserFactory', function($http){
         	return $http.get('http://localhost:1337/api/users/points/').then(function(res){
         		return res.data;
         	})
+        },
+        logout: function(){
+            return $http.get('http://localhost:1337/logout').then(function (res) {
+                return res;
+            })
         }
 	}
 })

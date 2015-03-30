@@ -5,11 +5,10 @@ app.controller('extCont', function($scope, UserFactory, $state) {
         window.open('localhost:1337/auth/google', '_blank');
     };
     
-    
     var getName = function(){
         UserFactory.getUserInfo().then(function(data){
             $scope.name = data.user.google.name;
-            $scope.loggedIn = true;
+            $scope.loggedIn = true;  
         });
        
     };
