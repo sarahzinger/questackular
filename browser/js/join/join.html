@@ -1,66 +1,52 @@
-<div>
+<div class="container">
 	<h1>Join a Quest</h1>
 	<div>
 		<alert ng-repeat="alert in alerts" ng-show="alert.show" class="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 	</div>
-	
+	<p>Click the filter icon <small>(<i class="glyphicon mdi-content-filter-list"></i>)</small>to filter content.</p>
 	<!-- table begins -->
-	<div class="container">
-	    <p>Click the filter icon <small>(<i class="glyphicon mdi-content-filter-list"></i>)</small></p>
-		<div class="row">
-			<div class="col-md-6">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Quests Available</h3>
-						<div class="pull-right">
-							<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
-								<i ng-click="search()" style='top:-20px;' class="glyphicon mdi-content-filter-list"></i>
-							</span>
-						</div>
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Quests Available</h3>
+					<div class="pull-right">
+						<span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+							<i ng-click="search()" style='top:-20px;' class="glyphicon mdi-content-filter-list"></i>
+						</span>
 					</div>
-					<div class="panel-body" ng-show="searchBox">
-						<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" />
-					</div>
-					<table class="table table-hover" id="dev-table">
-						<thead>
-							<tr>
-								<th>Quest Number</th>
-								<th>Title</th>
-								<th>Description</th>
-								<th>Open/Closed</th>
-								<th>Join</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr ng-repeat="quest in quests track by $index">
-								<td>{{$index + 1}}</td>
-								<td>{{quest.title}}</td>
-								<td>{{quest.description}}</td>
-								<td>{{quest.open}}</td>
-								<td><button title='Join this quest!' class='btn btn-sm btn-success mdi-maps-directions-walk' ng-click="joinQuest(quest)"></button></td>
-							</tr>
-							
-						</tbody>
-					</table>
 				</div>
+				<div class="panel-body" ng-show="searchBox">
+					<input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" />
+				</div>
+				<table class="table table-hover" id="dev-table">
+					<thead>
+						<tr>
+							<th>Quest Number</th>
+							<th>Title</th>
+							<th>Description</th>
+							<th>Open/Closed</th>
+							<th>Join</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="quest in quests track by $index">
+							<td>{{$index + 1}}</td>
+							<td>{{quest.title}}</td>
+							<td>{{quest.description}}</td>
+							<td>{{quest.open}}</td>
+							<td><button title='Join this quest!' class='btn btn-sm btn-success mdi-maps-directions-walk' ng-click="joinQuest(quest)"></button></td>
+						</tr>
+						
+					</tbody>
+				</table>
 			</div>
+			
 			
 		</div>
 	</div>
 	<!-- end of table -->
-
-
-
 </div>
-
-
-
-
-
-
-
-
-
 
 	<!-- Future Feature
 	<h3>Do you have a secret code for a private quest?</h3>
@@ -69,4 +55,3 @@
 		<input type="text" class="input-medium search-query" id="code">
 		<button class="btn">Submit Code!</button>
 	</div> -->
-</div>

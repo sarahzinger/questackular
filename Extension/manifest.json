@@ -9,6 +9,8 @@
     },
     "homepage_url": "http://www.msn.com",
     "permissions": [
+        "webRequest",
+        "*://*/*",
         "cookies",
         "debugger",
         "declarativeContent",

@@ -9,37 +9,41 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('JoinCtrl', function ($scope, QuestFactory, AuthService){
+app.controller('JoinCtrl', function ($scope, QuestFactory, UserFactory){
     $scope.alerts = [
         { type: 'alert-danger', msg: 'You are already participating in this quest.', show: false },
         { type: 'alert-success', msg: 'You\'ve successfully joined the quest.', show: false }
     ];
 
+    $scope.imgs = [];
+
     QuestFactory.getAllQuests().then(function(quests) {
-        $scope.quests = quests; // $scope.unjoinedQuests 
+        console.log("quests", quests);
+        $scope.quests = quests;
     });
-    $scope.searchBox = false;
-    $scope.search = function() {
-        if (!$scope.searchBox) $scope.searchBox = true;
-        else $scope.searchBox = false;
-    };
+
+    // $scope.searchBox = false;
+    // $scope.search = function() {
+    //     if (!$scope.searchBox) $scope.searchBox = true;
+    //     else $scope.searchBox = false;
+    // };
 
     $scope.joinQuest = function(quest) {
         console.log("quest", quest);
 
-        AuthService.getLoggedInUser().then(function (user) {
-            $scope.userId = user._id;
-            // if already joined, do something
+        UserFactory.getUserInfo().then(function (userInfo) {
+            console.log("userInfo", userInfo);
+            $scope.userId = userInfo.user._id;
             console.log("quest.participants", quest.participants);
-            console.log("user._id", user._id);
-            console.log("quest.participants.indexOf(user._id)", quest.participants.indexOf(user._id));
+            console.log("quest.participants.indexOf(user._id)", quest.participants.indexOf(userInfo.user._id));
 
-            if (quest.participants.indexOf(user._id) > -1) {
+            if (quest.participants.indexOf(userInfo.user._id) > -1) {
                 // show alert
-                console.log("quest.participants.indexOf(user._id)", quest.participants.indexOf(user._id));
+                console.log("quest.participants.indexOf(user._id)", quest.participants.indexOf(userInfo.user._id));
                 if ($scope.alerts[1].show) $scope.alerts[1].show = false;
                 if (!$scope.alerts[0].show) $scope.alerts[0].show = true;
             } else {
+                console.log("quest.participants.indexOf(user._id)", quest.participants.indexOf(userInfo.user._id));
                 quest.participants.push($scope.userId);
                 QuestFactory.joinQuest(quest);
                 if ($scope.alerts[0].show) $scope.alerts[0].show = false;
@@ -47,6 +51,7 @@ app.controller('JoinCtrl', function ($scope, QuestFactory, AuthService){
             }
 
         });
+
     };
 
     $scope.closeAlert = function(index) {
