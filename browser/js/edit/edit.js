@@ -144,9 +144,11 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         //this will save the full quest.
         if ($scope.stepList.length < 1) {
             //no steps yet. Alert user!
-            if (!confirm('(\u0CA0_\u0CA0) This quest has no steps! Are you sure you want to save it?')) {
-                return; //user canceled save
-            }
+            bootbox.confirm('This quest has not steps! Are you sure you wanna save it?', function(result) {
+                if (result == false) {
+                    return;
+                }
+            });
         }
         //parse and readjust quest
         ($scope.quest.pubPriv === 'private') ? $scope.quest.privacy = true: $scope.quest.privacy = false;
@@ -218,13 +220,19 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
     //AAAAAAAH!------------------------
     //DELETE ME------------------------
     $scope.showData = function() {
-        console.log('Quest List:', $scope.questList, ', Quest: ', $scope.quest, ', Steps: ', $scope.stepList);
+        bootbox.confirm('This is a confirm box!', function(result) {
+            console.log('Shouldnt run end code!', result)
+            if (result == false) {
+                return;
+            }
+        });
+        console.log('Ran end code!');
     };
 
     $scope.correctAns = function(ansNum, stepNum) {
         //this function simply chooses the correct answer for the multi-choice answers.
         console.log('Correct: ', ansNum, 'ID: ', stepNum);
-        $scope.stepList[stepNum].multiAnsCor=ansNum.toString();
+        $scope.stepList[stepNum].multiAnsCor = ansNum.toString();
 
     };
 
@@ -253,25 +261,33 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
     };
     $scope.removeStep = function(step) {
         //pop a confirm box and remove a step
-        var remConf = confirm('Are you sure you wanna remove this step? Removing a step is permanent (once you click the save button)!');
-        if (!remConf) {
-            return;
-        }
-        //See if the object to remove has an id. if so, add to the list of objs to remove, since it's stored in db.
-        if (step._id) {
-            $scope.stepsToRemove.push(step);
-        }
-        //now remove the step from the frontEnd. first stepList arr
-        for (var r = 0; r < $scope.stepList.length; r++) {
-            if ($scope.stepList[r].question === step.question) {
-                //remove it!
-                $scope.stepList.splice(r, 1);
+        bootbox.confirm('Are you sure you wanna remove this step? Removing a step is permanent (once you click the save button)!', function(delConf) {
+            if (delConf) {
+                //See if the object to remove has an id. if so, add to the list of objs to remove, since it's stored in db.
+                if (step._id) {
+                    $scope.stepsToRemove.push(step);
+                }
+                //now remove the step from the frontEnd. first stepList arr
+                for (var r = 0; r < $scope.stepList.length; r++) {
+                    if ($scope.stepList[r].question === step.question) {
+                        //remove it!
+                        $scope.stepList.splice(r, 1);
+                    }
+                }
+                //then sesh storage!
+                sessionStorage.stepStr = angular.toJson($scope.stepList);
+            }
+        })
+    };
+    $scope.$on('$stateChangeStart', function(e, to, n, from) {
+        var parentF = from.name.split('.')[0];
+        var parentT = to.name.split('.')[0];
+        if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest)) {
+            if(!confirm('Are you sure you wanna leave? This quest has not been saved yet!')){
+                e.preventDefault();
             }
         }
-        //then sesh storage!
-        sessionStorage.stepStr = angular.toJson($scope.stepList);
-    };
-
+    })
     $state.go('edit.quest');
 
 });
@@ -306,8 +322,8 @@ app.controller('editStep', function($scope, QuestFactory) {
         $scope.$parent.addForm = false;
     };
     $scope.saveStep = function(newStep) {
-        $scope.$parent.stepList = QuestFactory.saveStepIter(newStep, $scope.$parent.stepList)||$scope.$parent.stepList;
-        console.log('save step stuff successfully switched to smaller sequences',$scope.$parent.stepList)
+        $scope.$parent.stepList = QuestFactory.saveStepIter(newStep, $scope.$parent.stepList) || $scope.$parent.stepList;
+        console.log('save step stuff successfully switched to smaller sequences', $scope.$parent.stepList)
         $scope.newStep = {}; //clear step
         $scope.$parent.addForm = false; //hide form.
     };
@@ -317,7 +333,6 @@ app.controller('editQuestMap', function($scope, MapFactory) {
     //lists quest on a nice, pretty map.
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList);
 
-    //GIANT LIST O TEST DATA!
 
     //begin mapDraw code
     MapFactory.drawMap($scope, $scope.$parent.stepList);

@@ -73,6 +73,7 @@ router.get('/:id', function(req, res, next) {
             // if (userInfo.participating.length) {
 	            mongoose.model('User').populate(userInfo, 'participating.questId participating.currentStep', function (err, userFullyPopulated) {
 	            	if (err) return res.json(err);
+                console.log('STEPS THINGS',userFullyPopulated)
                 res.json(userFullyPopulated);
 	            });	
     		// }

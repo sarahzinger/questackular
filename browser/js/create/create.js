@@ -64,13 +64,15 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
         //this will save the full quest.
         if ($scope.stepList.length < 1) {
             //no steps yet. Alert user!
-            if (!confirm('(\u0CA0_\u0CA0) This quest has no steps! Are you sure you want to save it?')) {
-                return; //user canceled save
-            }
+            bootbox.confirm('This quest has not steps! Are you sure you wanna save it?', function(result) {
+                if (result == false) {
+                    return;
+                }
+            });
         }
         //parse and readjust quest
-        ($scope.quest.actInact === 'active') ? $scope.quest.active = true : $scope.quest.active = false;
-        ($scope.quest.pubPriv === 'private') ? $scope.quest.privacy = true : $scope.quest.privacy = false;
+        ($scope.quest.actInact === 'active') ? $scope.quest.active = true: $scope.quest.active = false;
+        ($scope.quest.pubPriv === 'private') ? $scope.quest.privacy = true: $scope.quest.privacy = false;
         delete $scope.quest.actInact;
         delete $scope.quest.pubPriv;
         //final-presave stuff: get the current user ID
@@ -79,40 +81,49 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
             $scope.quest.owner = user._id;
             //save the quest
             QuestFactory.sendQuest($scope.quest)
-                .then(function (questId) {
+                .then(function(questId) {
                     console.log('questId item:', questId);
 
                     // questId = questId.toString();
                     if (questId == "duplicateQuest") {
-                        alert("This quest already exsits! Please create your steps in the 'edit' page.");
+                        bootbox.alert("This quest already exists! Please create your steps in the 'edit' page.");
                     } else {
                         console.log("questId !== duplicateQuest");
-                        $scope.stepList.forEach(function (item) {
+                        $scope.stepList.forEach(function(item) {
                             item.quest = questId;
                             //save this step
-                            QuestFactory.sendStep(item).then(function (data) {
+                            QuestFactory.sendStep(item).then(function(data) {
                                 console.log('Saved quest! Woohoo!');
                                 //redirect, clear vars on NEXT PAGE!
                                 $state.go('thanks');
                             });
                         });
-                        
+
                     }
-                    
+
                 });
         });
     };
 
     $scope.clearData = function() {
-        var clearConf = confirm('Are you sure you want to clear this quest? It hasn\'t yet been saved!');
-        if (clearConf) {
-            sessionStorage.removeItem('newQuest');
-            $scope.quest = {};
-            $scope.stepList = []; //list of current steps.
-            $scope.questExists = false;
-        }
+        bootbox.confirm('Are you sure you want to clear this quest? It hasn\'t yet been saved!', function(result) {
+            if (result != false) {
+                sessionStorage.removeItem('newQuest');
+                $scope.quest = {};
+                $scope.stepList = []; //list of current steps.
+                $scope.questExists = false;
+            }
+        });
     };
-
+    $scope.$on('$stateChangeStart', function(e, to, n, from) {
+        var parentF = from.name.split('.')[0];
+        var parentT = to.name.split('.')[0];
+        if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest)) {
+            if(!confirm('Are you sure you wanna leave? This quest has not been saved yet!')){
+                e.preventDefault();
+            }
+        }
+    })
     $state.go('create.quest');
 });
 
