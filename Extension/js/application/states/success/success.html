@@ -1,6 +1,6 @@
 <h1>{{yayMessage}}</h1>
 <hr/> Here's what you can buy!
-<div id='currMonies'>You currently have: {{userData.total}} points</div>
+<div id='currMonies'>You currently have: {{totalPoints}} points</div>
 <div class="panel panel-info">
     <div class="panel-heading">
         <h3 class="panel-title">Store</h3>
@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="item in allItems track by $index" ng-if='item.owned==false'>
-                <td>{{item.title}}<img width='50' height='50' src='{{item.url}}'>
+                <td>{{item.title}}<br/><img width='50' height='50' src='{{item.url}}'>
                 </td>
                 <td>{{item.description}}</td>
                 <td>{{item.price+' pts'}}</td>

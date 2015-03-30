@@ -38,7 +38,7 @@ app.controller('SuccessCtrl', function($scope, QuestFactory, UserFactory, $state
             bootbox.confirm('Are you sure you want to buy ' + item.title + ' for ' + item.price + '?', function(result) {
                 //this takes the item price and item id. sends them in an obj to backend
                 var bought = {
-                    itemId: item.id,
+                    itemId: item._id,
                     price: item.price
                 };
                 storeFactory.userBuy(bought).then(function(data) {
@@ -55,12 +55,14 @@ app.controller('SuccessCtrl', function($scope, QuestFactory, UserFactory, $state
     $scope.parseItems = function(){
         //go thru all items array and append .owned=true to ones in the user's list
         $scope.allItems.forEach(function(el){
-            if ($scope.userData.owned.indexOf(el)!=-1){
+            console.log('userData: ',$scope.userData)
+            if ($scope.userData.owned.indexOf(el._id)!=-1){
+                console.log('found: ',el.title)
                 el.owned=true;
             }else{
                 el.owned=false;
             }
-            console.log($scope.allItems)
+            console.log('items:',$scope.allItems)
         })
     };
     $scope.continue = function() {
