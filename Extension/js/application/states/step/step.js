@@ -17,14 +17,11 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, 
 	UserFactory.getUserInfo().then(function (unPopUser) {
 		UserFactory.getUserFromDb(unPopUser.user._id).then(function (popUser){
 			$scope.chosenQuest = popUser.participating[$scope.participatingIndex];
-			console.log("$scope.chosenQuest", $scope.chosenQuest)
 			QuestFactory.getStepListById($scope.chosenQuest.questId._id).then(function(steplist){
-				console.log("steplist",steplist)
 				$scope.totalStepNum = steplist.length
 			})
 			$scope.step = popUser.participating[$scope.participatingIndex].currentStep;
 			if($scope.step.qType == "Multiple Choice"){
-				console.log("$scope.step",$scope.step)
 				$scope.multipleChoice = true;
 			}
 		})
@@ -50,24 +47,29 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, 
 		if($scope.step.qType == "Fill-in"){
 			if($scope.userAnswer == $scope.step.fillIn){
 				UserFactory.addPoints($scope.step._id).then(function(data){
-					UserFactory.changeCurrentStep($scope.step._id);
 					$rootScope.$emit('updatePoints')
-                	$state.go('success');
+					if($scope.step.stepNum == $scope.totalStepNum){
+						$state.go('finish');
+					}else{
+						UserFactory.changeCurrentStep($scope.step._id);
+                		$state.go('success');
+					}
+					
 				})
 			}else{
 				//else it will alert user to try again
 				$scope.alertshow = true;
 			}
 		}else{
-			console.log("$scope.selectedAnswer", $scope.selectedAnswer)
-			console.log("$scope.step.multiAnsCor", $scope.step.multiAnsCor)
-			console.log("type of $scope.selectedAnswer", typeof $scope.selectedAnswer)
-			console.log("type of $scope.step.multiAnsCor", typeof $scope.step.multiAnsCor)
 			if(Number($scope.selectedAnswer) +1 === Number($scope.step.multiAnsCor)){
 				UserFactory.addPoints($scope.step._id).then(function(data){
-					UserFactory.changeCurrentStep($scope.step._id);
 					$rootScope.$emit('updatePoints')
-                	$state.go('success');
+					if($scope.step.stepNum == $scope.totalStepNum){
+						$state.go('finish');
+					}else{
+						UserFactory.changeCurrentStep($scope.step._id);
+                		$state.go('success');
+					}
 				})
 			}else{
 				//else it will alert user to try again
