@@ -7,7 +7,9 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, chromeExtId) {
+app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, chromeExtId, $rootScope) {
+
+
     console.log("chromeExtId", chromeExtId);
     $scope.alertshow = false;
     $scope.participatingIndex = Number(localStorage["participatingIndex"]);
@@ -15,7 +17,7 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
     UserFactory.getUserInfo().then(function(unPopUser) {
         UserFactory.getUserFromDb(unPopUser.user._id).then(function(popUser) {
             $scope.chosenQuest = popUser.participating[$scope.participatingIndex];
-            console.log('popUser: ',popUser.participating[$scope.participatingIndex])
+            console.log("$scope.chosenQuest", $scope.chosenQuest)
             $scope.step = popUser.participating[$scope.participatingIndex].currentStep;
             if ($scope.step.qType == "Multiple Choice") {
                 console.log("$scope.step", $scope.step)
@@ -29,17 +31,10 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
         });
     }
 
-    chrome.runtime.sendMessage({
-        stepUrl: "http://www.google.com"
-    }, function(response) {
-        console.log("chrome.runtime.sendMessage response", response);
-    });
-
     // chrome.runtime.sendMessage(string extensionId, any message, object options, function (res) {
     // 	console.log(res);
     // });
     // consider chrome.webRequest??
-
 
     $scope.submit = function() {
         //will verify that the answer is correct
@@ -49,6 +44,7 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
             if ($scope.userAnswer == $scope.step.fillIn) {
                 UserFactory.addPoints($scope.step._id).then(function(data) {
                     UserFactory.changeCurrentStep($scope.step._id);
+                    $rootScope.$emit('updatePoints')
                     $state.go('success');
                 })
             } else {
@@ -59,6 +55,7 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
             if ($scope.selectedAnswer === $scope.step.multiAnsCor) {
                 UserFactory.addPoints($scope.step._id).then(function(data) {
                     UserFactory.changeCurrentStep($scope.step._id);
+                    $rootScope.$emit('updatePoints')
                     $state.go('success');
                 })
             } else {
@@ -66,7 +63,5 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
                 $scope.alertshow = true;
             }
         }
-
     };
-
 });

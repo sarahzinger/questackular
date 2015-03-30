@@ -9,6 +9,7 @@ app.config(function($stateProvider) {
 
 
 app.controller('SuccessCtrl', function($scope, QuestFactory, UserFactory, $state, storeFactory) {
+    
     $scope.allItems = [];
     $scope.userData = {};
     $scope.warn = false;
