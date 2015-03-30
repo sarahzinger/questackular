@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 router.get('/:id', function (req, res, next) {
     console.log("req.params.id", req.params.id);
     mongoose.model('Step').findById(req.params.id, function(err, step) {
-        console.log("the step we are sending back from the db", step)
+        console.log("the step we are sending back from the db", step);
         if(err) console.log(err);
         res.json(step);
     });
@@ -46,7 +46,7 @@ router.get('/list/:id', function (req, res) {
     });
 });
 
-router.post('/rem/', function(req, res) {
+router.post('/rem/', function (req, res) {
     //rem: its the end of the step as we know it, and i feel fine
     var stepToRemId = req.body._id;
     var stepToRenumQ = req.body.quest;
@@ -70,12 +70,12 @@ router.post('/upd', function(req, res, next) {
     //not sure if we can 'save' the id, so removing it
     var theId = req.body._id;
     var theQuest = req.body.quest;
-    mongoose.model('Step').findById(theId, function(err, stepToUpd) {
+    mongoose.model('Step').findById(theId, function (err, stepToUpd) {
         console.log('to be updated on backend', stepToUpd);
-        console.log('quest for this step: ',theQuest)
+        console.log('quest for this step: ', theQuest);
         if (stepToUpd === null) {
             //not found, create new. Dave speak. DAVE SMASH.
-            mongoose.model('Step').create(req.body).then(function(err, notDoinAnythingWithThis) {
+            mongoose.model('Step').create(req.body).then(function (err, notDoinAnythingWithThis) {
                 mongoose.model('Step').find({
                     quest: theQuest
                 }, function(err, respondy) {
@@ -90,7 +90,7 @@ router.post('/upd', function(req, res, next) {
                     stepToUpd[updVal] = req.body[updVal];
                 }
             }
-            stepToUpd.save(function(err, notDoinAnythingWithThis) {
+            stepToUpd.save(function (err, notDoinAnythingWithThis) {
                 mongoose.model('Step').find({
                     quest: theQuest
                 }, function(err, respondy) {

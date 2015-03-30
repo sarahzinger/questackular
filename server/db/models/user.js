@@ -43,9 +43,10 @@ var schema = new mongoose.Schema({
 
 schema.virtual('totalPoints').get(function() {
     var total = 0;
-    this.participating.forEach(function(questObj) {
+    this.participating.forEach(function (questObj) {
         total += Number(questObj.pointsFromQuest);
     });
+    if (this.pointsSpent) total - this.pointsSpent;
     return total;
 });
 
