@@ -25,7 +25,7 @@ app.factory('UserFactory', function($http, domain){
             });
         },
         getTotalPoints: function() {
-        	return $http.get('http://localhost:1337/api/users/points/').then(function (res){
+        	return $http.get('http://localhost:1337/api/users/points').then(function (res){
         		return res.data;
         	})
         },

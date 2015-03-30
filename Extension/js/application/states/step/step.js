@@ -19,8 +19,8 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, 
 			$scope.chosenQuest = popUser.participating[$scope.participatingIndex];
 			console.log("$scope.chosenQuest", $scope.chosenQuest)
 			$scope.step = popUser.participating[$scope.participatingIndex].currentStep;
-			if($scope.step.qType == "Multiple Choice"){
-				console.log("$scope.step",$scope.step)
+			if($scope.step.qType == "Multiple Choice") {
+				console.log("$scope.step",$scope.step);
 				$scope.multipleChoice = true;
 			}
 		})
@@ -29,8 +29,8 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, 
 		chrome.tabs.create({url: "http://"+$scope.step.url});
 	}
 
-	chrome.runtime.sendMessage({stepUrl: "http://www.google.com"}, function (response) {
-		console.log("chrome.runtime.sendMessage response", response);
+	chrome.runtime.sendMessage(chromeExtId, {stepUrl: "http://www.google.com"}, function (response) {
+		console.log("chrome.runtime.sendMessage response", response.hello);
 	});
 
 	// chrome.runtime.sendMessage(string extensionId, any message, object options, function (res) {

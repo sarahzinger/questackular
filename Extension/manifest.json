@@ -25,9 +25,17 @@
         "page": "background.html",
         "persistent": true
     },
+    "content_scripts": [{
+        "matches": ["http://*/*", "https://*/*"],
+        "js": ["/js/content.js"]
+    }],
     "browser_action": {
         "default_icon": "questackular.png",
         "default_title": "Questackular!",
         "default_popup": "popup.html"
+    },
+    "devtools_page": "devtools.html",
+    "omnibox": {
+        "keyword": "quest"
     }
 }

@@ -5,7 +5,7 @@ var _ = require('lodash');
 var mongoose = require('mongoose');
 var async = require('async');
 
-router.get('/points/', function (req, res, next){
+router.get('/points', function (req, res, next){
   return res.json(req.user.totalPoints);
 });
 
