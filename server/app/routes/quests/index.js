@@ -81,8 +81,6 @@ router.post('/participants', function(req, res) {
 
 //
 router.put('/participants', function(req, res){
-    console.log("we found put yo")
-    console.log("req.body",req.body);
     req.user.questCompleted(req.body.questId, function(err, data){
         if(err) console.log(err);
         req.user.removeQuestFromUser(req.body.questId, function(err, data){
@@ -92,11 +90,9 @@ router.put('/participants', function(req, res){
 })
 // when a user "leaves" a quest
 router.delete('/participants/:id', function(req, res) {
-    console.log("req.user", req.user);
 
     req.user.removeQuestFromUser(req.params.id, function(err, data){
         if (err) console.log(err);
-        console.log("req.user.removeQuestFromUser data", data);
         res.json(data);
     });
 });

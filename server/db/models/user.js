@@ -75,17 +75,14 @@ schema.methods.removeQuestFromUser = function(questId, callback){
         var idx = _.findIndex(self.participating, function (questObj) {
             return questObj.questId == questId;
         });
-        console.log("index of quest is", idx);
 
         self.participating.splice(idx, 1);
         self.save(function (err, data) {
             // removing user from quest
             mongoose.model('Quest').findOne({_id: questId}, function (err, questFound) {
-                console.log("questFound", questFound);
                 var userIndex = questFound.participants.indexOf(self._id);
                 questFound.participants.splice(userIndex, 1);
                 questFound.save(function (err, data) {
-                    console.log("data", data);
                     callback();
                 });
             });
@@ -94,34 +91,26 @@ schema.methods.removeQuestFromUser = function(questId, callback){
 
 };
 schema.methods.addQuestToUser = function(questId, callback){
-    console.log("addQuestToUser called with questId", questId);
     var self = this;
-    
     async.parallel([function (done) {
         
         // finding step, adding step to quest; then adding quest to user
         mongoose.model('Step').find({quest: questId}, function (err, steps){
-            console.log("steps", steps)
             if (err) return (err);
             if (steps.length) {
                 steps.forEach(function (step) {
                     console.log('step1', step)
                     if (step.stepNum === 1){
-                        console.log("step", step)
-                        console.log("questId",questId)
                         self.participating.push({questId: questId, currentStep: step._id, pointsFromQuest:0});
                         self.save(function(err, userData) { 
                             if (err) console.log(err);  
-                            console.log("save 'user' callback is userObj data", userData);
                         });
                     }
                 });
             } else {
                 self.participating.push({questId: questId});
                 self.save(function(err, userData) { 
-                    if (err) console.log(err);  
-                    console.log("ELSE data in user callback IS THE USER OBJECT", userData);
-
+                    if (err) console.log(err); 
                 });
             }
             done();
@@ -133,13 +122,11 @@ schema.methods.addQuestToUser = function(questId, callback){
                 quest.participants.push(self._id);
                 quest.save(function (err, questObj) {
                     if (err) console.log(err);
-                    console.log("data in quest.save callback IS THE QUEST OBJECT", questObj);
                 });
             }
             done();
         });    
     }], function (err, data) {
-        console.log("data", data);
         callback(err, data);
     });
 };
@@ -151,15 +138,9 @@ schema.methods.questCompleted = function(questId, callback){
         console.log("first parallel")
         //pushed quest into pastQuests
         self.participating.forEach(function(quest){
-            console.log("quest", quest)
             if (quest.questId == questId){
-                console.log("zomg found a match")
-                console.log("questId", questId)
-                console.log("quest.pointsFromQuest", quest.pointsFromQuest)
                 self.pastQuests.push({questId: questId, pointsFromQuest: quest.pointsFromQuest});
-
                 self.save(function(err, userData) { 
-                    console.log("userData", userData)
                     if (err) console.log(err);  
                     done();
                 });
@@ -167,24 +148,18 @@ schema.methods.questCompleted = function(questId, callback){
         });
         
     }, function (done) {
-        console.log("second parallel")
         // adding user to quest
         mongoose.model('Quest').findById(questId, function (err, quest) {
-            console.log("quest found by id", quest)
-            console.log("self._id", self._id)
             if (quest.winners.indexOf(self._id) === -1) {
-                console.log("self._id", self._id)
                 quest.winners.push(self._id);
                 quest.save(function (err, questObj) {
                     if (err) console.log(err);
-                    console.log("data in quest.save callback IS THE QUEST OBJECT", questObj);
                     done();
                 });
             }
             
         });
     }], function (err, data) {
-        console.log("data", data);
         callback(err, data);
     });
 };
