@@ -79,6 +79,17 @@ router.post('/participants', function(req, res) {
 
 });
 
+//get all the information about participants in a quest
+router.get('/users/participants', function (req, res) {
+        var users = quest.participants;
+        users.forEach(mongoose.model('User').findById(user, function() {
+            console.log('this happened');
+            return user;
+            })
+        );
+});
+
+
 // when a user "leaves" a quest
 router.delete('/participants/:id', function(req, res) {
     console.log("req.user", req.user);

@@ -10,7 +10,6 @@ var async = require('async');
 var schema = new mongoose.Schema({
 
     levels: Number,
-    ownedItems: [String],
     created: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Quest'
@@ -26,13 +25,11 @@ var schema = new mongoose.Schema({
             ref: 'Step'
         },
         pointsFromQuest: Number,
-        stepsPurchased: [Number]
+        stepsPurchased: [Number],
+        completed: Boolean
     }],
     pointsSpent: Number,
-    itemsBought: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Item'
-    }],
+    itemsBought: [String],
     google: {
         id: String,
         name: String,

@@ -1,26 +1,29 @@
 'use strict';
-app.config(function ($stateProvider) {
-	$stateProvider.state('step', {
-		url: '/step',
-		templateUrl: 'js/application/states/step/step.html', 
-		controller: 'StepCtrl'
-	});
+app.config(function($stateProvider) {
+    $stateProvider.state('step', {
+        url: '/step',
+        templateUrl: 'js/application/states/step/step.html',
+        controller: 'StepCtrl'
+    });
 });
 
-app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, chromeExtId, $rootScope) {
+app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, chromeExtId, $rootScope) {
 
 
-	console.log("chromeExtId", chromeExtId);
-	$scope.alertshow = false;
-	$scope.participatingIndex= Number(localStorage["participatingIndex"]);
+    console.log("chromeExtId", chromeExtId);
+    $scope.alertshow = false;
+    $scope.participatingIndex = Number(localStorage["participatingIndex"]);
+
 
 	UserFactory.getUserInfo().then(function (unPopUser) {
 		UserFactory.getUserFromDb(unPopUser.user._id).then(function (popUser){
 			$scope.chosenQuest = popUser.participating[$scope.participatingIndex];
-			console.log("$scope.chosenQuest", $scope.chosenQuest)
+			QuestFactory.getStepListById($scope.chosenQuest.questId._id).then(function(steplist){
+				$scope.totalStepNum = steplist.length
+			})
 			$scope.step = popUser.participating[$scope.participatingIndex].currentStep;
-			if($scope.step.qType == "Multiple Choice") {
-				console.log("$scope.step",$scope.step);
+
+			if($scope.step.qType == "Multiple Choice"){
 				$scope.multipleChoice = true;
 			}
 		})
@@ -29,15 +32,10 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, 
 		chrome.tabs.create({url: "http://"+$scope.step.url});
 	}
 
-	chrome.runtime.sendMessage(chromeExtId, {stepUrl: "http://www.google.com"}, function (response) {
-		console.log("chrome.runtime.sendMessage response", response.hello);
-	});
-
-	// chrome.runtime.sendMessage(string extensionId, any message, object options, function (res) {
-	// 	console.log(res);
+	// chrome.runtime.sendMessage(chromeExtId, {stepUrl: "http://www.google.com"}, function (response) {
+	// 	console.log("chrome.runtime.sendMessage response", response.hello);
 	// });
-	// consider chrome.webRequest??
-	
+    // consider chrome.webRequest??
 
 	$scope.submit = function() {
 		//will verify that the answer is correct
@@ -46,20 +44,29 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, 
 		if($scope.step.qType == "Fill-in"){
 			if($scope.userAnswer == $scope.step.fillIn){
 				UserFactory.addPoints($scope.step._id).then(function(data){
-					UserFactory.changeCurrentStep($scope.step._id);
 					$rootScope.$emit('updatePoints')
-                	$state.go('success');
+					if($scope.step.stepNum == $scope.totalStepNum){
+						$state.go('finish');
+					}else{
+						UserFactory.changeCurrentStep($scope.step._id);
+                		$state.go('success');
+					}
+					
 				})
 			}else{
 				//else it will alert user to try again
 				$scope.alertshow = true;
 			}
 		}else{
-			if($scope.selectedAnswer === $scope.step.multiAnsCor){
+			if(Number($scope.selectedAnswer) +1 === Number($scope.step.multiAnsCor)){
 				UserFactory.addPoints($scope.step._id).then(function(data){
-					UserFactory.changeCurrentStep($scope.step._id);
 					$rootScope.$emit('updatePoints')
-                	$state.go('success');
+					if($scope.step.stepNum == $scope.totalStepNum){
+						$state.go('finish');
+					}else{
+						UserFactory.changeCurrentStep($scope.step._id);
+                		$state.go('success');
+					}
 				})
 			}else{
 				//else it will alert user to try again
@@ -69,4 +76,5 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state, 
 		
 	};
 	
+
 });
