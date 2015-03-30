@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 
 
 router.get('/:id', function (req, res, next) {
-    console.log("req.params.id", req.params.id);
+    console.log("req.params.id from api/steps/:id", req.params.id);
     mongoose.model('Step').findById(req.params.id, function(err, step) {
         if(err) console.log(err);
         res.json(step);

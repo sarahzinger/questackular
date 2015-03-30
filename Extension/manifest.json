@@ -27,5 +27,8 @@
         "default_icon": "scavengeIcon.png",
         "default_title": "Questackular!",
         "default_popup": "popup.html"
-    }
+    },
+    "web_accessible_resources":[
+    "img/*.jpg"
+    ]
 }

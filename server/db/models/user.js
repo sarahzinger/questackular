@@ -10,7 +10,6 @@ var async = require('async');
 var schema = new mongoose.Schema({
 
     levels: Number,
-    ownedItems: [String],
     created: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Quest'

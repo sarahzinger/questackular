@@ -16,8 +16,9 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state) 
 	UserFactory.getUserInfo().then(function(unPopUser){
 		UserFactory.getUserFromDb(unPopUser.user._id).then(function(popUser){
 			$scope.chosenQuest = popUser.participating[$scope.participatingIndex];
+			console.log(popUser.participating)
 			$scope.stepId = popUser.participating[$scope.participatingIndex].currentStep;
-		// 	console.log("step we send", $scope.stepId)
+			// console.log("step we send", $scope.stepId)
 			QuestFactory.getStepById($scope.stepId).then(function(data){
 				$scope.step = data;
 			})

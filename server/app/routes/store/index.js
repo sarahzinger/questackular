@@ -27,15 +27,22 @@ router.post('/buy/', function(req, res, next) {
         var itemId = req.body.itemId;
         var itemCost = req.body.price;
 
-        mongoose.model('User').find({
+        mongoose.model('User').findOne({
             _id: req.user.id
         }, function(err, user) {
+            if (!user.itemsBought){
+                user.itemsBought=[];
+            }
+            if (!user.pointsSpent){
+                user.pointsSpent=0;
+            }
             user.itemsBought.push(itemId);
-            user.pointsSpent = itemCost;
+            user.pointsSpent += itemCost;
+            console.log('User after purchase:',user);
             user.save().then(function(err, resp) {
                 var userStoreData = {
-                    spent: req.user.pointsSpent || 0,
-                    owned: req.user.itemsBought || [],
+                    spent: req.user.pointsSpent,
+                    owned: req.user.itemsBought,
                     total: req.user.totalPoints
                 };
                 //resend store data, since we've updated stuff and things.
