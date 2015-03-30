@@ -1,0 +1,5 @@
+{
+	"undefined": "localhost:27017/scavenger",
+	"dev": "localhost:27017/scavenger",
+	"prod": "localhost/PROD_DB_NAME"
+}
