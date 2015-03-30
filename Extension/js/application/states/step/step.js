@@ -43,14 +43,8 @@ app.controller('StepCtrl', function ($scope, QuestFactory, UserFactory, $state) 
 				$scope.alertshow = true;
 			}
 		}else{
-			console.log("is this logging at all though?")
-			console.log("HELLO ANSWER?", $scope.selectedAnswer)
-			console.log("multipleAns", $scope.step.multipleAns)
-			console.log("$scope.step.multipleAnsCor", $scope.step.multipleAnsCor)
-			if($scope.step.multipleAns[$scope.selectedAnswer] === $scope.step.multiAnsCor){
-				console.log("trying to add points", $scope.step._id)
+			if($scope.selectedAnswer === $scope.step.multiAnsCor){
 				UserFactory.addPoints($scope.step._id).then(function(data){
-					console.log("back from adding points about to change step")
 					UserFactory.changeCurrentStep($scope.step._id);
                 	$state.go('success');
 				})

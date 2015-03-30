@@ -18,16 +18,18 @@ router.put('/points/:id', function (req,res,next){
   var stepId = req.params.id;
   console.log("stepId", stepId)
   //get the step object to get point worth
-  mongoose.model('Step').find({_id: stepId}, function(err, stepObject) {
+  mongoose.model('Step').findOne({_id: stepId}, function(err, stepObject) {
     console.log('found the step', stepObject)
       var points = stepObject.pointValue;
       //find the quest in req.user which has a current step that matches our stepid
-      req.user.participating.forEach(function(quest){
+      req.user.participating.forEach(function(quest, idx, arr){
+
         if (quest.currentStep == stepId){
         //push the new point worth to pointsfromQuest on the participating array in users
-          console.log("BEFORE quest.pointsFromQuest", quest.pointsFromQuest)
-          quest.pointsFromQuest += points;
-          console.log("After quest.pointsFromQuest", quest.pointsFromQuest)
+          console.log("BEFORE quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest)
+          console.log("points we are trying to add", points)
+          req.user.participating[idx].pointsFromQuest += points;
+          console.log("After quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest)
           req.user.save(function(afterSave){
             res.end();
           });
