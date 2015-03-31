@@ -74,11 +74,15 @@ body {
 .modal-dialog {
   top: 20px; }
 
-.bootbox-close-button {
-  top: 30px; }
+.bootbox-close-button .close {
+  margin-top: 10px; }
 
-.modal-body {
-  margin-top: 200px; }
+.modal-body > button {
+  border: 1px solid red;
+  padding-top: 20px !important; }
+
+.bootbox-body {
+  padding-top: 10px; }
 
 .kard {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
