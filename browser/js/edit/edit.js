@@ -44,7 +44,7 @@ app.config(function ($stateProvider) {
 
 
 
-app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthService, $state) {
+app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthService, $state, catFactory) {
 
     //remove session storage in case there's anything stored from /create or watever
     sessionStorage.removeItem('stepStr');
@@ -62,34 +62,7 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         msg: 'Warning: This active quest currently does not seem to have any participants. However, deactivating it will make it unplayable to your adoring fanbase! Make sure you only deactivate a quest that you need to work on!',
         show: false
     }];
-    $scope.cats = [{
-        cat: 'Miscellaneous',
-        url: 'http://i.imgur.com/jFkV2.jpg'
-    }, {
-        cat: 'History',
-        url: 'http://i.imgur.com/YBFVD4Y.jpg'
-    }, {
-        cat: 'Literature',
-        url: 'http://i.imgur.com/ZNgmNku.jpg'
-    }, {
-        cat: 'Art',
-        url: 'http://i.imgur.com/YCirp.jpg'
-    }, {
-        cat: 'Current Events',
-        url: 'http://i.imgur.com/Ibv1KfY.jpg'
-    }, {
-        cat: 'Sports',
-        url: 'http://i.imgur.com/7ZTDKHy.jpg'
-    }, {
-        cat: 'Entertainment',
-        url: 'http://i.imgur.com/CGopHB7.png'
-    }, {
-        cat: 'Food and Drink',
-        url: 'http://i.imgur.com/l1OfE4g.jpg'
-    }, {
-        cat: 'Science',
-        url: 'http://i.imgur.com/B3DChMk.jpg'
-    }];
+    $scope.cats = catFactory.cats;
 
     //We need them here so that clicking 'save' on any page saves the entire quest+steps group
     $scope.currState = 'quest';

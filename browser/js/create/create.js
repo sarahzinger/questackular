@@ -35,7 +35,7 @@ app.config(function($stateProvider) {
 });
 
 
-app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state) {
+app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state, catFactory) {
     //the following scope vars are 'parental' to the child scopes. 
     sessionStorage.removeItem('newQuest');
     sessionStorage.removeItem('stepStr');
@@ -62,34 +62,7 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
         disabled: $scope.noQuest
     }];
 
-    $scope.cats = [{
-        cat: 'Miscellaneous',
-        url: 'http://i.imgur.com/jFkV2.jpg'
-    }, {
-        cat: 'History',
-        url: 'http://i.imgur.com/YBFVD4Y.jpg'
-    }, {
-        cat: 'Literature',
-        url: 'http://i.imgur.com/ZNgmNku.jpg'
-    }, {
-        cat: 'Art',
-        url: 'http://i.imgur.com/YCirp.jpg'
-    }, {
-        cat: 'Current Events',
-        url: 'http://i.imgur.com/Ibv1KfY.jpg'
-    }, {
-        cat: 'Sports',
-        url: 'http://i.imgur.com/7ZTDKHy.jpg'
-    }, {
-        cat: 'Entertainment',
-        url: 'http://i.imgur.com/CGopHB7.png'
-    }, {
-        cat: 'Food and Drink',
-        url: 'http://i.imgur.com/l1OfE4g.jpg'
-    }, {
-        cat: 'Science',
-        url: 'http://i.imgur.com/B3DChMk.jpg'
-    }];
+    $scope.cats = catFactory.cats;
 
     if (sessionStorage.newQuest) {
         $scope.questExists = true;
