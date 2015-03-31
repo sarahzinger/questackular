@@ -38,7 +38,7 @@
     },
     "devtools_page": "devtools.html",
     "omnibox": {
-        "keyword": "quest"
+        "keyword": "q"
     }
     // "chrome_url_overrides": {
     //     "newtab": "popup.html"

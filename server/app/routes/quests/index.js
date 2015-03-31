@@ -64,8 +64,9 @@ router.post('/participants', function(req, res) {
             if (err) console.log(err);
             res.json(data);
         });
+    } else {
+        res.send("already completed");     
     }
-    res.send("already completed");
 
 });
 

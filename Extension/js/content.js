@@ -1,5 +1,7 @@
 $(document).ready(function () {
+	debugger;
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+		debugger;
 		console.log("content script request", request);
 		console.log("content script sender", sender);
 		console.log("content script sendResponse", sendResponse);
@@ -9,7 +11,7 @@ $(document).ready(function () {
 	            if(divs.length === 0) {
 	                alert("There are no any divs in the page.");
 	            } else {
-	                for(var i=0; i < divs.length; i++) {
+	                for (var i=0; i < divs.length; i++) {
 	                    divs[i].style.backgroundColor = request.color;
 	                }
 	            }
@@ -27,5 +29,8 @@ $(document).ready(function () {
 		}
 		return true;
 	});
+
+
+	chrome.runtime
 	
 });

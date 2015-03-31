@@ -21,7 +21,10 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 			QuestFactory.getStepListById($scope.chosenQuest.questId._id).then(function (steplist) {
 				$scope.totalStepNum = steplist.length;
 				$scope.step = popUser.participating[$scope.participatingIndex].currentStep;
-
+				console.log("$scope.step", $scope.step);
+				chrome.runtime.sendMessage(chromeExtId, {stepUrl: "http://" + $scope.step.url }, function (response) {
+					console.log("chrome.runtime.sendMessage response", response.hello);
+				});
 				$scope.userQuestPts = $scope.chosenQuest.pointsFromQuest;
 
 				$scope.progressPct = ($scope.step.stepNum / $scope.totalStepNum) * 100;
@@ -34,22 +37,23 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 			    } else {
 			    	$scope.progressType = 'success';
 			    }
+
+				if ($scope.step.qType == "Multiple Choice") {
+					console.log("multipleChoice");
+					$scope.multipleChoice = true;
+				}
 			});
 
-			if($scope.step.qType == "Multiple Choice"){
-				$scope.multipleChoice = true;
-			}
+
 		})
 	});
 
 
-	$scope.launchReading = function() {
-		chrome.tabs.create({url: "http://"+$scope.step.url});
-	}
+	// $scope.launchReading = function() {
+	// 	chrome.tabs.create({url: "http://"+$scope.step.url});
+	// }
 
-	// chrome.runtime.sendMessage(chromeExtId, {stepUrl: "http://www.google.com"}, function (response) {
-	// 	console.log("chrome.runtime.sendMessage response", response.hello);
-	// });
+	
 
 	$scope.submit = function() {
 		//will verify that the answer is correct

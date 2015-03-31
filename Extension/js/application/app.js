@@ -1,18 +1,31 @@
 //popup.js test
+// window.onload = function() {
+//     console.log("popup.js test, window.onload");
+//     document.getElementById("red").onclick = function() {
+//         console.log('getElementById("red").onclick');
+//         chrome.runtime.sendMessage({
+//             type: 'red-divs'
+//         });
+//     };
+//     document.getElementById("blue").onclick = function() {
+//         console.log('getElementById("blue").onclick')
+//         chrome.runtime.sendMessage({
+//             type: 'blue-divs'
+//         });
+//     };
+// }
+
 window.onload = function() {
-    console.log("popup.js test, window.onload");
+    var port = chrome.extension.connect({name: "newport"});
     document.getElementById("red").onclick = function() {
-        console.log('getElementById("red").onclick');
-        chrome.runtime.sendMessage({
-            type: 'red-divs'
-        });
-    };
+        port.postMessage({ type: "red-divs" });
+    }
     document.getElementById("blue").onclick = function() {
-        console.log('getElementById("blue").onclick')
-        chrome.runtime.sendMessage({
-            type: 'blue-divs'
-        });
-    };
+        port.postMessage({ type: "blue-divs" });
+    }
+    port.onMessage.addListener(function (message) {
+        console.log("message is", message);
+    });
 }
 // end of popup.js test
 
