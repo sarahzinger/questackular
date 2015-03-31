@@ -100,7 +100,8 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
-  padding: 16px; }
+  padding: 16px;
+  background: #00bcd4; }
 
 .kard .kard-content {
   padding: 16px;
