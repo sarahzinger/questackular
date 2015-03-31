@@ -29,13 +29,16 @@
                         <input type='radio' name='open-status' value='inactive' ng-model='quest.actInact' ng-change='saveQuest()' /> Inactive
                     </div>
                 </div>
-                <!-- <div class="form-group">
-                    <label class="col-lg-3 control-label" for="privacy">Public / Private</label>
-                    <div class="col-lg-9">
-                        <input type='radio' name='privacy' value='public' checked ng-model='quest.pubPriv' ng-change='saveQuest()'/> Public
-                        <input type='radio' name='privacy' value='private' ng-model='quest.pubPriv' ng-change='saveQuest()' /> Private
+                <div class="form-group cat">
+                    <label for='qCat' class="col-lg-4 control-label">What category of quest is it?:</label>
+                    <div class="col-lg-8">
+                        <select class="form-control" ng-model='quest.cat.cat' ng-change='saveQuest();' name='qCat' required>
+                            <option ng-repeat="cat in $parent.cats" value='{{cat.cat}}'> {{cat.cat}}
+                        </select>
+                    <p class="help-block">Select the type of question you would like to add.</p>
                     </div>
-                </div> -->
+                    <img src='{{$parent.quest.cat.url}}'/>
+                </div>
                 
                 <div class="form-group">
                     <div class="col-lg-9 col-lg-offset-2">

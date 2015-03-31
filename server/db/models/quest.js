@@ -23,6 +23,10 @@ var schema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    cat:{
+        url: String,
+        cat: String
+    },
     description: String
 });
 
