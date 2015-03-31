@@ -101,10 +101,9 @@ body {
     margin-top: 10px;
   }
 } 
-.modal-content{
-  .modal-body {
-    padding-top: 20px;
-  } 
+.modal-body > button{
+  border: 1px solid red;
+    padding-top: 20px!important;
 } 
 .bootbox-body{
   padding-top: 10px;
