@@ -8,6 +8,7 @@ $(document).ready(function () {
 		switch(request.type) {
 			case "red-divs":
 				var divs = document.querySelectorAll("div");
+				console.log("");
 	            if(divs.length === 0) {
 	                alert("There are no any divs in the page.");
 	            } else {
