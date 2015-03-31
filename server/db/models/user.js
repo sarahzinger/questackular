@@ -141,16 +141,10 @@ schema.methods.addQuestToUser = function(questId, callback){
     });
 };
 schema.methods.questCompleted = function(questId, callback){
-    console.log("entering quest questCompleted")
     var self = this;
     
     async.parallel([function (done) {
-        console.log("first parallel")
         //pushed quest into pastQuests
-        var alreadyStored = _.findIndex(self.pastQuests, function(quest) {
-          return quest.questId == questId;
-        });
-        if(alreadyStored === -1){
             self.participating.forEach(function(quest){
                 if (quest.questId == questId){
                     self.pastQuests.push({questId: questId, pointsFromQuest: quest.pointsFromQuest});
@@ -160,8 +154,6 @@ schema.methods.questCompleted = function(questId, callback){
                     });
                 }
             });
-        }
-        
         
     }, function (done) {
         // adding user to quest

@@ -8,9 +8,6 @@ app.config(function($stateProvider) {
 });
 
 app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, chromeExtId, $rootScope) {
-
-    console.log("chromeExtId", chromeExtId);
-    $scope.alertshow = false;
     $scope.participatingIndex = Number(localStorage["participatingIndex"]);
     console.log("$scope.participatingIndex", $scope.participatingIndex)
     if ($scope.participatingIndex === -1){
@@ -48,6 +45,8 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 			if($scope.userAnswer == $scope.step.fillIn){
 				UserFactory.addPoints($scope.step._id).then(function(data){
 					$rootScope.$emit('updatePoints')
+					console.log("$scope.step.stepNum", $scope.step.stepNum)
+					console.log("$scope.totalStepNum", $scope.totalStepNum)
 					if($scope.step.stepNum == $scope.totalStepNum){
                         console.log("this is totally the last step")
                         console.log("$scope.chosenQuest.questId._id", $scope.chosenQuest.questId._id)
@@ -72,8 +71,12 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 			if(Number($scope.selectedAnswer) +1 === Number($scope.step.multiAnsCor)){
 				UserFactory.addPoints($scope.step._id).then(function(data){
 					$rootScope.$emit('updatePoints')
+					console.log("$scope.step.stepNum", $scope.step.stepNum)
+					console.log("$scope.totalStepNum", $scope.totalStepNum)
 					if($scope.step.stepNum == $scope.totalStepNum){
+						console.log("$scope.chosenQuest.questId._id", $scope.chosenQuest.questId._id)
                         QuestFactory.completeQuest($scope.chosenQuest.questId._id).then(function(data){
+                            console.log("inside!")
                             participatingIndex = -1;
                             localStorage.setItem("participatingIndex", participatingIndex);
                             $state.go('finish');
