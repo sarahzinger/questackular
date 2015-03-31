@@ -2,7 +2,7 @@
 app.run(function(editableOptions) {
     editableOptions.theme = 'bs3';
 });
-app.config(function ($stateProvider) {
+app.config(function($stateProvider) {
     $stateProvider.state('edit', {
             resolve: {
                 getLoggedInUser: function(AuthService, $state, $http) {
@@ -44,7 +44,7 @@ app.config(function ($stateProvider) {
 
 
 
-app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthService, $state) {
+app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthService, $state, catFactory) {
 
     //remove session storage in case there's anything stored from /create or watever
     sessionStorage.removeItem('stepStr');
@@ -62,37 +62,11 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         msg: 'Warning: This active quest currently does not seem to have any participants. However, deactivating it will make it unplayable to your adoring fanbase! Make sure you only deactivate a quest that you need to work on!',
         show: false
     }];
+    $scope.cats = catFactory.cats;
 
-    $scope.cats = [{
-        cat: 'Miscellaneous',
-        url: 'http://i.imgur.com/jFkV2.jpg'
-    }, {
-        cat: 'History',
-        url: 'http://i.imgur.com/YBFVD4Y.jpg'
-    }, {
-        cat: 'Literature',
-        url: 'http://i.imgur.com/ZNgmNku.jpg'
-    }, {
-        cat: 'Art',
-        url: 'http://i.imgur.com/YCirp.jpg'
-    }, {
-        cat: 'Current Events',
-        url: 'http://i.imgur.com/Ibv1KfY.jpg'
-    }, {
-        cat: 'Sports',
-        url: 'http://i.imgur.com/7ZTDKHy.jpg'
-    }, {
-        cat: 'Entertainment',
-        url: 'http://i.imgur.com/CGopHB7.png'
-    }, {
-        cat: 'Food and Drink',
-        url: 'http://i.imgur.com/l1OfE4g.jpg'
-    }, {
-        cat: 'Science',
-        url: 'http://i.imgur.com/B3DChMk.jpg'
-    }];
 
     //We need them here so that clicking 'save' on any page saves the entire quest+steps group
+
     $scope.currState = 'quest';
     $scope.questList = [];
     $scope.quest = {}; //curent quest object
@@ -115,6 +89,8 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         disabled: $scope.noQuest
     }];
     AuthService.getLoggedInUser().then(function(user) {
+        $scope.user = user;
+
         QuestFactory.getQuestsByUser(user._id).then(function(questList) {
             $scope.questList = questList;
 
@@ -128,7 +104,7 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
             });
             console.log(questList);
             $scope.selectedQuest = $scope.questList[0];
-    
+
 
             $scope.questList.forEach(function(quest) {
                 var participants = quest.participants;
@@ -137,46 +113,14 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
                 participants.forEach(function(participant) {
                     console.log('participant', participant);
                     UserFactory.getUserById(participant).then(function(data) {
-                        console.log('data', data);
-                        console.log(quest, 'quest');
-                        console.log('data.google.name', data.google.name);
-                        $scope.name=data.google.name;
-                        });
+                        $scope.name = data.google.name;
                     });
-               });
-                
+                });
             });
-        
+
+        });
+
     });
-
-    $scope.invite = function(){
-        var name = $scope.name;
-
-        $.ajax({ 
-          type: 'POST',
-          url: 'https://mandrillapp.com/api/1.0/messages/send.json',
-          data: {
-            key: 'hM6OlbcTpHE7fYJp-GQNsw',
-            message: {
-              from_email: 'questackular@notarealemail.com',
-              to: [
-                  {
-                    email: 'moonstonecowgirl@gmail.com',
-                    name: 'RECIPIENT NAME (OPTIONAL)',
-                    type: 'to'
-                  }
-                ],
-              autotext: true,
-              subject: 'You have been invited to join a quest!',
-              html: 'You have been invited to join a quest! Log in to find out more.'
-            }
-          }
-         }).done(function(response) {
-           console.log(response, "this worked"); // if you're into that sorta thing
-         });
-
-            
-        }
 
 
     $scope.saveFullQuest = function() {
@@ -224,6 +168,9 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
                 });
                 //yes, this is and the above foreach are asynchronous, but the completion of the save does not depend upon the removal of stepsToRemove quest (or vice-versa)
                 $scope.stepsToRemove = [];
+                //clear sesh storage so we can exit without nonsense;
+                sessionStorage.removeItem('stepStr');
+                sessionStorage.removeItem('newQuest');
             });
         });
     };
@@ -329,6 +276,13 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
     })
     $state.go('edit.quest');
 
+
+    $scope.goToInvite = function(title, participants) {
+        $scope.$parent.questinvitetitle = title;
+        $scope.$parent.questinviteparticipants = participants;
+        $state.go('edit.invite');
+    };
+
 });
 
 app.controller('editQuest', function($scope) {
@@ -382,6 +336,42 @@ app.controller('editQuestMap', function($scope, MapFactory) {
     $scope.$parent.currState = 'Map';
 });
 
-app.controller('editInvite', function($scope) {
+app.controller('editInvite', function($scope, UserFactory, $state) {
+
+    $scope.setNumOfForms = function() {
+        $scope.numOfForms = Number($scope.numInvites);
+        $scope.array = new Array($scope.numOfForms);
+        console.log('scope.array', $scope.array, $scope.array.length);
+    };
+
+    $scope.invitee = [{
+        name: "",
+        email: ""
+    }];
+
+    $scope.invite = function() {
+
+        for (var i = 0; i < $scope.array.length; i++) {
+            $.ajax({
+                type: 'POST',
+                url: 'https://mandrillapp.com/api/1.0/messages/send.json',
+                data: {
+                    key: 'hM6OlbcTpHE7fYJp-GQNsw',
+                    message: {
+                        from_email: 'questackular@notarealemail.com',
+                        to: [{
+                            email: $scope.invitee.email[i],
+                            name: $scope.invitee.name[i],
+                        }],
+                        autotext: true,
+                        subject: $scope.user.google.name + ' has invited you to join a quest!',
+                        html: $scope.user.google.name + ' has invited you to join ' + $scope.selectedQuest.title + ', a quest on <a href="questacular.com">Questacular.com</a>. Log in at <a href="questacular.com">Questacular.com</a> to find out more!'
+                    }
+                }
+            }).done(function(response) {
+                console.log(response, "this worked"); // if you're into that sorta thing
+            });
+        };
+    };
 
 });

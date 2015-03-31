@@ -35,8 +35,6 @@ router.post('/buy/', function(req, res, next) {
 
     req.user.itemsBought.push(itemId);
     req.user.pointsSpent += itemCost;
-    console.log('Inv:', req.user.itemsBought, ', Spent:', req.user.pointsSpent);
-    console.log('User after purchase:', req.user);
     req.user.save(function(err, resp) {
         console.log(resp);
         var userStoreData = {
