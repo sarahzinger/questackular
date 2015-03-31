@@ -52,11 +52,12 @@ body {
 .alert {
     position: fixed;
     z-index: 10;
-    background-color: #955;
+    // background-color: #955;
+    width:70%;
 }
-.alert-warning{
-    background-color: #B80000;
-}
+// .alert-warning{
+//     background-color: #B80000;
+// }
 .instList {
     p {
         &:before {
@@ -64,7 +65,7 @@ body {
             content: "\261E\00a0";
         }
         &:hover {
-            background-color: rgba(0,255,0,.1);
+            background-color: rgba(0, 255, 0, .1);
             &:before {
                 // font-size: xx-large;
                 content: "\261E\00a0";
@@ -76,9 +77,6 @@ body {
     position:relative;
     display:inline-block;
 }
-
-
-
 @-webkit-keyframes wiggle {
     0% {
         transform: rotate(0deg)
@@ -107,14 +105,11 @@ body {
         transform: rotate(10deg)
     }
 }
-
 ui-view {
     display: inline;
     width: 100%;
-    float:left;
+    float: left;
 }
-
-
 #map {
     position: absolute;
     left: 270px;
@@ -147,6 +142,18 @@ ui-view {
     box-shadow: 2px 2px 4px #000;
     font-size: small;
     text-align: left;
+}
+.cat {
+    img {
+        position:relative;
+        width: 200px;
+        height: 200px;
+        left: 30%;
+    }
+}
+.cat-edit{
+    width:75px;
+    height:75px;
 }
 // @import 'directives/main';
 // @import 'home/main';

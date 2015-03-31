@@ -50,18 +50,48 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
     sessionStorage.removeItem('stepStr');
     sessionStorage.removeItem('newQuest');
     $scope.alerts = [{
-        type: 'alert-danger',
+        type: 'danger',
         msg: 'Warning: This active quest currently has participants! Deactivating it will destroy their hard work! Are you sure you wanna make enemies like this? If not, you may wanna activate it!',
         show: false
     }, {
-        type: 'alert-danger',
-        msg: 'Warning: Activating a deactived quest will make it uneditable (unless you close it again). Is your quest awesome enough to activate yet? If not, you may wanna deactivate it!',
+        type: 'danger',
+        msg: 'Warning: Activating a inactive quest will make it uneditable (unless you close it again). Is your quest awesome enough to activate yet? If not, you may wanna deactivate it!',
         show: false
     }, {
-        type: 'alert-danger',
+        type: 'danger',
         msg: 'Warning: This active quest currently does not seem to have any participants. However, deactivating it will make it unplayable to your adoring fanbase! Make sure you only deactivate a quest that you need to work on!',
         show: false
     }];
+
+    $scope.cats = [{
+        cat: 'Miscellaneous',
+        url: 'http://i.imgur.com/jFkV2.jpg'
+    }, {
+        cat: 'History',
+        url: 'http://i.imgur.com/YBFVD4Y.jpg'
+    }, {
+        cat: 'Literature',
+        url: 'http://i.imgur.com/ZNgmNku.jpg'
+    }, {
+        cat: 'Art',
+        url: 'http://i.imgur.com/YCirp.jpg'
+    }, {
+        cat: 'Current Events',
+        url: 'http://i.imgur.com/Ibv1KfY.jpg'
+    }, {
+        cat: 'Sports',
+        url: 'http://i.imgur.com/7ZTDKHy.jpg'
+    }, {
+        cat: 'Entertainment',
+        url: 'http://i.imgur.com/CGopHB7.png'
+    }, {
+        cat: 'Food and Drink',
+        url: 'http://i.imgur.com/l1OfE4g.jpg'
+    }, {
+        cat: 'Science',
+        url: 'http://i.imgur.com/B3DChMk.jpg'
+    }];
+
     //We need them here so that clicking 'save' on any page saves the entire quest+steps group
 
     $scope.currState = 'quest';
@@ -88,10 +118,18 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
     AuthService.getLoggedInUser().then(function(user) {
         $scope.user=user;
 
-        //save the quest
         QuestFactory.getQuestsByUser(user._id).then(function(questList) {
             $scope.questList = questList;
-            // console.log('questList', questList);
+
+            //run thru list of quests, and for those that do not have
+            //categories, assign misc 
+            $scope.questList.forEach(function(el) {
+                el.cat = el.cat || {
+                    cat: 'Miscellaneous',
+                    url: 'http://i.imgur.com/jFkV2.jpg'
+                };
+            });
+            console.log(questList);
             $scope.selectedQuest = $scope.questList[0];
     
 
@@ -255,7 +293,7 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         var parentF = from.name.split('.')[0];
         var parentT = to.name.split('.')[0];
         if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest)) {
-            if(!confirm('Are you sure you wanna leave? This quest has not been saved yet!')){
+            if (!confirm('Are you sure you wanna leave? This quest has not been saved yet!')) {
                 e.preventDefault();
             }
         }
@@ -272,7 +310,11 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
 });
 
 app.controller('editQuest', function($scope) {
-
+    $scope.searchBox = false;
+    $scope.search = function() {
+        if (!$scope.searchBox) $scope.searchBox = true;
+        else $scope.searchBox = false;
+    };
 
     // window.addEventListener('beforeunload', function(e) {
     //     e.returnValue = "You haven't saved! Click Okay to continue without saving, or Cancel to stay on this page!";

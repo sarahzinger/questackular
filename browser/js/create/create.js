@@ -42,6 +42,10 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
     //We need them here so that clicking 'save' on any page saves the entire quest+steps group
     $scope.currState = 'quest';
     $scope.quest = {}; //curent quest object, via ng-change
+    $scope.quest.cat = {
+        cat: 'Miscellaneous',
+        url: 'http://i.imgur.com/jFkV2.jpg'
+    };
     $scope.quest.actInact = 'active';
     $scope.stepList = []; //list of current steps.
     $scope.questExists = false;
@@ -57,6 +61,36 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
         state: "create.map",
         disabled: $scope.noQuest
     }];
+
+    $scope.cats = [{
+        cat: 'Miscellaneous',
+        url: 'http://i.imgur.com/jFkV2.jpg'
+    }, {
+        cat: 'History',
+        url: 'http://i.imgur.com/YBFVD4Y.jpg'
+    }, {
+        cat: 'Literature',
+        url: 'http://i.imgur.com/ZNgmNku.jpg'
+    }, {
+        cat: 'Art',
+        url: 'http://i.imgur.com/YCirp.jpg'
+    }, {
+        cat: 'Current Events',
+        url: 'http://i.imgur.com/Ibv1KfY.jpg'
+    }, {
+        cat: 'Sports',
+        url: 'http://i.imgur.com/7ZTDKHy.jpg'
+    }, {
+        cat: 'Entertainment',
+        url: 'http://i.imgur.com/CGopHB7.png'
+    }, {
+        cat: 'Food and Drink',
+        url: 'http://i.imgur.com/l1OfE4g.jpg'
+    }, {
+        cat: 'Science',
+        url: 'http://i.imgur.com/B3DChMk.jpg'
+    }];
+
     if (sessionStorage.newQuest) {
         $scope.questExists = true;
     }
@@ -118,8 +152,8 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
     $scope.$on('$stateChangeStart', function(e, to, n, from) {
         var parentF = from.name.split('.')[0];
         var parentT = to.name.split('.')[0];
-        if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest)) {
-            if(!confirm('Are you sure you wanna leave? This quest has not been saved yet!')){
+        if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest) && parentF !='thanks') {
+            if (!confirm('Are you sure you wanna leave? This quest has not been saved yet!')) {
                 e.preventDefault();
             }
         }
@@ -139,6 +173,12 @@ app.controller('CreateQuest', function ($scope) {
     }
     $scope.saveQuest = function() {
         $scope.$parent.questExists = true;
+        //now assign correct url to cats.url prop
+        for (var n = 0; n < $scope.$parent.cats.length; n++) {
+            if ($scope.$parent.cats[n].cat == $scope.$parent.quest.cat.cat) {
+                $scope.$parent.quest.cat.url = $scope.$parent.cats[n].url;
+            }
+        }
         sessionStorage.newQuest = angular.toJson($scope.$parent.quest);
     };
 
@@ -148,10 +188,10 @@ app.controller('CreateStep', function ($scope, QuestFactory) {
     $scope.$parent.currState = 'Step';
     $scope.testTypes = ['Multiple Choice', 'Fill-in'];
     $scope.alerts = [
-        { type: 'alert-danger', msg: 'All steps must have a Url.', show: false },
-        { type: 'alert-danger', msg: 'All steps must have a question.', show: false },
-        { type: 'alert-danger', msg: 'All steps must have a point value.', show: false },
-        { type: 'alert-danger', msg: 'All steps must have a question type.', show: false },
+        { type: 'warning', msg: 'All steps must have a Url.', show: false },
+        { type: 'warning', msg: 'All steps must have a question.', show: false },
+        { type: 'warning', msg: 'All steps must have a point value.', show: false },
+        { type: 'warning', msg: 'All steps must have a question type.', show: false },
     ];
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList); //get steps on list
     $scope.saveStep = function(newStep) {
