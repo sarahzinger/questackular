@@ -1,13 +1,13 @@
 <div class = "container col-md-6">
 	<div ng-repeat ="quest in questsCreated" class="panel panel-default ">
 		<div class="panel-heading">
-			<h3 class="panel-title">{{quest.title}}</h3>
+			<h3 class="panel-title">Quest Title: {{quest.title}}</h3>
 		</div>
 		<div class="panel-body">
 			<ul class="list-group">
 			  <li ng-repeat ="participant in quest.fullParticipantList" class="list-group-item">
-			    <span class="badge">{{participant.currentStep}}</span>
-			    {{participant.name}}
+			    <span class="badge">Step: {{participant.currentStep}}</span>
+			    Participant: {{participant.name}}
 			  </li>
 			</ul>
 		</div>

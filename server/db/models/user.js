@@ -50,9 +50,16 @@ schema.set('toJSON', {virtuals: true});
 
 schema.virtual('totalPoints').get(function() {
     var total = 0;
-    this.participating.forEach(function (questObj) {
-        total += Number(questObj.pointsFromQuest);
-    });
+    if(this.participating.length >= 1){
+        this.participating.forEach(function (questObj) {
+            total += Number(questObj.pointsFromQuest);
+        });
+    }
+    if(this.pastQuests.length >= 1){
+        this.pastQuests.forEach(function(questObj){
+            total+=Number(questObj.pointsFromQuest);
+        });
+    }
     if (this.pointsSpent) total -= this.pointsSpent;
     return total;
 });
@@ -140,15 +147,21 @@ schema.methods.questCompleted = function(questId, callback){
     async.parallel([function (done) {
         console.log("first parallel")
         //pushed quest into pastQuests
-        self.participating.forEach(function(quest){
-            if (quest.questId == questId){
-                self.pastQuests.push({questId: questId, pointsFromQuest: quest.pointsFromQuest});
-                self.save(function(err, userData) { 
-                    if (err) console.log(err);  
-                    done();
-                });
-            }
+        var alreadyStored = _.findIndex(self.pastQuests, function(quest) {
+          return quest.questId == questId;
         });
+        if(alreadyStored === -1){
+            self.participating.forEach(function(quest){
+                if (quest.questId == questId){
+                    self.pastQuests.push({questId: questId, pointsFromQuest: quest.pointsFromQuest});
+                    self.save(function(err, userData) { 
+                        if (err) console.log(err);  
+                        done();
+                    });
+                }
+            });
+        }
+        
         
     }, function (done) {
         // adding user to quest
