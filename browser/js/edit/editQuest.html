@@ -46,7 +46,7 @@
                             <span ng-if='quest.participants.length>0'>{{name}}</span>
                             <span ng-if='quest.participants.length<=0'>No participants yet!</span>
                         </td>
-                        <td><button type="button" class="btn btn-info" ui-sref="home">Invite
+                        <td><button type="button" class="btn btn-info" ng-click="goToInvite(quest.title, quest.participants)">Invite
                         </button></td>
                     </tr>
                     <!-- show 2nd block if quests are active, and thus ineditable -->
@@ -65,7 +65,7 @@
                             <span ng-if='quest.participants.length>0'>{{name}}</span>
                             <span ng-if='quest.participants.length<=0'>No participants yet!</span>
                         </td>
-                        <td><button type="button" class="btn btn-info" ui-sref="edit.invite">Invite
+                        <td><button type="button" class="btn btn-info" ng-click="goToInvite(quest.title, quest.participants)">Invite
                         </button></td>
                     </tr>
                 </tbody>

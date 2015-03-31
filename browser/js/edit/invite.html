@@ -1,18 +1,24 @@
-<h1>Invite More Participants to {{quest.title}}</h1>
-
-<h2>How many participants would you like to invite?</h2>
-<h3>(You can invite up to 10 participants at a time)</h3>
-<input></input> 
-
-<form>
-  <div class="form-group">
-    <label>Name</label>
-    <input ng-model="name" type="name" class="form-control" id="invitedName" placeholder="Enter name of person you would like to invite">
-  </div>
-  <div class="form-group">
-    <label>Email</label>
-    <input ng-model="email" type="email" class="form-control" id="invitedEmail" placeholder="Enter email of person you would like to invite">
-  </div>
-
-  <button type="submit" ng-click='invite()' class="btn btn-info">Submit</button>
-</form>
+<h2>Invite More Participants to Join: {{$parent.questinvitetitle}}</h2>
+<div class="panel panel-default">
+    <div class="panel-body">
+        <h4>Current participants in {{$parent.questinvitetitle}} include:</h4>
+        <span ng-if='$parent.questinviteparticipants.length<=0'>No participants yet!</span>
+        <span ng-if='$parent.questinviteparticipants.length>0' ng-repeat="participant in $parent.questinviteparticipants">{{name}}</span>
+        <div ng-repeat="participant in selectedQuest.particpants">{{participantname}}</div>
+        <h4>How many participants would you like to invite? You can invite up to 10 participants at a time.</h4>
+        <input ng-change="setNumOfForms()" ng-model="numInvites"></input>
+        <br>
+        <form>
+            <div ng-repeat="form in array track by $index">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input ng-model="invitee.name[$index]" type="name" class="form-control" id="invitedName" placeholder="Enter name of person you would like to invite">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input ng-model="invitee.email[$index]" type="email" class="form-control" id="invitedEmail" placeholder="Enter email of person you would like to invite">
+                </div>
+            </div>
+    </div>
+    <button ng-click='invite()' type="submit" class="btn btn-info">Submit</button>
+    </form>
