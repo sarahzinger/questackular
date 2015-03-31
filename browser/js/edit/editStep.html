@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="panel-body" ng-show="searchBox">
-                <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" />
+                <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" ng-model="editStepSearch"/>
             </div>
             <table class="table table-hover" id="dev-table">
                 <thead>
@@ -30,7 +30,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat='step in $parent.stepList'>
+                    <tr ng-repeat='step in $parent.stepList | filter:editStepSearch'>
                         <td editable-text='step.stepNum'>{{step.stepNum}}</td>
                         <td editable-text='step.question'>{{step.question}}</td>
                         <td editable-select='step.qType' e-ng-options='item for item in testTypes'>{{step.qType}}
@@ -99,7 +99,7 @@
                 <div class="form-group">
                     <label for='typeQ'>What kind of question is it?:
                         <select class="form-control" ng-model='newStep.qType' ng-change='updateQuestionFields();' name='typeQ' required>
-                            <option ng-repeat="test in testTypes" value='{{test}}'> {{test}}
+                            <option ng-repeat="test in testTypes | filter:editStepSearch" value='{{test}}'> {{test}}
                         </select>
                         <p class="help-block">Select the type of question you would like to add.</p>
                     </label>

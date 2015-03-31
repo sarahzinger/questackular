@@ -1,10 +1,15 @@
 <h3>Join a Quest</h3>
+
+<div class="well" ng-if="!unjoinedQuests.length">
+        <p>No more quests available to join. Go to<a ui-sref="myQuests" class="btn btn-xs btn-material-blue-grey">My Quests</a> to embark or continue on a quest!</p>
+    </div>
 	
-<div class="well">
+<div class="well" ng-if="unjoinedQuests.length">
 	<div>
-		<alert ng-repeat="alert in alerts" ng-show="alert.show" class="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+		<alert ng-repeat="alert in alerts" ng-show="alert.show" class="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 	</div>
-	<div class="list-group">
+	
+	<div class="list-group" >
 		<div ng-repeat="quest in unjoinedQuests track by $index">
 		    <div class="list-group-item">
 		        <div class="row-action-primary">
@@ -13,7 +18,7 @@
 		        </div>
 		        <div class="row-content">
 		            <div class="least-content">
-		            	20 steps
+		            	
 		            </div>
 		            <h4 class="list-group-item-heading">{{quest.title}}</h4>
 		            <p class="list-group-item-text">{{quest.description}}</p>
