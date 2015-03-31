@@ -20,7 +20,7 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('JoinCtrl', function ($scope, QuestFactory, AuthService){
+app.controller('JoinCtrl', function ($scope, QuestFactory, AuthService) {
     $scope.alerts = [
         { type: 'alert-danger', msg: 'You are already participating in this quest.', show: false },
         { type: 'alert-success', msg: 'You\'ve successfully joined the quest.', show: false }
@@ -33,6 +33,22 @@ app.controller('JoinCtrl', function ($scope, QuestFactory, AuthService){
     $scope.search = function() {
         (!$scope.searchBox) ? $scope.searchBox = true : $scope.searchBox = false;
     };
+
+    AuthService.getLoggedInUser().then(function (user) {
+        console.log("AuthService user", user);
+        QuestFactory.getAllQuests().then(function (quests) {
+            console.log("quests", quests);
+            $scope.quests = quests;
+
+            $scope.unjoinedQuests = _.reject(quests, function (item) {
+                return _.includes(item.participants, user._id);
+            });
+            console.log("$scope.unjoinedQuests", $scope.unjoinedQuests);
+        });
+    });
+
+
+
 
     $scope.joinQuest = function(quest) {
         console.log("quest", quest);

@@ -10,11 +10,11 @@
 </head>
 
 <body ng-app='QuestackularExt' ng-controller='extCont' >
-    <div ng-hide="loggedIn" id='env'>
-        <div id='cont'>
-        	<!-- the actual content! -->
-            <button id='login' ng-click='login()'>Log In through Google</button>
-        </div>
+    <div ng-hide="loggedIn" class="container">
+        <h1>Welcome to Questackular</h1>
+        <br>
+        <button id='login' ng-click='login()'>Log In through Google</button>
+
     </div>
 
     <div class="container" ng-show="loggedIn">
@@ -23,7 +23,7 @@
             <ui-view></ui-view>
        <!--  </div> -->
     </div>
-
+    <script src="/js/dependencies/lodash.min.js"></script>
     <script src='/js/dependencies/jquery.min.js'></script>
     <script src='/js/dependencies/material.min.js'></script>
     <script src='/js/dependencies/ripples.min.js'></script>

@@ -3,6 +3,9 @@
         <form class="form-horizontal" name="stepForm">
             <fieldset>
                 <legend>Add a step!</legend>
+                <div>
+                    <alert ng-repeat="alert in alerts" ng-show="alert.show" class="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+                </div>
                 <div class='form-group'>
                     <label for='urlBox' class="col-lg-4 control-label">Page Url?</label>
                     <div class="col-lg-8">

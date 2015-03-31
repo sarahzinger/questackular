@@ -27,7 +27,11 @@ var schema = new mongoose.Schema({
         url: String,
         cat: String
     },
-    description: String
+    description: String,
+    winners: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 });
 
 mongoose.model('Quest', schema);

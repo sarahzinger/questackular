@@ -1,18 +1,20 @@
 <div class="well list-group">
     <!-- ng-repeat over users sorted by score -->
-    <div class="list-group-item"> 
-    <div class="row">
-        <span class="badge">1</span>
-        <div class="row-picture">
-            <img class="circle" src="http://lorempixel.com/30/30/people/1" alt="icon">
+    <div id="userLb" ng-repeat='user in sortedUsers track by $index'>
+        <div class="list-group-item"> 
+            <div class="row">
+                <span class="badge">{{$index + 1}}</span>
+                <div class="row-picture">
+                    <img class="circle" src="{{user.google.picture}}" alt="icon">
+                </div>
+                <div class="row-picture">
+                    <h4 class="list-group-item-heading">{{user.google.name}}</h4>
+                </div>
+                <div class="row-picture">
+                    <h4 class="list-group-item-heading">{{user.totalPoints}}</h4>
+                </div>
+            </div>
         </div>
-        <div class="row-picture">
-            <h4 class="list-group-item-heading">Jon Dough</h4>
-        </div>
-        <div class="row-picture">
-            <h4 class="list-group-item-heading">100,000 pts</h4>
-        </div>
-        </div>
+        <div class="list-group-separator"></div>
     </div>
-    <div class="list-group-separator"></div>
 </div>
