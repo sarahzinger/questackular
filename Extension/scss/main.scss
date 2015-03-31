@@ -5,7 +5,7 @@
 body {
 	position: relative;
 	top: 80px;
-	width:400px;
+	width: 400px;
 	height: 500px;
 }
 
@@ -96,16 +96,16 @@ body {
 .modal-dialog{
   top: 20px;
 }
-.bootbox-close-button close{
-  margin-top: 10px;
-}
-.modal-body{
-  margin-top: 200px;
-  padding-top: 20px;
-}
+.bootbox-close-button{
+  .close{
+    margin-top: 10px;
+  }
+} 
 .modal-content{
-  padding-top: 40px;
-}
+  .modal-body {
+    padding-top: 20px;
+  } 
+} 
 .bootbox-body{
   padding-top: 10px;
   

@@ -66,7 +66,7 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 			}else{
 				//else it will alert user to try again
 				// $scope.alertshow = true;
-				bootbox.alert('Try Again')
+				bootbox.alert('Try Again');
 			}
 		}else{
 			if(Number($scope.selectedAnswer) +1 === Number($scope.step.multiAnsCor)){
