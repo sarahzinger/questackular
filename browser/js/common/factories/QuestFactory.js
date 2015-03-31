@@ -2,13 +2,10 @@
 app.value('domain', 'http://localhost:1337');
 
 app.factory('QuestFactory', function($http, domain) {
-    console.log("domain");
     return {
         sendQuest: function(quest) {
             //saves the quest, returns its ID
-            console.log("received quest in factory sendquest method", quest);
             return $http.post(domain + '/api/quests', quest).then(function(response) {
-                console.log("after http post to /api/quests, received response", response);
                 return response.data;
             });
         },
@@ -24,13 +21,11 @@ app.factory('QuestFactory', function($http, domain) {
         },
         joinQuest: function(questInfo) {
             return $http.post(domain + '/api/quests/participants', questInfo).then(function(response) {
-                console.log(response);
                 return response.data;
             });
         },
         leaveQuest: function(questId) {
             return $http.delete(domain + '/api/quests/participants/' + questId).then(function(response) {
-                console.log(response);
                 return response.data;
             });
         },
@@ -73,7 +68,6 @@ app.factory('QuestFactory', function($http, domain) {
         },
         getStepById: function(stepId) {
             return $http.get(domain + '/api/step/' + stepId).then(function(res) {
-                console.log("this is the step being returned from the factory", res.data)
                 return res.data;
             });
         },
@@ -92,10 +86,8 @@ app.factory('QuestFactory', function($http, domain) {
                 //so we need to parse all of the answer options
                 step.multipleAns = [];
                 for (var n = 1; n < 5; n++) {
-                    console.log('step is: ',step['ans' + n]);
                     step.multipleAns.push(step['ans' + n]);
                     delete step['ans' + n];
-                    console.log('multiAns so far: ', step.multiAns);
                 }
             }
 
@@ -113,9 +105,6 @@ app.factory('QuestFactory', function($http, domain) {
             seshObj.push(step);
             angular.copy(seshObj, stepList);
             sessionStorage.stepStr = angular.toJson(seshObj);
-
-            console.log("sessionStorage.stepStr currently has: ", sessionStorage.stepStr);
-
             angular.copy(angular.fromJson(sessionStorage.stepStr), stepList);
             return stepList;
         },

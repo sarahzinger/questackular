@@ -160,23 +160,12 @@ app.controller('CreateQuest', function($scope) {
 app.controller('CreateStep', function($scope, QuestFactory) {
     $scope.$parent.currState = 'Step';
     $scope.testTypes = ['Multiple Choice', 'Fill-in'];
-    $scope.alerts = [{
-        type: 'alert-danger',
-        msg: 'All steps must have a Url.',
-        show: false
-    }, {
-        type: 'alert-danger',
-        msg: 'All steps must have a question.',
-        show: false
-    }, {
-        type: 'alert-danger',
-        msg: 'All steps must have a point value.',
-        show: false
-    }, {
-        type: 'alert-danger',
-        msg: 'All steps must have a question type.',
-        show: false
-    }, ];
+    $scope.alerts = [
+        { type: 'warning', msg: 'All steps must have a Url.', show: false },
+        { type: 'warning', msg: 'All steps must have a question.', show: false },
+        { type: 'warning', msg: 'All steps must have a point value.', show: false },
+        { type: 'warning', msg: 'All steps must have a question type.', show: false },
+    ];
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList); //get steps on list
     $scope.saveStep = function(newStep) {
         console.log(newStep);

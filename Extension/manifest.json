@@ -5,7 +5,7 @@
     "version": "0.0.0.1",
     "manifest_version": 2,
     "icons": {
-        "48":"BUquestackular.png",
+        "48":"questackular.png",
         "128": "questackular.png"
     },
     "homepage_url": "http://www.msn.com",
@@ -28,7 +28,8 @@
     },
     "content_scripts": [{
         "matches": ["http://*/*", "https://*/*"],
-        "js": ["/js/content.js"]
+        "js": ["js/dependencies/jquery.min.js", "js/content.js"],
+        "run-at": "document_idle"
     }],
     "browser_action": {
         "default_icon": "questackular.png",
@@ -37,6 +38,9 @@
     },
     "devtools_page": "devtools.html",
     "omnibox": {
-        "keyword": "quest"
+        "keyword": "q"
     }
+    // "chrome_url_overrides": {
+    //     "newtab": "popup.html"
+    // }
 }

@@ -2,7 +2,7 @@
 app.run(function(editableOptions) {
     editableOptions.theme = 'bs3';
 });
-app.config(function ($stateProvider) {
+app.config(function($stateProvider) {
     $stateProvider.state('edit', {
             resolve: {
                 getLoggedInUser: function(AuthService, $state, $http) {
@@ -50,21 +50,23 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
     sessionStorage.removeItem('stepStr');
     sessionStorage.removeItem('newQuest');
     $scope.alerts = [{
-        type: 'alert-danger',
+        type: 'danger',
         msg: 'Warning: This active quest currently has participants! Deactivating it will destroy their hard work! Are you sure you wanna make enemies like this? If not, you may wanna activate it!',
         show: false
     }, {
-        type: 'alert-danger',
-        msg: 'Warning: Activating a deactive quest will make it uneditable (unless you close it again). Is your quest awesome enough to activate yet? If not, you may wanna deactivate it!',
+        type: 'danger',
+        msg: 'Warning: Activating a inactive quest will make it uneditable (unless you close it again). Is your quest awesome enough to activate yet? If not, you may wanna deactivate it!',
         show: false
     }, {
-        type: 'alert-danger',
+        type: 'danger',
         msg: 'Warning: This active quest currently does not seem to have any participants. However, deactivating it will make it unplayable to your adoring fanbase! Make sure you only deactivate a quest that you need to work on!',
         show: false
     }];
     $scope.cats = catFactory.cats;
 
+
     //We need them here so that clicking 'save' on any page saves the entire quest+steps group
+
     $scope.currState = 'quest';
     $scope.questList = [];
     $scope.quest = {}; //curent quest object
@@ -87,6 +89,8 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         disabled: $scope.noQuest
     }];
     AuthService.getLoggedInUser().then(function(user) {
+        $scope.user = user;
+
         QuestFactory.getQuestsByUser(user._id).then(function(questList) {
             $scope.questList = questList;
 
@@ -100,7 +104,7 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
             });
             console.log(questList);
             $scope.selectedQuest = $scope.questList[0];
-    
+
 
             $scope.questList.forEach(function(quest) {
                 var participants = quest.participants;
@@ -109,46 +113,14 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
                 participants.forEach(function(participant) {
                     console.log('participant', participant);
                     UserFactory.getUserById(participant).then(function(data) {
-                        console.log('data', data);
-                        console.log(quest, 'quest');
-                        console.log('data.google.name', data.google.name);
-                        $scope.name=data.google.name;
-                        });
+                        $scope.name = data.google.name;
                     });
-               });
-                
+                });
             });
-        
+
+        });
+
     });
-
-    $scope.invite = function(){
-        var name = $scope.name;
-
-        $.ajax({ 
-          type: 'POST',
-          url: 'https://mandrillapp.com/api/1.0/messages/send.json',
-          data: {
-            key: 'hM6OlbcTpHE7fYJp-GQNsw',
-            message: {
-              from_email: 'questackular@notarealemail.com',
-              to: [
-                  {
-                    email: 'moonstonecowgirl@gmail.com',
-                    name: 'RECIPIENT NAME (OPTIONAL)',
-                    type: 'to'
-                  }
-                ],
-              autotext: true,
-              subject: 'You have been invited to join a quest!',
-              html: 'You have been invited to join a quest! Log in to find out more.'
-            }
-          }
-         }).done(function(response) {
-           console.log(response, "this worked"); // if you're into that sorta thing
-         });
-
-            
-        }
 
 
     $scope.saveFullQuest = function() {
@@ -304,10 +276,21 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
     })
     $state.go('edit.quest');
 
+
+    $scope.goToInvite = function(title, participants) {
+        $scope.$parent.questinvitetitle = title;
+        $scope.$parent.questinviteparticipants = participants;
+        $state.go('edit.invite');
+    };
+
 });
 
 app.controller('editQuest', function($scope) {
-
+    $scope.searchBox = false;
+    $scope.search = function() {
+        if (!$scope.searchBox) $scope.searchBox = true;
+        else $scope.searchBox = false;
+    };
 
     // window.addEventListener('beforeunload', function(e) {
     //     e.returnValue = "You haven't saved! Click Okay to continue without saving, or Cancel to stay on this page!";
@@ -353,6 +336,42 @@ app.controller('editQuestMap', function($scope, MapFactory) {
     $scope.$parent.currState = 'Map';
 });
 
-app.controller('editInvite', function($scope) {
+app.controller('editInvite', function($scope, UserFactory, $state) {
+
+    $scope.setNumOfForms = function() {
+        $scope.numOfForms = Number($scope.numInvites);
+        $scope.array = new Array($scope.numOfForms);
+        console.log('scope.array', $scope.array, $scope.array.length);
+    };
+
+    $scope.invitee = [{
+        name: "",
+        email: ""
+    }];
+
+    $scope.invite = function() {
+
+        for (var i = 0; i < $scope.array.length; i++) {
+            $.ajax({
+                type: 'POST',
+                url: 'https://mandrillapp.com/api/1.0/messages/send.json',
+                data: {
+                    key: 'hM6OlbcTpHE7fYJp-GQNsw',
+                    message: {
+                        from_email: 'questackular@notarealemail.com',
+                        to: [{
+                            email: $scope.invitee.email[i],
+                            name: $scope.invitee.name[i],
+                        }],
+                        autotext: true,
+                        subject: $scope.user.google.name + ' has invited you to join a quest!',
+                        html: $scope.user.google.name + ' has invited you to join ' + $scope.selectedQuest.title + ', a quest on <a href="questacular.com">Questacular.com</a>. Log in at <a href="questacular.com">Questacular.com</a> to find out more!'
+                    }
+                }
+            }).done(function(response) {
+                console.log(response, "this worked"); // if you're into that sorta thing
+            });
+        };
+    };
 
 });

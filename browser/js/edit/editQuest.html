@@ -2,7 +2,7 @@
 <div class='row'>
     <div class="col-md-8">
         <div id="alerts">
-            <alert ng-repeat="alert in alerts" ng-show="alert.show" class="alert.type" close="closeAlert($index)">
+            <alert ng-repeat="alert in alerts" ng-show="alert.show" type="{{alert.type}}" class="alert" close="closeAlert($index)">
                 <div style='font-size:xx-large;'>!</div>
                 <div>{{alert.msg}}</div>
             </alert>
@@ -16,6 +16,11 @@
                     </span>
                 </div>
             </div>
+
+            <div class="panel-body" ng-show="searchBox">
+                <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" ng-model="editQSearch"/>
+            </div>
+            <button ng-click='$parent.showData();'>CLICK ME PLS LOLTHX</button>
 
             <table class="table table-hover" id="dev-table">
                 <thead>
@@ -32,7 +37,7 @@
                 </thead>
                 <tbody>
                     <!-- show 1st block if quests are inactive, and thus editable -->
-                    <tr ng-repeat='quest in questList' ng-if='quest.active==false'>
+                    <tr ng-repeat='quest in questList | filter:editQSearch' ng-if='quest.active==false'>
                         <td>
                             <input type='radio' name='pickedQuest' value='{{quest.title}}' ng-change='$parent.pickQuest(quest._id)' ng-model='$parent.selectedQuest'>
                         </td>
@@ -44,17 +49,18 @@
                         <td>
                             <input type='checkbox' ng-model='quest.active' checked='false' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
                         </td>
-                        <td><button type="button" class="btn btn-info" ui-sref="edit.step">Edit
+                        <td><button type="button" class="btn btn-info btn-xs" ui-sref="edit.step">Edit
                         </button></td>
                         <td editable-text='quest.participants'>
                             <span ng-if='quest.participants.length>0'>{{name}}</span>
                             <span ng-if='quest.participants.length<=0'>No participants yet!</span>
                         </td>
-                        <td><button type="button" class="btn btn-info" ui-sref="home">Invite
+
+                        <td><button type="button" class="btn btn-info btn-xs" ng-click="goToInvite(quest.title, quest.participants)">Invite
                         </button></td>
                     </tr>
                     <!-- show 2nd block if quests are active, and thus ineditable -->
-                    <tr ng-repeat='quest in questList' ng-if='quest.active==true'>
+                    <tr ng-repeat='quest in questList | filter:editQSearch' ng-if='quest.active==true'>
                         <td>
                             <input type='radio' name='pickedQuest' value='{{quest.title}}' ng-change='$parent.pickQuest(quest._id)' ng-model='$parent.selectedQuest' disabled title='You can&rsquo;t edit an active quest!'>
                         </td>
@@ -66,13 +72,15 @@
                         <td>
                             <input type='checkbox' ng-model='quest.active' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
                         </td>
-                        <td><button type="button" class="btn btn-info">Not Available
+                        <td><button type="button" class="btn btn-default btn-xs" disabled="true">Uncheck 'Open' to Edit
                         </button></td>
                         <td>
                             <span ng-if='quest.participants.length>0'>{{name}}</span>
                             <span ng-if='quest.participants.length<=0'>No participants yet!</span>
                         </td>
-                        <td><button type="button" class="btn btn-info" ui-sref="edit.invite">Invite
+
+                        <td><button type="button" class="btn btn-info btn-xs" ng-click="goToInvite(quest.title, quest.participants)">Invite
+
                         </button></td>
                     </tr>
                 </tbody>

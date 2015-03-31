@@ -1,4 +1,4 @@
-chrome.browserAction.setBadgeText({text: "Questackular!"});
+// chrome.browserAction.setBadgeText({text: "Questackular!"});
 
 // useful but not using currently
 chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
@@ -6,64 +6,109 @@ chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
 	console.log("omnibox inputchanged listener suggest", suggest);
 
 	suggest([{
-			content: text + " red-divs", description: "change divs to red!"
+			content: "red-divs", description: "type 'red-divs' to change divs to red!"
 		}, {
-			content: text + " blue-divs", description: "change divs to blue!"
+			content: "blue-divs", description: "type 'blue-divs' to change divs to blue!"
+		}, {
+			content: "save", description: "save current tab's url to list of favorite links!"
 		}]);
 });
+
+// listening for event from OMNIBOX!!!
 chrome.omnibox.onInputEntered.addListener(function (text) {
-	alert("you just typed" + "'" + text + "'");
+	alert("you just typed " + "'" + text + "'");
+
 	switch(text) {
-		case 'red-divs': redDivs();
+		case 'save':
+			console.log("save");
+			saveUrl();
+		case 'red-divs': 
+			console.log("red divs"); 
+			redDivs();
 		break;
-		case 'blue-divs': blueDivs();
-		break;
-	}
-	return true;
-});
-
-// listening for an event (one-time request) COMING from the popup
-chrome.runtime.onMessage.addListener(function (reqest, sender, sendResponse) {
-	console.log("background.js message", message);
-	console.log("background.js sender", sender);
-	console.log("background.js sendResponse", sendResponse);
-	switch(reqest.type) {
-		case 'red-divs': redDivs();
-		break;
-		case 'blue-divs': blueDivs();
+		case 'blue-divs': 
+			console.log("blue divs");
+			blueDivs();
 		break;
 	}
 	return true;
 });
 
-// listening for an event (long-lived connections) coming from DEVTOOLS
-chrome.extension.onConnect.addListener(function (port) {
+// listening for an event (one-time request) coming from the POPUP
+// chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+// 	console.log("background.js message", request);
+// 	console.log("background.js sender", sender);
+// 	console.log("background.js sendResponse", sendResponse);
+// 	// chrome.tabs.getCurrent(function (tab) {
+// 	// 	chrome.tabs.update(tab, {url: request.stepUrl});
+// 	// });
+
+// 	switch(request.type) {
+// 		case 'red-divs': 
+// 			console.log("red-divs received");
+// 			redDivs();
+// 		break;
+// 		case 'blue-divs':
+// 			console.log("blue-divs received"); 
+// 			blueDivs();
+// 		break;
+// 	}
+// 	return true;
+	
+// });
+
+
+
+// listening for an event (long-lived connections) coming from POPUP
+chrome.runtime.onConnect.addListener(function (port) {
+	console.log("port name is", port);
 	port.onMessage.addListener(function (message) {
-		switch(port.name) {
-			case "red-divs-port": redDivs();
-			break;
-			case "blue-divs-port": blueDivs();
-			break;
+		console.log("port.onMessage.addListener", message);
+		switch(message.type) {
+			case "red-divs": 
+				redDivs();
+				break;
+			case "blue-divs": 
+				blueDivs();
+				break;
 		}
 	});
 });
 
+// send red message to content script!
 function redDivs() {
-	chrome.tabs.getSelected(null, function (tab) {
-		chrome.tabs.sendMessage(tab.id, {type: 'red-div', color: "#F00"});
+	chrome.tabs.query({active: true}, function (tabs) {
+		console.log("tabs", tabs);
+		chrome.tabs.sendMessage(tabs[0].id, {type: 'red-divs', color: "#F00"}, function (response) {
+			console.log("response from content script?", response);
+		});
 	});
 	chrome.browserAction.setBadgeText({text: "red!"});
 }
+// send blue message to content script!
+function blueDivs() {
+	chrome.tabs.query({active: true}, function (tabs) {
+		console.log("tabs", tabs);
+		chrome.tabs.sendMessage(tabs[0].id, {type: 'blue-divs', color: "#1E90FF"}, function (response) {
+			console.log("response from content script?", response);
+		});
+	});
+	chrome.browserAction.setBadgeText({text: "blue!"});
+}
 
-// not sure if working
-// chrome.extension.onConnect.addListener(function (port) {
-// 	console.log("this connected!");
-// 	port.onMessage.addListener(function (message) {
-// 		console.log('message received', message);
-// 		port.postMessage('Howdy');
-// 	});
-// });
+var urlList = [];
 
+function saveUrl() {
+	console.log("saveUrl called");
+	chrome.tabs.query({active: true}, function (tabs) {
+		console.log("tabs", tabs);
+		urlList.push(tabs[0].url);
+		console.log("urlList", urlList);
+		var a = JSON.stringify(urlList);
+		console.log("JSON.stringify(urlList)", a);
+		localStorage.links = a;
+	});
+}
 // not working
 // chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 //     switch(request.type) {

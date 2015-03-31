@@ -17,7 +17,7 @@ app.directive('navbar', function () {
             }, {
                 label: 'Join a Quest', state: 'home' 
             }, {
-                label: 'My Quests', state: 'MyQuests' 
+                label: 'My Quests', state: 'myQuests' 
             }];
 
             $scope.user = null;

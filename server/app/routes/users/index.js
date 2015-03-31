@@ -30,18 +30,18 @@ router.put('/points/:id', function(req, res, next) {
         var points = stepObject.pointValue;
         //find the quest in req.user which has a current step that matches our stepid
         req.user.participating.forEach(function(quest, idx, arr) {
-
-            if (quest.currentStep == stepId) {
-                //push the new point worth to pointsfromQuest on the participating array in users
-                console.log("BEFORE quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest);
-                console.log("points we are trying to add", points);
-                req.user.participating[idx].pointsFromQuest += points;
-                console.log("After quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest);
-                req.user.save(function(afterSave) {
-                    res.end();
-                });
-            }
-        });
+        if (quest.currentStep == stepId) {
+        //push the new point worth to pointsfromQuest on the participating array in users
+          console.log("BEFORE quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest);
+          console.log("points we are trying to add", points);
+          req.user.participating[idx].pointsFromQuest += points;
+          console.log("After quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest);
+          req.user.save(function(err, updatedUser){
+            console.log("updatedUser", updatedUser);
+            res.json(updatedUser.participating[idx].pointsFromQuest);
+          });
+        }
+      });
     });
 
 });
