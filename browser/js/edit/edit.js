@@ -62,6 +62,35 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         msg: 'Warning: This active quest currently does not seem to have any participants. However, deactivating it will make it unplayable to your adoring fanbase! Make sure you only deactivate a quest that you need to work on!',
         show: false
     }];
+    $scope.cats = [{
+        cat: 'Miscellaneous',
+        url: 'http://i.imgur.com/jFkV2.jpg'
+    }, {
+        cat: 'History',
+        url: 'http://i.imgur.com/YBFVD4Y.jpg'
+    }, {
+        cat: 'Literature',
+        url: 'http://i.imgur.com/ZNgmNku.jpg'
+    }, {
+        cat: 'Art',
+        url: 'http://i.imgur.com/YCirp.jpg'
+    }, {
+        cat: 'Current Events',
+        url: 'http://i.imgur.com/Ibv1KfY.jpg'
+    }, {
+        cat: 'Sports',
+        url: 'http://i.imgur.com/7ZTDKHy.jpg'
+    }, {
+        cat: 'Entertainment',
+        url: 'http://i.imgur.com/CGopHB7.png'
+    }, {
+        cat: 'Food and Drink',
+        url: 'http://i.imgur.com/l1OfE4g.jpg'
+    }, {
+        cat: 'Science',
+        url: 'http://i.imgur.com/B3DChMk.jpg'
+    }];
+
     //We need them here so that clicking 'save' on any page saves the entire quest+steps group
     $scope.currState = 'quest';
     $scope.questList = [];
@@ -85,11 +114,18 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         disabled: $scope.noQuest
     }];
     AuthService.getLoggedInUser().then(function(user) {
-
-        //save the quest
         QuestFactory.getQuestsByUser(user._id).then(function(questList) {
             $scope.questList = questList;
-            // console.log('questList', questList);
+
+            //run thru list of quests, and for those that do not have
+            //categories, assign misc 
+            $scope.questList.forEach(function(el) {
+                el.cat = el.cat || {
+                    cat: 'Miscellaneous',
+                    url: 'http://i.imgur.com/jFkV2.jpg'
+                };
+            });
+            console.log(questList);
             $scope.selectedQuest = $scope.questList[0];
     
 
@@ -285,7 +321,7 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         var parentF = from.name.split('.')[0];
         var parentT = to.name.split('.')[0];
         if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest)) {
-            if(!confirm('Are you sure you wanna leave? This quest has not been saved yet!')){
+            if (!confirm('Are you sure you wanna leave? This quest has not been saved yet!')) {
                 e.preventDefault();
             }
         }
