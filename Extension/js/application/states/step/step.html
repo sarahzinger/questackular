@@ -45,8 +45,19 @@
 	<button class="btn btn-info btn-sm" ng-click="launchReading()">Click to Launch Reading for this Question</button>
 </div>
 <alert ng-if="alertshow" class="danger" close="closeAlert()">Try Again!</alert>
-<nav class="navbar navbar-default navbar-fixed-bottom">
-  <div class="container">
-    <div>You are on step {{step.stepNum}} of {{totalStepNum}} steps</div>
-  </div>
+
+<nav class="navbar navbar-material-cyan navbar-fixed-bottom">
+<progressbar class="progress-striped active" value="{{progressPct}}" type="{{progressType}}"></progressbar>
+	<div class="list-group">
+		<div class="list-group-item">
+	        <div class="row-action-primary checkbox">
+	            <!-- <label><input type="checkbox"></label> -->
+	        </div>
+	        <div class="row-content">
+	        	<div class="least-content">{{userQuestPts}}</div>
+	            <h4>{{chosenQuest.questId.title}}</h4>
+	            <p class="list-group-item-text">You are on step {{step.stepNum}} of {{totalStepNum}} steps</p>
+	        </div>
+	    </div>
+	</div>
 </nav>

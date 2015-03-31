@@ -52,11 +52,11 @@ body {
 .alert {
     position: fixed;
     z-index: 10;
-    background-color: #955;
+    // background-color: #955;
 }
-.alert-warning{
-    background-color: #B80000;
-}
+// .alert-warning{
+//     background-color: #B80000;
+// }
 .instList {
     p {
         &:before {

@@ -21,6 +21,7 @@ app.factory('UserFactory', function($http, domain){
         addPoints: function(stepId) {
             console.log("stepId on the front end", stepId)
             return $http.put('http://localhost:1337/api/users/points/' + stepId).then(function (res) {
+                console.log("res from addPoints", res);
                 return res.data;
             });
         },

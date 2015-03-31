@@ -1,12 +1,19 @@
 //popup.js test
-
 window.onload = function() {
-    chrome.runtime.sendMessage({
-        type: 'red-divs'
-    });
+    console.log("popup.js test, window.onload");
+    document.getElementById("red").onclick = function() {
+        console.log('getElementById("red").onclick');
+        chrome.runtime.sendMessage({
+            type: 'red-divs'
+        });
+    };
+    document.getElementById("blue").onclick = function() {
+        console.log('getElementById("blue").onclick')
+        chrome.runtime.sendMessage({
+            type: 'blue-divs'
+        });
+    };
 }
-
-
 // end of popup.js test
 
 

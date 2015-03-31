@@ -35,8 +35,9 @@ router.put('/points/:id', function (req, res, next) {
           console.log("points we are trying to add", points);
           req.user.participating[idx].pointsFromQuest += points;
           console.log("After quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest);
-          req.user.save(function(afterSave){
-            res.end();
+          req.user.save(function(err, updatedUser){
+            console.log("updatedUser", updatedUser);
+            res.json(updatedUser.participating[idx].pointsFromQuest);
           });
         }
       });

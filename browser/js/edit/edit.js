@@ -50,18 +50,19 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
     sessionStorage.removeItem('stepStr');
     sessionStorage.removeItem('newQuest');
     $scope.alerts = [{
-        type: 'alert-danger',
+        type: 'danger',
         msg: 'Warning: This active quest currently has participants! Deactivating it will destroy their hard work! Are you sure you wanna make enemies like this? If not, you may wanna activate it!',
         show: false
     }, {
-        type: 'alert-danger',
-        msg: 'Warning: Activating a deactive quest will make it uneditable (unless you close it again). Is your quest awesome enough to activate yet? If not, you may wanna deactivate it!',
+        type: 'danger',
+        msg: 'Warning: Activating a inactive quest will make it uneditable (unless you close it again). Is your quest awesome enough to activate yet? If not, you may wanna deactivate it!',
         show: false
     }, {
-        type: 'alert-danger',
+        type: 'danger',
         msg: 'Warning: This active quest currently does not seem to have any participants. However, deactivating it will make it unplayable to your adoring fanbase! Make sure you only deactivate a quest that you need to work on!',
         show: false
     }];
+
     //We need them here so that clicking 'save' on any page saves the entire quest+steps group
     $scope.currState = 'quest';
     $scope.questList = [];
@@ -295,7 +296,11 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
 });
 
 app.controller('editQuest', function($scope) {
-
+    $scope.searchBox = false;
+    $scope.search = function() {
+        if (!$scope.searchBox) $scope.searchBox = true;
+        else $scope.searchBox = false;
+    };
 
     // window.addEventListener('beforeunload', function(e) {
     //     e.returnValue = "You haven't saved! Click Okay to continue without saving, or Cancel to stay on this page!";

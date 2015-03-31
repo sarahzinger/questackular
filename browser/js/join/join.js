@@ -22,8 +22,8 @@ app.config(function ($stateProvider) {
 
 app.controller('JoinCtrl', function ($scope, QuestFactory, AuthService) {
     $scope.alerts = [
-        { type: 'alert-danger', msg: 'You are already participating in this quest.', show: false },
-        { type: 'alert-success', msg: 'You\'ve successfully joined the quest.', show: false }
+        { type: 'danger', msg: 'You are already participating in this quest.', show: false },
+        { type: 'success', msg: 'You\'ve successfully joined the quest.', show: false }
     ];
 
     QuestFactory.getAllQuests().then(function(quests) {
@@ -41,7 +41,7 @@ app.controller('JoinCtrl', function ($scope, QuestFactory, AuthService) {
             $scope.quests = quests;
 
             $scope.unjoinedQuests = _.reject(quests, function (item) {
-                return _.includes(item.participants, user._id);
+                return _.includes(item.participants, user._id) && _.includes(item.winners, user._id);
             });
             console.log("$scope.unjoinedQuests", $scope.unjoinedQuests);
         });

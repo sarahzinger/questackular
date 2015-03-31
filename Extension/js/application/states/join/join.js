@@ -11,8 +11,8 @@ app.config(function ($stateProvider) {
 
 app.controller('JoinCtrl', function ($scope, QuestFactory, UserFactory){
     $scope.alerts = [
-        { type: 'alert-danger', msg: 'You are already participating in this quest.', show: false },
-        { type: 'alert-success', msg: 'You\'ve successfully joined the quest.', show: false }
+        { type: 'danger', msg: 'You are already participating in this quest.', show: false },
+        { type: 'success', msg: 'You\'ve successfully joined the quest.', show: false }
     ];
 
     $scope.imgs = [];
@@ -23,7 +23,7 @@ app.controller('JoinCtrl', function ($scope, QuestFactory, UserFactory){
             $scope.quests = quests;
 
             $scope.unjoinedQuests = _.reject(quests, function (item) {
-                return _.includes(item.participants, userInfo.user._id);
+                return _.includes(item.participants, user._id) && _.includes(item.winners, user._id);
             });
             console.log("$scope.unjoinedQuests", $scope.unjoinedQuests);
         });
@@ -54,7 +54,14 @@ app.controller('JoinCtrl', function ($scope, QuestFactory, UserFactory){
             } else {
                 console.log("quest.participants.indexOf(user._id)", quest.participants.indexOf(userInfo.user._id));
                 quest.participants.push($scope.userId);
-                QuestFactory.joinQuest(quest);
+                QuestFactory.joinQuest(quest).then(function () {
+                    QuestFactory.getAllQuests().then(function (quests) {
+                        $scope.quests = quests;
+                        $scope.unjoinedQuests = _.reject(quests, function (item) {
+                            return _.includes(item.participants, userInfo.user._id) && _.includes(item.winners, userInfo.user._id);
+                        });
+                    });
+                });
                 if ($scope.alerts[0].show) $scope.alerts[0].show = false;
                 if (!$scope.alerts[1].show) $scope.alerts[1].show = true;
             }

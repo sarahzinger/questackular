@@ -2,50 +2,8 @@
     <h1>My Quests</h1>
     <p>Click the filter icon <small>(<i class="glyphicon mdi-content-filter-list"></i>)</small> to filter quests</p>
     </p>
-
     <div class="row">
         <div class="col-lg-8">
-            <!-- table begins -->
-            <div id="quests-created">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Quests I've created 
-                            <a class='btn btn-primary btn-sm' ui-sref='edit.quest'>Edit</a>
-                        </h3>
-                        <div class="pull-right">
-                            <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
-							<i ng-click="search()" style='top:-40px;' class="glyphicon mdi-content-filter-list"></i>
-						</span>
-                        </div>
-                    </div>
-                    <div class="panel-body" ng-show="searchBox">
-                        <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" />
-                    </div>
-                    <table class="table table-hover" id="dev-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Title</th>
-                                <th>Description</th>
-                                <th>Active/Inactive</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="quest in questsCreated track by $index">
-                                <td>{{$index + 1}}</td>
-                                <td>{{quest.title}}</td>
-                                <td>{{quest.description}}</td>
-                                <td>{{(quest.active)?'Active':'Inactive'}}</td>
-
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- end of created quests table -->
-
-
             <!-- table begins -->
             <div id="quests-joined">
                 <div class="panel panel-primary">
@@ -58,7 +16,7 @@
                         </div>
                     </div>
                     <div class="panel-body" ng-show="searchBox">
-                        <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" />
+                        <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" ng-model="joinedQSearch"/>
                     </div>
                     <table class="table table-hover" id="dev-table">
                         <thead>
@@ -72,7 +30,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="quest in questsJoined track by $index">
+                            <tr ng-repeat="quest in questsJoined | filter:joinedQSearch">
                                 <td>{{$index + 1}}</td>
                                 <td>{{quest.questId.title}}</td>
                                 <td>{{quest.questId.description}}</td>
@@ -96,18 +54,6 @@
 
         <div class="col-lg-4" id="myquest-help">
             <div class="list-group instList">
-                <div class="list-group-item">
-                    <div class="row-action-primary">
-                        <i class="mdi-maps-rate-review"></i>
-                    </div>
-                    <div class="row-content">
-                        <div class="action-secondary"><i class="mdi-material-info"></i></div>
-                        <h4 class="list-group-item-heading">Quests I've Created</h4>
-                        <p class="list-group-item">The blue box shows all of the quests you've made!</p>
-                        <p class="list-group-item">Click on the blue <a class='btn btn-primary btn-xs' ui-sref="edit.quest">Edit</a> button to modify your quests!</p>
-                    </div>
-                </div>
-                <div class="list-group-separator"></div>
 
                 <div class="list-group-item">
                     <div class="row-action-primary">
