@@ -73,9 +73,9 @@ router.put('/participating/currentStep/:id', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-  mongoose.model('User').find().populate('created participating').exec(function (err, users) {
+  mongoose.model('User').find().populate('created participating pastQuests').exec(function (err, users) {
     if (err) return res.json(err);
-    mongoose.model('User').populate(users, 'participating.questId participating.currentStep', function (err, populatedUsers) {
+    mongoose.model('User').populate(users, 'participating.questId participating.currentStep pastQuests.questId', function (err, populatedUsers) {
       if (err) return res.json(err);
       console.log("populated users", populatedUsers);
       populatedUsers.forEach(function (user) {
@@ -89,11 +89,11 @@ router.get('/', function (req, res, next) {
 
 router.get('/:id', function (req, res, next) {
     mongoose.model('User').findOne({_id: req.params.id})
-        .populate('created participating')
+        .populate('created participating pastQuests')
         .exec(function (err, userInfo) {
             if (err) return res.json(err);
             // if (userInfo.participating.length) {
-	            mongoose.model('User').populate(userInfo, 'participating.questId participating.currentStep', function (err, userFullyPopulated) {
+	            mongoose.model('User').populate(userInfo, 'participating.questId participating.currentStep pastQuests.questId', function (err, userFullyPopulated) {
 	            	if (err) return res.json(err);
                 console.log('STEPS THINGS',userFullyPopulated)
                 res.json(userFullyPopulated);

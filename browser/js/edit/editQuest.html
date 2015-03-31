@@ -16,18 +16,21 @@
                     </span>
                 </div>
             </div>
+
             <div class="panel-body" ng-show="searchBox">
                 <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" ng-model="editQSearch"/>
             </div>
             <button ng-click='$parent.showData();'>CLICK ME PLS LOLTHX</button>
+
             <table class="table table-hover" id="dev-table">
                 <thead>
                     <tr>
                         <th>Picked</th>
                         <th>Quest Title</th>
                         <th>Quest Description</th>
-                        <th>Open?</th
->                        <th>Edit Steps (if open)</th>
+                        <th>Category</th>
+                        <th>Active?</th>
+                         <th>Edit Steps (if open)</th>
                         <th>Current Participants</th>
                         <th>Invite More Participants</th>
                     </tr>
@@ -40,6 +43,9 @@
                         </td>
                         <td editable-text='quest.title'>{{quest.title}}</td>
                         <td editable-text='quest.description'>{{quest.description}}</td>
+                        <td editable-select='quest.cat' e-ng-options='item.cat for item in cats'>{{quest.cat.cat}}
+                            <img src='{{quest.cat.url}}' class='cat-edit'/>
+                        </td>
                         <td>
                             <input type='checkbox' ng-model='quest.active' checked='false' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
                         </td>
@@ -59,6 +65,9 @@
                         </td>
                         <td>{{quest.title}}</td>
                         <td>{{quest.description}}</td>
+                        <td>{{quest.cat.cat}}
+                            <img src='{{quest.cat.url}}' class='cat-edit'/>
+                        </td>
                         <td>
                             <input type='checkbox' ng-model='quest.active' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
                         </td>
@@ -92,7 +101,8 @@
                     <i class="mdi-editor-border-color"></i>
                 </div>
                 <div class="row-content">
-                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <div class="action-secondary"><i class="mdi-material-info"></i>
+                    </div>
                     <h4 class="list-group-item-heading">Pick a quest to edit!</h4>
                     <p class="list-group-item">Uncheck 'Open' to edit your quest!</p>
                     <p class="list-group-item">Click 'Edit Step' to edit any steps your quest has!</p>
@@ -105,8 +115,10 @@
                     <i class="mdi-maps-pin-drop"></i>
                 </div>
                 <div class="row-content">
-                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
-                    <h4 class="list-group-item-heading">Click 'View Map' to see an awesome view of your quest!</h4><!-- 
+                    <div class="action-secondary"><i class="mdi-material-info"></i>
+                    </div>
+                    <h4 class="list-group-item-heading">Click 'View Map' to see an awesome view of your quest!</h4>
+                    <!-- 
                     <p class="list-group-item">Uncheck 'Open' to edit your quest!</p> -->
                 </div>
             </div>
@@ -117,7 +129,8 @@
                     <i class="mdi-content-save"></i>
                 </div>
                 <div class="row-content">
-                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                    <div class="action-secondary"><i class="mdi-material-info"></i>
+                    </div>
                     <h4 class="list-group-item-heading">Don't forget to save!</h4>
                     <p class="list-group-item">Click 'Save' to make your quest even more awesome (and save it too)!</p>
                     <p class="list-group-item">Click 'Edit Step' to edit any steps your quest has!</p>

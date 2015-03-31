@@ -71,8 +71,18 @@ body {
 .navbar-brand {
   cursor: pointer; }
 
-.transparent {
-  background-color: transparent; }
+.modal-dialog {
+  top: 20px; }
+
+.bootbox-close-button .close {
+  margin-top: 10px; }
+
+.modal-body > button {
+  border: 1px solid red;
+  padding-top: 20px !important; }
+
+.bootbox-body {
+  padding-top: 10px; }
 
 .kard {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
@@ -103,7 +113,8 @@ body {
   position: absolute;
   bottom: 0;
   left: 0;
-  padding: 16px; }
+  padding: 16px;
+  background: #00bcd4; }
 
 .kard .kard-content {
   padding: 16px;

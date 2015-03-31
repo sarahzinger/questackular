@@ -6,6 +6,7 @@ app.factory('UserFactory', function($http, AuthService) {
 				var currentUserId = user._id;
 				console.log("currentUserId is", currentUserId);
 	            return $http.get('api/users/' + currentUserId).then(function(response) {
+	            	console.log(response.data)
 	                return response.data;
 	            });
 			});

@@ -5,7 +5,7 @@
 body {
 	position: relative;
 	top: 80px;
-	width:400px;
+	width: 400px;
 	height: 500px;
 }
 
@@ -93,8 +93,20 @@ body {
   cursor:pointer;
 }
 
-.transparent {
-  background-color: transparent;
+.modal-dialog{
+  top: 20px;
 }
-
+.bootbox-close-button{
+  .close{
+    margin-top: 10px;
+  }
+} 
+.modal-body > button{
+  border: 1px solid red;
+    padding-top: 20px!important;
+} 
+.bootbox-body{
+  padding-top: 10px;
+  
+}
 @import 'card';
