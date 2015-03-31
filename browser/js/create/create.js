@@ -35,7 +35,7 @@ app.config(function($stateProvider) {
 });
 
 
-app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state) {
+app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state, catFactory) {
     //the following scope vars are 'parental' to the child scopes. 
     sessionStorage.removeItem('newQuest');
     sessionStorage.removeItem('stepStr');
@@ -62,34 +62,7 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
         disabled: $scope.noQuest
     }];
 
-    $scope.cats = [{
-        cat: 'Miscellaneous',
-        url: 'http://i.imgur.com/jFkV2.jpg'
-    }, {
-        cat: 'History',
-        url: 'http://i.imgur.com/YBFVD4Y.jpg'
-    }, {
-        cat: 'Literature',
-        url: 'http://i.imgur.com/ZNgmNku.jpg'
-    }, {
-        cat: 'Art',
-        url: 'http://i.imgur.com/YCirp.jpg'
-    }, {
-        cat: 'Current Events',
-        url: 'http://i.imgur.com/Ibv1KfY.jpg'
-    }, {
-        cat: 'Sports',
-        url: 'http://i.imgur.com/7ZTDKHy.jpg'
-    }, {
-        cat: 'Entertainment',
-        url: 'http://i.imgur.com/CGopHB7.png'
-    }, {
-        cat: 'Food and Drink',
-        url: 'http://i.imgur.com/l1OfE4g.jpg'
-    }, {
-        cat: 'Science',
-        url: 'http://i.imgur.com/B3DChMk.jpg'
-    }];
+    $scope.cats = catFactory.cats;
 
     if (sessionStorage.newQuest) {
         $scope.questExists = true;
@@ -110,7 +83,7 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
         delete $scope.quest.actInact;
         delete $scope.quest.pubPriv;
         //final-presave stuff: get the current user ID
-        AuthService.getLoggedInUser().then(function (user) {
+        AuthService.getLoggedInUser().then(function(user) {
             console.log("user from AuthService", user);
             $scope.quest.owner = user._id;
             //save the quest
@@ -152,7 +125,7 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
     $scope.$on('$stateChangeStart', function(e, to, n, from) {
         var parentF = from.name.split('.')[0];
         var parentT = to.name.split('.')[0];
-        if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest) && parentF !='thanks') {
+        if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest) && parentF !== 'thanks') {
             if (!confirm('Are you sure you wanna leave? This quest has not been saved yet!')) {
                 e.preventDefault();
             }
@@ -161,7 +134,7 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state)
     $state.go('create.quest');
 });
 
-app.controller('CreateQuest', function ($scope) {
+app.controller('CreateQuest', function($scope) {
     $scope.$parent.currState = 'Quest';
     if (sessionStorage.newQuest == 'undefined') {
         sessionStorage.removeItem('newQuest');
@@ -184,7 +157,7 @@ app.controller('CreateQuest', function ($scope) {
 
 });
 
-app.controller('CreateStep', function ($scope, QuestFactory) {
+app.controller('CreateStep', function($scope, QuestFactory) {
     $scope.$parent.currState = 'Step';
     $scope.testTypes = ['Multiple Choice', 'Fill-in'];
     $scope.alerts = [
@@ -199,15 +172,15 @@ app.controller('CreateStep', function ($scope, QuestFactory) {
         if (!newStep.url) {
             console.log('yes');
             $scope.alerts[0].show = true;
-        } else if (!newStep.question){
+        } else if (!newStep.question) {
             $scope.alerts[1].show = true;
-        } else if(!newStep.pointValue){
+        } else if (!newStep.pointValue) {
             $scope.alerts[2].show = true;
-        } else if(!newStep.qType){
-            $scope.alerts[3].show = true; 
+        } else if (!newStep.qType) {
+            $scope.alerts[3].show = true;
         } else {
-        $scope.$parent.stepList = QuestFactory.saveStepIter(newStep, $scope.$parent.stepList)||$scope.$parent.stepList;
-        $scope.step = {}; //clear step
+            $scope.$parent.stepList = QuestFactory.saveStepIter(newStep, $scope.$parent.stepList) || $scope.$parent.stepList;
+            $scope.step = {}; //clear step
         }
     };
     $scope.closeAlert = function(index) {
@@ -215,7 +188,7 @@ app.controller('CreateStep', function ($scope, QuestFactory) {
     };
 });
 
-app.controller('QuestMap', function ($scope, MapFactory) {
+app.controller('QuestMap', function($scope, MapFactory) {
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList);
 
     //GIANT LIST O TEST DATA!

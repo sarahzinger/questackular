@@ -10,7 +10,7 @@ app.config(function($stateProvider) {
 app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, chromeExtId, $rootScope) {
     $scope.participatingIndex = Number(localStorage["participatingIndex"]);
     console.log("$scope.participatingIndex", $scope.participatingIndex)
-    if ($scope.participatingIndex === -1){
+    if ($scope.participatingIndex === -1) {
         $state.go("finish")
     }
 
@@ -72,6 +72,7 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
                             localStorage.setItem("participatingIndex", participatingIndex);
                             $state.go('finish');
                         });
+
 						
 					} else {
 						UserFactory.changeCurrentStep($scope.step._id);
@@ -95,22 +96,47 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
                             localStorage.setItem("participatingIndex", participatingIndex);
                             $state.go('finish');
                         });
-					}else{
-						UserFactory.changeCurrentStep($scope.step._id);
-                		$state.go('success');
-					}
-				})
-			}else{
-				//else it will alert user to try again
-				// $scope.alertshow = true;
-				bootbox.alert('Try Again')
-			}
-		}
-		
-	};
-	
+                    } else {
+                        UserFactory.changeCurrentStep($scope.step._id);
+                        $state.go('success');
+                    }
+                })
+            } else {
+                //else it will alert user to try again
+                // $scope.alertshow = true;
+                bootbox.alert('Try Again')
+            }
+        }
+
+    };
+
     $scope.closeAlert = function() {
         $scope.alertshow = false;
     };
+
+    $scope.giveUp = function(num) {
+    	bootbox.confirm("Are you sure you wanna give up? That'll cost " + num + " points!",function(purch){
+    		console.log(purch)
+    	})
+    };
+    $scope.purchStep = function() {
+        UserFactory.buyStep($scope.step._id).then(function(data) {
+            $rootScope.$emit('updatePoints')
+            if ($scope.step.stepNum == $scope.totalStepNum) {
+                console.log("this is totally the last step")
+                console.log("$scope.chosenQuest.questId._id", $scope.chosenQuest.questId._id)
+                QuestFactory.completeQuest($scope.chosenQuest.questId._id).then(function(data) {
+                    participatingIndex = -1
+                    localStorage.setItem("participatingIndex", participatingIndex);
+                    $state.go('finish');
+                });
+
+            } else {
+                UserFactory.changeCurrentStep($scope.step._id);
+                $state.go('success');
+            }
+
+        })
+    }
 
 });

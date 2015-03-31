@@ -35,7 +35,7 @@
                         <select class="form-control" ng-model='quest.cat.cat' ng-change='saveQuest();' name='qCat' required>
                             <option ng-repeat="cat in $parent.cats" value='{{cat.cat}}'> {{cat.cat}}
                         </select>
-                    <p class="help-block">Select the type of question you would like to add.</p>
+                    <p class="help-block">Select quest category.</p>
                     </div>
                     <img src='{{$parent.quest.cat.url}}'/>
                 </div>
@@ -62,6 +62,7 @@
                     <h4 class="list-group-item-heading">Not sure where to start?</h4>
                     <p class="list-group-item">Create a quest title!</p>
                     <p class="list-group-item">Give your quest a cool description!</p>
+                    <p class="list-group-item">Pick a category (image) for your quest!</p>
                 </div>
             </div>
             <div class="list-group-separator"></div>
