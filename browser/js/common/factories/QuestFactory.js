@@ -78,6 +78,7 @@ app.factory('QuestFactory', function($http, domain) {
             });
         },
         saveStepIter: function(step,stepList) {
+            console.log('Q type:',step.qtype)
             for (var r = 0; r < stepList.length; r++) {
                 console.log('new Q: ', step.question, ', old Q:', stepList[r]);
                 if (step.question === stepList[r].question) {
@@ -91,7 +92,7 @@ app.factory('QuestFactory', function($http, domain) {
                 //so we need to parse all of the answer options
                 step.multipleAns = [];
                 for (var n = 1; n < 5; n++) {
-                    console.log(step['ans' + n]);
+                    console.log('step is: ',step['ans' + n]);
                     step.multipleAns.push(step['ans' + n]);
                     delete step['ans' + n];
                     console.log('multiAns so far: ', step.multiAns);

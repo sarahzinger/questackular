@@ -35,7 +35,7 @@
                         <select class="form-control" ng-model='quest.cat.cat' ng-change='saveQuest();' name='qCat' required>
                             <option ng-repeat="cat in $parent.cats" value='{{cat.cat}}'> {{cat.cat}}
                         </select>
-                    <p class="help-block">Select the type of question you would like to add.</p>
+                    <p class="help-block">Select quest category.</p>
                     </div>
                     <img src='{{$parent.quest.cat.url}}'/>
                 </div>

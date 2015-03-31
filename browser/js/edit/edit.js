@@ -196,6 +196,9 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
                 });
                 //yes, this is and the above foreach are asynchronous, but the completion of the save does not depend upon the removal of stepsToRemove quest (or vice-versa)
                 $scope.stepsToRemove = [];
+                //clear sesh storage so we can exit without nonsense;
+                sessionStorage.removeItem('stepStr');
+                sessionStorage.removeItem('newQuest');
             });
         });
     };

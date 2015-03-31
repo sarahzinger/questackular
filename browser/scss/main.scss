@@ -155,6 +155,12 @@ ui-view {
     width:75px;
     height:75px;
 }
+#quests-done{
+    background-color:#104337;
+    .panel-heading{
+        background-color:#104337;
+    }
+}
 // @import 'directives/main';
 // @import 'home/main';
 // @import 'about/main';
