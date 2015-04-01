@@ -23,6 +23,5 @@ app.controller('HomeCtrl', function ($scope) {
   },
   {
     state: "step", title: "Continue Where I Left Off"
-  }];
-
+  }]; 
 });

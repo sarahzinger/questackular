@@ -1,7 +1,7 @@
 $(document).ready(function () {
-	debugger;
+	// debugger;
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-		debugger;
+		// debugger;
 		console.log("content script request", request);
 		console.log("content script sender", sender);
 		console.log("content script sendResponse", sendResponse);
