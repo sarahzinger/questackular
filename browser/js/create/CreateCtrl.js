@@ -26,6 +26,10 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state,
         disabled: $scope.noQuest
     }];
 
+    //  ^-^
+    // (o o) - meow
+
+
     $scope.cats = catFactory.cats;
 
     if (sessionStorage.newQuest) {
