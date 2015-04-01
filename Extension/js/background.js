@@ -94,17 +94,14 @@ function blueDivs() {
 	chrome.browserAction.setBadgeText({text: "blue!"});
 }
 
-var urlList = [];
-
 function saveUrl() {
 	console.log("saveUrl called");
 	chrome.tabs.query({active: true}, function (tabs) {
-		console.log("tabs", tabs);
-		urlList.push(tabs[0].url);
-		console.log("urlList", urlList);
-		var a = JSON.stringify(urlList);
-		console.log("JSON.stringify(urlList)", a);
-		localStorage.links = a;
+		var oldLinks = localStorage["links"]
+		console.log("oldLinks", oldLinks)
+		var newLinks = oldLinks+","+JSON.stringify(tabs[0].url);
+		console.log("newLinks", newLinks)
+		localStorage.links = newLinks;
 	});
 }
 // not working
