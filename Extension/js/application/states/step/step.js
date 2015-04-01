@@ -22,7 +22,7 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 				$scope.totalStepNum = steplist.length;
 				$scope.step = popUser.participating[$scope.participatingIndex].currentStep;
 				console.log("$scope.step", $scope.step);
-				chrome.runtime.sendMessage(chromeExtId, {stepUrl: "http://" + $scope.step.url }, function (response) {
+				chrome.runtime.sendMessage(chromeExtId, {stepUrl: $scope.step.url }, function (response) {
 					console.log("chrome.runtime.sendMessage response", response.hello);
 				});
 				$scope.userQuestPts = $scope.chosenQuest.pointsFromQuest;
@@ -49,9 +49,9 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 	});
 
 
-	// $scope.launchReading = function() {
-	// 	chrome.tabs.create({url: "http://"+$scope.step.url});
-	// }
+	$scope.launchReading = function() {
+		chrome.tabs.create({url: $scope.step.url});
+	}
 
 	
 

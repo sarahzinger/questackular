@@ -10,6 +10,7 @@ app.controller('CreateStep', function($scope, QuestFactory) {
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList); //get steps on list
     $scope.saveStep = function(newStep) {
         console.log(newStep);
+
         if (!newStep.url) {
             console.log('yes');
             $scope.alerts[0].show = true;
@@ -20,6 +21,12 @@ app.controller('CreateStep', function($scope, QuestFactory) {
         } else if (!newStep.qType) {
             $scope.alerts[3].show = true;
         } else {
+            if(newStep.url.indexOf("http://") == -1 || newStep.url.indexOf("https://") == -1 ){
+                var oldurl = newStep.url;
+                console.log("oldurl", oldurl);
+                newStep.url = "http://" + oldurl;
+                console.log("newstep.url", newStep.url)
+            } 
             $scope.$parent.stepList = QuestFactory.saveStepIter(newStep, $scope.$parent.stepList) || $scope.$parent.stepList;
             $scope.step = {}; //clear step
         }
