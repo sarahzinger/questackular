@@ -9,7 +9,7 @@ app.config(function($stateProvider) {
 
 
 app.controller('SuccessCtrl', function($scope, QuestFactory, UserFactory, $state, storeFactory) {
-    
+
     $scope.allItems = [];
     $scope.userData = {};
     $scope.warn = false;
@@ -41,28 +41,30 @@ app.controller('SuccessCtrl', function($scope, QuestFactory, UserFactory, $state
                     itemId: item._id,
                     price: item.price
                 };
-                storeFactory.userBuy(bought).then(function(data) {
-                    angular.copy(data, $scope.userData);
-                    //now we need to run the parseItems fn again to find out what items
-                    //are bought and append .owned = true to them
-                    $scope.parseItems();
-                });
+                if (result) {
+                    storeFactory.userBuy(bought).then(function(data) {
+                        angular.copy(data, $scope.userData);
+                        //now we need to run the parseItems fn again to find out what items
+                        //are bought and append .owned = true to them
+                        $scope.parseItems();
+                    });
+                }
             });
         } else if (($scope.userData.total - tempPoints) < 0) {
             bootbox.alert('Hey! You can\'t afford ' + item.title + ' yet!')
         }
     };
-    $scope.parseItems = function(){
+    $scope.parseItems = function() {
         //go thru all items array and append .owned=true to ones in the user's list
-        $scope.allItems.forEach(function(el){
-            console.log('userData: ',$scope.userData)
-            if ($scope.userData.owned.indexOf(el._id)!=-1){
-                console.log('found: ',el.title)
-                el.owned=true;
-            }else{
-                el.owned=false;
+        $scope.allItems.forEach(function(el) {
+            console.log('userData: ', $scope.userData)
+            if ($scope.userData.owned.indexOf(el._id) != -1) {
+                console.log('found: ', el.title)
+                el.owned = true;
+            } else {
+                el.owned = false;
             }
-            console.log('items:',$scope.allItems)
+            console.log('items:', $scope.allItems)
         })
     };
     $scope.continue = function() {

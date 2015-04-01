@@ -63,33 +63,33 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 				UserFactory.addPoints($scope.step._id).then(function (userAddPtsData) {
 					$rootScope.$emit('updatePoints')
 
-					if($scope.step.stepNum == $scope.totalStepNum){
+					if($scope.step.stepNum == $scope.totalStepNum) {
                         console.log("this is totally the last step")
                         console.log("$scope.chosenQuest.questId._id", $scope.chosenQuest.questId._id)
-                        QuestFactory.completeQuest($scope.chosenQuest.questId._id).then(function (data) {
+                        QuestFactory.completeQuest($scope.chosenQuest.questId._id).then(function(data) {
                             participatingIndex = -1
                             localStorage.setItem("participatingIndex", participatingIndex);
                             $state.go('finish');
                         });
 
-						
-					} else {
-						UserFactory.changeCurrentStep($scope.step._id);
-                		$state.go('success');
-					}
-					
-				})
-			} else {
-				//else it will alert user to try again
-				// $scope.alertshow = true;
-				bootbox.alert('Try Again');
-			}
-		} else {
-			if(Number($scope.selectedAnswer) +1 === Number($scope.step.multiAnsCor)){
-				UserFactory.addPoints($scope.step._id).then(function (userAddPtsData) {
-					$rootScope.$emit('updatePoints')
-					if ($scope.step.stepNum === $scope.totalStepNum) {
-                        QuestFactory.completeQuest($scope.chosenQuest.questId._id).then(function(data){
+
+                    } else {
+                        UserFactory.changeCurrentStep($scope.step._id);
+                        $state.go('success');
+                    }
+
+                })
+            } else {
+                //else it will alert user to try again
+                // $scope.alertshow = true;
+                bootbox.alert('Try Again');
+            }
+        } else {
+            if (Number($scope.selectedAnswer) + 1 === Number($scope.step.multiAnsCor)) {
+                UserFactory.addPoints($scope.step._id).then(function(userAddPtsData) {
+                    $rootScope.$emit('updatePoints')
+                    if ($scope.step.stepNum === $scope.totalStepNum) {
+                        QuestFactory.completeQuest($scope.chosenQuest.questId._id).then(function(data) {
                             console.log("inside!")
                             participatingIndex = -1;
                             localStorage.setItem("participatingIndex", participatingIndex);
@@ -114,9 +114,11 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
     };
 
     $scope.giveUp = function(num) {
-    	bootbox.confirm("Are you sure you wanna give up? That'll cost " + num + " points!",function(purch){
-    		console.log(purch)
-    	})
+        bootbox.confirm("Are you sure you wanna give up? That'll cost " + num + " points!", function(purch) {
+            if (purch) {
+                $scope.purchStep();
+            }
+        })
     };
     $scope.purchStep = function() {
         UserFactory.buyStep($scope.step._id).then(function(data) {
