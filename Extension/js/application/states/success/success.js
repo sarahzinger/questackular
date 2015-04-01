@@ -8,7 +8,7 @@ app.config(function($stateProvider) {
 });
 
 
-app.controller('SuccessCtrl', function($scope, QuestFactory, UserFactory, $state, storeFactory) {
+app.controller('SuccessCtrl', function($scope, QuestFactory, UserFactory, $state, storeFactory, $rootScope) {
     
     $scope.allItems = [];
     $scope.userData = {};
@@ -31,8 +31,12 @@ app.controller('SuccessCtrl', function($scope, QuestFactory, UserFactory, $state
     });
     $scope.buy = function(item) {
         //got a target item and a target price, so check if we can buy
+        console.log("$scope.userData.spent", $scope.userData.spent)
+        console.log("item.price", item.price)
         var tempPoints = $scope.userData.spent + item.price;
         if (($scope.userData.total - tempPoints) >= 0) {
+            console.log("$scope.userData.spent after verification", $scope.userData.spent)
+            console.log("item.price after verification", item.price)
             //can afford;
             console.log('Can afford:', item);
             bootbox.confirm('Are you sure you want to buy ' + item.title + ' for ' + item.price + '?', function(result) {
@@ -42,10 +46,12 @@ app.controller('SuccessCtrl', function($scope, QuestFactory, UserFactory, $state
                     price: item.price
                 };
                 storeFactory.userBuy(bought).then(function(data) {
+                    console.log("data we get after userBuy", data)
                     angular.copy(data, $scope.userData);
                     //now we need to run the parseItems fn again to find out what items
                     //are bought and append .owned = true to them
                     $scope.parseItems();
+                    $rootScope.$emit('updatePoints');
                 });
             });
         } else if (($scope.userData.total - tempPoints) < 0) {

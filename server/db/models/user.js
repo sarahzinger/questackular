@@ -49,6 +49,7 @@ var schema = new mongoose.Schema({
 schema.set('toJSON', {virtuals: true});
 
 schema.virtual('totalPoints').get(function() {
+    console.log("total points is getting called")
     var total = 0;
     if(this.participating.length >= 1){
         this.participating.forEach(function (questObj) {
@@ -60,7 +61,11 @@ schema.virtual('totalPoints').get(function() {
             total+=Number(questObj.pointsFromQuest);
         });
     }
-    if (this.pointsSpent) total -= this.pointsSpent;
+    if (this.pointsSpent){
+        console.log("before subtraction", total)
+        total -= this.pointsSpent;
+        console.log("after subtraction", total)
+    }
     return total;
 });
 
