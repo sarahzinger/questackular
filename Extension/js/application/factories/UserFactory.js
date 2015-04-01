@@ -45,7 +45,7 @@ app.factory('UserFactory', function($http, domain) {
                 return res.data;
             });
         },
-        buyStep: function() {
+        buyStep: function(stepId) {
             //remove points
             return $http.put(domain + '/api/users/purchase/' + stepId).then(function(res) {
                 return res.data;
