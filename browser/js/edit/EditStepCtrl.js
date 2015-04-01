@@ -1,3 +1,4 @@
+'use strict';
 app.controller('editStep', function($scope, QuestFactory) {
     $scope.newStep = {};
     $scope.step = {};

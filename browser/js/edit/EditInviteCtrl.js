@@ -1,3 +1,4 @@
+'use strict';
 app.controller('editInvite', function($scope, UserFactory, $state) {
 
     $scope.setNumOfForms = function() {
