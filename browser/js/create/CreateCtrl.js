@@ -1,3 +1,4 @@
+'use strict';
 app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state, catFactory) {
     //the following scope vars are 'parental' to the child scopes. 
     sessionStorage.removeItem('newQuest');

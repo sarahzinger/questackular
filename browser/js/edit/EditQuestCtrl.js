@@ -1,3 +1,4 @@
+'use strict';
 app.controller('editQuest', function($scope) {
     $scope.searchBox = false;
     $scope.search = function() {
@@ -10,4 +11,4 @@ app.controller('editQuest', function($scope) {
     // })
 
     //add an event listener to an object ON THIS PAGE
-}
+});
