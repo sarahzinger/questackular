@@ -2,9 +2,6 @@
 
 // useful but not using currently
 chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
-	console.log("omnibox inputchanged listener text", text);
-	console.log("omnibox inputchanged listener suggest", suggest);
-
 	suggest([{
 			content: "red-divs", description: "type 'red-divs' to change divs to red!"
 		}, {
@@ -22,14 +19,15 @@ chrome.omnibox.onInputEntered.addListener(function (text) {
 		case 'save':
 			console.log("save");
 			saveUrl();
+			break;
 		case 'red-divs': 
 			console.log("red divs"); 
 			redDivs();
-		break;
+			break;
 		case 'blue-divs': 
 			console.log("blue divs");
 			blueDivs();
-		break;
+			break;
 	}
 	return true;
 });
@@ -80,7 +78,7 @@ function redDivs() {
 	chrome.tabs.query({active: true}, function (tabs) {
 		console.log("tabs", tabs);
 		chrome.tabs.sendMessage(tabs[0].id, {type: 'red-divs', color: "#F00"}, function (response) {
-			console.log("response from content script?", response);
+			// console.log("response from content script?", response);
 		});
 	});
 	chrome.browserAction.setBadgeText({text: "red!"});
@@ -96,17 +94,14 @@ function blueDivs() {
 	chrome.browserAction.setBadgeText({text: "blue!"});
 }
 
-var urlList = [];
-
 function saveUrl() {
 	console.log("saveUrl called");
 	chrome.tabs.query({active: true}, function (tabs) {
-		console.log("tabs", tabs);
-		urlList.push(tabs[0].url);
-		console.log("urlList", urlList);
-		var a = JSON.stringify(urlList);
-		console.log("JSON.stringify(urlList)", a);
-		localStorage.links = a;
+		var oldLinks = localStorage["links"]
+		console.log("oldLinks", oldLinks)
+		var newLinks = oldLinks+","+JSON.stringify(tabs[0].url);
+		console.log("newLinks", newLinks)
+		localStorage.links = newLinks;
 	});
 }
 // not working

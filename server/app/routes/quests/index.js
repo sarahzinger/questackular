@@ -9,6 +9,7 @@ router.post('/', function (req, res) {
     mongoose.model('Quest').findOne({
         title: req.body.title
     }, function(err, quest) {
+        console.log("quest", quest)
         if (err) return next(err);
         if (quest !== null) {
             return res.send("duplicateQuest"); //q exists. Don't create
