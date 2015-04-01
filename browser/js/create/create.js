@@ -69,9 +69,10 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state,
     }
     $scope.saveFullQuest = function() {
         //this will save the full quest.
+        console.log("$scope.stepList", $scope.stepList)
         if ($scope.stepList.length < 1) {
             //no steps yet. Alert user!
-            bootbox.confirm('This quest has not steps! Are you sure you wanna save it?', function(result) {
+            bootbox.confirm('This quest has no steps! Are you sure you wanna save it?', function(result) {
                 if (result == false) {
                     return;
                 }
@@ -125,7 +126,8 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state,
     $scope.$on('$stateChangeStart', function(e, to, n, from) {
         var parentF = from.name.split('.')[0];
         var parentT = to.name.split('.')[0];
-        if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest) && parentF !== 'thanks') {
+        
+        if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest) && parentT !== 'thanks') {
             if (!confirm('Are you sure you wanna leave? This quest has not been saved yet!')) {
                 e.preventDefault();
             }
