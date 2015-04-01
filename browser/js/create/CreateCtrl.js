@@ -79,7 +79,7 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state,
 
     $scope.clearData = function() {
         bootbox.confirm('Are you sure you want to clear this quest? It hasn\'t yet been saved!', function(result) {
-            if (result != false) {
+            if (result !== false) {
                 sessionStorage.removeItem('newQuest');
                 $scope.quest = {};
                 $scope.stepList = []; //list of current steps.
@@ -92,9 +92,12 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state,
         var parentT = to.name.split('.')[0];
         
         if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest) && parentT !== 'thanks') {
-            if (!confirm('Are you sure you wanna leave? This quest has not been saved yet!')) {
-                e.preventDefault();
-            }
+            bootbox.confirm('Are you sure you wanna leave? This quest has not been saved yet!', function (response) {
+                if (response === false) e.preventDefault();
+            });
+            // if (!confirm('Are you sure you wanna leave? This quest has not been saved yet!')) {
+            //     e.preventDefault();
+            // }
         }
     })
     $state.go('create.quest');
