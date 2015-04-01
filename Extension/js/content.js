@@ -1,7 +1,5 @@
 $(document).ready(function () {
-	debugger;
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-		debugger;
 		console.log("content script request", request);
 		console.log("content script sender", sender);
 		console.log("content script sendResponse", sendResponse);
@@ -29,8 +27,5 @@ $(document).ready(function () {
 		}
 		return true;
 	});
-
-
-	chrome.runtime
 	
 });

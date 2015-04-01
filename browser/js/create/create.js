@@ -188,6 +188,8 @@ app.controller('CreateStep', function($scope, QuestFactory) {
     $scope.closeAlert = function(index) {
         $scope.alerts[index].show = false;
     };
+    $scope.savedLinks = localStorage["links"]
+    console.log("$scope.savedLinks", $scope.savedLinks);
 });
 
 app.controller('QuestMap', function($scope, MapFactory) {
