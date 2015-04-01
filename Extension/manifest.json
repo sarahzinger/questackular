@@ -8,7 +8,7 @@
         "48":"questackular.png",
         "128": "questackular.png"
     },
-    "homepage_url": "http://www.msn.com",
+    "homepage_url": "http://questackular.herokuapp.com",
     "permissions": [
         "webRequest",
         "*://*/*",
@@ -40,7 +40,4 @@
     "omnibox": {
         "keyword": "q"
     }
-    // "chrome_url_overrides": {
-    //     "newtab": "popup.html"
-    // }
 }
