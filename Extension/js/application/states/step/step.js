@@ -13,7 +13,6 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
     if ($scope.participatingIndex === -1) {
         $state.go("finish")
     }
-
     UserFactory.getUserInfo().then(function(unPopUser) {
         UserFactory.getUserFromDb(unPopUser.user._id).then(function(popUser) {
             $scope.chosenQuest = popUser.participating[$scope.participatingIndex];

@@ -57,7 +57,7 @@ module.exports = function (app) {
         passport.authenticate('google', { failureRedirect: '/' }),
         function (req, res) {
             // console.log('req.user', req.user);
-            res.redirect('/home');
+            res.redirect('/myQuests');
         });
 
 };
