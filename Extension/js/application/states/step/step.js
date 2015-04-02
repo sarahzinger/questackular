@@ -7,7 +7,7 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, chromeExtId, $rootScope) {
+app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, $rootScope) {
 
     $scope.participatingIndex = Number(localStorage["participatingIndex"]);
     console.log("$scope.participatingIndex", $scope.participatingIndex)
@@ -58,7 +58,8 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
                         $scope.step.url = "http://" + $scope.step.url
                     }
 
-    				chrome.runtime.sendMessage(chromeExtId, {stepUrl: $scope.step.url }, function (response) {
+                    console.log("$scope.step.url", $scope.step.url);
+    				chrome.runtime.sendMessage(chrome.runtime.id, {stepUrl: $scope.step.url }, function (response) {
     					console.log("chrome.runtime.sendMessage response", response);
     				});
     				$scope.userQuestPts = $scope.chosenQuest.pointsFromQuest;
