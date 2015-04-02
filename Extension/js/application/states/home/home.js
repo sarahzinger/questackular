@@ -4,7 +4,6 @@ app.config(function ($stateProvider) {
     url: '/',
     templateUrl: 'js/application/states/home/home.html', 
     controller: 'HomeCtrl',
-    abstract
     });
 });
 

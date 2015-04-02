@@ -91,17 +91,19 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state,
             }
         });
     };
+    $scope.okayToGo = false;
     $scope.$on('$stateChangeStart', function(e, to, n, from) {
         var parentF = from.name.split('.')[0];
         var parentT = to.name.split('.')[0];
         
-        if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest) && parentT !== 'thanks') {
+        if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest) && parentT !== 'thanks' && !$scope.okayToGo) {
+            e.preventDefault();//prevent state change beforehand.
             bootbox.confirm('Are you sure you wanna leave? This quest has not been saved yet!', function (response) {
-                if (response === false) e.preventDefault();
+                if (response === true) {
+                    $scope.okayToGo = true;
+                    $state.go(to.name);//re-instantiate the go thingy. Wow, that actually sounded all techy and stuff.
+                }
             });
-            // if (!confirm('Are you sure you wanna leave? This quest has not been saved yet!')) {
-            //     e.preventDefault();
-            // }
         }
     })
     $state.go('create.quest');

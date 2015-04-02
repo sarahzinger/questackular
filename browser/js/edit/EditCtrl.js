@@ -120,8 +120,8 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
                         angular.copy(data, $scope.stepList);
                     });
                 });
-                        bootbox.alert('Your quest has been saved!')
-                //yes, this is and the above foreach are asynchronous, but the completion of the save does not depend upon the removal of stepsToRemove quest (or vice-versa)
+                bootbox.alert('Your quest has been saved!')
+                    //yes, this is and the above foreach are asynchronous, but the completion of the save does not depend upon the removal of stepsToRemove quest (or vice-versa)
                 $scope.stepsToRemove = [];
                 //clear sesh storage so we can exit without nonsense;
                 sessionStorage.removeItem('stepStr');
@@ -209,16 +209,19 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
             }
         })
     };
+    $scope.okayToGo = false;
     $scope.$on('$stateChangeStart', function(e, to, n, from) {
         var parentF = from.name.split('.')[0];
         var parentT = to.name.split('.')[0];
-        if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest)) {
+        
+        if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest) && parentT !== 'thanks' && !$scope.okayToGo) {
+            e.preventDefault();//prevent state change beforehand.
             bootbox.confirm('Are you sure you wanna leave? This quest has not been saved yet!', function (response) {
-                if (response === false) e.preventDefault();
+                if (response === true) {
+                    $scope.okayToGo = true;
+                    $state.go(to.name);//re-instantiate the go thingy. Wow, that actually sounded all techy and stuff.
+                }
             });
-            // if (!confirm('Are you sure you wanna leave? This quest has not been saved yet!')) {
-            //     e.preventDefault();
-            // }
         }
     })
     $state.go('edit.quest');
