@@ -96,9 +96,9 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state,
         var parentT = to.name.split('.')[0];
         
         if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest) && parentT !== 'thanks') {
-            bootbox.confirm('Are you sure you wanna leave? This quest has not been saved yet!', function (response) {
-                if (response === false) e.preventDefault();
-            });
+            if(!confirm('Are you sure you wanna leave? This quest has not been saved yet!')){
+                e.preventDefault();
+            };
             // if (!confirm('Are you sure you wanna leave? This quest has not been saved yet!')) {
             //     e.preventDefault();
             // }
