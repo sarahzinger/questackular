@@ -21,6 +21,7 @@ app.controller('ProfileCtrl', function ($scope, UserFactory, domain) {
   $scope.logout = function(){
     UserFactory.logout();
     chrome.tabs.create({url: domain.path+"/logout"});
+
   }
 
 
