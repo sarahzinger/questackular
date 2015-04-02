@@ -34,7 +34,7 @@ var app = angular.module('QuestackularExt', ['ui.router', 'ui.bootstrap']);
 
 app.controller('extCont', function($scope, UserFactory, $state) {
     $scope.login = function() {
-        window.open('questackular.herokuapp.com/auth/google', '_blank');
+        window.open('http://questackular.herokuapp.com/auth/google', '_blank');
     };
     
     var getName = function(){
