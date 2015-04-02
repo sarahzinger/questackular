@@ -15,7 +15,6 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
         $state.go("finish")
     }
 
-
 	UserFactory.getUserInfo().then(function (unPopUser) {
 		UserFactory.getUserFromDb(unPopUser.user._id).then(function (popUser){
 			$scope.chosenQuest = popUser.participating[$scope.participatingIndex];
@@ -27,7 +26,6 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
                     bootbox.alert("This quest has no steps! Please go back to 'my quests' to select a quest that has steps!", function (response) {
                         console.log("response", response);
                     });
-
                 } else {
     				console.log("$scope.step", $scope.step);
 
@@ -60,7 +58,6 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
 			});
 		});
 	});
-
 
 	$scope.submit = function() {
 		//will verify that the answer is correct
