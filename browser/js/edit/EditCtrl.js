@@ -3,19 +3,19 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
     //remove session storage in case there's anything stored from /create or watever
     sessionStorage.removeItem('stepStr');
     sessionStorage.removeItem('newQuest');
-    $scope.alerts = [{
-        type: 'danger',
-        msg: 'Warning: This active quest currently has participants! Deactivating it will destroy their hard work! Are you sure you wanna make enemies like this? If not, you may wanna activate it!',
-        show: false
-    }, {
-        type: 'danger',
-        msg: 'Warning: Activating a inactive quest will make it uneditable (unless you close it again). Is your quest awesome enough to activate yet? If not, you may wanna deactivate it!',
-        show: false
-    }, {
-        type: 'danger',
-        msg: 'Warning: This active quest currently does not seem to have any participants. However, deactivating it will make it unplayable to your adoring fanbase! Make sure you only deactivate a quest that you need to work on!',
-        show: false
-    }];
+    // $scope.alerts = [{
+    //     type: 'danger',
+    //     msg: 'Warning: This active quest currently has participants! Deactivating it will destroy their hard work! Are you sure you wanna make enemies like this? If not, you may wanna activate it!',
+    //     show: false
+    // }, {
+    //     type: 'danger',
+    //     msg: 'Warning: Activating a inactive quest will make it uneditable (unless you close it again). Is your quest awesome enough to activate yet? If not, you may wanna deactivate it!',
+    //     show: false
+    // }, {
+    //     type: 'danger',
+    //     msg: 'Warning: This active quest currently does not seem to have any participants. However, deactivating it will make it unplayable to your adoring fanbase! Make sure you only deactivate a quest that you need to work on!',
+    //     show: false
+    // }];
     $scope.cats = catFactory.cats;
 
 
@@ -81,8 +81,8 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         //this will save the full quest.
         if ($scope.stepList.length < 1) {
             //no steps yet. Alert user!
-            bootbox.confirm('This quest has not steps! Are you sure you wanna save it?', function(result) {
-                if (result == false) {
+            bootbox.('Are you ready to save your changes?', function(result) {
+                if (resconfirmult == false) {
                     return;
                 }
             });
@@ -173,17 +173,20 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         (quest.active) ? quest.active = false: quest.active = true;
         console.log('quest active?', quest.active);
         if (quest.active && quest.participants.length >= 1) {
-            $scope.alerts[0].show = true;
-            $scope.alerts[1].show = false;
-            $scope.alerts[2].show = false;
+            bootbox.alert('This active quest currently has participants, deactivating it will destroy their hard work! Are you sure you wanna make enemies like this? If not, you may wanna activate it!')
+            // $scope.alerts[0].show = true;
+            // $scope.alerts[1].show = false;
+            // $scope.alerts[2].show = false;
         } else if (!quest.active) {
-            $scope.alerts[0].show = false;
-            $scope.alerts[1].show = true;
-            $scope.alerts[2].show = false;
+            bootbox.alert('After you click save, your quest will be active and people are free to join it! To edit it again, deactive the quest')
+            // $scope.alerts[0].show = false;
+            // $scope.alerts[1].show = true;
+            // $scope.alerts[2].show = false;
         } else if (quest.active && quest.participants.length < 1) {
-            $scope.alerts[0].show = false;
-            $scope.alerts[1].show = false;
-            $scope.alerts[2].show = true;
+            bootbox.alert("Your quest is now editable, no one will be able to join until you reactive your quest")
+            // $scope.alerts[0].show = false;
+            // $scope.alerts[1].show = false;
+            // $scope.alerts[2].show = true;
         }
     };
     $scope.closeAlert = function(index) {
@@ -213,9 +216,9 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         var parentF = from.name.split('.')[0];
         var parentT = to.name.split('.')[0];
         if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest)) {
-            bootbox.confirm('Are you sure you wanna leave? This quest has not been saved yet!', function (response) {
-                if (response === false) e.preventDefault();
-            });
+            if(!confirm('Are you sure you wanna leave? This quest has not been saved yet!')){
+                e.preventDefault();
+            }
             // if (!confirm('Are you sure you wanna leave? This quest has not been saved yet!')) {
             //     e.preventDefault();
             // }

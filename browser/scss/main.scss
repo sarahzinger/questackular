@@ -186,6 +186,24 @@ ui-view {
     width:90%;
     
 }
+
+.modal-dialog{
+  top: 20px;
+}
+.bootbox-close-button{
+  .close{
+    margin-top: 10px;
+  }
+} 
+.modal-body > button{
+    padding-top: 20px!important;
+} 
+.bootbox-body{
+  padding-top: 10px;
+  
+}
+// @import 'directives/main';
+
 // @import 'home/main';
 // @import 'about/main';
 // @import 'tutorial/main';
