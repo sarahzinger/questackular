@@ -20,7 +20,7 @@ app.controller('ProfileCtrl', function ($scope, UserFactory) {
 
   $scope.logout = function(){
     UserFactory.logout();
-    chrome.tabs.create({url: "http://localhost:1337"});
+    chrome.tabs.create({url: "questackular.herokuapp.com/logout"});
   }
 
 
