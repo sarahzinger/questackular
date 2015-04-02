@@ -139,6 +139,7 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         }
         QuestFactory.getStepListById(id).then(function(data) {
             // $scope.stepList = data;
+
             angular.copy(data, $scope.stepList);
             if ($scope.stepList.length > 0) {
                 sessionStorage.stepStr = angular.toJson($scope.stepList);

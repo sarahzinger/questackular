@@ -37,16 +37,19 @@ app.controller('JoinCtrl', function ($scope, QuestFactory, AuthService) {
     AuthService.getLoggedInUser().then(function (user) {
         console.log("AuthService user", user);
         QuestFactory.getAllQuests().then(function (quests) {
-            console.log("quests", quests);
-            $scope.quests = quests;
-
             var notParticipatedQuests = _.reject(quests, function (item) {
-                return _.includes(item.participants, user._id);
-            });
-            $scope.unjoinedQuests =  _.reject(notParticipatedQuests, function (item) {
-                return _.includes(item.winners, user._id);
-            });
-            console.log("$scope.unjoinedQuests", $scope.unjoinedQuests);
+                            return _.includes(item.participants, user._id);
+                        });
+                        var notWonOrParticipatedInQuests =  _.reject(notParticipatedQuests, function (item) {
+                            return _.includes(item.winners, user._id);
+                        });
+                        console.log("notWonOrParticipatedInQuests", notWonOrParticipatedInQuests)
+                        $scope.unjoinedQuests = _.reject(notWonOrParticipatedInQuests, function (item) {
+                            console.log("is this happening?")
+                            console.log("item.active", item.active)
+                            return item.active === false;
+                        }); 
+                        console.log("$scope.unjoinedQuests", $scope.unjoinedQuests) 
         });
     });
 
@@ -71,9 +74,16 @@ app.controller('JoinCtrl', function ($scope, QuestFactory, AuthService) {
                         var notParticipatedQuests = _.reject(quests, function (item) {
                             return _.includes(item.participants, user._id);
                         });
-                        $scope.unjoinedQuests =  _.reject(notParticipatedQuests, function (item) {
+                        var notWonOrParticipatedInQuests =  _.reject(notParticipatedQuests, function (item) {
                             return _.includes(item.winners, user._id);
                         });
+                        console.log("notWonOrParticipatedInQuests", notWonOrParticipatedInQuests)
+                        $scope.unjoinedQuests = _.reject(notWonOrParticipatedInQuests, function (item) {
+                            console.log("is this happening?")
+                            console.log("item.active", item.active)
+                            return item.active === false;
+                        }); 
+                        console.log("$scope.unjoinedQuests", $scope.unjoinedQuests) 
                     });
                 });
                 if ($scope.alerts[0].show) $scope.alerts[0].show = false;

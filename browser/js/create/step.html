@@ -7,25 +7,25 @@
                     <alert ng-repeat="alert in alerts" ng-show="alert.show" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
                 </div>
                 <div class='form-group'>
-                    <label for='urlBox' class="col-lg-4 control-label">Page Url?</label>
+                    <label for='urlBox' class="col-lg-4 control-label">Page Url:</label>
                     <div class="col-lg-8">
-                        <input type='url' class="form-control" name='urlBox' ng-model='step.url'>
+                        <input type='url' class="form-control" name='urlBox' ng-model='step.url' placeholder="Enter where on the internet you would like you questers to go">
                     </div>
                     <br/>
                 </div>
                 <div class="form-group">
                     <label for='mainQ' class="col-lg-4 control-label">Question:</label>
                     <div class="col-lg-8">
-                        <input type='text' class="form-control" required name='mainQ' ng-model='step.question' />
-                        <p class="help-block">Enter your new question.</p>
+                        <input type='text' class="form-control" required name='mainQ' ng-model='step.question' placeholder="Enter your new question." />
+                        <!-- <p class="help-block">Enter your new question.</p> -->
                     </div>
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="tags" class="col-lg-4 control-label">Tags</label>
                     <div class="col-lg-8">
                         <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="step.tagStr" required ng-change='saveQuest()'>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="form-group">
                     <label for='pointsQ' class="col-lg-4 control-label">Point value:</label>

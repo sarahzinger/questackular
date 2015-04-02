@@ -57,10 +57,9 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, $
                     
                 }
 			});
-
-
-		})
+		});
 	});
+
 
 	$scope.submit = function() {
 		//will verify that the answer is correct
