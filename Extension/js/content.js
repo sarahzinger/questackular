@@ -1,5 +1,8 @@
 $(document).ready(function () {
-	chrome.runtime.
+	$(document).onclick = function() {
+		var selected = window.selection();
+		var selectedText = selected.toString();
+	};
 
 
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
