@@ -1,8 +1,8 @@
 'use strict';
 app.factory('domain', function(){
     var domain = {};
-    if(chrome.runtime.id){
-        domain.path = "http://questackular.herokuapp.com";
+    if(window.chrome && chrome.runtime && chrome.runtime.id){
+        domain.path = "https://questackular.herokuapp.com";
     } else {
         domain.path = "";
     }
