@@ -82,7 +82,7 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         if ($scope.stepList.length < 1) {
             //no steps yet. Alert user!
             bootbox.('Are you ready to save your changes?', function(result) {
-                if (resconfirmult == false) {
+                if (result == false) {
                     return;
                 }
             });
