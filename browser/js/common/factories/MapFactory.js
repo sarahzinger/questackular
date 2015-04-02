@@ -1,7 +1,7 @@
 'use strict';
 app.factory('MapFactory', function() {
     return {
-        drawMap: function($scope,stepList) {
+        drawMap: function($scope, stepList) {
             $scope.c = document.getElementById('map');
             $scope.cDraw = $scope.c.getContext('2d');
             $scope.lefts = [];
@@ -10,7 +10,7 @@ app.factory('MapFactory', function() {
             var num = stepList.length;
 
 
-            $scope.c.addEventListener('mousemove', function(e) {
+            $scope.c.addEventListener('mousemove', function (e) {
                 x = e.x || e.clientX;
                 y = e.y || e.clientY;
 

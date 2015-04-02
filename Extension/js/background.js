@@ -31,29 +31,32 @@ chrome.omnibox.onInputEntered.addListener(function (text) {
 	}
 	return true;
 });
+console.log("it's happening")
 
+console.log("right before onmessage");
 // listening for an event (one-time request) coming from the POPUP
-// chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-// 	console.log("background.js message", request);
-// 	console.log("background.js sender", sender);
-// 	console.log("background.js sendResponse", sendResponse);
-// 	// chrome.tabs.getCurrent(function (tab) {
-// 	// 	chrome.tabs.update(tab, {url: request.stepUrl});
-// 	// });
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+	console.log("background.js message", request);
+	console.log("background.js sender", sender);
+	console.log("background.js sendResponse", sendResponse);
+	chrome.tabs.getCurrent(function (tab) {
+		console.log("about to change url maybe", tab)
+		chrome.tabs.update(tab, {url: request.stepUrl});
+	});
 
-// 	switch(request.type) {
-// 		case 'red-divs': 
-// 			console.log("red-divs received");
-// 			redDivs();
-// 		break;
-// 		case 'blue-divs':
-// 			console.log("blue-divs received"); 
-// 			blueDivs();
-// 		break;
-// 	}
-// 	return true;
+	// switch(request.type) {
+	// 	case 'red-divs': 
+	// 		console.log("red-divs received");
+	// 		redDivs();
+	// 	break;
+	// 	case 'blue-divs':
+	// 		console.log("blue-divs received"); 
+	// 		blueDivs();
+	// 	break;
+	// }
+	// return true;
 	
-// });
+});
 
 
 

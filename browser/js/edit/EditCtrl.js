@@ -140,6 +140,7 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         }
         QuestFactory.getStepListById(id).then(function(data) {
             // $scope.stepList = data;
+
             angular.copy(data, $scope.stepList);
             if ($scope.stepList.length > 0) {
                 sessionStorage.stepStr = angular.toJson($scope.stepList);
@@ -212,9 +213,12 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         var parentF = from.name.split('.')[0];
         var parentT = to.name.split('.')[0];
         if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest)) {
-            if (!confirm('Are you sure you wanna leave? This quest has not been saved yet!')) {
-                e.preventDefault();
-            }
+            bootbox.confirm('Are you sure you wanna leave? This quest has not been saved yet!', function (response) {
+                if (response === false) e.preventDefault();
+            });
+            // if (!confirm('Are you sure you wanna leave? This quest has not been saved yet!')) {
+            //     e.preventDefault();
+            // }
         }
     })
     $state.go('edit.quest');

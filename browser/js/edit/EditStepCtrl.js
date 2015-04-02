@@ -9,7 +9,6 @@ app.controller('editStep', function($scope, QuestFactory) {
         else $scope.searchBox = false;
     };
 
-    console.log($scope.$parent.stepList);
     $scope.testTypes = ['Multiple Choice', 'Fill-in'];
     $scope.addStep = function() {
         $scope.$parent.addForm = true;
