@@ -1,28 +1,27 @@
 <h2>Invite More Participants to Join: {{$parent.questinvitetitle}}</h2>
-<pre>
-    invitees: {{invitees}}
-</pre>
+
 <div class="panel panel-default">
     <div class="panel-body">
         <h4>Current participants in {{$parent.questinvitetitle}} include:</h4>
         <span ng-if='$parent.questinviteparticipants.length<=0'>No participants yet!</span>
         <span ng-if='$parent.questinviteparticipants.length>0' ng-repeat="participant in $parent.questinviteparticipants">{{name}}</span>
         <div ng-repeat="participant in selectedQuest.particpants">{{participantname}}</div>
-        <h4>How many participants would you like to invite? You can invite up to 10 participants at a time.</h4>
-        <input ng-change="setNumOfForms()" ng-model="numInvites"></input>
+        <h4>How many participants would you like to invite? </h4>
+        <p class="lead">You can invite up to 10 participants at a time.</p>
+        <input type="number" class="form-control" ng-change="setNumOfForms()" ng-model="numInvites"></input>
         <br>
         <form>
             <div ng-repeat="form in invitees track by $index">
                 <div class="form-group">
-                    <label>Name</label>
-                    <input ng-model="invitees[$index].name" type="name" class="form-control" id="invitedName" placeholder="Enter name of person you would like to invite">
+                    <label>Name:</label>
+                    <input type="text" ng-model="invitees[$index].name" type="name" class="form-control" id="invitedName" placeholder="Enter name of person you would like to invite">
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input ng-model="invitees[$index].email" type="email" class="form-control" id="invitedEmail" placeholder="Enter email of person you would like to invite">
+                    <label>Email:</label>
+                    <input type="email" ng-model="invitees[$index].email" type="email" class="form-control" id="invitedEmail" placeholder="Enter email of person you would like to invite">
                 </div>
             </div>
-            <button ng-click='invite()' type="submit" class="btn btn-info">Submit</button>
+            <button ng-click='invite()' type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>
 </div>

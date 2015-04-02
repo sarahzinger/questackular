@@ -91,7 +91,7 @@
 
                 <div class="form-group">
                     <div class="col-lg-8 col-lg-offset-2">
-                        <button type="button" class="btn btn-default" ng-click='saveStep(step)'>Create Step</button>
+                        <button type="button" class="btn btn-material-indigo" ng-click='saveStep(step)'>Create Step</button>
                     </div>
                 </div>
             </fieldset>
@@ -99,7 +99,7 @@
 
         <h2>Current Steps:</h2>
         <table class='table table-responsive table-striped'>
-            <tr class='success'>
+            <tr class='primary'>
                 <th>Question</th>
                 <th>Type</th>
                 <th>Points</th>
@@ -117,8 +117,8 @@
         <div class="form-group">
             <div class="col-lg-offset-2 col-lg-8">
                 
-                <button class="btn btn-info" ng-show="tab.label=='New Quest' || (questExists == true && tab.label!='New Quest')" ng-click="tabs[2].active = true" ui-sref="create.map">Next: Review your Quest</button>
-                <button class="btn btn-danger clearButton" ng-click="$parent.clearData();">Clear</button>
+                <button class="btn btn-primary" ng-show="tab.label=='New Quest' || (questExists == true && tab.label!='New Quest')" ng-click="tabs[2].active = true" ui-sref="create.map">Next: Review your Quest</button>
+                <button class="btn btn-default" ng-click="$parent.clearData();">Clear</button>
             </div>
         </div>
 

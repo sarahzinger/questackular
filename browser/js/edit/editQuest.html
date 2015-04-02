@@ -49,14 +49,14 @@
                         <td>
                             <input type='checkbox' ng-model='quest.active' checked='false' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
                         </td>
-                        <td><button type="button" class="btn btn-info btn-xs" ui-sref="edit.step" ng-click='$parent.pickQuest(quest._id)'>Edit
+                        <td><button type="button" class="btn btn-material-blue-grey btn-xs" ui-sref="edit.step" ng-click='$parent.pickQuest(quest._id)'>Edit
                         </button></td>
                         <td editable-text='quest.participants'>
                             <span ng-if='quest.participants.length>0'>{{name}}</span>
                             <span ng-if='quest.participants.length<=0'>No participants yet!</span>
                         </td>
 
-                        <td><button type="button" class="btn btn-info btn-xs" ng-click="goToInvite(quest.title, quest.participants)">Invite
+                        <td><button type="button" class="btn btn-material-blue-grey btn-xs" ng-click="goToInvite(quest.title, quest.participants)">Invite
                         </button></td>
                     </tr>
                     <!-- show 2nd block if quests are active, and thus ineditable -->
@@ -79,7 +79,7 @@
                             <span ng-if='quest.participants.length<=0'>No participants yet!</span>
                         </td>
 
-                        <td><button type="button" class="btn btn-info btn-xs" ng-click="goToInvite(quest.title, quest.participants)">Invite
+                        <td><button type="button" class="btn btn-material-blue-grey btn-xs" ng-click="goToInvite(quest.title, quest.participants)">Invite
 
                         </button></td>
                     </tr>
@@ -90,9 +90,9 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="pull-right">
-                    <button type="button" class="btn btn-success" ng-click='$parent.saveFullQuest()'>Save</button>
+                    <button type="button" class="btn btn-primary" ng-click='$parent.saveFullQuest()'>Save</button>
                     <!-- <button class="btn btn-primary" ui-sref="{{ tabs[1].state && !tab.disabled}}" ng-click="tabs[1].active = true">Next</button> -->
-                    <button class="btn btn-info clearButton" ng-click="$parent.clearData();">Clear</button>
+                    <button class="btn btn-default" ng-click="$parent.clearData();">Clear</button>
                 </div>
             </div>
         </div>
