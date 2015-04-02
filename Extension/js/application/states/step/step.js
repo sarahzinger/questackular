@@ -7,7 +7,7 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, chromeExtId, $rootScope) {
+app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, $rootScope) {
 
     $scope.participatingIndex = Number(localStorage["participatingIndex"]);
     console.log("$scope.participatingIndex", $scope.participatingIndex)
