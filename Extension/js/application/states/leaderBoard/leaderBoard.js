@@ -9,13 +9,7 @@ app.config(function ($stateProvider) {
 
 
 app.controller('LeaderBoardCtrl', function ($scope, UserFactory) {
-	var n = 20 // get number of users from db;
-	$scope.lb = {};
-	// $scope.lb.rankNums = [];
-	// for (var i = 1; i <= n; i++) {
-	// 	$scope.rankNums.push(i);
-	// }
-
+	console.log("what is going on??");
 	UserFactory.getAllUsers().then(function (users) {
 		console.log("getAllUsers().then(response)", users);
 		$scope.allUsers = users;
