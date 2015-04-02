@@ -34,7 +34,7 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
                     }
                     console.log("$scope.step.url ", $scope.step.url);
     				chrome.runtime.sendMessage(chromeExtId, {stepUrl: $scope.step.url }, function (response) {
-    					console.log("chrome.runtime.sendMessage response", response);
+    					console.log("chrome.runtime.sendMessage response", response.hello);
     				});
     				$scope.userQuestPts = $scope.chosenQuest.pointsFromQuest;
 
