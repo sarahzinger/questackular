@@ -32,9 +32,9 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
                     if ($scope.step.url.indexOf("http://") == -1 && $scope.step.url.indexOf("https://") == -1) {
                         $scope.step.url = "http://" + $scope.step.url
                     }
-                    console.log("$scope.step.url ", $scope.step.url);
+
     				chrome.runtime.sendMessage(chromeExtId, {stepUrl: $scope.step.url }, function (response) {
-    					console.log("chrome.runtime.sendMessage response", response.hello);
+    					console.log("chrome.runtime.sendMessage response", response);
     				});
     				$scope.userQuestPts = $scope.chosenQuest.pointsFromQuest;
 
