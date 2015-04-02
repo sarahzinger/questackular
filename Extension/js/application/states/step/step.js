@@ -14,30 +14,7 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
     if ($scope.participatingIndex === -1) {
         $state.go("finish")
     }
-<<<<<<< HEAD
-    UserFactory.getUserInfo().then(function(unPopUser) {
-        UserFactory.getUserFromDb(unPopUser.user._id).then(function(popUser) {
-            $scope.chosenQuest = popUser.participating[$scope.participatingIndex];
-            console.log("$scope.chosenQuest", $scope.chosenQuest);
-            QuestFactory.getStepListById($scope.chosenQuest.questId._id).then(function(steplist) {
-                $scope.totalStepNum = steplist.length;
-                $scope.step = popUser.participating[$scope.participatingIndex].currentStep;
-                console.log("$scope.step", $scope.step);
-                chrome.runtime.sendMessage(chromeExtId, {
-                    stepUrl: "http://" + $scope.step.url
-                }, function(response) {
-                    console.log("chrome.runtime.sendMessage response", response.hello);
-                });
-                $scope.userQuestPts = $scope.chosenQuest.pointsFromQuest;
 
-                $scope.progressPct = ($scope.step.stepNum / $scope.totalStepNum) * 100;
-                if ($scope.progressPct < 25) {
-                    $scope.progressType = 'danger';
-                } else if ($scope.progressPct < 50) {
-                    $scope.progressType = 'warning';
-                } else if ($scope.progressPct < 75) {
-                    $scope.progressType = 'info';
-=======
 
 	UserFactory.getUserInfo().then(function (unPopUser) {
 		UserFactory.getUserFromDb(unPopUser.user._id).then(function (popUser){
@@ -50,7 +27,7 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, c
                     bootbox.alert("This quest has no steps! Please go back to 'my quests' to select a quest that has steps!", function (response) {
                         console.log("response", response);
                     });
->>>>>>> master
+
                 } else {
     				console.log("$scope.step", $scope.step);
 
