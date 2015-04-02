@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('ProfileCtrl', function ($scope, UserFactory) {
+app.controller('ProfileCtrl', function ($scope, UserFactory, domain) {
   UserFactory.getUserInfo().then(function (userInfo) {
     console.log("userInfo", userInfo);
     $scope.userPic = userInfo.user.google.picture;
@@ -20,7 +20,8 @@ app.controller('ProfileCtrl', function ($scope, UserFactory) {
 
   $scope.logout = function(){
     UserFactory.logout();
-    chrome.tabs.create({url: "http://questackular.herokuapp.com/logout"});
+    chrome.tabs.create({url: domain.path+"/logout"});
+
   }
 
 

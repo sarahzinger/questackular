@@ -11,12 +11,12 @@ app.factory('UserFactory', function($http, AuthService, domain) {
 			});
         },
         getUserById: function(userId){
-			return $http.get(domain + '/api/users/' + userId).then(function(response) {
+			return $http.get(domain.path + '/api/users/' + userId).then(function(response) {
 	            return response.data;
 	        });
         },
         getAllUsers: function() {
-            return $http.get(domain + '/api/users').then(function (res) {
+            return $http.get(domain.path + '/api/users').then(function (res) {
                 return res.data;
             });
         }
