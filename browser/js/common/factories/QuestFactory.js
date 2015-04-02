@@ -1,76 +1,81 @@
 'use strict';
-
-app.value('domain', "http://questackular.herokuapp.com");
-// app.value('domain', "https://localhost:1337");
+app.factory('domain', function(){
+    var domain = {};
+    if(chrome.runtime.id){
+        domain.path = "http://questackular.herokuapp.com";
+    } else {
+        domain.path = "";
+    }
+    return domain;
+})
 
 app.factory('QuestFactory', function($http, domain) {
-    console.log("domain", domain);
     return {
         sendQuest: function(quest) {
             //saves the quest, returns its ID
-            return $http.post(domain + '/api/quests', quest).then(function(response) {
+            return $http.post(domain.path + '/api/quests', quest).then(function(response) {
                 return response.data;
             });
         },
         getAllQuests: function() {
-            return $http.get(domain + '/api/quests').then(function(res) {
+            return $http.get(domain.path + '/api/quests').then(function(res) {
                 return res.data;
             });
         },
         getQuestById: function(questId) {
-            return $http.get(domain + '/api/quests/' + questId).then(function(res) {
+            return $http.get(domain.path + '/api/quests/' + questId).then(function(res) {
                 return res.data;
             });
         },
         joinQuest: function(questInfo) {
-            return $http.post(domain + '/api/quests/participants', questInfo).then(function(response) {
+            return $http.post(domain.path + '/api/quests/participants', questInfo).then(function(response) {
                 return response.data;
             });
         },
         leaveQuest: function(questId) {
-            return $http.delete(domain + '/api/quests/participants/' + questId).then(function(response) {
+            return $http.delete(domain.path + '/api/quests/participants/' + questId).then(function(response) {
                 return response.data;
             });
         },
         updateQuest: function(updatedQuest) {
-            return $http.put(domain+'/api/quests/', updatedQuest).then(function(res) {
+            return $http.put(domain.path+'/api/quests/', updatedQuest).then(function(res) {
                 return res.data;
             });
         },
         getQuestsByUser: function(id) {
             //get all quests 'owned' by user
-            return $http.get(domain + '/api/quests/user/' + id).then(function(res) {
+            return $http.get(domain.path + '/api/quests/user/' + id).then(function(res) {
                 return res.data;
             });
         },
         sendStep: function(step) {
             //saves the quest
-            return $http.post(domain + '/api/step', step).then(function(response) {
+            return $http.post(domain.path + '/api/step', step).then(function(response) {
                 return response.data;
             });
         },
         getStepListById: function(id) {
             //gets a bunch of steps by their Quest ID
-            return $http.get(domain + '/api/step/list/' + id).then(function(res) {
+            return $http.get(domain.path + '/api/step/list/' + id).then(function(res) {
                 return res.data;
             });
         },
         remStep: function(rem) {
             //delete a step. only necessary if step has an ID 
             //(i.e., step already is on DB)
-            return $http.post(domain + '/api/step/rem/', rem).then(function(res) {
+            return $http.post(domain.path + '/api/step/rem/', rem).then(function(res) {
                 return res.data;
             });
         },
         updateStep: function(updatedStep) {
             //mongoose seems to ಥ_ಥ when we try to re-save an object id.
             //SO we're doing a findbyidandupdate
-            return $http.post(domain + '/api/step/upd', updatedStep).then(function(res) {
+            return $http.post(domain.path + '/api/step/upd', updatedStep).then(function(res) {
                 return res.data;
             });
         },
         getStepById: function(stepId) {
-            return $http.get(domain + '/api/step/' + stepId).then(function(res) {
+            return $http.get(domain.path + '/api/step/' + stepId).then(function(res) {
                 return res.data;
             });
         },
@@ -112,14 +117,14 @@ app.factory('QuestFactory', function($http, domain) {
             return stepList;
         },
         completeQuest: function (questId) {
-            return $http.put(domain + '/api/quests/participants', {questId:questId}).then(function (response) {
+            return $http.put(domain.path + '/api/quests/participants', {questId:questId}).then(function (response) {
                 return response.data;
             });
         },
         sendInvite: function(invitees, quest) {
             console.log("invitee received in sendInvite", invitees);
             console.log("quest received in sendInvite", quest);
-            return $http.post(domain + '/api/quests/invite', {invitees: invitees, quest: quest}).then(function (response) {
+            return $http.post(domain.path + '/api/quests/invite', {invitees: invitees, quest: quest}).then(function (response) {
                 console.log("quest factory sendInvite response", response);
                 return response.data;
             });
