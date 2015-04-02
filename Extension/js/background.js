@@ -32,6 +32,7 @@ chrome.omnibox.onInputEntered.addListener(function (text) {
 	return true;
 });
 
+console.log("right before onmessage");
 // listening for an event (one-time request) coming from the POPUP
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	console.log("background.js message", request);
