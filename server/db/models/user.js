@@ -51,17 +51,17 @@ schema.set('toJSON', {virtuals: true});
 schema.virtual('totalPoints').get(function() {
     console.log("total points is getting called")
     var total = 0;
-    if(this.participating && this.participating.length >= 1){
+    if (this.participating && this.participating.length >= 1) {
         this.participating.forEach(function (questObj) {
             total += Number(questObj.pointsFromQuest);
         });
     }
-    if(this.pastQuests && this.pastQuests.length >= 1){
+    if (this.pastQuests && this.pastQuests.length >= 1) {
         this.pastQuests.forEach(function(questObj){
             total+=Number(questObj.pointsFromQuest);
         });
     }
-    if (this.pointsSpent){
+    if (this.pointsSpent) {
         console.log("before subtraction", total)
         total -= this.pointsSpent;
         console.log("after subtraction", total)
