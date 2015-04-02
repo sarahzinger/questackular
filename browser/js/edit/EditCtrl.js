@@ -120,6 +120,7 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
                         angular.copy(data, $scope.stepList);
                     });
                 });
+                        bootbox.alert('Your quest has been saved!')
                 //yes, this is and the above foreach are asynchronous, but the completion of the save does not depend upon the removal of stepsToRemove quest (or vice-versa)
                 $scope.stepsToRemove = [];
                 //clear sesh storage so we can exit without nonsense;
@@ -157,18 +158,6 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         });
     };
 
-    //TEMPORARY------------------------
-    //AAAAAAAH!------------------------
-    //DELETE ME------------------------
-    $scope.showData = function() {
-        bootbox.confirm('This is a confirm box!', function(result) {
-            console.log('Shouldnt run end code!', result)
-            if (result == false) {
-                return;
-            }
-        });
-        console.log('Ran end code!');
-    };
 
     $scope.correctAns = function(ansNum, stepNum) {
         //this function simply chooses the correct answer for the multi-choice answers.

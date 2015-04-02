@@ -53,7 +53,7 @@ body {
     position: fixed;
     z-index: 10;
     // background-color: #955;
-    width:70%;
+    width: 70%;
 }
 // .alert-warning{
 //     background-color: #B80000;
@@ -145,26 +145,49 @@ ui-view {
 }
 .cat {
     img {
-        position:relative;
+        position: relative;
         width: 200px;
         height: 200px;
         left: 30%;
     }
 }
-.cat-edit{
-    width:75px;
-    height:75px;
+.cat-edit {
+    width: 75px;
+    height: 75px;
 }
-#quests-done{
-    background-color:#104337;
-    .panel-heading{
-        background-color:#104337;
+#quests-done {
+    background-color: #104337;
+    .panel-heading {
+        background-color: #104337;
     }
 }
-#noMap{
-    width:100%;
-    height:100vh;
-    background-image: url('http://www.townsandtrails.com/blog/wp-content/uploads/2010/05/Map-Cat.jpg');
+.noMap {
+    width: 100%;
+    height: 100vh;
+    font-weight:bold;
+    font-size: xx-large;
+    text-align: center;
+    padding-top: 50px;
+    background-image: linear-gradient(rgba(238, 238, 238, .7), rgba(238, 238, 238, .7)), url('http://www.townsandtrails.com/blog/wp-content/uploads/2010/05/Map-Cat.jpg');
+    background-size: cover;
+    button {
+        z-index: 2;
+        .arrowSpan {
+            width: 0px;
+            height: 20px;
+            overflow: hidden;
+            display: inline-block;
+            transition-duration: .5s
+        }
+        &:hover > .arrowSpan{
+            width:20px;
+        }
+    }
+}
+.yayPic{
+    background-image:url('http://animalfair.com/wp-content/uploads/2014/07/happycat.jpg');
+    width:90%;
+    
 }
 // @import 'directives/main';
 // @import 'home/main';
