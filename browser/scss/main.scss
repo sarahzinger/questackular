@@ -197,6 +197,11 @@ ui-view {
   padding-top: 10px;
   
 }
+@media (min-width: 768px) {
+    .navbar-nav{
+        margin:0px;
+    }
+}
 // @import 'directives/main';
 
 // @import 'home/main';
