@@ -27,18 +27,18 @@ router.put('/points/:id', function(req, res, next) {
         var points = stepObject.pointValue;
         //find the quest in req.user which has a current step that matches our stepid
         req.user.participating.forEach(function(quest, idx, arr) {
-        if (quest.currentStep == stepId) {
-        //push the new point worth to pointsfromQuest on the participating array in users
-          console.log("BEFORE quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest);
-          console.log("points we are trying to add", points);
-          req.user.participating[idx].pointsFromQuest += points;
-          console.log("After quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest);
-          req.user.save(function(err, updatedUser){
-            console.log("updatedUser", updatedUser);
-            res.json(updatedUser.participating[idx].pointsFromQuest);
-          });
-        }
-      });
+            if (quest.currentStep == stepId) {
+                //push the new point worth to pointsfromQuest on the participating array in users
+                console.log("BEFORE quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest);
+                console.log("points we are trying to add", points);
+                req.user.participating[idx].pointsFromQuest += points;
+                console.log("After quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest);
+                req.user.save(function(err, updatedUser) {
+                    console.log("updatedUser", updatedUser);
+                    res.json(updatedUser.participating[idx].pointsFromQuest);
+                });
+            }
+        });
     });
 
 });
@@ -138,32 +138,38 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.put('/purchase/:id', function(req, res, next) {
-  /*this router will SUBTRACT the current points of the inputted step (from front end)
-  It will then continue the user to the next step. Essentially, only dif btwn this and 
-  answering a q correctly is that this subs pts, whereas that adds em.
-  */
-    console.log("trying to subtract points on the backend right now");
+    /*this router will SUBTRACT the current points of the inputted step (from front end)
+    It will then continue the user to the next step. Essentially, only dif btwn this and 
+    answering a q correctly is that this subs pts, whereas that adds em.
+    */
+    
     var stepId = req.params.id;
-    console.log("stepId", stepId);
     //get the step object to get point worth
     mongoose.model('Step').findOne({
         _id: stepId
     }, function(err, stepObject) {
-        console.log('found the step', stepObject);
         var points = stepObject.pointValue;
+        console.log(chalk.bgGreen.black('$ (1) $')+'x'+points);
+        //commented this out because we dont actually subtract from the quest: we just dont add
         //find the quest in req.user which has a current step that matches our stepid
-        req.user.participating.forEach(function(quest, idx, arr) {
+        // req.user.participating.forEach(function(quest, idx, arr) {
 
-            if (quest.currentStep == stepId) {
-                //push the new point worth to pointsfromQuest on the participating array in users
-                console.log("BEFORE quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest);
-                console.log("points we are trying to remove", points);
-                req.user.participating[idx].pointsFromQuest -= points;
-                console.log("After quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest);
-                req.user.save(function(afterSave) {
-                    res.end();
-                });
-            }
+        //     if (quest.currentStep == stepId) {
+        //         //push the new point worth to pointsfromQuest on the participating array in users
+        //         console.log("BEFORE quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest);
+        //         console.log("points we are trying to remove", points);
+        //         req.user.participating[idx].pointsFromQuest -= points;
+        //         
+        //         console.log("After quest.pointsFromQuest", req.user.participating[idx].pointsFromQuest);
+        //         req.user.save(function(afterSave) {
+        //             res.end();
+        //         });
+        //     }
+        // });
+        req.user.pointsSpent += points;
+        req.user.save(function(err, resp) {
+            console.log(resp);
+            res.send(resp);
         });
     });
 })

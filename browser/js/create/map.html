@@ -1,5 +1,8 @@
 <div>
     <div id='mapCont'>
+        <button type="button" class="btn btn-success" ng-click='$parent.saveFullQuest()'>Save Quest &amp; All Steps</button>
+        <div ng-if='$parent.stepList.length<1' class='noMap'>Ohnoes! Your Quest curently has zero steps!</div>
         <canvas id='map' width='1000' height='1000'>Your browser doesn't support canvas!</canvas>
+
     </div>
 </div>
