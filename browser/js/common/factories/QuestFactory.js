@@ -79,9 +79,7 @@ app.factory('QuestFactory', function($http, domain) {
                 console.log('new Q: ', step.question, ', old Q:', stepList[r]);
                 if (step.question === stepList[r].question) {
                     //err! question already exists!
-                    bootbox.alert("This step already exists! You can't have the same step multiple times in the same quest!", function() {
-                        console.log("This step already exists! You can't have the same step multiple times in the same quest!")
-                    });
+                    bootbox.alert('This step already exists! You can\'t have the same step multiple times in the same quest!');
                     return false;
                 }
             }

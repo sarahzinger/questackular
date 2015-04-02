@@ -5,7 +5,7 @@ app.config(function ($stateProvider) {
            getLoggedInUser: function(AuthService, $state, $http){
            return AuthService.getLoggedInUser(true).then(function(user){
              if(user){
-               $state.go('home');
+               $state.go('myQuests');
              }
            });
            }
@@ -53,7 +53,7 @@ app.controller('LoginCtrl', function ($scope, $rootScope, AuthService, $state, A
         $scope.error = null;
 
         AuthService.login(loginInfo).then(function () {
-            $state.go('home');
+            $state.go('myQuests');
         }).catch(function () {
             $scope.error = 'Invalid login credentials.';
         });
