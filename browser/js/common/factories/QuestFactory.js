@@ -1,6 +1,7 @@
 'use strict';
 
-app.value('domain', "http://localhost:1337");
+app.value('domain', "https://questackular.herokuapp.com");
+// app.value('domain', "https://localhost:1337");
 
 app.factory('QuestFactory', function($http, domain) {
     console.log("domain", domain);

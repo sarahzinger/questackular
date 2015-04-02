@@ -25,7 +25,7 @@
             <table class="table table-hover" id="dev-table">
                 <thead>
                     <tr>
-                        <th>Picked</th>
+                        <!-- <th>Picked</th> -->
                         <th>Quest Title</th>
                         <th>Quest Description</th>
                         <th>Category</th>
@@ -38,9 +38,9 @@
                 <tbody>
                     <!-- show 1st block if quests are inactive, and thus editable -->
                     <tr ng-repeat='quest in questList | filter:editQSearch' ng-if='quest.active==false'>
-                        <td>
+                        <!-- <td>
                             <input type='radio' name='pickedQuest' value='{{quest.title}}' ng-change='$parent.pickQuest(quest._id)' ng-model='$parent.selectedQuest'>
-                        </td>
+                        </td> -->
                         <td editable-text='quest.title'>{{quest.title}}</td>
                         <td editable-text='quest.description'>{{quest.description}}</td>
                         <td editable-select='quest.cat' e-ng-options='item.cat for item in cats'>{{quest.cat.cat}}
@@ -61,9 +61,9 @@
                     </tr>
                     <!-- show 2nd block if quests are active, and thus ineditable -->
                     <tr ng-repeat='quest in questList | filter:editQSearch' ng-if='quest.active==true'>
-                        <td>
+                        <!-- <td>
                             <input type='radio' name='pickedQuest' value='{{quest.title}}' ng-change='$parent.pickQuest(quest._id)' ng-model='$parent.selectedQuest' disabled title='You can&rsquo;t edit an active quest!'>
-                        </td>
+                        </td> -->
                         <td>{{quest.title}}</td>
                         <td>{{quest.description}}</td>
                         <td>{{quest.cat.cat}}
