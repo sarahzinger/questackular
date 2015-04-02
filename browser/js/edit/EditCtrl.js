@@ -81,7 +81,7 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         //this will save the full quest.
         if ($scope.stepList.length < 1) {
             //no steps yet. Alert user!
-            bootbox.('Are you ready to save your changes?', function(result) {
+            bootbox.confirm('Are you ready to save your changes?', function(result) {
                 if (result == false) {
                     return;
                 }
