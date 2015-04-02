@@ -5,12 +5,9 @@ body {
     position: relative;
     top: 80px;
 }
-// .clearButton {
-//     background-color: #795455;
-//     &:hover {
-//         background-color: #3E292A;
-//     }
-// }
+
+@import 'splash/main';
+
 .correctMultiAns {
     background-color: #cfc;
 }
@@ -189,7 +186,24 @@ ui-view {
     width:90%;
     
 }
+
+.modal-dialog{
+  top: 20px;
+}
+.bootbox-close-button{
+  .close{
+    margin-top: 10px;
+  }
+} 
+.modal-body > button{
+    padding-top: 20px!important;
+} 
+.bootbox-body{
+  padding-top: 10px;
+  
+}
 // @import 'directives/main';
+
 // @import 'home/main';
 // @import 'about/main';
 // @import 'tutorial/main';

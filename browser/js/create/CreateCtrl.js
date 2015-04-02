@@ -95,7 +95,6 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state,
     $scope.$on('$stateChangeStart', function(e, to, n, from) {
         var parentF = from.name.split('.')[0];
         var parentT = to.name.split('.')[0];
-        
         if (parentF != parentT && (sessionStorage.stepStr || sessionStorage.newQuest) && parentT !== 'thanks' && !$scope.okayToGo) {
             e.preventDefault();//prevent state change beforehand.
             bootbox.confirm('Are you sure you wanna leave? This quest has not been saved yet!', function (response) {
