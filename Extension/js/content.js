@@ -1,4 +1,7 @@
 $(document).ready(function () {
+	chrome.runtime.
+
+
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 		console.log("content script request", request);
 		console.log("content script sender", sender);
