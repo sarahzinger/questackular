@@ -166,6 +166,23 @@ ui-view {
     height:100vh;
     background-image: url('http://www.townsandtrails.com/blog/wp-content/uploads/2010/05/Map-Cat.jpg');
 }
+
+//splains
+.splain{
+    height:200px;
+    font-size:larger;
+    position:absolute;
+}
+#joinSplain{
+    display:none;
+}
+#mySplain{
+    display:none;
+}
+#createSplain{
+    display:none;
+}
+
 // @import 'directives/main';
 // @import 'home/main';
 // @import 'about/main';

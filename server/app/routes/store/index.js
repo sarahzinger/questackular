@@ -32,7 +32,7 @@ router.post('/buy/', function(req, res, next) {
     if (!req.user.pointsSpent) {
         req.user.pointsSpent = 0;
     }
-
+    console.log(chalk.bgGreen.black('$ (1) $')+'x'+itemCost);
     req.user.itemsBought.push(itemId);
     req.user.pointsSpent += itemCost;
     req.user.save(function(err, resp) {
