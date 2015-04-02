@@ -33,6 +33,7 @@ h6 {
     background-image: linear-gradient(rgba(238, 238, 238, .5), rgba(238, 238, 238, .1)), url(../img/intro-bg.jpg);
     // background: no-repeat center center;
     background-size: cover;
+    background-attachment: fixed;
     .myOwnClass{
         background-color:#ddd!important;
         &:hover{
