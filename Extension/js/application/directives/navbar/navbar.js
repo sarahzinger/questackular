@@ -24,7 +24,7 @@ app.directive('navbar', function () {
             $scope.user = null;
 
             $scope.login = function() {
-                window.open('localhost:1337/auth/google', '_blank');
+                window.open('questackular.herokuapp.com/auth/google', '_blank');
             };
             
             
