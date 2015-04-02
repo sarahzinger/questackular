@@ -31,6 +31,7 @@ chrome.omnibox.onInputEntered.addListener(function (text) {
 	}
 	return true;
 });
+console.log("it's happening")
 
 // listening for an event (one-time request) coming from the POPUP
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
@@ -38,6 +39,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	console.log("background.js sender", sender);
 	console.log("background.js sendResponse", sendResponse);
 	chrome.tabs.getCurrent(function (tab) {
+		console.log("about to change url maybe", tab)
 		chrome.tabs.update(tab, {url: request.stepUrl});
 	});
 
