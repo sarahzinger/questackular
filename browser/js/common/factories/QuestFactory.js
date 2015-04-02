@@ -1,6 +1,6 @@
 'use strict';
 
-app.value('domain', window.location.origin);
+app.value('domain', "http://localhost:1337");
 
 app.factory('QuestFactory', function($http, domain) {
     console.log("domain", domain);

@@ -15,18 +15,18 @@
 //     };
 // }
 
-window.onload = function() {
-    var port = chrome.extension.connect({name: "newport"});
-    document.getElementById("red").onclick = function() {
-        port.postMessage({ type: "red-divs" });
-    }
-    document.getElementById("blue").onclick = function() {
-        port.postMessage({ type: "blue-divs" });
-    }
-    port.onMessage.addListener(function (message) {
-        console.log("message is", message);
-    });
-}
+// window.onload = function() {
+//     var port = chrome.extension.connect({name: "newport"});
+//     document.getElementById("red").onclick = function() {
+//         port.postMessage({ type: "red-divs" });
+//     }
+//     document.getElementById("blue").onclick = function() {
+//         port.postMessage({ type: "blue-divs" });
+//     }
+//     port.onMessage.addListener(function (message) {
+//         console.log("message is", message);
+//     });
+// }
 // end of popup.js test
 
 
