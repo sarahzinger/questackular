@@ -17,6 +17,6 @@ module.exports = {
     "callbackURL": "http://localhost:1337/auth/google/callback"
   },
   "MANDRILL": {
-    key: 'hM6OlbcTpHE7fYJp-GQNsw'
+    "key": 'hM6OlbcTpHE7fYJp-GQNsw'
   }
 };

@@ -1,7 +1,9 @@
 'use strict';
-app.value('domain', 'http://localhost:1337');
+
+app.value('domain', "http://localhost:1337");
 
 app.factory('QuestFactory', function($http, domain) {
+    console.log("domain", domain);
     return {
         sendQuest: function(quest) {
             //saves the quest, returns its ID
@@ -77,7 +79,9 @@ app.factory('QuestFactory', function($http, domain) {
                 console.log('new Q: ', step.question, ', old Q:', stepList[r]);
                 if (step.question === stepList[r].question) {
                     //err! question already exists!
-                    alert('This step already exists! You can\'t have the same step multiple times in the same quest!');
+                    bootbox.alert("This step already exists! You can't have the same step multiple times in the same quest!", function() {
+                        console.log("This step already exists! You can't have the same step multiple times in the same quest!")
+                    });
                     return false;
                 }
             }
@@ -108,8 +112,16 @@ app.factory('QuestFactory', function($http, domain) {
             angular.copy(angular.fromJson(sessionStorage.stepStr), stepList);
             return stepList;
         },
-        completeQuest: function(questId){
-            return $http.put(domain + '/api/quests/participants', {questId:questId}).then(function(response) {
+        completeQuest: function (questId) {
+            return $http.put(domain + '/api/quests/participants', {questId:questId}).then(function (response) {
+                return response.data;
+            });
+        },
+        sendInvite: function(invitees, quest) {
+            console.log("invitee received in sendInvite", invitees);
+            console.log("quest received in sendInvite", quest);
+            return $http.post(domain + '/api/quests/invite', {invitees: invitees, quest: quest}).then(function (response) {
+                console.log("quest factory sendInvite response", response);
                 return response.data;
             });
         }
