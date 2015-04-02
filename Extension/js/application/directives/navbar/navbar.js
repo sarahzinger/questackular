@@ -9,6 +9,7 @@ app.directive('navbar', function () {
         controller: function($rootScope, UserFactory, $state, $scope){
             $rootScope.$on("updatePoints", function(){
                 UserFactory.getTotalPoints().then(function(data){
+                    console.log(data)
                     $rootScope.totalPoints = data;
                 });
             })

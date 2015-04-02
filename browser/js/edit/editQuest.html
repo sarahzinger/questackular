@@ -20,7 +20,7 @@
             <div class="panel-body" ng-show="searchBox">
                 <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" ng-model="editQSearch"/>
             </div>
-            <button ng-click='$parent.showData();'>CLICK ME PLS LOLTHX</button>
+            <!-- <button ng-click='$parent.showData();'>CLICK ME PLS LOLTHX</button> -->
 
             <table class="table table-hover" id="dev-table">
                 <thead>
@@ -49,7 +49,7 @@
                         <td>
                             <input type='checkbox' ng-model='quest.active' checked='false' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
                         </td>
-                        <td><button type="button" class="btn btn-info btn-xs" ui-sref="edit.step">Edit
+                        <td><button type="button" class="btn btn-info btn-xs" ui-sref="edit.step" ng-click='$parent.pickQuest(quest._id)'>Edit
                         </button></td>
                         <td editable-text='quest.participants'>
                             <span ng-if='quest.participants.length>0'>{{name}}</span>

@@ -9,9 +9,6 @@ var async = require('async');
 router.get('/points/', function(req, res, next) {
     if (req.user) {
         var total = req.user.totalPoints;
-        if (req.user.pointsSpent) {
-            total -= req.user.pointsSpent;
-        }
         res.json(total);
     } else {
         res.send("nope")
