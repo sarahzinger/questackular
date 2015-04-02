@@ -16,14 +16,16 @@ app.controller('MyQuestsCtrl', function($scope, UserFactory, $state, QuestFactor
         UserFactory.getUserFromDb($scope.userId).then(function(dbUser) {
             console.log("user from DB", dbUser);
             $scope.user = dbUser;
-            if (dbUser.participating.length) $scope.questsJoined = dbUser.participating;
+            $scope.questsJoined = dbUser.participating;
             console.log("quest joined", $scope.questsJoined[0].questId);
-            $scope.questsJoined.forEach(function(el) {
-                el.cat = el.cat || {
-                    cat: 'Miscellaneous',
-                    url: 'http://i.imgur.com/jFkV2.jpg'
-                };
-            });
+            if ($scope.questsJoined.length) {
+                $scope.questsJoined.forEach(function(el) {
+                    el.cat = el.cat || {
+                        cat: 'Miscellaneous',
+                        url: 'http://i.imgur.com/jFkV2.jpg'
+                    };
+                });
+            }
         });
     });
 
@@ -33,14 +35,16 @@ app.controller('MyQuestsCtrl', function($scope, UserFactory, $state, QuestFactor
         UserFactory.getUserFromDb($scope.userId).then(function(dbUser) {
             console.log("user from DB", dbUser);
             $scope.user = dbUser;
-            if (dbUser.participating.length) $scope.questsJoined = dbUser.participating;
-            console.log("quest joined", $scope.questsJoined[0].questId);
-            $scope.questsJoined.forEach(function(el) {
-                el.cat = el.cat || {
-                    cat: 'Miscellaneous',
-                    url: 'http://i.imgur.com/jFkV2.jpg'
-                };
-            });
+            $scope.questsJoined = dbUser.participating;
+            console.log("quest joined", $scope.questsJoined);
+            if ($scope.questsJoined.length) {
+                $scope.questsJoined.forEach(function(el) {
+                    el.cat = el.cat || {
+                        cat: 'Miscellaneous',
+                        url: 'http://i.imgur.com/jFkV2.jpg'
+                    };
+                });
+            } 
         });
     };
 
