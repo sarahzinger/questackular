@@ -7,6 +7,6 @@ app.config(function ($stateProvider) {
 	});
 });
 
-app.controller('FinishCtrl', function ($scope, QuestFactory, UserFactory, $state, chromeExtId, $rootScope) {
+app.controller('FinishCtrl', function ($scope) {
 	
 })
