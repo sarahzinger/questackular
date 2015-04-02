@@ -1,6 +1,6 @@
 <section id="editStuff">
     <div class="container">
-        <tabset justified="true">
+        <tabset justified="true" class="nav-tabs-material-blue-grey">
             <tab ng-repeat="tab in tabs" ui-sref="{{ tab.state }}" heading="{{ tab.label }}" active="tab.active" disabled="tab.disabled" ng-if="tab.label=='New Quest' || (questPicked == true && tab.label!='New Quest')">
                 <h3></h3>
             </tab>
