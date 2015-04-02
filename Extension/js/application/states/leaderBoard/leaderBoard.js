@@ -9,11 +9,10 @@ app.config(function ($stateProvider) {
 
 
 app.controller('LeaderBoardCtrl', function ($scope, UserFactory) {
-	console.log("what is going on??");
 	UserFactory.getAllUsers().then(function (users) {
 		console.log("getAllUsers().then(response)", users);
 		$scope.allUsers = users;
-		$scope.sortedUsers = _.sortBy($scope.allUsers, 'points');
+		$scope.sortedUsers = _.sortBy($scope.allUsers, 'totalPoints').reverse();
 		console.log("sortedUsers", $scope.sortedUsers);
 	});
 
