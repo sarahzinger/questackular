@@ -1,8 +1,10 @@
 var app = angular.module('QuestackularExt', ['ui.router', 'ui.bootstrap']);
 
 app.controller('extCont', function($scope, UserFactory, $state, domain) {
+    console.log("domain.path", domain.path);
     $scope.login = function() {
-        window.open(domain.path+'/auth/google', '_blank');
+
+        chrome.tabs.create({url: 'http://questackular.herokuapp.com/auth/google'});
     };
     
     var getName = function(){

@@ -22,10 +22,6 @@ app.directive('navbar', function () {
             }];
 
             $scope.user = null;
-
-            $scope.login = function() {
-                window.open('questackular.herokuapp.com/auth/google', '_blank');
-            };
             
             
             var getName = function(){
