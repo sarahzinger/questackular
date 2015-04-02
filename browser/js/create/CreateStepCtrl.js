@@ -9,10 +9,10 @@ app.controller('CreateStep', function($scope, QuestFactory) {
     ];
     angular.copy(angular.fromJson(sessionStorage.stepStr), $scope.$parent.stepList); //get steps on list
     $scope.saveStep = function(newStep) {
-        console.log(newStep);
-
+        console.log("newstep", newStep)
+        console.log("newStep.url", newStep.url);
         if (!newStep.url) {
-            console.log('yes');
+            console.log('no url');
             $scope.alerts[0].show = true;
         } else if (!newStep.question) {
             $scope.alerts[1].show = true;
