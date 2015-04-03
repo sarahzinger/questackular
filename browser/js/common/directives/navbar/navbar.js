@@ -27,7 +27,9 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
 
             scope.logout = function () {
                 console.log('logout called');
-                AuthService.logout();
+                AuthService.logout().then(function(){
+                    console.log('logged out')
+                });
                 // AuthService.logout().then(function () {
                 //    $state.go('start');
                 // });
@@ -36,6 +38,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             var setUser = function () {
                 AuthService.getLoggedInUser().then(function (user) {
                     scope.user = user;
+                    console.log('Navbars user currently is: ',scope.user);
                 });
             };
 
