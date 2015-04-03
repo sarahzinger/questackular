@@ -29,7 +29,24 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state,
     //  ^-^
     // (o o) - meow
 
+    $scope.pickFile = function() {
+        filepicker.setKey("AQ1R8epcdTiygRDDGK1uDz");
 
+        filepicker.pick(
+          {
+            mimetypes: ['image/*', 'text/plain'],
+            container: 'window',
+            services:['COMPUTER','IMAGE_SEARCH','URL','WEBCAM'],
+          },
+          function(Blob){
+            console.log(JSON.stringify(Blob));
+          },
+          function(FPError){
+            console.log(FPError.toString());
+          }
+        );
+    }
+    
     $scope.cats = catFactory.cats;
 
     if (sessionStorage.newQuest) {

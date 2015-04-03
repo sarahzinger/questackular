@@ -7,6 +7,8 @@ app.config(function ($stateProvider) {
 	});
 });
 
-app.controller('FinishCtrl', function ($scope) {
-	
+app.controller('FinishCtrl', function ($scope, UserFactory) {
+	UserFactory.getTotalPoints().then(function(points){
+		$scope.manyPoints = points
+	})
 })

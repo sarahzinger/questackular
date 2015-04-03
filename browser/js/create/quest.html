@@ -1,4 +1,7 @@
 <div class="row">
+<!--     <pre>
+        {{quest}}
+    </pre> -->
     <div class="well col-md-8" id="quest-form">
         <form class="form-horizontal" name="newQuest" ng-submit="submitForm(quest) && $quest.valid">
             <fieldset>
@@ -22,15 +25,21 @@
                         <input type="text" class="form-control" id="emails" placeholder="Enter user emails, separated by comma." ng-model="quest.emails" required ng-change='saveQuest()'>
                     </div>
                 </div> -->
+                <!-- <div class="form-group">
+                    <label class="col-lg-3 control-label" for="quest-image" title='Note: only active quests can be taken, and only inactive quests can be edited!'>Add an Image</label>
+                    <div class="col-lg-9">
+                        <input name="quest-image" type="filepicker" data-fp-apikey="AQ1R8epcdTiygRDDGK1uDz" data-fp-mimetypes="*/*" data-fp-container="modal" data-fp-services="COMPUTER,IMAGE_SEARCH,URL,WEBCAM" onchange="alert(event.fpfile.url)" placeholder="Click here to select or upload an image for your quest!" ng-model="quest.img" ng-click="pickFile()">
+                    </div>
+                </div> -->
                 <div class="form-group">
-                    <label class="col-lg-3 control-label" for="open-status" title='Note: only active quests can be taken, and only inactive quests can be edited!'>Active / Inactive</label>
+                    <label class="col-lg-3 control-label" for="quest-photo" title='Note: only active quests can be taken, and only inactive quests can be edited!'>Active / Inactive</label>
                     <div class="col-lg-9">
                         <input type='radio' name='open-status' value='active' checked ng-model='quest.actInact' ng-change='saveQuest()'/> Active
                         <input type='radio' name='open-status' value='inactive' ng-model='quest.actInact' ng-change='saveQuest()' /> Inactive
                     </div>
                 </div>
                 <div class="form-group cat">
-                    <label for='qCat' class="col-lg-4 control-label">What category of quest is it?:</label>
+                    <label for='qCat' class="col-lg-4 control-label">Quest Category:</label>
                     <div class="col-lg-8">
                         <select class="form-control" ng-model='quest.cat.cat' ng-change='saveQuest();' name='qCat' required>
                             <option ng-repeat="cat in $parent.cats" value='{{cat.cat}}'> {{cat.cat}}

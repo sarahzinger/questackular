@@ -27,6 +27,7 @@ var schema = new mongoose.Schema({
         url: String,
         cat: String
     },
+    img: String,
     description: String,
     winners: [{
         type: mongoose.Schema.Types.ObjectId,

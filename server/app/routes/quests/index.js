@@ -117,7 +117,6 @@ router.put('/', function (req, res) {
 
 router.post('/invite', function (req, res) {
     console.log('req.user', req.user);
-    console.log("mandrill", mandrill);
 
     for (var i = 0; i < req.body.invitees.length; i++) {
         // make ajax req to mandrill
