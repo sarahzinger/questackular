@@ -8,6 +8,8 @@ app.controller('CreateQuest', function($scope) {
         $scope.$parent.questExists = true;
         //also disable
     }
+    
+
     $scope.saveQuest = function() {
         $scope.$parent.questExists = true;
         //now assign correct url to cats.url prop
