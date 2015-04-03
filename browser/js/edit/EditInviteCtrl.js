@@ -13,6 +13,10 @@ app.controller('editInvite', function($scope, UserFactory, QuestFactory, $state)
         // post to own server, server then post to mandrill
         QuestFactory.sendInvite($scope.invitees, $scope.selectedQuest).then(function (response) {
             console.log("response after QuestFactory.sendInvite(invitees)", response);
+            bootbox.alert('Your invite(s) have been sent!', function(res) {
+                console.log("bootbox alert res", res);
+                $state.go('myQuests');
+            });
         });
     };
 
