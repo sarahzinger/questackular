@@ -22,12 +22,10 @@ app.controller('MyQuestsCtrl', function($scope, UserFactory, $state, QuestFactor
                 $scope.questsJoined.forEach(function(el) {
                     console.log("el.questId.cat ",el.questId.cat )
                     el.questId.cat = el.questId.cat 
-                    console.log("element", el)
-                    console.log("elcat", el.cat)
-                    // || {
-                    //     cat: 'Miscellaneous',
-                    //     url: 'http://i.imgur.com/jFkV2.jpg'
-                    // };
+                    el.questId.questImage = el.questId.img || el.questId.cat.url;
+                    console.log("el.questId.img", el.questId.img);
+                    console.log("el.questId.cat.url", el.questId.cat.url);
+                    console.log("el.questId.questImage", el.questId.questImage);
                 });
             }
         });
@@ -37,18 +35,12 @@ app.controller('MyQuestsCtrl', function($scope, UserFactory, $state, QuestFactor
         // removes user from quest and quest from user in db
         QuestFactory.leaveQuest(questId, userId);
         UserFactory.getUserFromDb($scope.userId).then(function(dbUser) {
-            console.log("user from DB", dbUser);
             $scope.user = dbUser;
             $scope.questsJoined = dbUser.participating;
-            console.log("quest joined", $scope.questsJoined);
             if ($scope.questsJoined.length) {
                 $scope.questsJoined.forEach(function(el) {
-                    console.log("el.questId.cat ",el.questId.cat )
                     el.questId.cat = el.questId.cat 
-                    // || {
-                    //     cat: 'Miscellaneous',
-                    //     url: 'http://i.imgur.com/jFkV2.jpg'
-                    // };
+                    el.questId.questImage = el.questId.img || el.questId.cat.url;
                 });
             } 
         });
