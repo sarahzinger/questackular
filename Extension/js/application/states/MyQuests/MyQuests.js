@@ -18,14 +18,18 @@ app.controller('MyQuestsCtrl', function($scope, UserFactory, $state, QuestFactor
             $scope.user = dbUser;
             $scope.questsJoined = dbUser.participating;
             console.log("quest joined", $scope.questsJoined[0].questId);
-            // if ($scope.questsJoined.length) {
-            //     $scope.questsJoined.forEach(function(el) {
-            //         el.cat = el.cat || {
-            //             cat: 'Miscellaneous',
-            //             url: 'http://i.imgur.com/jFkV2.jpg'
-            //         };
-            //     });
-            // }
+            if ($scope.questsJoined.length) {
+                $scope.questsJoined.forEach(function(el) {
+                    console.log("el.questId.cat ",el.questId.cat )
+                    el.questId.cat = el.questId.cat 
+                    console.log("element", el)
+                    console.log("elcat", el.cat)
+                    // || {
+                    //     cat: 'Miscellaneous',
+                    //     url: 'http://i.imgur.com/jFkV2.jpg'
+                    // };
+                });
+            }
         });
     });
 
@@ -37,14 +41,16 @@ app.controller('MyQuestsCtrl', function($scope, UserFactory, $state, QuestFactor
             $scope.user = dbUser;
             $scope.questsJoined = dbUser.participating;
             console.log("quest joined", $scope.questsJoined);
-            // if ($scope.questsJoined.length) {
-            //     $scope.questsJoined.forEach(function(el) {
-            //         el.cat = el.cat || {
-            //             cat: 'Miscellaneous',
-            //             url: 'http://i.imgur.com/jFkV2.jpg'
-            //         };
-            //     });
-            // } 
+            if ($scope.questsJoined.length) {
+                $scope.questsJoined.forEach(function(el) {
+                    console.log("el.questId.cat ",el.questId.cat )
+                    el.questId.cat = el.questId.cat 
+                    // || {
+                    //     cat: 'Miscellaneous',
+                    //     url: 'http://i.imgur.com/jFkV2.jpg'
+                    // };
+                });
+            } 
         });
     };
 
