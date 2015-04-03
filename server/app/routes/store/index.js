@@ -33,10 +33,14 @@ router.post('/buy/', function(req, res, next) {
         req.user.itemsBought = [];
     }
     if (!req.user.pointsSpent) {
+        console.log("setting req.user.pointsSpent", req.user.pointsSpent)
         req.user.pointsSpent = 0;
     }
-    console.log(chalk.bgGreen.black('$ (1) $')+'x'+itemCost);
+    console.log("after req.user.pointsSpent", req.user.pointsSpent)
+    // console.log(chalk.bgGreen.black('$ (1) $')+'x'+itemCost);
     req.user.itemsBought.push(itemId);
+    console.log("type of req.user.pointsSpent", req.user.pointsSpent)
+    console.log("type of itemCost", itemCost)
     req.user.pointsSpent += itemCost;
     console.log("req.user.pointsSpent", req.user.pointsSpent)
     req.user.save(function(err, resp) {
