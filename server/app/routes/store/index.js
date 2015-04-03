@@ -25,9 +25,10 @@ router.get('/userData/', function(req, res, next) {
 
 router.post('/buy/', function(req, res, next) {
     console.log("buy is called")
+    console.log("req.body", req.body);
+    console.log("req.user", req.user)
     var itemId = req.body.itemId;
     var itemCost = req.body.price;
-    console.log("itemId ", itemId )
     if (!req.user.itemsBought) {
         req.user.itemsBought = [];
     }
@@ -39,7 +40,7 @@ router.post('/buy/', function(req, res, next) {
     req.user.pointsSpent += itemCost;
     console.log("req.user.pointsSpent", req.user.pointsSpent)
     req.user.save(function(err, resp) {
-        console.log(resp);
+        console.log("resp", resp);
         var userStoreData = {
             spent: req.user.pointsSpent,
             owned: req.user.itemsBought,
