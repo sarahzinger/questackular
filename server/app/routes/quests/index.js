@@ -16,8 +16,7 @@ router.post('/', function (req, res) {
         if (err) return next(err);
         if (quest !== null) {
             return res.send("duplicateQuest"); //q exists. Don't create
-        }
-        else {
+        } else {
             //quest doesn't already exist, so we can save it.
             mongoose.model('Quest').create(req.body).then(function (data) {
                 req.user.created.push(data._id);

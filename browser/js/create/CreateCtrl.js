@@ -55,6 +55,7 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state,
         AuthService.getLoggedInUser().then(function(user) {
             console.log("user from AuthService", user);
             $scope.quest.owner = user._id;
+            console.log("$scope.quest", $scope.quest);
             //save the quest
             QuestFactory.sendQuest($scope.quest)
                 .then(function(questId) {
