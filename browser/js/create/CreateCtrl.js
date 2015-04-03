@@ -28,31 +28,32 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state,
 
     //  ^-^
     // (o o) - meow
-
-    $scope.pickFile = function() {
-        filepicker.setKey("AQ1R8epcdTiygRDDGK1uDz");
-
-        filepicker.pick(
-          {
-            mimetypes: ['image/*', 'text/plain'],
-            container: 'window',
-            services:['COMPUTER','IMAGE_SEARCH','URL','WEBCAM'],
-          },
-          function(Blob){
-            console.log(JSON.stringify(Blob));
-          },
-          function(FPError){
-            console.log(FPError.toString());
-          }
-        );
-    }
     
     $scope.cats = catFactory.cats;
+
+    $scope.pickFile = function () {
+        var options = {
+            mimetype: 'image/*',
+            container: 'modal',
+            services: ['COMPUTER','IMAGE_SEARCH','URL','WEBCAM']
+        };
+        filepicker.pick(options, function (Blob) {
+            console.log(JSON.stringify(Blob));
+            $scope.quest.img = Blob.url;
+            console.log("$scope.quest.img", $scope.quest.img);
+            bootbox.alert("File successfully uploaded!");
+        }, function (FPError) {
+            console.log(FPError.toString());
+            bootbox.alert("File upload unsuccessful. Please try again!");
+        });
+    };
 
     if (sessionStorage.newQuest) {
         $scope.questExists = true;
     }
+
     $scope.saveFullQuest = function() {
+        console.log("$scope.quest", $scope.quest);
         //this will save the full quest.
         console.log("$scope.stepList", $scope.stepList)
         if ($scope.stepList.length < 1) {
