@@ -3,7 +3,7 @@ app.factory('catFactory', function() {
     return {
         cats: [{
             cat: 'Miscellaneous',
-            url: 'http://i.imgur.com/jFkV2.jpg'
+            url: 'http://i.imgur.com/dPFUPoJ.gif'
         }, {
             cat: 'History',
             url: 'http://i.imgur.com/YBFVD4Y.jpg'
