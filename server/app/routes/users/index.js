@@ -137,7 +137,7 @@ router.put('/purchase/:id', function(req, res, next) {
         // });
         req.user.pointsSpent += points;
         req.user.save(function(err, resp) {
-            console.log(resp);
+            console.log("resp", resp);
             res.send(resp);
         });
     });
