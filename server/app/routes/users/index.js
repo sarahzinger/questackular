@@ -119,7 +119,6 @@ router.put('/purchase/:id', function(req, res, next) {
         _id: stepId
     }, function(err, stepObject) {
         var points = stepObject.pointValue;
-        console.log(chalk.bgGreen.black('$ (1) $')+'x'+points);
         //commented this out because we dont actually subtract from the quest: we just dont add
         //find the quest in req.user which has a current step that matches our stepid
         // req.user.participating.forEach(function(quest, idx, arr) {
@@ -138,7 +137,7 @@ router.put('/purchase/:id', function(req, res, next) {
         // });
         req.user.pointsSpent += points;
         req.user.save(function(err, resp) {
-            console.log(resp);
+            console.log("resp", resp);
             res.send(resp);
         });
     });

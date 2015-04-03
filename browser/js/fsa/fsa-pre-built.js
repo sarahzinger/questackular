@@ -59,7 +59,7 @@
         ]);
     });
 
-    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q) {
+    app.service('AuthService', function ($http, Session, $rootScope, AUTH_EVENTS, $q, $state) {
 
         // Uses the session factory to see if an
         // authenticated user is currently registered.
