@@ -12,7 +12,6 @@ app.factory('domain', function(){
 app.factory('QuestFactory', function($http, domain) {
     return {
         sendQuest: function(quest) {
-            console.log("did we get quest", quest);
             //saves the quest, returns its ID
             return $http.post(domain.path + '/api/quests', quest).then(function(response) {
                 return response.data;
