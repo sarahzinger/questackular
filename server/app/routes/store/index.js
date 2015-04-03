@@ -26,7 +26,7 @@ router.get('/userData/', function(req, res, next) {
 router.post('/buy/', function(req, res, next) {
     console.log("buy is called")
     console.log("req.body", req.body);
-    console.log("req.user", require.user)
+    console.log("req.user", req.user)
     var itemId = req.body.itemId;
     var itemCost = req.body.price;
     if (!req.user.itemsBought) {
