@@ -12,7 +12,7 @@ app.config(function($stateProvider) {
                     });
                 }
             },
-            abstract: true,
+            // abstract: true,
             url: '/create',
             templateUrl: 'js/create/create.html',
             controller: 'CreateCtrl'
