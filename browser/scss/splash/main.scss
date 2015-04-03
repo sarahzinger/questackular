@@ -5,6 +5,11 @@ html {
     height: 100%;
 }
 
+ending {
+    padding: 50px 0;
+    background-color: #f8f8f8;
+}
+
 .topnav {
     font-size: 14px; 
 }
@@ -152,11 +157,6 @@ html {
     ul.banner-social-buttons > li:last-child {
         margin-bottom: 0;
     }
-}
-
-ending {
-    padding: 50px 0;
-    background-color: #f8f8f8;
 }
 
 p.copyright {
