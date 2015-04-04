@@ -75,9 +75,12 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         });
 
     });
+    
 
-
-    $scope.saveFullQuest = function() {
+    $scope.saveFullQuest = function(index) {
+        console.log('index', index)
+        $scope.quest = $scope.questList[index]
+        console.log("quest from front end", $scope.quest)
         //this will save the full quest.
         if ($scope.stepList.length < 1) {
             //no steps yet. Alert user!
@@ -90,10 +93,9 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
         //parse and readjust quest
         ($scope.quest.pubPriv === 'private') ? $scope.quest.privacy = true: $scope.quest.privacy = false;
         delete $scope.quest.pubPriv;
-        //final-presave stuff: get the current user ID
-        AuthService.getLoggedInUser().then(function(user) {
-            $scope.quest.owner = user._id;
-            //save the quest
+        
+            console.log("about to call factory")
+            console.log("what we send to the factory", $scope.quest)
             QuestFactory.updateQuest($scope.quest).then(function(questId) {
                 console.log('quest item:', questId);
                 $scope.stepsToRemove.forEach(function(remItem) {
@@ -127,15 +129,16 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
                 sessionStorage.removeItem('stepStr');
                 sessionStorage.removeItem('newQuest');
             });
-        });
     };
     $scope.pickQuest = function(id) {
+
         //this needs to get a quest by id and then get its associated steps
         $scope.questPicked = true;
         for (var n = 0; n < $scope.questList.length; n++) {
             //find the current target 'quest' and designate this as scope.quest
             if ($scope.questList[n]._id == id) {
-                $scope.quest = $scope.questList[n];
+                 $scope.quest = $scope.questList[n];
+                 $scope.$parent.questIndex = n;
             }
         }
         QuestFactory.getStepListById(id).then(function(data) {
@@ -166,28 +169,37 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
 
     };
 
-    $scope.checkOpenStatus = function(quest) {
+    $scope.checkOpenStatus = function(index) {
+        console.log("index from front end", index)
         //if quest is currently ACTIVE and HAS PARTICIPANTS, show ARRAY at 0.
         //if quest is currently INACTIVE, show ARRAY at 1
         //if active and no partis, show ARRAY at 2.
-        (quest.active) ? quest.active = false: quest.active = true;
-        console.log('quest active?', quest.active);
-        if (quest.active && quest.participants.length >= 1) {
-            bootbox.alert('This active quest currently has participants, deactivating it will destroy their hard work! Are you sure you wanna make enemies like this? If not, you may wanna activate it!')
-            // $scope.alerts[0].show = true;
-            // $scope.alerts[1].show = false;
-            // $scope.alerts[2].show = false;
-        } else if (!quest.active) {
-            bootbox.alert('After you click save, your quest will be active and people are free to join it! To edit it again, deactive the quest')
-            // $scope.alerts[0].show = false;
-            // $scope.alerts[1].show = true;
-            // $scope.alerts[2].show = false;
-        } else if (quest.active && quest.participants.length < 1) {
-            bootbox.alert("Your quest is now editable, no one will be able to join until you reactive your quest")
-            // $scope.alerts[0].show = false;
-            // $scope.alerts[1].show = false;
-            // $scope.alerts[2].show = true;
-        }
+        if ($scope.questList[index].active) {
+            console.log("quest is changing to false")
+            $scope.questList[index].active = false
+            console.log("$scope.questList[index]",$scope.questList[index])
+        }else{
+            console.log("quest is changing to true")
+            $scope.questList[index].active = true;
+            console.log("$scope.questList[index]",$scope.questList[index])
+        } 
+        // console.log('is it really active?', quest.active);
+        // if (quest.active && quest.participants.length >= 1) {
+        //     bootbox.alert('This active quest currently has participants, deactivating it will destroy their hard work! Are you sure you wanna make enemies like this? If not, you may wanna activate it!')
+        //     // $scope.alerts[0].show = true;
+        //     // $scope.alerts[1].show = false;
+        //     // $scope.alerts[2].show = false;
+        // } else if (!quest.active) {
+        //     bootbox.alert('After you click save, your quest will be active and people are free to join it! To edit it again, deactive the quest')
+        //     // $scope.alerts[0].show = false;
+        //     // $scope.alerts[1].show = true;
+        //     // $scope.alerts[2].show = false;
+        // } else if (quest.active && quest.participants.length < 1) {
+        //     bootbox.alert("Your quest is now editable, no one will be able to join until you reactive your quest")
+        //     // $scope.alerts[0].show = false;
+        //     // $scope.alerts[1].show = false;
+        //     // $scope.alerts[2].show = true;
+        // }
     };
     $scope.closeAlert = function(index) {
         $scope.alerts[index].show = false;

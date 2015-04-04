@@ -23,10 +23,11 @@
                         <th>Type</th>
                         <th>Point Value</th>
                         <th>URL</th>
-                        <th>Tags</th>
-                        <th>Clues</th>
+                        <!-- <th>Tags</th> -->
+                        <!-- <th>Clues</th> -->
                         <th>Answer(s)</th>
                         <th>Remove</th>
+                        <th>Save</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,25 +38,25 @@
                         </td>
                         <td editable-text='step.pointValue'>{{step.pointValue}}</td>
                         <td editable-text='step.url'>{{step.url}}</td>
-                        <td editable-text='step.tagStr'>{{step.tagStr}}</td>
-                        <td editable-text='step.clueStr'>
-                            <span>{{step.clueStr}}</span>
+                        <!-- <td editable-text='step.tagStr'>{{step.tagStr}}</td> -->
+                        <!-- <td editable-text='step.clueStr'>
+                            <span>{{step.clueStr}}</span> -->
                             <!-- <span ng-if='step.clues.length<=0'>No clues yet!</span> -->
-                        </td>
+                        <!-- </td> -->
                         <td ng-if="step.qType=='Multiple Choice'">
 
                             <div style='font-size:x-small'>Click '☞' to designate a correct answer!</div>
                             <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(0,$index);'>☞</div>
-                            <div editable-text='step.multipleAns[0]' ng-class='{correctMultiAns:step.multiAnsCor=="0"}' class='multiDiv'>1): {{step.multipleAns[0] || "nothing yet!"}}</div>
+                            <div editable-text='step.multipleAns[0]' ng-class='{correctMultiAns:step.multiAnsCor=="1"}' class='multiDiv'>1): {{step.multipleAns[0] || "nothing yet!"}}</div>
                             <br/>
                             <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(1,$index);'>☞</div>
-                            <div editable-text='step.multipleAns[1]' ng-class='{correctMultiAns:step.multiAnsCor=="1"}' class='multiDiv'>2): {{step.multipleAns[1] || "nothing yet!"}}</div>
+                            <div editable-text='step.multipleAns[1]' ng-class='{correctMultiAns:step.multiAnsCor=="2"}' class='multiDiv'>2): {{step.multipleAns[1] || "nothing yet!"}}</div>
                             <br/>
                             <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(2,$index);'>☞</div>
-                            <div editable-text='step.multipleAns[2]' ng-class='{correctMultiAns:step.multiAnsCor=="2"}' class='multiDiv'>3): {{step.multipleAns[2] || "nothing yet!"}}</div>
+                            <div editable-text='step.multipleAns[2]' ng-class='{correctMultiAns:step.multiAnsCor=="3"}' class='multiDiv'>3): {{step.multipleAns[2] || "nothing yet!"}}</div>
                             <br/>
                             <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(3,$index);'>☞</div>
-                            <div editable-text='step.multipleAns[3]' ng-class='{correctMultiAns:step.multiAnsCor=="3"}' class='multiDiv'>4): {{step.multipleAns[3] || "nothing yet!"}}</div>
+                            <div editable-text='step.multipleAns[3]' ng-class='{correctMultiAns:step.multiAnsCor=="4"}' class='multiDiv'>4): {{step.multipleAns[3] || "nothing yet!"}}</div>
                         </td>
                         <td ng-if="step.qType=='Fill-in'">
                             <span editable-text='step.fillIn'>{{step.fillIn}}</span>
@@ -63,6 +64,9 @@
                         <td ng-if="step.qType=='Short Answer'">(short answers must be reviewed by Quest Creator)</td>
                         <td>
                             <button ng-click='$parent.removeStep(step)' class='btn btn-xs btn-danger'>X</button>
+                        </td>
+                        <td>
+                            <td><button type="button" class="btn btn-material-blue-grey btn-xs" ng-click='$parent.saveFullQuest($parent.questIndex)'>Save</button></td>
                         </td>
                     </tr>
                 </tbody>
@@ -86,10 +90,10 @@
                     </label>
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="tags">Tags</label>
                     <input type="text" class="form-control" id="tags" placeholder="Enter tags, separated by comma." ng-model="newStep.tagStr" required ng-change='saveQuest()'>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label for='pointsQ'>Point value:
                         <input type='number' class="form-control" required name='pointsQ' ng-model='newStep.pointValue' />
@@ -149,15 +153,15 @@
         </div>
 
         <!-- save or move to next state -->
-        <div class="form-group">
+<!--         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <div class="pull-right">
-                    <button type="button" class="btn btn-primary" ng-click='$parent.saveFullQuest()'>Save</button>
+                    <button type="button" class="btn btn-primary" ng-click='$parent.saveFullQuest()'>Save</button> -->
                     <!-- <button class="btn btn-primary" ui-sref="{{ tabs[2].state }}" ng-click="tabs[2].active = true">Next</button> -->
-                    <button class="btn btn-default" ng-click="$parent.clearData();">Clear</button>
+<!--                     <button class="btn btn-default" ng-click="$parent.clearData();">Clear</button>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- end of current steps to edit list -->
     </div>
 

@@ -109,6 +109,8 @@ router.delete('/participants/:id', function (req, res) {
 });
 
 router.put('/', function (req, res) {
+    console.log("entering api/quests")
+    console.log('req.body', req.body);
     //not sure if we can 'save' the id, so removing it
     mongoose.model('Quest').findByIdAndUpdate(req.body._id, req.body, function (err, updSt) {
         res.send(updSt._id);

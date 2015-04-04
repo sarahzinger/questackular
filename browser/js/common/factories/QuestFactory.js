@@ -38,6 +38,7 @@ app.factory('QuestFactory', function($http, domain) {
             });
         },
         updateQuest: function(updatedQuest) {
+            console.log("entering factory, with updatedQuest", updatedQuest)
             return $http.put(domain.path+'/api/quests/', updatedQuest).then(function(res) {
                 return res.data;
             });
