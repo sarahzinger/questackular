@@ -1,7 +1,7 @@
 <h2>Edit Steps in Quest</h2>
 <div class="row">
     
-    <div class="col-md-8" id="edit-steps">
+    <div class="col-md-9 " id="edit-steps">
         <!-- List of currently (previously) created steps -->
         <div class="panel panel-material-blue-grey">
             <div class="panel-heading">
@@ -30,14 +30,14 @@
                         <th>Save</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr ng-repeat='step in $parent.stepList'>
+                <tbody class= "table-scrollable">
+                    <tr ng-repeat='step in $parent.stepList' class= "table-scrollable">
                         <td editable-text='step.stepNum'>{{step.stepNum}}</td>
                         <td editable-text='step.question'>{{step.question}}</td>
                         <td editable-select='step.qType' e-ng-options='item for item in testTypes'>{{step.qType}}
                         </td>
                         <td editable-text='step.pointValue'>{{step.pointValue}}</td>
-                        <td editable-text='step.url'>{{step.url}}</td>
+                        <td class= "table-scrollable" editable-text='step.url'>{{step.url}}</td>
                         <!-- <td editable-text='step.tagStr'>{{step.tagStr}}</td> -->
                         <!-- <td editable-text='step.clueStr'>
                             <span>{{step.clueStr}}</span> -->
@@ -163,7 +163,7 @@
         <!-- end of current steps to edit list -->
     </div>
 
-    <div class="col-lg-4" id="editstep-help">
+    <div class="col-md-3" id="editstep-help">
         <div class="list-group instList">
             <div class="list-group-item">
                 <div class="row-action-primary">
