@@ -7,12 +7,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/home">Questackular!</a>
+      <a class="navbar-brand" href="/home"><i class="fa fa-lightbulb-o"></i> Questackular!</a>
     </div> 
     <!--  end of navbar-header -->
     <div class="collapse navbar-collapse" id="nav-states">
       <ul class="nav navbar-nav" ng-if='user!=null'>
-        <li ng-repeat="item in items"><a ui-sref="{{item.state}}">{{item.label}}</a></li>
+        <li ng-repeat="item in items"><a ui-sref="{{item.state}}"><i class="{{item.glyphicon}}"></i> {{item.label}}</a></li>
       </ul>
 
       <ul ng-if='user!=null' class="nav navbar-nav nav-bar navbar-right">

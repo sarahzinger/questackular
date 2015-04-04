@@ -10,13 +10,13 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
         link: function (scope) {
 
             scope.items = [{
-                label: 'Create a Quest', state: 'create.quest' 
+                label: 'Create a Quest', state: 'create.quest', glyphicon: 'fa fa-plus-circle'
             }, {
-                label: 'Edit Quests', state: 'edit.quest'
+                label: 'Edit Quests', state: 'edit.quest', glyphicon: 'fa fa-edit'
             }, {
-                label: 'Join a Quest', state: 'join' 
+                label: 'Join a Quest', state: 'join', glyphicon: 'fa fa-bicycle'
             }, {
-                label: 'My Quests', state: 'myQuests' 
+                label: 'My Quests', state: 'myQuests', glyphicon: 'fa fa-location-arrow'
             }];
 
             scope.user = null;
