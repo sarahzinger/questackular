@@ -108,9 +108,8 @@ ui-view {
     float: left;
 }
 #map {
-    position: absolute;
-    left: 270px;
-    top: 110px;
+    display:block;
+    position: relative;
     width: 1000px;
     height: 1000px;
     z-index: 1;
@@ -202,6 +201,9 @@ ui-view {
         margin:0px;
     }
 }
+
+
+@import 'map/map';
 // @import 'directives/main';
 
 // @import 'home/main';

@@ -1,6 +1,7 @@
 'use strict';
 app.factory('catFactory', function() {
     return {
+        //these are not pictures of cats. Sorry to disappoint you.
         cats: [{
             cat: 'Miscellaneous',
             url: 'http://i.imgur.com/dPFUPoJ.gif'
