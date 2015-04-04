@@ -3,7 +3,6 @@ var app = angular.module('QuestackularExt', ['ui.router', 'ui.bootstrap']);
 app.controller('extCont', function($scope, UserFactory, $state, domain) {
     console.log("domain.path", domain.path);
     $scope.login = function() {
-
         chrome.tabs.create({url: 'http://questackular.herokuapp.com/auth/google'});
     };
     
@@ -33,7 +32,5 @@ app.config(function ($urlRouterProvider, $locationProvider, $compileProvider) {
     // so that it does not add "unsafe:"   
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
     $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|local|chrome-extension):|data:image\//);
-    // $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|local|data):/);
-    // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
 
 });
