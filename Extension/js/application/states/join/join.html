@@ -13,8 +13,9 @@
 		<div ng-repeat="quest in unjoinedQuests track by $index">
 		    <div class="list-group-item">
 		        <div class="row-action-primary">
-		            <!-- <i class="mdi-file-folder"></i> -->
-		            <button title='Join this quest!' class='btn btn-xs btn-success mdi-action-exit-to-app' ng-click="joinQuest(quest)">Join</button>
+		            <i class="mdi-maps-navigation btn btn-xs" ng-click="joinQuest(quest)"></i>
+		            <!-- <i class="fa fa-hand-o-up" ng-click="joinQuest(quest)"></i> -->
+		            <!-- <button title='Join this quest!' class='btn btn-xs btn-success mdi-action-exit-to-app' ng-click="joinQuest(quest)">Join</button> -->
 		        </div>
 		        <div class="row-content">
 		            <div class="least-content">

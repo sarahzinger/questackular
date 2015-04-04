@@ -2,6 +2,8 @@ $(document).ready(function () {
 	$(document).onclick = function() {
 		var selected = window.selection();
 		var selectedText = selected.toString();
+		console.log("has this happened?");
+		console.log("selectedText");
 	};
 
 
