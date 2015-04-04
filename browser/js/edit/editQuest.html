@@ -29,7 +29,7 @@
                         <th>Quest Title</th>
                         <th>Quest Description</th>
                         <th>Category</th>
-                        <th>Active?</th>
+                        <!-- <th>Active?</th> -->
                         <th>Edit Steps</th>
                         <th>Current Participants</th>
                         <th>Invite More Participants</th>
@@ -47,10 +47,10 @@
                         <td editable-select='quest.cat' e-ng-options='item.cat for item in cats'>{{quest.cat.cat}}
                             <img src='{{quest.cat.url}}' class='img-responsive img-thumbnail'/>
                         </td>
-                        <td>
+                        <!-- <td>
                             <input type='checkbox' ng-model='quest.active' checked='false' ng-change='$parent.checkOpenStatus($index)' ng-click='(quest.active)?quest.active=false:quest.active=true;$parent.saveFullQuest($index)'  />
-                        </td>
-                        <td><button type="button" class="btn btn-material-blue-grey btn-xs" ui-sref="edit.step" ng-click='$parent.pickQuest(quest._id)'>Edit
+                        </td> -->
+                        <td><button type="button" class="btn btn-material-blue-grey btn-xs" ui-sref="edit.step" ng-click='$parent.pickQuest($index)'>Edit
                         </button></td>
                         <td editable-text='quest.participants'>
                             <span ng-if='quest.participants.length>0'>{{name}}</span>

@@ -130,24 +130,23 @@ app.controller('editCtrl', function($scope, UserFactory, QuestFactory, AuthServi
                 sessionStorage.removeItem('newQuest');
             });
     };
-    $scope.pickQuest = function(id) {
+    $scope.pickQuest = function(index) {
 
         //this needs to get a quest by id and then get its associated steps
         $scope.questPicked = true;
-        for (var n = 0; n < $scope.questList.length; n++) {
-            //find the current target 'quest' and designate this as scope.quest
-            if ($scope.questList[n]._id == id) {
-                 $scope.quest = $scope.questList[n];
-                 $scope.$parent.questIndex = n;
-            }
-        }
-        QuestFactory.getStepListById(id).then(function(data) {
-            // $scope.stepList = data;
+        $scope.quest = $scope.questList[index];
+        console.log("$scope.quest", $scope.quest)
+        $scope.$parent.questIndex = index;
 
+        QuestFactory.getStepListById($scope.quest._id).then(function(data) {
+            // $scope.stepList = data;
+            console.log("$scope.stepList", $scope.stepList)
+            console.log("data", data)
             angular.copy(data, $scope.stepList);
             if ($scope.stepList.length > 0) {
                 sessionStorage.stepStr = angular.toJson($scope.stepList);
             } else {
+                console.log("session store is removing", sessionStorage.stepStr)
                 sessionStorage.removeItem('stepStr');
             }
             $scope.stepList.forEach(function(el) {
