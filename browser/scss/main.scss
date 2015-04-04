@@ -186,6 +186,9 @@ ui-view {
   padding-top: 10px;
   
 }
+.table-scrollable{
+    overflow: auto;
+}
 @media (min-width: 768px) {
     .navbar-nav{
         margin:0px;
