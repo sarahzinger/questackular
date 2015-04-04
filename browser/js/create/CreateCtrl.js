@@ -8,7 +8,7 @@ app.controller('CreateCtrl', function($scope, QuestFactory, AuthService, $state,
     $scope.quest = {}; //curent quest object, via ng-change
     $scope.quest.cat = {
         cat: 'Miscellaneous',
-        url: 'http://i.imgur.com/jFkV2.jpg'
+        url: '/img/cat/misc.png'
     };
     $scope.quest.actInact = 'active';
     $scope.stepList = []; //list of current steps.

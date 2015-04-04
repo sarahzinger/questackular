@@ -44,7 +44,7 @@
                         <td editable-text='quest.title'>{{quest.title}}</td>
                         <td editable-text='quest.description'>{{quest.description}}</td>
                         <td editable-select='quest.cat' e-ng-options='item.cat for item in cats'>{{quest.cat.cat}}
-                            <img src='{{quest.cat.url}}' class='cat-edit'/>
+                            <img src='{{quest.cat.url}}' class='img-responsive img-thumbnail'/>
                         </td>
                         <td>
                             <input type='checkbox' ng-model='quest.active' checked='false' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />
@@ -67,7 +67,7 @@
                         <td>{{quest.title}}</td>
                         <td>{{quest.description}}</td>
                         <td>{{quest.cat.cat}}
-                            <img src='{{quest.cat.url}}' class='cat-edit'/>
+                            <img src='{{quest.cat.url}}' class='img-responsive img-thumbnail'/>
                         </td>
                         <td>
                             <input type='checkbox' ng-model='quest.active' ng-change='$parent.checkOpenStatus(quest)' ng-click='(quest.active)?quest.active=false:quest.active=true;' />

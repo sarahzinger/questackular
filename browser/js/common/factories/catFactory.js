@@ -3,31 +3,31 @@ app.factory('catFactory', function() {
     return {
         cats: [{
             cat: 'Miscellaneous',
-            url: 'http://i.imgur.com/dPFUPoJ.gif'
+            url: '/img/cat/misc.png'
         }, {
             cat: 'History',
-            url: 'http://i.imgur.com/YBFVD4Y.jpg'
+            url: '/img/cat/history.png'
         }, {
             cat: 'Literature',
-            url: 'http://i.imgur.com/ZNgmNku.jpg'
+            url: '/img/cat/literature.png'
         }, {
             cat: 'Art',
-            url: 'http://i.imgur.com/YCirp.jpg'
+            url: '/img/cat/art.png'
         }, {
             cat: 'Current Events',
-            url: 'http://i.imgur.com/Ibv1KfY.jpg'
+            url: '/img/cat/current.png'
         }, {
             cat: 'Sports',
-            url: 'http://i.imgur.com/7ZTDKHy.jpg'
+            url: '/img/cat/sports.png'
         }, {
             cat: 'Entertainment',
-            url: 'http://i.imgur.com/CGopHB7.png'
+            url: '/img/cat/entertainment.png'
         }, {
             cat: 'Food and Drink',
-            url: 'http://i.imgur.com/l1OfE4g.jpg'
+            url: '/img/cat/food.png'
         }, {
             cat: 'Science',
-            url: 'http://i.imgur.com/B3DChMk.jpg'
+            url: '/img/cat/science.png'
         }]
     };
 });
