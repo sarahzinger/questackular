@@ -31,7 +31,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat='step in $parent.stepList | filter:editStepSearch'>
+                    <tr ng-repeat='step in $parent.stepList'>
                         <td editable-text='step.stepNum'>{{step.stepNum}}</td>
                         <td editable-text='step.question'>{{step.question}}</td>
                         <td editable-select='step.qType' e-ng-options='item for item in testTypes'>{{step.qType}}
@@ -46,16 +46,16 @@
                         <td ng-if="step.qType=='Multiple Choice'">
 
                             <div style='font-size:x-small'>Click '☞' to designate a correct answer!</div>
-                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(0,$index);'>☞</div>
+                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(1,$index);'>☞</div>
                             <div editable-text='step.multipleAns[0]' ng-class='{correctMultiAns:step.multiAnsCor=="1"}' class='multiDiv'>1): {{step.multipleAns[0] || "nothing yet!"}}</div>
                             <br/>
-                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(1,$index);'>☞</div>
+                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(2,$index);'>☞</div>
                             <div editable-text='step.multipleAns[1]' ng-class='{correctMultiAns:step.multiAnsCor=="2"}' class='multiDiv'>2): {{step.multipleAns[1] || "nothing yet!"}}</div>
                             <br/>
-                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(2,$index);'>☞</div>
+                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(3,$index);'>☞</div>
                             <div editable-text='step.multipleAns[2]' ng-class='{correctMultiAns:step.multiAnsCor=="3"}' class='multiDiv'>3): {{step.multipleAns[2] || "nothing yet!"}}</div>
                             <br/>
-                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(3,$index);'>☞</div>
+                            <div class='multiDiv multAnsPik' title='Designate this answer as correct!' ng-click='$parent.correctAns(4,$index);'>☞</div>
                             <div editable-text='step.multipleAns[3]' ng-class='{correctMultiAns:step.multiAnsCor=="4"}' class='multiDiv'>4): {{step.multipleAns[3] || "nothing yet!"}}</div>
                         </td>
                         <td ng-if="step.qType=='Fill-in'">
