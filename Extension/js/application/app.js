@@ -32,5 +32,8 @@ app.config(function ($urlRouterProvider, $locationProvider, $compileProvider) {
     // whitelist the chrome-extension: protocol 
     // so that it does not add "unsafe:"   
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
+    $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|local|chrome-extension):|data:image\//);
+    // $compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|local|data):/);
     // Angular before v1.2 uses $compileProvider.urlSanitizationWhitelist(...)
+
 });
