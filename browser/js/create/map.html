@@ -1,5 +1,6 @@
 <div>
     <div id='mapCont'>
+        <h2>Here's your Quest!</h2>
         <button type="button" class="btn btn-primary" ng-click='$parent.saveFullQuest()'>Save Quest &amp; All Steps</button>
         <div ng-if='$parent.stepList.length<1' class='noMap'>Ohnoes! Your Quest curently has zero steps!
             <hr/>
@@ -8,6 +9,6 @@
             </button>
         </div>
         <div id='map'></div>
-        <simple-line-chart></simple-line-chart>
+        <bouncy-chart></bouncy-chart>
     </div>
 </div>

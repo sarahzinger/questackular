@@ -110,8 +110,6 @@ ui-view {
 #map {
     display:block;
     position: relative;
-    width: 1000px;
-    height: 1000px;
     z-index: 1;
 }
 .cov {
@@ -197,8 +195,6 @@ ui-view {
     }
 }
 
-
-@import 'map/map';
 // @import 'directives/main';
 
 @import 'home/main';
