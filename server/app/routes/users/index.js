@@ -114,11 +114,14 @@ router.put('/purchase/:id', function(req, res, next) {
     */
     
     var stepId = req.params.id;
+    console.log("in the backend purchasing a step and we caught a stepid", stepId)
     //get the step object to get point worth
     mongoose.model('Step').findOne({
         _id: stepId
     }, function(err, stepObject) {
+        console.log("found a stepObject to take points from", stepObject)
         var points = stepObject.pointValue;
+        console.log("these are the points we are adding to the user", points)
         //commented this out because we dont actually subtract from the quest: we just dont add
         //find the quest in req.user which has a current step that matches our stepid
         // req.user.participating.forEach(function(quest, idx, arr) {
@@ -137,8 +140,7 @@ router.put('/purchase/:id', function(req, res, next) {
         // });
         req.user.pointsSpent += points;
         req.user.save(function(err, resp) {
-            console.log("resp", resp);
-            res.send(resp);
+            res.end();
         });
     });
 })
