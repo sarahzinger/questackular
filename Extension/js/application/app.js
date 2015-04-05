@@ -1,3 +1,11 @@
+window.onload = function () {
+    console.log("window.onload!");
+    document.getElementById("save-content").onclick = function () {
+        console.log("clicked 'save content!'");
+        chrome.runtime.sendMessage({command: 'save-content'});
+    };
+};
+
 var app = angular.module('QuestackularExt', ['ui.router', 'ui.bootstrap']);
 
 app.controller('extCont', function($scope, UserFactory, $state, domain) {

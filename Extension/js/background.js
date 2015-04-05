@@ -1,5 +1,3 @@
-// chrome.browserAction.setBadgeText({text: "Questackular!"});
-
 // useful but not using currently
 chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
 	suggest([{
@@ -16,9 +14,9 @@ chrome.omnibox.onInputEntered.addListener(function (text) {
 	alert("you just typed " + "'" + text + "'");
 
 	switch(text) {
-		case 'save':
-			console.log("save");
-			saveUrl();
+		case 'content':
+			console.log("content");
+			checkContent();
 			break;
 		case 'red-divs': 
 			console.log("red divs"); 
@@ -31,50 +29,48 @@ chrome.omnibox.onInputEntered.addListener(function (text) {
 	}
 	return true;
 });
-console.log("it's happening")
 
-console.log("right before onmessage");
 // listening for an event (one-time request) coming from the POPUP
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-	console.log("background.js message", request);
+	console.log("background.js request", request);
 	console.log("background.js sender", sender);
-	console.log("background.js sendResponse", sendResponse);
-	chrome.tabs.getCurrent(function (tab) {
-		console.log("about to change url maybe", tab)
-		chrome.tabs.update(tab, {url: request.stepUrl});
-	});
+	if (request.stepUrl && request.stepUrl.length) {
+		chrome.tabs.getCurrent(function (tab) {
+			console.log("about to change url maybe", tab)
+			chrome.tabs.update(tab, {url: request.stepUrl});
+		});
+	}
 
-	// switch(request.type) {
-	// 	case 'red-divs': 
-	// 		console.log("red-divs received");
-	// 		redDivs();
-	// 	break;
-	// 	case 'blue-divs':
-	// 		console.log("blue-divs received"); 
-	// 		blueDivs();
-	// 	break;
-	// }
-	// return true;
-	
+	if (request.command === "save-content") {
+		console.log("request.command", request.command);
+		saveContent();
+	}
 });
 
-
-
-// listening for an event (long-lived connections) coming from POPUP
-chrome.runtime.onConnect.addListener(function (port) {
-	console.log("port name is", port);
-	port.onMessage.addListener(function (message) {
-		console.log("port.onMessage.addListener", message);
-		switch(message.type) {
-			case "red-divs": 
-				redDivs();
-				break;
-			case "blue-divs": 
-				blueDivs();
-				break;
-		}
+function saveContent() {
+	console.log("called saveContent()");
+	chrome.tabs.query({active: true}, function (tabs) {
+		console.log("these are currently active tabs", tabs);
+		chrome.tabs.sendMessage(tabs[0].id, {
+			tabInfo: {
+				url: tabs[0].url,
+				title: tabs[0].title,
+				favicon: tabs[0].faviconUrl
+			}
+		}, function (response) {
+			console.log("response after sending getstuff to contentJS", response);
+			$.ajax({
+				type: "POST",
+				url: 'http://localhost:1337/api/link',
+				data: response.pageToSave,
+				success: function (res) {
+					console.log("this is what happened after page got posted?", res);
+				}
+			});
+		});
 	});
-});
+}
+
 
 // send red message to content script!
 function redDivs() {
@@ -96,32 +92,3 @@ function blueDivs() {
 	});
 	chrome.browserAction.setBadgeText({text: "blue!"});
 }
-
-function saveUrl() {
-	console.log("saveUrl called");
-	chrome.tabs.query({active: true}, function (tabs) {
-		var oldLinks = localStorage["links"]
-		console.log("oldLinks", oldLinks)
-		var newLinks = oldLinks+","+JSON.stringify(tabs[0].url);
-		console.log("newLinks", newLinks)
-		localStorage.links = newLinks;
-	});
-}
-// not working
-// chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-//     switch(request.type) {
-//         case "dom-loaded":
-//             alert(request.data.myProperty);
-//         break;
-//     }
-//     return true;
-// });
-
-// trying to make this work!
-// chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-// 	console.log("background.js message", message);
-// 	console.log("background.js sender", sender);
-// 	console.log("background.js sendResponse", sendResponse);
-// 	sendResponse({hello: "google.com"});
-//     chrome.tabs.update(sender.tab.id, {url: message.stepUrl});
-// });
