@@ -139,6 +139,10 @@ router.put('/purchase/:id', function(req, res, next) {
         //     }
         // });
         console.log("**req.user", req.user);
+        if(!req.user.pointsSpent){
+            console.log("pointsSpent is zero");
+            req.user.pointsSpent = 0;
+        }
         req.user.pointsSpent += points;
         req.user.save(function(err, resp) {
             res.end();
