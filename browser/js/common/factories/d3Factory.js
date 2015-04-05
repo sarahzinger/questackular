@@ -57,7 +57,13 @@ angular.module('d3', [])
                     })
                 }
                 for (var i = 0; i < pointVals.length; i++) {
-                    adjSiz.push(((pointVals[i] - min) * 40 / (max - min)) + 20);
+                    if (pointVals[i]){
+                        adjSiz.push(((pointVals[i] - min) * 40 / (max - min)) + 20);//check to see if point val exists. 
+                        //if so, go ahead and normalize that and push into our size array
+                    }else{
+                        adjSiz.push(20);//if for whatever reason the step does not have a point
+                        //value, default to lowest size(20);
+                    }
                 }
                 var h = parseInt(window.innerHeight*.9),
                     w = parseInt(window.innerWidth*.7);
