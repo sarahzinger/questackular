@@ -1,6 +1,5 @@
 app.config(function($stateProvider) {
     $stateProvider.state('myQuests', {
-
         url: '/myQuests',
         templateUrl: 'js/application/states/myQuests/myQuests.html',
         controller: 'MyQuestsCtrl'
@@ -20,12 +19,8 @@ app.controller('MyQuestsCtrl', function($scope, UserFactory, $state, QuestFactor
             console.log("quest joined", $scope.questsJoined[0].questId);
             if ($scope.questsJoined.length) {
                 $scope.questsJoined.forEach(function(el) {
-                    console.log("el.questId.cat ",el.questId.cat )
                     el.questId.cat = el.questId.cat 
                     el.questId.questImage = el.questId.img || el.questId.cat.url;
-                    console.log("el.questId.img", el.questId.img);
-                    console.log("el.questId.cat.url", el.questId.cat.url);
-                    console.log("el.questId.questImage", el.questId.questImage);
                 });
             }
         });

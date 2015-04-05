@@ -1,128 +1,55 @@
 <div class="container" id="myQCont">
     <p>&nbsp;</p>
-    <h1>My Quests</h1>
-    <p>Click the filter icon <small>(<i class="glyphicon mdi-content-filter-list"></i>)</small> to filter quests</p>
-
-    <div class="row">
-        <div class="col-lg-8">
-            <!-- table begins -->
-            <div id="quests-joined">
-                <div class="panel panel-material-blue-grey">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Quests I've joined</h3>
-                        <div class="pull-right">
-                            <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
-							<i ng-click="search()" style='top:-20px;' class="glyphicon mdi-content-filter-list"></i>
-						</span>
-                        </div>
+    <h1 class="text-muted">My Quests</h1>
+    <div class="row" id="new-myquests">
+        <div class="col-md-8">
+            <h2><i class="fa fa-rocket"></i> Quests I've Joined
+                <span class="clickable filter pull-right" data-toggle="tooltip" title="Toggle table filter" data-container="body">
+                    <i ng-click="search()" class="glyphicon mdi-content-filter-list"></i>
+                </span>
+            </h2>
+            <div class="panel-body" ng-show="searchBox">
+                <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" ng-model="joinedQSearch"/>
+            </div>
+            
+            <div class="well" ng-repeat="quest in questsJoined">    
+                <div class="media">
+                    <a class="pull-left" href="#">
+                        <img class="media-object img-responsive img-thumbnail imgcontrol" src="{{quest.questId.questImage}}">
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{quest.questId.title}}</h4>
+                        <p>{{quest.questId.description}}</p>
+                        <ul class="list-inline list-unstyled">
+                            <li><span><i class="glyphicon glyphicon-calendar"></i> Category: {{quest.questId.cat.cat}}</span></li>
+                            <li>|</li>
+                            <li>
+                                <a ng-click="leaveQuest()" class="btn btn-danger btn-sm"><i class="fa fa-times-circle"></i> Leave Quest</a>
+                            </li>
+                        </ul>
                     </div>
-                    <div class="panel-body" ng-show="searchBox">
-                        <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" ng-model="joinedQSearch"/>
-                    </div>
-                    <table class="table table-hover" id="dev-table">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Title</th>
-                                <th>Description</th>
-                                <!-- <th>Open/Closed</th> -->
-                                <!-- <th>Continue</th> -->
-                                <th>Leave</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="quest in questsJoined | filter:joinedQSearch">
-                                <td>{{$index + 1}}</td>
-                                <td>{{quest.questId.title}}</td>
-                                <td>{{quest.questId.description}}</td>
-                                <!-- <td>{{quest.open}}</td> -->
-<!--                                 <td>
-                                    <button class='btn btn-xs btn-info glyphicon glyphicon-arrow-right'></button>
-                                </td> -->
-                                <td>
-                                    <button class='btn btn-xs btn-danger glyphicon glyphicon-remove' ng-click="leaveQuest(quest.questId._id, userId)"></button>
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
                 </div>
             </div>
-
-            <!-- end of participating quests table -->
+        </div>
         
-        <!-- table begins -->
-
-        <div id="quests-done">
-
-            <div class="panel panel-material-blue-grey">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Quests I've completed
-                        <a class='btn btn-default btn-sm' ui-sref='pastQuests'>Review Past Quests</a>
-                    </h3>
-                    <div class="pull-right">
-                        <span class="clickable filter" data-toggle="tooltip" title="Toggle table filter" data-container="body">
-                            <i ng-click="search()" style='top:-20px;' class="glyphicon mdi-content-filter-list"></i>
-                        </span>
+        <div class="col-md-4">
+            <p class="lead text-right"><i class="fa fa-history"></i> Completed Quests</p>
+            <div class="list-group" ng-repeat="quest in questsCompleted track by $index">
+                <div class="list-group-item">
+                    <div class="row-action-primary">
+                        <i class="mdi-file-folder">{{$index + 1}}</i>
+                    </div>
+                    <div class="row-content">
+                        <div class="least-content">{{quest.pointsFromQuest}} pts</div>
+                        <h4 class="list-group-item-heading">{{quest.questId.title}} </h4>
+                        <p class="list-group-item-text">{{quest.questId.description}}</p>
                     </div>
                 </div>
-                <div class="panel-body" ng-show="searchBox">
-                    <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" />
-                </div>
-                <table class="table table-hover" id="dev-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <!-- <th>Open/Closed</th> -->
-                            <th>Points Earned From Quest</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="quest in questsCompleted track by $index">
-                            <td>{{$index + 1}}</td>
-                            <td>{{quest.questId.title}}</td>
-                            <td>{{quest.questId.description}}</td>
-                            <td>{{quest.pointsFromQuest}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="list-group-separator"></div>
             </div>
         </div>
-        <!-- end of participating quests table -->
+
     </div>
-    <!-- end of col-lg-8 -->
-    <div class="col-lg-4" id="myquest-help">
-        <div class="list-group instList">
-            <div class="list-group-item">
-                <div class="row-action-primary">
-                    <i class="mdi-maps-directions-bike"></i>
-                </div>
-                <div class="row-content">
-                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
-                    <h4 class="list-group-item-heading">Quests I've Joined</h4>
-                    <p class="list-group-item">This box shows all of the quests you're currently participating in.</p>
-                    <p class="list-group-item">You can choose to leave the quest.</p>
-                </div>
-            </div>
-            <div class="list-group-separator"></div>
-            <div class="list-group-item">
-                <div class="row-action-primary">
-                    <i class="mdi-maps-rate-review"></i>
-                </div>
-                <div class="row-content">
-                    <div class="action-secondary"><i class="mdi-material-info"></i></div>
-                    <h4 class="list-group-item-heading">Quests I've Completed</h4>
-                    <p class="list-group-item">This is a list of all the quests you have completed. Well done!</p>
-                    <p class="list-group-item">You also have the option to 'review past quests' to see how you did.</p>
-                </div>
-            </div>
-            <div class="list-group-separator"></div>
-        </div>
-    </div>
-    <!-- end of myquest-help -->
+    <!-- end of row -->
     
-</div>
-<!-- end of row  -->
 </div>

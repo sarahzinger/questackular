@@ -17,21 +17,39 @@ app.config(function ($stateProvider) {
     });
 });
 
-
-app.controller('MyQuestsCtrl', function ($scope, UserFactory, QuestFactory){
+app.controller('MyQuestsCtrl', function ($scope, UserFactory, QuestFactory) {
   UserFactory.getCurrentUser().then(function (user) {
     $scope.user = user;
     $scope.userId = user._id;
     $scope.questsCreated = user.created;
     $scope.questsJoined = user.participating;
+    if ($scope.questsJoined.length) {
+      $scope.questsJoined.forEach(function (i) {
+        console.log("i", i);
+        console.log("i.questId.cat ",i.questId.cat )
+        i.questId.cat = i.questId.cat 
+        i.questId.questImage = i.questId.img || i.questId.cat.url;
+        console.log("i.questId.img", i.questId.img);
+        console.log("i.questId.cat.url", i.questId.cat.url);
+        console.log("i.questId.questImage", i.questId.questImage);
+      });
+    }
     $scope.questsCompleted = user.pastQuests;
   });
 
   $scope.leaveQuest = function (questId, userId) {
     // removes user from quest and quest from user in db
     QuestFactory.leaveQuest(questId, userId); 
+    
     UserFactory.getCurrentUser().then(function (user) {
+      console.log(user);
       $scope.questsJoined = user.participating;
+      if ($scope.questsJoined.length) {
+        $scope.questsJoined.forEach(function (i) {
+          i.questId.cat = i.questId.cat 
+          i.questId.questImage = i.questId.img || i.questId.cat.url;
+        });
+      }
     });
   };
 

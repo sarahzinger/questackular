@@ -108,8 +108,7 @@ html {
 .banner {
     padding: 100px 0;
     color: #f8f8f8;
-    background-image: linear-gradient(rgba(238, 238, 238, .7), rgba(238, 238, 238, .7)), url(../img/banner-bg.jpg);
-    // background: no-repeat center center;
+    background: url(../img/intro-bg.jpg) no-repeat center center;
     background-size: cover;
 }
 
