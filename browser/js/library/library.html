@@ -1,7 +1,16 @@
 <div class="container">
     <p>&nbsp;</p>
-    <h1>Link Library</h1>
-    <div class="well" ng-repeat="link in links">
+    <h1>Link Library <a><i class="fa fa-filter" ng-click="filter()"></i></a></h1>
+
+    <div ng-show="showFilter">
+        <form class="form-group form-inline">
+            <label for="filter">Filter: </label>
+            <input name="filter" type="search" class="form-control" id="input-search" placeholder="Filter links in library" ng-model="linkFilter">
+        </form>
+    </div>
+
+
+    <div class="well" ng-repeat="link in links | filter:linkFilter">
         <div class="media">
             <a class="pull-left" href="#">
                 <span><i class="fa fa-link fa-2x"></i></span>
@@ -16,21 +25,20 @@
                     </a> -->
                 </p>
                 <p class="lead">Highlighted text snippet(s):</p>
-                <blockquote ng-if="showAll == false">{{link.highlighted[0]}}</blockquote>
-                <blockquote ng-if="showAll == true">
+                <blockquote ng-if="!showAll">{{link.highlighted[0]}}</blockquote>
+                <blockquote ng-if="showAll">
                     <ul>
                         <li ng-repeat="snippet in link.highlighted track by $index">{{snippet}}</li>
                     </ul>
                 </blockquote>
-                <a ng-if="link.highlighted.length>1">
-                    <a ng-click="allSnippets()"><p class="lead">more</p></a>
-                </a>
                 <ul class="list-inline list-unstyled">
                     <li>
-                        <span><i class="glyphicon glyphicon-calendar"></i> {{link.date}} at {{link.time}}</span>
+                        <span><i class="glyphicon glyphicon-calendar"></i> Saved on {{link.date}} at {{link.time}}</span>
                     </li>
                     <li>|</li>
-                        <span><i class="glyphicon glyphicon-pencil"></i> {{link.highlighted.length}} snippets highlighted</span>
+                        <a ng-click="allSnippets()">
+                            <span><i class="glyphicon glyphicon-pencil"></i> {{link.highlighted.length}} snippets highlighted</span>
+                        </a>
                     <!-- <li>|</li> -->
 <!--                     <li>
                         <span><i class="fa fa-facebook-square"></i></span>

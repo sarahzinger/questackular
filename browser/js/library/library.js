@@ -34,9 +34,15 @@ app.controller('LibraryCtrl', function ($scope, LibraryFactory) {
     });
 
     $scope.showAll = false;
+    $scope.showFilter = false;
 
     $scope.allSnippets = function() {
+        console.log("allSnippets!", $scope.showAll);
         if ($scope.showAll === false) $scope.showAll = true;
-        if ($scope.showAll === true) $scope.showAll = false;
+        else if ($scope.showAll === true) $scope.showAll = false;
     };
+    $scope.filter = function() {
+        if ($scope.showFilter === false) $scope.showFilter = true;
+        else if ($scope.showFilter === true) $scope.showFilter = false;
+    }
 });
