@@ -47,6 +47,7 @@ app.factory('UserFactory', function($http, domain) {
         },
         buyStep: function(stepId) {
             //remove points
+            console.log("buying a step with this stepId", stepId)
             return $http.put(domain.path + '/api/users/purchase/' + stepId).then(function(res) {
                 return res.data;
             });
