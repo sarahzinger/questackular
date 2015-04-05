@@ -39,12 +39,10 @@
                         <a ng-click="allSnippets()">
                             <span><i class="glyphicon glyphicon-pencil"></i> {{link.highlighted.length}} snippets highlighted</span>
                         </a>
-                    <!-- <li>|</li> -->
-<!--                     <li>
-                        <span><i class="fa fa-facebook-square"></i></span>
-                        <span><i class="fa fa-twitter-square"></i></span>
-                        <span><i class="fa fa-google-plus-square"></i></span>
-                    </li> -->
+                    <li>|</li>
+                    <li>
+                        <a ng-click="promptCopy(link.url)"><span><i class="fa fa-clipboard"></i> Copy Link to Clipboard</span></a>
+                    </li>
                 </ul>
             </div>
             <!-- end of media-body -->

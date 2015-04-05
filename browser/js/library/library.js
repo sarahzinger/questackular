@@ -45,4 +45,20 @@ app.controller('LibraryCtrl', function ($scope, LibraryFactory) {
         if ($scope.showFilter === false) $scope.showFilter = true;
         else if ($scope.showFilter === true) $scope.showFilter = false;
     }
+    $scope.promptCopy = function(copy) {
+        bootbox.prompt({
+            title: "Press 'ctrl + a' to select and 'ctrl + c' to copy this link!",
+            value: copy,
+            callback: function(result) {
+                console.log("result", result);
+                if (result === null) bootbox.alert("Canceled!");
+                else $scope.alertCopied(result);
+            }
+        });
+        
+    };
+
+    $scope.alertCopied = function(link) {
+        bootbox.alert("You've just copied the link: " + link + "!");
+    }
 });
