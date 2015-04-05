@@ -17,6 +17,8 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                 label: 'Join a Quest', state: 'join', glyphicon: 'fa fa-bicycle'
             }, {
                 label: 'My Quests', state: 'myQuests', glyphicon: 'fa fa-location-arrow'
+            }, {
+                label: 'Library', state: 'library', glyphicon: 'fa fa-university'
             }];
 
             scope.user = null;
@@ -30,15 +32,11 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                 AuthService.logout().then(function(){
                     console.log('logged out')
                 });
-                // AuthService.logout().then(function () {
-                //    $state.go('start');
-                // });
             };
 
             var setUser = function () {
                 AuthService.getLoggedInUser().then(function (user) {
                     scope.user = user;
-                    console.log('Navbars user currently is: ',scope.user);
                 });
             };
 

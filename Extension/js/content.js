@@ -32,7 +32,7 @@ $(document).ready(function () {
 		var found = false;
 
 		while (elem.parentNode) {
-			if (elem.tagName.toLowerCase() === "a") found = true;
+			if (elem.tagName.toLowerCase() === "a" || elem.tagName.toLowerCase() === "input" || elem.tagName.toLowerCase() === "textarea" || elem.tagName.toLowerCase() === "select") found = true;
 			elem = elem.parentNode;
 		}
 
