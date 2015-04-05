@@ -108,11 +108,8 @@ ui-view {
     float: left;
 }
 #map {
-    position: absolute;
-    left: 270px;
-    top: 110px;
-    width: 1000px;
-    height: 1000px;
+    display:block;
+    position: relative;
     z-index: 1;
 }
 .cov {
@@ -189,11 +186,15 @@ ui-view {
   padding-top: 10px;
   
 }
+.table-scrollable{
+    overflow: auto;
+}
 @media (min-width: 768px) {
     .navbar-nav{
         margin:0px;
     }
 }
+
 // @import 'directives/main';
 
 @import 'home/main';
