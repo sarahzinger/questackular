@@ -39,8 +39,10 @@ app.controller('MyQuestsCtrl', function ($scope, UserFactory, QuestFactory) {
 
   $scope.leaveQuest = function (questId, userId) {
     // removes user from quest and quest from user in db
+    console.log("before leavequest api called");
+    console.log("questId", questId);
+    console.log("userId", userId);
     QuestFactory.leaveQuest(questId, userId); 
-    
     UserFactory.getCurrentUser().then(function (user) {
       console.log(user);
       $scope.questsJoined = user.participating;

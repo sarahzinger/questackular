@@ -12,7 +12,7 @@
                 <input type="text" class="form-control" id="dev-table-filter" data-action="filter" data-filters="#dev-table" placeholder="Filter Quests" ng-model="joinedQSearch"/>
             </div>
             
-            <div class="well" ng-repeat="quest in questsJoined">    
+            <div class="well" ng-repeat="quest in questsJoined | filter:joinedQSearch">    
                 <div class="media">
                     <a class="pull-left" href="#">
                         <img class="media-object img-responsive img-thumbnail imgcontrol" src="{{quest.questId.questImage}}">
@@ -24,7 +24,7 @@
                             <li><span><i class="glyphicon glyphicon-calendar"></i> Category: {{quest.questId.cat.cat}}</span></li>
                             <li>|</li>
                             <li>
-                                <a ng-click="leaveQuest()" class="btn btn-danger btn-sm"><i class="fa fa-times-circle"></i> Leave Quest</a>
+                                <a ng-click="leaveQuest(quest.questId._id, userId)" class="btn btn-danger btn-sm"><i class="fa fa-times-circle"></i> Leave Quest</a>
                             </li>
                         </ul>
                     </div>
