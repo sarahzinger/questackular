@@ -15,7 +15,7 @@
             <div class="well" ng-repeat="quest in questsJoined | filter:joinedQSearch">    
                 <div class="media">
                     <a class="pull-left" href="#">
-                        <img class="media-object img-responsive img-thumbnail imgcontrol" ng-src="{{quest.questId.questImage}}">
+                        <img class="media-object img-responsive img-thumbnail imgcontrol" ng-src="{{quest.questId.questImage || '//:0' }}">
                     </a>
                     <div class="media-body">
                         <h3 class="media-heading">{{quest.questId.title}}</h3>
