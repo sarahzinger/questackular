@@ -16,30 +16,6 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/library/library.html',
         controller: 'LibraryCtrl'
     });
-
-    // $stateProvider.state("library", {
-    //     url: "/library",
-    //     onEnter: ['$stateParams', '$state', '$modal', function ($stateParams, $state, $modal) {
-    //         $modal.open({
-    //             templateUrl: "js/library/library.html",
-    //             resolve: {
-    //                 getLoggedInUser: function(AuthService, $state, $http) {
-    //                     return AuthService.getLoggedInUser(true).then(function (user) {
-    //                         if (user) {
-    //                             return user;
-    //                         } else {
-    //                             $state.go("start");
-    //                         }
-    //                     });
-    //                 }
-    //             },
-    //             controller: 'LibraryCtrl'
-    //         }).result.finally(function() {
-    //             $state.go('create.step');
-    //         });
-    //     }]
-    // });
-
 });
 
 

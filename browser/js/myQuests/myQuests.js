@@ -25,13 +25,8 @@ app.controller('MyQuestsCtrl', function ($scope, UserFactory, QuestFactory) {
     $scope.questsJoined = user.participating;
     if ($scope.questsJoined.length) {
       $scope.questsJoined.forEach(function (i) {
-        console.log("i", i);
-        console.log("i.questId.cat ",i.questId.cat )
         i.questId.cat = i.questId.cat 
         i.questId.questImage = i.questId.img || i.questId.cat.url;
-        console.log("i.questId.img", i.questId.img);
-        console.log("i.questId.cat.url", i.questId.cat.url);
-        console.log("i.questId.questImage", i.questId.questImage);
       });
     }
     $scope.questsCompleted = user.pastQuests;
