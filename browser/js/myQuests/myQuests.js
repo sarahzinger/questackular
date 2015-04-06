@@ -14,16 +14,21 @@ app.config(function ($stateProvider) {
     url: '/myQuests',
     templateUrl: 'js/myQuests/myQuests.html', 
     controller: 'MyQuestsCtrl'
-    });
+  });
 });
 
-
-app.controller('MyQuestsCtrl', function ($scope, UserFactory, QuestFactory){
+app.controller('MyQuestsCtrl', function ($scope, UserFactory, QuestFactory) {
   UserFactory.getCurrentUser().then(function (user) {
     $scope.user = user;
     $scope.userId = user._id;
     $scope.questsCreated = user.created;
     $scope.questsJoined = user.participating;
+    if ($scope.questsJoined.length) {
+      $scope.questsJoined.forEach(function (i) {
+        i.questId.cat = i.questId.cat 
+        i.questId.questImage = i.questId.img || i.questId.cat.url;
+      });
+    }
     $scope.questsCompleted = user.pastQuests;
   });
 
@@ -31,7 +36,14 @@ app.controller('MyQuestsCtrl', function ($scope, UserFactory, QuestFactory){
     // removes user from quest and quest from user in db
     QuestFactory.leaveQuest(questId, userId); 
     UserFactory.getCurrentUser().then(function (user) {
+      console.log(user);
       $scope.questsJoined = user.participating;
+      if ($scope.questsJoined.length) {
+        $scope.questsJoined.forEach(function (i) {
+          i.questId.cat = i.questId.cat 
+          i.questId.questImage = i.questId.img || i.questId.cat.url;
+        });
+      }
     });
   };
 

@@ -1,18 +1,31 @@
-window.onload = function () {
-    console.log("window.onload!");
-    document.getElementById("save-content").onclick = function () {
-        console.log("clicked 'save content!'");
-        chrome.runtime.sendMessage({command: 'save-content'});
-    };
-};
+// window.onload = function () {
+//     console.log("window.onload!");
+//     document.getElementById("save-content").onclick = function () {
+//         console.log("clicked 'save content!'");
+//         chrome.runtime.sendMessage({command: 'save-content'});
+//     };
+// };
 
 var app = angular.module('QuestackularExt', ['ui.router', 'ui.bootstrap']);
 
 app.controller('extCont', function($scope, UserFactory, $state, domain) {
     console.log("domain.path", domain.path);
     $scope.login = function() {
-        chrome.tabs.create({url: 'http://questackular.herokuapp.com/auth/google'});
+        chrome.tabs.create({
+            url: domain.path + '/auth/google'
+        });
     };
+    $scope.questackular = function() {
+        chrome.tabs.create({
+            url: domain.path
+        });
+    }
+
+    $scope.saveContent = function() {
+        console.log("clicked 'save content!'");
+        chrome.runtime.sendMessage({command: 'save-content'});
+    }
+
     $scope.selShow = false;
     $scope.selMode = "off";
     $('#selTab').css('display','none');
@@ -26,7 +39,7 @@ app.controller('extCont', function($scope, UserFactory, $state, domain) {
         }
     }
     var getName = function(){
-        UserFactory.getUserInfo().then(function(data){
+        UserFactory.getUserInfo().then(function (data) {
             $scope.name = data.user.google.name;
             $scope.loggedIn = true;  
         });

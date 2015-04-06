@@ -25,11 +25,11 @@ app.directive('navbar', function () {
             
             
             var getName = function(){
-                UserFactory.getUserInfo().then(function(data){
+                UserFactory.getUserInfo().then(function (data) {
                     $scope.user = data.user;
                     $scope.loggedIn = true;
                 });
-                UserFactory.getTotalPoints().then(function(data){
+                UserFactory.getTotalPoints().then(function (data) {
                     $rootScope.totalPoints = data;
                 });
             };

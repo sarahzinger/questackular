@@ -1,25 +1,30 @@
-app.config(function ($stateProvider) {
+'use strict';
 
-    $stateProvider.state('library', {
-        resolve: {
-                getLoggedInUser: function(AuthService, $state, $http) {
-                    return AuthService.getLoggedInUser(true).then(function (user) {
-                        if (user) {
-                            return user;
-                        } else {
-                            $state.go("start");
-                        }
-                    });
-                }
-            },
-        url: '/library',
-        templateUrl: 'js/library/library.html',
-        controller: 'LibraryCtrl'
-    });
+app.controller('LinkLibraryCtrl', function($scope, $modal, $log, $rootScope) {
+
+    $scope.open = function() {
+        var modalInstance = $modal.open({
+            templateUrl: '/js/linklibrary/linklibrary.html',
+            controller: 'ModalInstanceCtrl'
+            // resolve: {
+            //     what: function() {
+            //         return what;
+            //     }
+            // }
+        });
+
+        modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;
+        }, function() {
+            $log.info('Link Library modal dismissed at: ' + new Date());
+        });
+    };
 });
 
+// $modalInstance represents a modal window (instance) dependency.
+// it is not the same as the $modal service used above.
 
-app.controller('LibraryCtrl', function ($scope, LibraryFactory) {
+app.controller('ModalInstanceCtrl', function($scope, $modalInstance, LibraryFactory) {
     LibraryFactory.getLinks().then(function (links) {
         console.log(links);
         $scope.links = links;
