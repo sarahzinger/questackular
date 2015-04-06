@@ -14,7 +14,7 @@ app.config(function ($stateProvider) {
     url: '/myQuests',
     templateUrl: 'js/myQuests/myQuests.html', 
     controller: 'MyQuestsCtrl'
-    });
+  });
 });
 
 app.controller('MyQuestsCtrl', function ($scope, UserFactory, QuestFactory) {
