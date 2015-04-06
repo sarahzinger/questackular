@@ -1,53 +1,57 @@
 <div class="container">
     <p>&nbsp;</p>
-    <h1>Link Library <a><i class="fa fa-filter" ng-click="filter()"></i></a></h1>
-
-    <div ng-show="showFilter">
-        <form class="form-group form-inline">
-            <label for="filter">Filter: </label>
-            <input name="filter" type="search" class="form-control" id="input-search" placeholder="Filter links in library" ng-model="linkFilter">
-        </form>
-    </div>
-
-
-    <div class="well" ng-repeat="link in links | filter:linkFilter">
-        <div class="media">
-            <a class="pull-left" href="#">
-                <span><i class="fa fa-link fa-2x"></i></span>
-            </a>
-            <div class="media-body">
-                <a href="{{link.url}}" target="_blank">
-                    <h3 class="media-heading">{{link.title}}</h3>
-                </a>
-                <p class="text-right">
-<!--                     <a href="{{link.url}}" target="_blank">
-                        <span><i class="fa fa-link fa-2x"></i></span>
-                    </a> -->
-                </p>
-                <p class="lead">Highlighted text snippet(s):</p>
-                <blockquote ng-if="!showAll">{{link.highlighted[0]}}</blockquote>
-                <blockquote ng-if="showAll">
-                    <ul>
-                        <li ng-repeat="snippet in link.highlighted track by $index">{{snippet}}</li>
-                    </ul>
-                </blockquote>
-                <ul class="list-inline list-unstyled">
-                    <li>
-                        <span><i class="glyphicon glyphicon-calendar"></i> Saved on {{link.date}} at {{link.time}}</span>
-                    </li>
-                    <li>|</li>
-                        <a ng-click="allSnippets()">
-                            <span><i class="glyphicon glyphicon-pencil"></i> {{link.highlighted.length}} snippets highlighted</span>
-                        </a>
-                    <li>|</li>
-                    <li>
-                        <a ng-click="promptCopy(link.url)"><span><i class="fa fa-clipboard"></i> Copy Link to Clipboard</span></a>
-                    </li>
-                </ul>
-            </div>
-            <!-- end of media-body -->
+    <h1 class="text-muted">Link Library <a><i class="fa fa-filter" ng-click="filter()"></i></a></h1>
+    <div class="row">
+        <div ng-show="showFilter">
+            <form class="form-group form-inline">
+                <label for="filter">Filter: </label>
+                <input name="filter" type="search" class="form-control" id="input-search" placeholder="Filter links in library" ng-model="linkFilter">
+            </form>
         </div>
-        <!-- end of media -->
-    </div>
+
+        <div class="well" ng-if="!links.length">
+            <p>You don't have any links saved yet! Please go to the extension to save some.</p>
+        </div>
+        <div class="well" ng-repeat="link in links | filter:linkFilter" ng-if="links.length">
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <span><i class="fa fa-link fa-2x"></i></span>
+                </a>
+                <div class="media-body">
+                    <a href="{{link.url}}" target="_blank">
+                        <h3 class="media-heading">{{link.title}}</h3>
+                    </a>
+                    <p class="text-right">
+    <!--                     <a href="{{link.url}}" target="_blank">
+                            <span><i class="fa fa-link fa-2x"></i></span>
+                        </a> -->
+                    </p>
+                    <p class="lead">Highlighted text snippet(s):</p>
+                    <blockquote ng-if="!showAll">{{link.highlighted[0]}}</blockquote>
+                    <blockquote ng-if="showAll">
+                        <ul>
+                            <li ng-repeat="snippet in link.highlighted track by $index">{{snippet}}</li>
+                        </ul>
+                    </blockquote>
+                    <ul class="list-inline list-unstyled">
+                        <li>
+                            <span><i class="glyphicon glyphicon-calendar"></i> Saved on {{link.date}} at {{link.time}}</span>
+                        </li>
+                        <li>|</li>
+                            <a ng-click="allSnippets()">
+                                <span><i class="glyphicon glyphicon-pencil"></i> {{link.highlighted.length}} snippets highlighted</span>
+                            </a>
+                        <li>|</li>
+                        <li>
+                            <a ng-click="promptCopy(link.url)"><span><i class="fa fa-clipboard"></i> Copy Link to Clipboard</span></a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- end of media-body -->
+            </div>
+            <!-- end of media -->
+        </div>
     <!-- end of well -->
+    </div>
+    <!-- end of row -->
 </div>

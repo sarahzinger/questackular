@@ -18,7 +18,7 @@
                         <img class="media-object img-responsive img-thumbnail imgcontrol" src="{{quest.questId.questImage}}">
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading">{{quest.questId.title}}</h4>
+                        <h3 class="media-heading">{{quest.questId.title}}</h3>
                         <p>{{quest.questId.description}}</p>
                         <ul class="list-inline list-unstyled">
                             <li><span><i class="glyphicon glyphicon-calendar"></i> Category: {{quest.questId.cat.cat}}</span></li>
@@ -32,22 +32,62 @@
             </div>
         </div>
         
+        <!-- completed quests -->
         <div class="col-md-4">
-            <p class="lead text-right"><i class="fa fa-history"></i> Completed Quests</p>
-            <div class="list-group" ng-repeat="quest in questsCompleted track by $index">
+            <div class="panel panel-default">
+                <p class="lead panel-heading"><i class="fa fa-history"></i> Completed Quests</p>
+                <div ng-if="!questCompleted.length" class="panel-body list-group">
+                    <h3 class="text-muted">You haven't completed any quests yet.</h3>
+                </div>
+                
+                <div class="list-group panel-body" ng-repeat="quest in questsCompleted track by $index" ng-if="questCompleted.length>0">
+                    <div class="list-group-item">
+                        <div class="row-action-primary">
+                            <i class="mdi-file-folder">{{$index + 1}}</i>
+                        </div>
+                        <div class="row-content">
+                            <div class="least-content">{{quest.pointsFromQuest}} pts</div>
+                            <h4 class="list-group-item-heading">{{quest.questId.title}} </h4>
+                            <p class="list-group-item-text">{{quest.questId.description}}</p>
+                        </div>
+                    </div>
+                    <div class="list-group-separator"></div>
+                </div>
+                
+            </div>
+        </div>
+        <!-- end of completed quests -->
+        <hr class="divider" />
+        <!-- myquest help -->
+        <div class="col-lg-4" id="myquest-help">
+            <div class="list-group instList">
                 <div class="list-group-item">
                     <div class="row-action-primary">
-                        <i class="mdi-file-folder">{{$index + 1}}</i>
+                        <i class="mdi-maps-directions-bike"></i>
                     </div>
                     <div class="row-content">
-                        <div class="least-content">{{quest.pointsFromQuest}} pts</div>
-                        <h4 class="list-group-item-heading">{{quest.questId.title}} </h4>
-                        <p class="list-group-item-text">{{quest.questId.description}}</p>
+                        <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                        <h4 class="list-group-item-heading">Quests I've Joined</h4>
+                        <p class="list-group-item">This box shows all of the quests you're currently participating in.</p>
+                        <p class="list-group-item">You can choose to leave the quest.</p>
+                    </div>
+                </div>
+                <div class="list-group-separator"></div>
+                <div class="list-group-item">
+                    <div class="row-action-primary">
+                        <i class="mdi-maps-rate-review"></i>
+                    </div>
+                    <div class="row-content">
+                        <div class="action-secondary"><i class="mdi-material-info"></i></div>
+                        <h4 class="list-group-item-heading">Quests I've Completed</h4>
+                        <p class="list-group-item">This is a list of all the quests you have completed. Well done!</p>
+                        <p class="list-group-item">You also have the option to 'review past quests' to see how you did.</p>
                     </div>
                 </div>
                 <div class="list-group-separator"></div>
             </div>
         </div>
+        <!-- end of myquest-help -->
 
     </div>
     <!-- end of row -->
