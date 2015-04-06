@@ -1,5 +1,8 @@
 <section id="create">
     <p>&nbsp;</p>
+    <div ng-controller="LinkLibraryCtrl">
+        <h2 ng-click="open()">open link library</h2>
+    </div>
     <div class="container">
         <tabset justified="true">
             <tab class="nav nav-tabs" ng-repeat="tab in tabs" ui-sref="{{ tab.state }}" heading="{{ tab.label }}" active="tab.active" disabled="tab.disabled" ng-show="tab.label=='New Quest' || (questExists == true && tab.label!='New Quest')">
