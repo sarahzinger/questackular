@@ -21,7 +21,7 @@
                         <h3 class="media-heading">{{quest.questId.title}}</h3>
                         <p>{{quest.questId.description}}</p>
                         <ul class="list-inline list-unstyled">
-                            <li><span><i class="glyphicon glyphicon-calendar"></i> Category: {{quest.questId.cat.cat}}</span></li>
+                            <li><span><i class="fa fa-folder-o"></i> {{quest.questId.cat.cat}}</span></li>
                             <li>|</li>
                             <li>
                                 <a ng-click="leaveQuest(quest.questId._id, userId)" class="btn btn-danger btn-sm"><i class="fa fa-times-circle"></i> Leave Quest</a>
@@ -35,9 +35,11 @@
         <!-- completed quests -->
         <div class="col-md-4">
             <div class="panel panel-default">
-                <p class="lead panel-heading"><i class="fa fa-history"></i> Completed Quests</p>
+                <div class="panel-heading">
+                    <h4><i class="fa fa-history"></i> Completed Quests</h4>
+                </div>
                 <div ng-if="!questCompleted.length" class="panel-body list-group">
-                    <h3 class="text-muted">You haven't completed any quests yet.</h3>
+                    <p class="lead text-muted">You haven't completed any quests yet.</p>
                 </div>
                 
                 <div class="list-group panel-body" ng-repeat="quest in questsCompleted track by $index" ng-if="questCompleted.length>0">
@@ -60,7 +62,12 @@
         <hr class="divider" />
         <!-- myquest help -->
         <div class="col-lg-4" id="myquest-help">
-            <div class="list-group instList">
+        <div class="panel">
+            <div class="panel-heading">
+                <h4><i class="fa fa-question-circle"></i> Help</h4>
+            </div>
+            <div class="list-group instList panel-content">
+                <br />
                 <div class="list-group-item">
                     <div class="row-action-primary">
                         <i class="mdi-maps-directions-bike"></i>
@@ -86,6 +93,7 @@
                 </div>
                 <div class="list-group-separator"></div>
             </div>
+        </div>    
         </div>
         <!-- end of myquest-help -->
 
