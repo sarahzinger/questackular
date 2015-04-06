@@ -1,4 +1,5 @@
 <html ng-csp>
+
 <head>
     <title>popup</title>
     <link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -7,20 +8,43 @@
     <link rel="stylesheet" type="text/css" href="/css/material.min.css">
     <link rel="stylesheet" type="text/css" href="/css/ripples.min.css">
     <link rel="stylesheet" type="text/css" href="/css/roboto.min.css">
+
 </head>
 
-<body ng-app='QuestackularExt' ng-controller='extCont' >
+<body ng-app='QuestackularExt' ng-controller='extCont'>
     <div ng-hide="loggedIn" class="container">
         <h1>Welcome to Questackular</h1>
         <br>
-        <button class= "btn btn-material-blue-grey btn-lg btn-block" id='login' ng-click='login()'>Log In through Google</button>
+        <button class="btn btn-material-blue-grey btn-lg btn-block" id='login' ng-click='login()'>Log In through Google</button>
     </div>
     <div class="container" ng-show="loggedIn">
         <navbar></navbar>
-        <button class="btn btn-sm btn-default" id="save-content">Save Content</button>
+        <div class='panel panel-material-blue-grey'>
+            <div class='panel-heading'>
+                Selection Mode <span ng-if='selShow==false' ng-click='toggleSel()' class='btn btn-primary btn-xs'>&#9660;</span><span ng-if='selShow==true' ng-click='toggleSel()' class='btn btn-primary btn-xs'>&#9650;</span>
+            </div>
+            <table class='table' id='selTab'>
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class='selModeRadio' ng-class='{selTableOff:selMode=="off"}'>
+                            <input type='radio' name='selMode' value='on' ng-model='selMode'> Selection Mode On
+                        </td>
+                        <td rowspan='2'>
+                            <button class="btn btn-sm btn-primary" id="save-content" ng-disabled='selMode=="off"'ng-class='{selMode=="on":btn-primary}'>Save Content</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class='selModeRadio' ng-class='{selTableOff:selMode=="on"}'>
+                            <input type='radio' name='selMode' value='off' ng-model='selMode' selected> Selection Mode Off</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <!-- <div class="container"> -->
-            <ui-view></ui-view>
-       <!--  </div> -->
+        <ui-view></ui-view>
+        <!--  </div> -->
     </div>
     <script src="/js/dependencies/lodash.min.js"></script>
     <script src='/js/dependencies/jquery.min.js'></script>
