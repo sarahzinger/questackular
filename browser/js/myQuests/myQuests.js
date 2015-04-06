@@ -30,7 +30,6 @@ app.controller('MyQuestsCtrl', function ($scope, UserFactory, QuestFactory) {
       });
     }
     $scope.questsCompleted = user.pastQuests;
-    console.log($scope.questsCompleted, "$scope.questsCompleted")
   });
 
   $scope.leaveQuest = function (questId, userId) {
