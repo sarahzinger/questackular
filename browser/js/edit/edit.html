@@ -1,13 +1,21 @@
 <section id="editStuff">
-    <p>&nbsp;</p>
     <div class="container">
-        <tabset justified="true" class="nav-tabs-material-blue-grey">
-            <tab ng-repeat="tab in tabs" ui-sref="{{ tab.state }}" heading="{{ tab.label }}" active="tab.active" disabled="tab.disabled" ng-if="tab.label=='New Quest' || (questPicked == true && tab.label!='New Quest')">
-                <h3></h3>
-            </tab>
-        </tabset>
-    </div>
-    <div class="container" id="content">
-        <ui-view></ui-view>
+        <p>&nbsp;</p>
+        <div class="row">
+                <h1 class="col-md-6">Edit Created Quests! </h1>
+                <h2 ng-controller="LinkLibraryCtrl" class="col-md-6 text-muted text-right">
+                    <a ng-click="open()"><i class="fa fa-university"></i> Link Library</a>
+                </h2> 
+            </div>
+        <div class="container">
+            <tabset justified="true" class="nav-tabs-material-blue-grey">
+                <tab ng-repeat="tab in tabs" ui-sref="{{ tab.state }}" heading="{{ tab.label }}" active="tab.active" disabled="tab.disabled" ng-if="tab.label=='New Quest' || (questPicked == true && tab.label!='New Quest')">
+                    <h3></h3>
+                </tab>
+            </tabset>
+        </div>
+        <div class="container" id="content">
+            <ui-view></ui-view>
+        </div>
     </div>
 </section>

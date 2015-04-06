@@ -5,12 +5,12 @@ app.controller('LinkLibraryCtrl', function($scope, $modal, $log, $rootScope) {
     $scope.open = function() {
         var modalInstance = $modal.open({
             templateUrl: '/js/linklibrary/linklibrary.html',
-            controller: 'ModalInstanceCtrl',
-            resolve: {
-                what: function() {
-                    return what;
-                }
-            }
+            controller: 'ModalInstanceCtrl'
+            // resolve: {
+            //     what: function() {
+            //         return what;
+            //     }
+            // }
         });
 
         modalInstance.result.then(function (selectedItem) {
@@ -65,5 +65,4 @@ app.controller('ModalInstanceCtrl', function($scope, $modalInstance, LibraryFact
     $scope.alertCopied = function(link) {
         bootbox.alert("You've just copied the link: " + link + "!");
     }
-
 });
