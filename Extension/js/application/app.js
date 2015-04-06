@@ -13,7 +13,18 @@ app.controller('extCont', function($scope, UserFactory, $state, domain) {
     $scope.login = function() {
         chrome.tabs.create({url: 'http://questackular.herokuapp.com/auth/google'});
     };
-    
+    $scope.selShow = false;
+    $scope.selMode = "off";
+    $('#selTab').css('display','none');
+    $scope.toggleSel=function(){
+        if($scope.selShow){
+            $('#selTab').slideUp(200);
+            $scope.selShow = false;
+        }else{
+            $('#selTab').slideDown(200);
+            $scope.selShow = true;
+        }
+    }
     var getName = function(){
         UserFactory.getUserInfo().then(function(data){
             $scope.name = data.user.google.name;
