@@ -53,7 +53,7 @@
                         <p class="lead text-muted">You haven't completed any quests yet.</p>
                     </div>
                     
-                    <div class="list-group panel-body" ng-repeat="quest in questsCompleted track by $index" ng-if="questCompleted.length>0">
+                    <div class="list-group panel-body" ng-repeat="quest in questsCompleted track by $index" ng-if="questCompleted.length">
                         <div class="list-group-item">
                             <div class="row-action-primary">
                                 <i class="mdi-file-folder">{{$index + 1}}</i>

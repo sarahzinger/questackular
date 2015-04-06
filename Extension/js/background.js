@@ -61,7 +61,7 @@ function saveContent() {
 			console.log("response after sending getstuff to contentJS", response);
 			$.ajax({
 				type: "POST",
-				url: 'http://localhost:1337/api/link',
+				url: "https://questackular.herokuapp.com/api/link",
 				data: response.pageToSave,
 				success: function (res) {
 					console.log("this is what happened after page got posted?", res);
