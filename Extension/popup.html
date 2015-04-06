@@ -32,7 +32,7 @@
                             <input type='radio' name='selMode' value='on' ng-model='selMode'> Selection Mode On
                         </td>
                         <td rowspan='2'>
-                            <button class="btn btn-sm btn-primary" id="save-content" ng-disabled='selMode=="off"'ng-class='{selMode=="on":btn-primary}'>Save Content</button>
+                            <button class="btn btn-sm btn-primary" id="save-content" ng-disabled='selMode=="off"' ng-class='{selMode=="on":btn-primary}' ng-click="saveContent()">Save Content</button>
                         </td>
                     </tr>
                     <tr>
@@ -45,6 +45,7 @@
         <!-- <div class="container"> -->
         <ui-view></ui-view>
         <!--  </div> -->
+
     </div>
     <script src="/js/dependencies/lodash.min.js"></script>
     <script src='/js/dependencies/jquery.min.js'></script>
