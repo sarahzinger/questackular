@@ -65,6 +65,7 @@ function saveContent() {
 				data: response.pageToSave,
 				success: function (res) {
 					console.log("this is what happened after page got posted?", res);
+					alert("You just saved " + res.title + ", at URL " + res.url);
 				}
 			});
 		});
