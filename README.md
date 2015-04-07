@@ -77,5 +77,6 @@ __Note:__ If you encounter errors in the installation process for npm, it is rec
 
 ## License
 
-This projected is licensed under the terms of the [MIT license](/LICENSE)
+This projected is licensed under the terms of the [MIT license](http://opensource.org/licenses/MIT)
+
 
