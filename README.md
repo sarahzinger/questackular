@@ -24,7 +24,7 @@ See a live version of the app [here](https://questackular.herokuapp.com).
 #### Link Library
 ![Link Library](http://i.imgur.com/rqCvSXp.png)
 #### Playing a Quest
-![Playing a Quest](http://i.imgur.com/7MmiWHW.png)
+![Playing a Quest](http://i.giphy.com/3o85xu6MPFvoOmUMP6.gif)
 
 ## Extension Installation and Usage
 
