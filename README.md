@@ -5,7 +5,7 @@
 ## Table of Contents
 
 - [Examples](#examples)
-- [Installation](#installation)
+- [Extension Installation and Usage](#Extension Installation and Usage)
 - [Roadmap](#roadmap)
 - [Contributors](#contributors)
 - [License](#license)
