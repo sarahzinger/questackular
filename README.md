@@ -17,8 +17,13 @@ See a live version of the app [here](https://questackular.herokuapp.com).
 
 ### Screenshot
 
-![Example](http://i.imgur.com/rGtbTRm.png)
-_Above: A screenshot of the web application in action_
+Chrome Extension:
+![Extension](http://i.imgur.com/nIqtPOL.png)
+_Above: A screenshot of the Chrome extension in action_
+
+Web Application:
+![Web application](http://i.imgur.com/rGtbTRm.png)
+_Above: A screenshot of the web application_
 
 ## Extension Installation and Usage
 
