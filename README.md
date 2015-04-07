@@ -17,14 +17,14 @@ See a live version of the app [here](https://questackular.herokuapp.com).
 
 ### Screenshot
 
-#### Chrome Extension
-![Extension](http://i.imgur.com/nIqtPOL.png)
 #### Web Application
 ![Web application](http://i.imgur.com/rGtbTRm.png)
-#### Highlighting
+#### Highlighting and Saving in Chrome Extension
 ![Highlighting](http://i.imgur.com/UEsAcGO.png)
 #### Link Library
 ![Link Library](http://i.imgur.com/rqCvSXp.png)
+#### Playing a Quest
+![Playing a Quest](http://i.imgur.com/7MmiWHW.png)
 
 ## Extension Installation and Usage
 
