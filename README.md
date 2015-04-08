@@ -15,7 +15,7 @@
 
 See a live version of the app [here](https://questackular.herokuapp.com).
 
-### Screenshot
+### Screenshots
 
 #### Web Application
 ![Web application](http://i.imgur.com/rGtbTRm.png)
