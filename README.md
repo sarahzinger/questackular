@@ -63,7 +63,7 @@ See a live version of the app [here](https://questackular.herokuapp.com).
 -	Create quests and view interactive D3 focal map
 -	Edit quests and quest steps
 
-#### Known bug
+#### Known bugs
 
 - Highlighting currently can not be disabled through the extension.
 - Testing is currently out of date with new model changes.
