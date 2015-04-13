@@ -50,7 +50,6 @@ See a live version of the app [here](https://questackular.herokuapp.com).
 	Go to any webpage, highlight any important text that you would like to save, turn on selection mode in the extension and click "save content". You will find your saved links in the Library in the web application.
 
 
-__Note:__ If you encounter errors in the installation process for npm, it is recommended that you try running the install command with `sudo`
 
 
 ### Roadmap
