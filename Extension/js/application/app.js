@@ -9,7 +9,7 @@
 var app = angular.module('QuestackularExt', ['ui.router', 'ui.bootstrap']);
 
 app.controller('extCont', function($scope, UserFactory, $state, domain) {
-    if(!localStorage.highlighting){
+    if(typeof localStorage.highlighting === 'undefined'){
         localStorage.highlighting = false;
     }
     $scope.selMode = localStorage.highlighting;

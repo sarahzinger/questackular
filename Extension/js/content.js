@@ -59,7 +59,7 @@ $(document).ready(function () {
 
 
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-		if (request.highlight) {
+		if (request.highlight === "true") {
 			startSelect = true;
 		}
 		else {
