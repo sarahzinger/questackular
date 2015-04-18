@@ -9,6 +9,9 @@
 var app = angular.module('QuestackularExt', ['ui.router', 'ui.bootstrap']);
 
 app.controller('extCont', function($scope, UserFactory, $state, domain) {
+    if(!localStorage.highlighting){
+        localStorage.highlighting = false;
+    }
     $scope.selMode = localStorage.highlighting;
     $scope.login = function() {
         chrome.tabs.create({
