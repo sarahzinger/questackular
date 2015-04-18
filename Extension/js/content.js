@@ -10,7 +10,6 @@ $(document).ready(function () {
 	   
 	    if (selected.rangeCount && selected.getRangeAt) {
 	        range = selected.getRangeAt(0);
-	      
 	    }
 
 	    document.designMode = "on";
@@ -25,7 +24,7 @@ $(document).ready(function () {
 	    if (!document.execCommand("HiliteColor", false, colour)) {
 	        document.execCommand("BackColor", false, colour);
 	    }
-	    // document.body.contentEditable = false;
+
 	    document.designMode = "off";
 	}
 
@@ -61,8 +60,7 @@ $(document).ready(function () {
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 		if (request.highlight === "true") {
 			startSelect = true;
-		}
-		else {
+		} else {
 			startSelect = false;
 			document.designMode = "off";
 		}
