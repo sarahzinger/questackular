@@ -10,6 +10,10 @@ $(document).ready(function () {
 	    }
 
 	    document.designMode = "on";
+	    console.log("document.designMode on?", document.designMode);
+	    console.log("document.body.contentEditable on?", document.body.contentEditable);
+	    document.body.spellcheck = false;
+
 	    if (range) {
 	        selected.removeAllRanges();
 	        console.log("a", selected);
@@ -20,8 +24,13 @@ $(document).ready(function () {
 	    if (!document.execCommand("HiliteColor", false, colour)) {
 	        document.execCommand("BackColor", false, colour);
 	    }
+	    // document.body.contentEditable = false;
 	    document.designMode = "off";
+	    console.log("document.designMode off?", document.designMode);
+	    console.log("document.body.contentEditable off?", document.body.contentEditable);
 	}
+
+
 
 	var aPage = {
 		highlighted: []
@@ -63,6 +72,8 @@ $(document).ready(function () {
 		}
 		else {
 			startSelect = false;
+			// document.body.contentEditable = false;
+			document.designMode = "off";
 		}
 
 		if (request.tabInfo) {

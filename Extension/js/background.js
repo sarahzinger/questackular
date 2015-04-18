@@ -37,6 +37,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	if (request.command === "select-on") {
 		console.log("request.command", request.command);
 		highlighting(true);
+		
 	}
 
 	if (request.command === "select-off") {
