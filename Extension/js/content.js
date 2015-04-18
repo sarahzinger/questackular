@@ -1,24 +1,25 @@
 $(document).ready(function () {
 	console.log("document is ready, content script logging!");
+	var startSelect;
+	chrome.runtime.sendMessage({getHighlightStatus: true}, function(response) {
+		startSelect = response.highlighting;
+	});
+
 
 	function highlight(colour) {
-	    console.log("range", range);
-	    console.log("selection", selected);
+	   
 	    if (selected.rangeCount && selected.getRangeAt) {
 	        range = selected.getRangeAt(0);
-	        console.log("new range", range);
+	      
 	    }
 
 	    document.designMode = "on";
-	    console.log("document.designMode on?", document.designMode);
-	    console.log("document.body.contentEditable on?", document.body.contentEditable);
+	    
 	    document.body.spellcheck = false;
 
 	    if (range) {
 	        selected.removeAllRanges();
-	        console.log("a", selected);
 	        selected.addRange(range);
-	        console.log("b", selected);
 	    }
 	    
 	    if (!document.execCommand("HiliteColor", false, colour)) {
@@ -26,8 +27,6 @@ $(document).ready(function () {
 	    }
 	    // document.body.contentEditable = false;
 	    document.designMode = "off";
-	    console.log("document.designMode off?", document.designMode);
-	    console.log("document.body.contentEditable off?", document.body.contentEditable);
 	}
 
 
@@ -36,7 +35,7 @@ $(document).ready(function () {
 		highlighted: []
 	}
 
-	var range, selected, startSelect = false;
+	var range, selected;
 	$(document).on("click", function (v) {
 		var elem = document.elementFromPoint(v.clientX, v.clientY);
 		var found = false;
@@ -46,15 +45,10 @@ $(document).ready(function () {
 			elem = elem.parentNode;
 		}
 
-		console.log("startSelect?", startSelect);
-		console.log("found?", found);
 
 		if (!found && startSelect) {
 			range, selected = window.getSelection();
 			var selectedText = selected.toString();
-
-		    console.log("selected rangeCount", selected.rangeCount);
-		    console.log("selected", selected);
 		    highlight("#fcc");
 		    aPage.title = document.title;
 		    aPage.url = document.location.href;
@@ -65,23 +59,18 @@ $(document).ready(function () {
 
 
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-		console.log("content script request", request);
-		console.log("content script sender", sender);
 		if (request.highlight) {
 			startSelect = true;
 		}
 		else {
 			startSelect = false;
-			// document.body.contentEditable = false;
 			document.designMode = "off";
 		}
 
 		if (request.tabInfo) {
-			console.log("request.tabInfo", request.tabInfo);
 			aPage.title = request.tabInfo.title || aPage.title;
 			aPage.url = request.tabInfo.url || aPage.url;
 			aPage.favicon = request.tabInfo.favicon;
-			console.log("aPage", aPage);
 			sendResponse({pageToSave: aPage});
 		}
 

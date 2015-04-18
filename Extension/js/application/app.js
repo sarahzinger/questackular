@@ -10,7 +10,6 @@ var app = angular.module('QuestackularExt', ['ui.router', 'ui.bootstrap']);
 
 app.controller('extCont', function($scope, UserFactory, $state, domain) {
     $scope.selMode = localStorage.highlighting;
-    console.log("domain.path", domain.path);
     $scope.login = function() {
         chrome.tabs.create({
             url: domain.path + '/auth/google'
@@ -23,23 +22,17 @@ app.controller('extCont', function($scope, UserFactory, $state, domain) {
     }
 
     $scope.saveContent = function() {
-        console.log("clicked 'save content!'");
         chrome.runtime.sendMessage({command: 'save-content'});
     }
 
-    
-    $scope.highlightOn = function() {
-        console.log("turn on highlight");
-        $scope.selMode = true;
-        localStorage.highlighting = true;
-        chrome.runtime.sendMessage({command: 'select-on'});
-    }
 
-    $scope.highlightOff = function() {
-        console.log("turn off highlight");
-        $scope.selMode = false;
-        localStorage.highlighting = false;
-        chrome.runtime.sendMessage({command: 'select-off'});
+    $scope.highlight= function(bool) {
+        var select;
+        $scope.selMode = bool.toString();
+        localStorage.highlighting = bool;
+        if (bool) select = 'select-on';
+        else select = 'select-off';
+        chrome.runtime.sendMessage({command: select});
     }
 
     
@@ -51,7 +44,6 @@ app.controller('extCont', function($scope, UserFactory, $state, domain) {
        
     };
     getName();
-    console.log("selmode on?", $scope.selMode);
 });
 
 
