@@ -9,7 +9,7 @@
 var app = angular.module('QuestackularExt', ['ui.router', 'ui.bootstrap']);
 
 app.controller('extCont', function($scope, UserFactory, $state, domain) {
-    console.log("domain.path", domain.path);
+    $scope.selMode = localStorage.highlighting;
     $scope.login = function() {
         chrome.tabs.create({
             url: domain.path + '/auth/google'
@@ -22,22 +22,20 @@ app.controller('extCont', function($scope, UserFactory, $state, domain) {
     }
 
     $scope.saveContent = function() {
-        console.log("clicked 'save content!'");
         chrome.runtime.sendMessage({command: 'save-content'});
     }
 
-    $scope.selShow = false;
-    $scope.selMode = "off";
-    $('#selTab').css('display','none');
-    $scope.toggleSel=function(){
-        if($scope.selShow){
-            $('#selTab').slideUp(200);
-            $scope.selShow = false;
-        }else{
-            $('#selTab').slideDown(200);
-            $scope.selShow = true;
-        }
+
+    $scope.highlight= function(bool) {
+        var select;
+        $scope.selMode = bool.toString();
+        localStorage.highlighting = bool;
+        if (bool) select = 'select-on';
+        else select = 'select-off';
+        chrome.runtime.sendMessage({command: select});
     }
+
+    
     var getName = function(){
         UserFactory.getUserInfo().then(function (data) {
             $scope.name = data.user.google.name;
