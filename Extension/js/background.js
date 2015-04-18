@@ -1,10 +1,6 @@
 // useful but not using currently
 chrome.omnibox.onInputChanged.addListener(function (text, suggest) {
 	suggest([{
-			content: "red-divs", description: "type 'red-divs' to change divs to red!"
-		}, {
-			content: "blue-divs", description: "type 'blue-divs' to change divs to blue!"
-		}, {
 			content: "save", description: "save current tab's url to list of favorite links!"
 		}]);
 });
@@ -14,17 +10,9 @@ chrome.omnibox.onInputEntered.addListener(function (text) {
 	alert("you just typed " + "'" + text + "'");
 
 	switch(text) {
-		case 'content':
-			console.log("content");
-			checkContent();
-			break;
-		case 'red-divs': 
-			console.log("red divs"); 
-			redDivs();
-			break;
-		case 'blue-divs': 
-			console.log("blue divs");
-			blueDivs();
+		case 'save':
+			console.log("save");
+			saveContent();
 			break;
 	}
 	return true;
@@ -45,7 +33,30 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 		console.log("request.command", request.command);
 		saveContent();
 	}
+
+	if (request.command === "select-on") {
+		console.log("request.command", request.command);
+		highlighting(true);
+	}
+
+	if (request.command === "select-off") {
+		console.log("request.command", request.command);
+		highlighting(false);
+	}
+
 });
+
+function highlighting(onOrOff) {
+	console.log("highlighting", onOrOff);
+	chrome.tabs.query({active: true}, function (tabs) {
+		console.log("these are currently active tabs", tabs);
+		chrome.tabs.sendMessage(tabs[0].id, {
+			highlight: onOrOff
+		}, function (response) {
+			console.log("response after sending getstuff to contentJS", response);
+		});
+	});
+}
 
 function saveContent() {
 	console.log("called saveContent()");
@@ -70,26 +81,4 @@ function saveContent() {
 			});
 		});
 	});
-}
-
-
-// send red message to content script!
-function redDivs() {
-	chrome.tabs.query({active: true}, function (tabs) {
-		console.log("tabs", tabs);
-		chrome.tabs.sendMessage(tabs[0].id, {type: 'red-divs', color: "#F00"}, function (response) {
-			// console.log("response from content script?", response);
-		});
-	});
-	chrome.browserAction.setBadgeText({text: "red!"});
-}
-// send blue message to content script!
-function blueDivs() {
-	chrome.tabs.query({active: true}, function (tabs) {
-		console.log("tabs", tabs);
-		chrome.tabs.sendMessage(tabs[0].id, {type: 'blue-divs', color: "#1E90FF"}, function (response) {
-			console.log("response from content script?", response);
-		});
-	});
-	chrome.browserAction.setBadgeText({text: "blue!"});
 }

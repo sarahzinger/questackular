@@ -26,7 +26,8 @@ $(document).ready(function () {
 	var aPage = {
 		highlighted: []
 	}
-	var range, selected;
+
+	var range, selected, startSelect = false;
 	$(document).on("click", function (v) {
 		var elem = document.elementFromPoint(v.clientX, v.clientY);
 		var found = false;
@@ -36,7 +37,10 @@ $(document).ready(function () {
 			elem = elem.parentNode;
 		}
 
-		if (!found) {
+		console.log("startSelect?", startSelect);
+		console.log("found?", found);
+
+		if (!found && startSelect) {
 			range, selected = window.getSelection();
 			var selectedText = selected.toString();
 
@@ -54,6 +58,12 @@ $(document).ready(function () {
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 		console.log("content script request", request);
 		console.log("content script sender", sender);
+		if (request.highlight) {
+			startSelect = true;
+		}
+		else {
+			startSelect = false;
+		}
 
 		if (request.tabInfo) {
 			console.log("request.tabInfo", request.tabInfo);
@@ -64,29 +74,6 @@ $(document).ready(function () {
 			sendResponse({pageToSave: aPage});
 		}
 
-		switch(request.type) {
-			case "red-divs":
-				var divs = document.querySelectorAll("div");
-				console.log("");
-	            if(divs.length === 0) {
-	                alert("There are no any divs in the page.");
-	            } else {
-	                for (var i=0; i < divs.length; i++) {
-	                    divs[i].style.backgroundColor = request.color;
-	                }
-	            }
-		    	break;
-		    case "blue-divs":
-				var divs = document.querySelectorAll("div");
-	            if(divs.length === 0) {
-	                alert("There are no any divs in the page.");
-	            } else {
-	                for(var i=0; i < divs.length; i++) {
-	                    divs[i].style.backgroundColor = request.color;
-	                }
-	            }
-		    	break;
-		}
 		return true;
 	});
 	

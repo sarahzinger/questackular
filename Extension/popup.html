@@ -19,28 +19,10 @@
     </div>
     <div class="container" ng-show="loggedIn">
         <navbar></navbar>
-        <div class='panel panel-material-blue-grey'>
-            <div class='panel-heading'>
-                Selection Mode <span ng-if='selShow==false' ng-click='toggleSel()' class='btn btn-primary btn-xs'>&#9660;</span><span ng-if='selShow==true' ng-click='toggleSel()' class='btn btn-primary btn-xs'>&#9650;</span>
-            </div>
-            <table class='table' id='selTab'>
-                <thead>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class='selModeRadio' ng-class='{selTableOff:selMode=="off"}'>
-                            <input type='radio' name='selMode' value='on' ng-model='selMode'> Selection Mode On
-                        </td>
-                        <td rowspan='2'>
-                            <button class="btn btn-sm btn-primary" id="save-content" ng-disabled='selMode=="off"' ng-class='{selMode=="on":btn-primary}' ng-click="saveContent()">Save Content</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class='selModeRadio' ng-class='{selTableOff:selMode=="on"}'>
-                            <input type='radio' name='selMode' value='off' ng-model='selMode' selected> Selection Mode Off</td>
-                    </tr>
-                </tbody>
-            </table>
+        <div>
+            <button class="btn btn-sm btn-primary" id="start-highlight" ng-if="!selMode" ng-click="highlightOn()">Start Highlight</button>
+            <button class="btn btn-sm btn-primary" id="stop-highlight" ng-if="selMode" ng-click="highlightOff()">Stop Highlight</button>
+            <button class="btn btn-sm btn-primary" id="save-content" ng-if="selMode" ng-click="saveContent()">Save Content</button>
         </div>
         <!-- <div class="container"> -->
         <ui-view></ui-view>

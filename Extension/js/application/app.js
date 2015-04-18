@@ -26,18 +26,20 @@ app.controller('extCont', function($scope, UserFactory, $state, domain) {
         chrome.runtime.sendMessage({command: 'save-content'});
     }
 
-    $scope.selShow = false;
-    $scope.selMode = "off";
-    $('#selTab').css('display','none');
-    $scope.toggleSel=function(){
-        if($scope.selShow){
-            $('#selTab').slideUp(200);
-            $scope.selShow = false;
-        }else{
-            $('#selTab').slideDown(200);
-            $scope.selShow = true;
-        }
+    $scope.selMode = false;
+    $scope.highlightOn = function() {
+        console.log("turn on highlight");
+        $scope.selMode = true;
+        chrome.runtime.sendMessage({command: 'select-on'});
     }
+
+    $scope.highlightOff = function() {
+        console.log("turn off highlight");
+        $scope.selMode = false;
+        chrome.runtime.sendMessage({command: 'select-off'});
+    }
+
+    
     var getName = function(){
         UserFactory.getUserInfo().then(function (data) {
             $scope.name = data.user.google.name;
@@ -46,6 +48,7 @@ app.controller('extCont', function($scope, UserFactory, $state, domain) {
        
     };
     getName();
+    console.log("selmode on?", $scope.selMode);
 });
 
 
