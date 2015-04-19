@@ -50,8 +50,6 @@ See a live version of the app [here](https://questackular.herokuapp.com).
 	Go to any webpage, highlight any important text that you would like to save, turn on selection mode in the extension and click "save content". You will find your saved links in the Library in the web application.
 
 
-
-
 ### Roadmap
 
 #### Features
@@ -64,8 +62,6 @@ See a live version of the app [here](https://questackular.herokuapp.com).
 -	Edit quests and quest steps
 
 #### Known bugs
-
-- Highlighting currently can not be disabled through the extension.
 - Testing is currently out of date with new model changes.
 
 ## Contributors
