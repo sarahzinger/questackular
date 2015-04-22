@@ -121,15 +121,24 @@ app.controller('StepCtrl', function($scope, QuestFactory, UserFactory, $state, $
     $scope.giveUp = function(num) {
         bootbox.confirm("Are you sure you wanna give up? That'll cost " + num + " points!", function(purch) {
             if (purch) {
-                $scope.purchStep();
+                //user wants to purchase step. 
+                // $scope.purchStep();
+                UserFactory.getTotalPoints().then(function(tot){
+                    //got user's total points, and the points they wanna sacrifice. 
+                    if (num<tot){
+                        //can afford
+                        $scope.purchStep();
+                    }else{
+                        bootbox.alert('Sorry! That step costs too many points!');
+                    }
+                });
             }
-        })
+        });
     };
     $scope.purchStep = function() {
         UserFactory.buyStep($scope.step._id).then(function(data) {
             $rootScope.$emit('updatePoints')
             if ($scope.step.stepNum == $scope.totalStepNum) {
-                console.log("this is totally the last step")
                 console.log("$scope.chosenQuest.questId._id", $scope.chosenQuest.questId._id)
                 QuestFactory.completeQuest($scope.chosenQuest.questId._id).then(function(data) {
                     participatingIndex = -1
