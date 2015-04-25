@@ -1,10 +1,7 @@
 {
-  "name": "FullstackGeneratedApp",
+  "name": "Questackular",
   "version": "1.0.0",
-  "authors": [
-    "Joseph Alves <databentpx@gmail.com>"
-  ],
-  "description": "Scaffolding for projects at Fullstack Academy",
+  "description": "A chrome extension and web application to help educators make reading more fun for their students.",
   "license": "MIT",
   "private": true,
   "ignore": [
