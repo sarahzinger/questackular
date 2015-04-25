@@ -68,7 +68,7 @@ See a live version of the app [here](https://questackular.herokuapp.com).
 * __Alice Kindheart__ - [LinkedIn](https://www.linkedin.com/in/alicekindheart) | [GitHub](https://github.com/AliceKindheart)
 * __Sarah Muenzinger__ - [LinkedIn](https://www.linkedin.com/in/sarahmuenzinger) | [GitHub](https://github.com/smuenzinger)
 * __David Newman__ - [LinkedIn](https://www.linkedin.com/in/newms34) | [GitHub](https://github.com/Newms34)
-* __Yvonne Wang__ - [GitHub](https://github.com/sautille)  | [GitHub](linkedin.com/in/sautille)
+* __Yvonne Wang__ - [LinkedIn](linkedin.com/in/sautille) | [GitHub](https://github.com/sautille)
 
 ## License
 
