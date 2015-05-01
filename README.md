@@ -28,18 +28,9 @@ See a live version of the app [here](https://questackular.herokuapp.com).
 
 ## Extension Installation and Usage
 
-1. Clone the repository
+1. 	Download the chrome extension from the chrome webstore [here](https://chrome.google.com/webstore/detail/questackular/fmiijipbnkongipopnpilhohcoingcbd)
 
-	```bash
-	git clone https://github.com/smuenzinger/questackular.git
-	```
-2.	Build extension files
-
-	```bash
-	gulp build	   # compiles and builds extension files
-	```
-3.	Install the Chrome extension
-	Go to `chrome://extensions/` in your Chrome browser, drag the 'Extension' folder into the list, and enable the extension.
+2.	Enable the chrome extension.
 
 4.	You can log in via Google from [our web application](https://questackular.herokuapp.com)
 
