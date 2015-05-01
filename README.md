@@ -54,6 +54,7 @@ See a live version of the app [here](https://questackular.herokuapp.com).
 
 #### Known bugs
 - Testing is currently out of date with new model changes.
+- Highlight mode occasionally affects input or select fields on the DOM. Turning off highlight mode will restore regular user experience. 
 
 ## Contributors
 * __Alice Kindheart__ - [LinkedIn](https://www.linkedin.com/in/alicekindheart) | [GitHub](https://github.com/AliceKindheart)
