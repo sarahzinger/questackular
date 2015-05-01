@@ -1,8 +1,8 @@
 {
     "name": "Questackular!",
-    // "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+    "short_name": "Questackular!",
     "description": "Create custom quizzes containing curated questions and captivating content",
-    "version": "0.0.0.1",
+    "version": "1.0.0.1",
     "manifest_version": 2,
     "icons": {
         "48":"questackular.png",
