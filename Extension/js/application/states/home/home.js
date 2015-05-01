@@ -23,5 +23,8 @@ app.controller('HomeCtrl', function ($scope) {
   },
   {
     state: "step", title: "Continue Where I Left Off", glyphicon: 'fa-play-circle-o'
+  },
+  {
+    state: "tools", title: "Teacher Tools", glyphicon: 'fa-wrench'
   }]; 
 });

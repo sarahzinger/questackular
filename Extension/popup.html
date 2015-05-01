@@ -19,14 +19,7 @@
     </div>
     <div class="container" ng-show="loggedIn">
         <navbar></navbar>
-        <div>
-            <button class="btn btn-sm btn-primary" id="start-highlight" ng-show="selMode=='false'" ng-click="highlight(true)">Start Highlight</button>
-            <button class="btn btn-sm btn-primary" id="stop-highlight" ng-show="selMode=='true'" ng-click="highlight(false)">Stop Highlight</button>
-            <button class="btn btn-sm btn-primary" id="save-content" ng-show="selMode=='true'" ng-click="saveContent()">Save Content</button>
-        </div>
-        <!-- <div class="container"> -->
         <ui-view></ui-view>
-        <!--  </div> -->
 
     </div>
     <script src="/js/dependencies/lodash.min.js"></script>

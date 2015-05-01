@@ -12,14 +12,7 @@ app.directive('navbar', function () {
                     console.log(data)
                     $rootScope.totalPoints = data;
                 });
-            })
-            $scope.items = [{
-                label: 'Create a Quest', state: 'create.quest' 
-            }, {
-                label: 'Join a Quest', state: 'home' 
-            }, {
-                label: 'My Quests', state: 'myQuests' 
-            }];
+            });
 
             $scope.user = null;
             

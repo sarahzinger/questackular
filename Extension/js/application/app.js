@@ -9,10 +9,7 @@
 var app = angular.module('QuestackularExt', ['ui.router', 'ui.bootstrap']);
 
 app.controller('extCont', function($scope, UserFactory, $state, domain) {
-    if(typeof localStorage.highlighting === 'undefined'){
-        localStorage.highlighting = false;
-    }
-    $scope.selMode = localStorage.highlighting;
+    
     $scope.login = function() {
         chrome.tabs.create({
             url: domain.path + '/auth/google'
@@ -24,21 +21,6 @@ app.controller('extCont', function($scope, UserFactory, $state, domain) {
         });
     }
 
-    $scope.saveContent = function() {
-        chrome.runtime.sendMessage({command: 'save-content'});
-    }
-
-
-    $scope.highlight= function(bool) {
-        var select;
-        $scope.selMode = bool.toString();
-        localStorage.highlighting = bool;
-        if (bool) select = 'select-on';
-        else select = 'select-off';
-        chrome.runtime.sendMessage({command: select});
-    }
-
-    
     var getName = function(){
         UserFactory.getUserInfo().then(function (data) {
             $scope.name = data.user.google.name;
