@@ -1,8 +1,14 @@
 
 <div class="well list-group">
     <div class="list-group-item">
+    	<h3>Teacher Tools</h3>
 	    <button class="btn btn-sm btn-primary" id="start-highlight" ng-show="selMode=='false'" ng-click="highlight(true)">Start Highlight</button>
 	    <button class="btn btn-sm btn-primary" id="stop-highlight" ng-show="selMode=='true'" ng-click="highlight(false)">Stop Highlight</button>
 	    <button class="btn btn-sm btn-primary" id="save-content" ng-show="selMode=='true'" ng-click="saveContent()">Save Content</button>
+    	<ul>
+	    	<li ng-show="selMode=='false'">To capture a particular passage for a future quest, click on "start highlight" to enable highlighting.</li>
+	    	<li ng-show="selMode=='true'">Click on 'save content' to save your highlighted passage(s). Once saved, they will be available to view in the link library in the <a targe="_blank" href="https://questackular.herokuapp.com">web application</a>.</li>
+	    	<li ng-show="selMode=='true'">Click on 'stop highlight' to turn off highlight mode.</li>
+    	</ul>
     </div>
 </div>
