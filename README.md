@@ -13,7 +13,7 @@
 ## Examples
 ### Demo
 
-See a live version of the app [here](https://questackular.herokuapp.com).
+See a live version of the web application [here](https://questackular.herokuapp.com), and download the Chrome extension [here](https://chrome.google.com/webstore/detail/questackular/fmiijipbnkongipopnpilhohcoingcbd).
 
 ### Screenshots
 
