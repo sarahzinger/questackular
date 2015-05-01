@@ -36,6 +36,7 @@ $(document).ready(function () {
 
 	var range, selected;
 	$(document).on("click", function (v) {
+		console.log("startSelect", startSelect);
 		var elem = document.elementFromPoint(v.clientX, v.clientY);
 		var found = false;
 
@@ -45,7 +46,7 @@ $(document).ready(function () {
 		}
 
 
-		if (!found && startSelect) {
+		if (!found && (startSelect === "true" || startSelect === true)) {
 			range, selected = window.getSelection();
 			var selectedText = selected.toString();
 		    highlight("#fcc");
@@ -58,9 +59,13 @@ $(document).ready(function () {
 
 
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-		if (request.highlight === "true") {
+		console.log("request", request);
+		console.log("request.highlight", typeof request.highlight);
+		if (request.highlight === "true" || request.highlight) {
+			console.log("true?", request.highlight);
 			startSelect = true;
 		} else {
+			console.log("false?", request.highlight);
 			startSelect = false;
 			document.designMode = "off";
 		}
